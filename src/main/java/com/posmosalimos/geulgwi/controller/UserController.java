@@ -5,6 +5,8 @@ import com.posmosalimos.geulgwi.entity.Users;
 import com.posmosalimos.geulgwi.form.User.*;
 import com.posmosalimos.geulgwi.form.User.email.EmailAuthForm;
 import com.posmosalimos.geulgwi.form.User.email.EmailForm;
+import com.posmosalimos.geulgwi.form.User.sms.PhoneNumberForm;
+import com.posmosalimos.geulgwi.form.User.sms.PhoneVerifyForm;
 import com.posmosalimos.geulgwi.service.EmailService;
 import com.posmosalimos.geulgwi.service.MessageService;
 import com.posmosalimos.geulgwi.service.UserService;
