@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/users/new" th:object="${UserForm}">
+    id: <input type="text" th:field="*{userId}" placeholder="id"/>
+
+    password: <input type="password" th:field="*{userPassword}" placeholder="password"/>
+
+    name: <input type="text" th:field="*{userName}" placeholder="name"/>
+
+    age: <input type="text" th:field="*{userAge}" placeholder="age"/>
+
+    gender:
+    <select th:field="*{userGender}">
+        <option th:value="female">female</option>
+        <option th:value="male">male</option>
+    </select>
+
+    address: <input type="text" th:field="*{userAddress}" placeholder="address"/>
+
+    role: <input type="text" th:field="*{role}" placeholder="role"/>
+    <button type="submit">submit</button>
+</form>
+</body>
+</html>
