@@ -1,6 +1,6 @@
 package com.posmosalimos.geulgwi.controller;
 
-import com.posmosalimos.geulgwi.entity.User;
+import com.posmosalimos.geulgwi.entity.Users;
 import com.posmosalimos.geulgwi.session.SessionConst;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -18,13 +18,12 @@ public class HomeController {
     @GetMapping("/")
     public String home(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession(false);
-
         if (session == null) {
             log.info("Home Page(none login)");
             return "index";
         }
 
-        User loginUser = (User) session.getAttribute(SessionConst.LOGIN_USER);
+        Users loginUser = (Users) session.getAttribute(SessionConst.LOGIN_USER);
 
         if (loginUser == null) {
             log.info("Home Page(none login)");

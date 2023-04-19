@@ -10,7 +10,7 @@ import lombok.Setter;
 @Entity
 @Getter @Setter
 @NoArgsConstructor
-public class User {
+public class Users {
     @Id @GeneratedValue
     Long userNumber;
     String userId;

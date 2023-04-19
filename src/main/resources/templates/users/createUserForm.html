@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<form action="/users/new" th:object="${UserForm}">
+<form action="/users/new" th:object="${UserForm}" method="post">
     id: <input type="text" th:field="*{userId}" placeholder="id"/>
 
     password: <input type="password" th:field="*{userPassword}" placeholder="password"/>

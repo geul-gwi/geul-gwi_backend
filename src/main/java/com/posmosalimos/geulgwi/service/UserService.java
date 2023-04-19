@@ -1,6 +1,6 @@
 package com.posmosalimos.geulgwi.service;
 
-import com.posmosalimos.geulgwi.entity.User;
+import com.posmosalimos.geulgwi.entity.Users;
 import com.posmosalimos.geulgwi.form.UserForm;
 import com.posmosalimos.geulgwi.repository.JpaUserRepository;
 import jakarta.validation.Valid;
@@ -18,8 +18,8 @@ public class UserService {
     private final JpaUserRepository jpaUserRepository;
 
     //validateDuplicateUser
-    private void validateDuplicateUser(User user) {
-        List<User> findUsers = jpaUserRepository.findByUsername(user.getUserName());
+    private void validateDuplicateUser(Users user) {
+        List<Users> findUsers = jpaUserRepository.findByUserId(user.getUserId());
 
         if (!findUsers.isEmpty())
             throw new IllegalStateException("이미 존재하는 회원입니다.");
@@ -28,7 +28,7 @@ public class UserService {
     //join
     @Transactional
     public Long join(@Valid UserForm form) {
-        User user = new User();
+        Users user = new Users();
         user.setUserId(form.getUserId());
         user.setUserPassword(form.getUserPassword());
         user.setUserName(form.getUserName());

@@ -4,7 +4,6 @@ import jakarta.persistence.Table;
 import lombok.*;
 
 @Getter @Setter
-@Table(name = "users")
 @NoArgsConstructor
 public class UserForm {
 
