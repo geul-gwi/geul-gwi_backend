@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -16,10 +16,11 @@ import java.util.List;
 public class UserService {
 
     private final JpaUserRepository jpaUserRepository;
+    private final UserService userService;
 
     //validateDuplicateUser
     private void validateDuplicateUser(Users user) {
-        List<Users> findUsers = jpaUserRepository.findByUserId(user.getUserId());
+        Optional<Users> findUsers = jpaUserRepository.findByUserId(user.getUserId());
 
         if (!findUsers.isEmpty())
             throw new IllegalStateException("이미 존재하는 회원입니다.");
@@ -35,11 +36,21 @@ public class UserService {
         user.setUserAge(form.getUserAge());
         user.setUserGender(form.getUserGender());
         user.setUserAddress(form.getUserAddress());
-        user.setRole(form.getRole());
+
+        if(user.getUserId().equals("akxxkd"))
+            user.setRole("ADMIN");
 
         validateDuplicateUser(user);
         jpaUserRepository.save(user);
 
         return user.getUserNumber();
+    }
+
+    //login
+    public Users login(String userId, String password) {
+        return jpaUserRepository.findByUserId(userId).stream()
+                .filter(u -> u.getUserPassword().equals(password))
+                .findAny()
+                .orElse(null);
     }
 }

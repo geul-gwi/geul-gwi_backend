@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface JpaUserRepository extends JpaRepository<Users, Integer> {
 
@@ -13,6 +14,9 @@ public interface JpaUserRepository extends JpaRepository<Users, Integer> {
     List<Users> findByUsername(@Param("userName") String userName);
 
     @Query("select u from Users u where u.userId = :userId")
-    List<Users> findByUserId(@Param("userId") String userId);
+    Optional<Users> findByUserId(@Param("userId") String userId);
+
+    @Query("select u.userPassword from Users u where u.userId = :userId")
+    Optional<Users> findUserPasswordByUserId(@Param("userId")String userId);
 
 }
