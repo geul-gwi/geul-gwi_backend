@@ -18,7 +18,7 @@ public class Users {
     String userId;
     String userPassword;
     String userName;
-    String userAge;
+    int userAge;
     String userGender;
     String userAddress;
     @ColumnDefault("USER")
