@@ -19,20 +19,20 @@ public class HomeController {
     @GetMapping("/")
     public String home(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession(false);
-        //GetMapping 한 직후 세션값을 불러오는 것을 막음 -> User 정보 보호
+        //GetMapping 한 직후 세션 값을 불러오는 것을 막음 -> User 정보 보호
         if (session == null) {
             log.info("Home Page(none login)");
             return "index";
         }
 
-        Users loginUser = (Users) model.getAttribute(SessionConst.LOGIN_USER);
-        System.out.println(SessionConst.LOGIN_USER);
+        Users loginUser = (Users) session.getAttribute(SessionConst.LOGIN_USER);
+
         if (loginUser == null) {
             log.info("Home Page(none login)");
             return "index";
         }
 
-        model.addAttribute("LoginUser", loginUser);
+        model.addAttribute("loginUser", loginUser);
         log.info("Home Page(login)");
         return "loginIndex";
     }

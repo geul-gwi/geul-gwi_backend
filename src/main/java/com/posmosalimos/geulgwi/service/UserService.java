@@ -54,7 +54,7 @@ public class UserService {
     //login
     public Users login(String userId, String password) {
         return jpaUserRepository.findByUserId(userId).stream()
-                .filter(u -> u.getUserPassword().equals(password))
+                .filter(m -> m.getUserPassword().equals(password))
                 .findAny()
                 .orElse(null);
     }
