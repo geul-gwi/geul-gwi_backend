@@ -25,16 +25,16 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final JpaUserRepository jpaMemberRepository;
     private final UserService userService;
 
-    //회원 가입 폼 매핑
+    //회원가입 폼 매핑
     @GetMapping("/users/new")
     public String createForm(Model model) {
-        model.addAttribute("UserForm", new UserForm());
+        model.addAttribute("JoinUserForm", new UserForm());
         return "users/createUserForm";
     }
 
+    //회원가입
     @PostMapping("/users/new")
     public String createUserForm(@Valid UserForm form, BindingResult result) {
         if (result.hasErrors()) {
@@ -46,13 +46,22 @@ public class UserController {
         return "redirect:/";
     }
 
+    //로그인 폼 매핑
+    @GetMapping("/users/login")
+    public String joinUserForm(Model model) {
+        model.addAttribute("LoginUserForm", new UserForm());
+        return "users/loginUserForm";
+    }
+
+    //로그인
     @PostMapping("/users/login")
     public String loginForm(@Valid UserForm form, BindingResult result, HttpSession session){
         Users findUser = userService.login(form.getUserId(), form.getUserPassword());
         if (findUser == null){
             log.info("없는 정보입니다.");
-            return "/users/loginForm";
+            return "/users/loginUserForm";
         }
+        log.info("login sucess");
         session.setAttribute("loginUser", SessionConst.LOGIN_USER);
         return "redirect:/";
     }

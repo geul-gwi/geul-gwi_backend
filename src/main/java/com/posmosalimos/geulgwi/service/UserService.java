@@ -16,7 +16,7 @@ import java.util.Optional;
 public class UserService {
 
     private final JpaUserRepository jpaUserRepository;
-    private final UserService userService;
+
 
     //validateDuplicateUser
     private void validateDuplicateUser(Users user) {
@@ -35,10 +35,15 @@ public class UserService {
         user.setUserName(form.getUserName());
         user.setUserAge(form.getUserAge());
         user.setUserGender(form.getUserGender());
-        user.setUserAddress(form.getUserAddress());
+        user.setUserNickname(form.getUserNickname());
+        user.setTag1(form.getTag1());
+        user.setTag2(form.getTag2());
+        user.setTag3(form.getTag3());
+        user.setUserProfile(form.getUserProfile());
 
         if(user.getUserId().equals("akxxkd"))
             user.setRole("ADMIN");
+        else user.setRole("USER");
 
         validateDuplicateUser(user);
         jpaUserRepository.save(user);
