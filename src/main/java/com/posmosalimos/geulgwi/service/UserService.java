@@ -1,5 +1,6 @@
 package com.posmosalimos.geulgwi.service;
 
+import com.posmosalimos.geulgwi.entity.Role;
 import com.posmosalimos.geulgwi.entity.Users;
 import com.posmosalimos.geulgwi.form.UserForm;
 import com.posmosalimos.geulgwi.repository.JpaUserRepository;
@@ -8,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -42,8 +44,8 @@ public class UserService {
         user.setUserProfile(form.getUserProfile());
 
         if(user.getUserId().equals("akxxkd"))
-            user.setRole("ADMIN");
-        else user.setRole("USER");
+            user.setRole(Role.ADMIN);
+        else user.setRole(Role.USER);
 
         validateDuplicateUser(user);
         jpaUserRepository.save(user);
@@ -57,5 +59,19 @@ public class UserService {
                 .filter(m -> m.getUserPassword().equals(password))
                 .findAny()
                 .orElse(null);
+    }
+
+    //delete
+    public void withdrawal(String userId, String userPassword){
+        Users findUser = jpaUserRepository.findByUserId(userId).stream()
+                .filter(u -> u.getUserPassword().equals(userPassword))
+                .findAny()
+                .orElse(null);
+
+        if (findUser != null) {
+            jpaUserRepository.delete(findUser);
+        }else {
+            throw new NoSuchElementException("해당하는 유저를 찾을 수 없습니다.");
+        }
     }
 }

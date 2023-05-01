@@ -16,4 +16,7 @@ public interface JpaUserRepository extends JpaRepository<Users, Integer> {
     @Query("select u from Users u where u.userId = :userId")
     Optional<Users> findByUserId(@Param("userId") String userId);
 
+    @Query("delete from Users u where u.userPassword = :password")
+    void deleteUserByPassword(@Param("password") String password);
+
 }
