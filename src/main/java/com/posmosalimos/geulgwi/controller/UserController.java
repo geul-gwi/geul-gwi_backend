@@ -5,7 +5,6 @@ import com.posmosalimos.geulgwi.entity.Users;
 import com.posmosalimos.geulgwi.form.LoginForm;
 import com.posmosalimos.geulgwi.form.UserForm;
 import com.posmosalimos.geulgwi.service.UserService;
-import com.posmosalimos.geulgwi.session.SessionConst;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +29,7 @@ public class UserController {
         return "users/createUserForm";
     }
 
-    //회원가입
+    //회원가입 처리
     @PostMapping("/users/new")
     public String createUserForm(@Valid UserForm form, BindingResult result) {
         if (result.hasErrors()) {
@@ -49,7 +48,7 @@ public class UserController {
         return "users/loginUserForm";
     }
 
-    //로그인
+    //로그인 처리
     @PostMapping("/users/login")
     public String loginForm(@Valid LoginForm form, BindingResult result, HttpSession session){
         if (result.hasErrors()) {
@@ -68,6 +67,5 @@ public class UserController {
         log.info("login success");
         session.setAttribute("loginUser", loginUser);
         return "redirect:/";
-
     }
 }

@@ -19,19 +19,18 @@ public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "USERS_SEQ_GENERATOR")
-    Long userNumber;
-    String userId;
-    String userPassword;
-    String userName;
-    int userAge;
-    String userGender;
-    String userNickname;
-    String tag1;
-    String tag2;
-    String tag3;
-    String userProfile;
-//    @ColumnDefault("USER")
-    String role;
+    private Long userNumber;
+    private String userId;
+    private String userPassword;
+    private String userName;
+    private int userAge;
+    private String userGender;
+    private String userNickname;
+    private String tag1;
+    private String tag2;
+    private String tag3;
+    private String userProfile;
+    private Role role;
 
 
 }
