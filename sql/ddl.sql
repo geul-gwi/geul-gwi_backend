@@ -1,133 +1,161 @@
-### 유저 테이블
-CREATE TABLE IF NOT EXISTS Users (
-    userNumber BIGINT UNSIGNED NOT NULL,
-    userId VARCHAR(255) NOT NULL,
-    userPassword VARCHAR(255) NOT NULL,
-    userName VARCHAR(255) NOT NULL,
-    userAge INT NOT NULL,
-    userGender VARCHAR(255) NOT NULL,
-    userNickname VARCHAR(255) NOT NULL,
-    tag1 VARCHAR(255) NULL,
-    tag2 VARCHAR(255) NULL,
-    tag3 VARCHAR(255) NULL,
-    role VARCHAR(255) NULL,
-    userProfile VARCHAR(255) NULL,
-    PRIMARY KEY (`userNumber`)
+#mariadb
+DROP TABLE IF EXISTS Users;
+CREATE TABLE Users (
+    userSeq bigint NOT NULL AUTO_INCREMENT,
+    userId varchar(255) NOT NULL,
+    userPassword varchar(255) NOT NULL,
+    userName varchar(255) NOT NULL,
+    userAge int NOT NULL,
+    userGender varchar(255) NOT NULL,
+    userNickname varchar(255) NOT NULL,
+    tag1 varchar(255) NULL,
+    tag2 varchar(255) NULL,
+    tag3 varchar(255) NULL,
+    role varchar(255) NULL,
+    userProfile varchar(255) NULL,
+    PRIMARY KEY (userSeq)
 );
-### 태그 테이블
-CREATE TABLE IF NOT EXISTS Tag (
-    sentimental VARCHAR(255) COMMENT '감성적인',
-    motivated VARCHAR(255) COMMENT '동기부여',
-    console VARCHAR(255) COMMENT '위로',
-    realize VARCHAR(255) COMMENT '깨달음',
-    poem VARCHAR(255) COMMENT '시',
-    realistic VARCHAR(255) COMMENT '현실직시',
-    nature VARCHAR(255) COMMENT '자연',
-    wisesaying VARCHAR(255) COMMENT '명언',
-    love VARCHAR(255) COMMENT '사랑',
-    quotesInNovels VARCHAR(255) COMMENT '소설 속 명언',
-    userNumber BIGINT UNSIGNED COMMENT 'auto increment',
-    geulgwiNumber BIGINT UNSIGNED,
-    PRIMARY KEY (userNumber, geulgwiNumber),
-    FOREIGN KEY (userNumber) REFERENCES Users(userNumber),
-    FOREIGN KEY (geulgwiNumber) REFERENCES Geulgwi(geulgwiNumber)
-);
-### 글귀 테이블
-CREATE TABLE IF NOT EXISTS Geulgwi (
-    geulgwiNumber BIGINT UNSIGNED NOT NULL,
-    userId VARCHAR(255) NOT NULL,
-    userNickname VARCHAR(255) NOT NULL,
-    geulgwiTitle VARCHAR(255) NOT NULL,
-    geulgwiContent TEXT NOT NULL,
-    tag1 VARCHAR(255) NULL,
-    tag2 VARCHAR(255) NULL,
-    tag3 VARCHAR(255) NULL,
-    regDate DATETIME NULL,
-    updateDate DATETIME NULL,
-    userNumber BIGINT UNSIGNED,
-    PRIMARY KEY (geulgwiNumber)
-);
-#
-# ### 자유게시판 테이블
-# CREATE TABLE IF NOT EXISTS `Post` (
-#     `postNumber` BIGINT UNSIGNED NOT NULL,
-#     `userId` VARCHAR(255) NOT NULL,
-#     `userNickname` VARCHAR(255) NOT NULL,
-#     `postTitle` VARCHAR(255) NOT NULL,
-#     `postContent` TEXT NOT NULL,
-#     `regDate` DATETIME NULL,
-#     `updateDate` DATETIME NULL,
-#     `likes` INT NULL,
-#     `userNumber` BIGINT UNSIGNED NULL,
-#     PRIMARY KEY (`postNumber`)
-# );
 
-#
-# ### 댓글 테이블
-# CREATE TABLE if not exists `Comment` (
-#     `replyNumber` BIGINT UNSIGNED NOT NULL,
-#     `postNumber` BIGINT UNSIGNED NOT NULL,
-#     `replyId` VARCHAR(255) NOT NULL,
-#     `replyComment`	VARCHAR(255) NOT NULL,
-#     `regDate` DATETIME NULL,
-#     `updateDate` DATETIME NULL,
-#     PRIMARY KEY (`replyNumber`),
-#     FOREIGN KEY (`postNumber`) REFERENCES `Post`(`postNumber`)
-# );
-#
-# ### 글귀챌린지_유저
-# CREATE TABLE if not exists `Challenge_User` (
-#     `challengeNumber` BIGINT UNSIGNED NOT NULL,
-#     `userId` VARCHAR(255) NOT NULL,
-#     `challengeContent` VARCHAR(255) NOT NULL,
-#     `userNumber` BIGINT UNSIGNED NOT NULL,
-#     PRIMARY KEY (`challengeNumber`),
-#     FOREIGN KEY (`userNumber`) REFERENCES `Users`(`userNumber`)
-# );
-#
-# ### 글귀챌린지_관리자
-# CREATE TABLE if not exists `ChallengeAdmin` (
-#     `challengeNumber` BIGINT UNSIGNED NOT NULL,
-#     `keyword1` VARCHAR(255) NULL,
-#     `keyword2` VARCHAR(255) NULL,
-#     `keyword3` VARCHAR(255) NULL
-# );
-#
-# ALTER TABLE `Users` ADD CONSTRAINT `PK_USERS` PRIMARY KEY (
-#     `userNumber`
-# );
-#
-# ALTER TABLE `Geulgwi` ADD CONSTRAINT `PK_GEULGWI` PRIMARY KEY (
-#     `geulgwiNumber`
-# );
-#
-# ALTER TABLE `Post` ADD CONSTRAINT `PK_POST` PRIMARY KEY (
-#     `postNumber`
-# );
-#
-# ALTER TABLE `Comment` ADD CONSTRAINT `PK_COMMENT` PRIMARY KEY (
-#     `replyNumber`,
-#     `postNumber`
-# );
-#
-# ALTER TABLE `Challenge_User` ADD CONSTRAINT `PK_CHALLENGE_USER` PRIMARY KEY (
-#     `challengeNumber`
-# );
-#
-# ALTER TABLE `ChallengeAdmin` ADD CONSTRAINT `PK_CHALLENGEADMIN` PRIMARY KEY (
-#     `challengeNumber`
-# );
-#
-# ALTER TABLE `Comment` ADD CONSTRAINT `FK_Post_TO_Comment_1` FOREIGN KEY (
-#     `postNumber`
-#     )
-#     REFERENCES `Post` (
-#     postNumber
-#     );
-#
-# ALTER TABLE `Challenge_User` ADD CONSTRAINT `FK_ChallengeAdmin_TO_Challenge_User_1` FOREIGN KEY (
-#     `challengeNumber`
-#     )
-#     REFERENCES `ChallengeAdmin` (
-#     `challengeNumber`
-# );
+DROP TABLE IF EXISTS Geulgwi;
+CREATE TABLE Geulgwi (
+    geulgwiSeq bigint NOT NULL,
+    userId varchar(255) NOT NULL,
+    geulgwiTitle varchar(255) NOT NULL,
+    geulgwiContent text NOT NULL,
+    tag1 int NULL,
+    tag2 int NULL,
+    tag3 int NULL,
+    regDate datetime NULL,
+    userNumber bigint NOT NULL,
+    PRIMARY KEY (geulgwiSeq)
+);
+
+DROP TABLE IF EXISTS Post;
+CREATE TABLE Post (
+    postSeq bigint NOT NULL,
+    userId varchar(255) NOT NULL,
+    postTitle varchar(255) NOT NULL,
+    postContent text NOT NULL,
+    regDate datetime NULL,
+    likes int NULL,
+    userNumber bigint NOT NULL,
+    PRIMARY KEY (postSeq)
+);
+
+DROP TABLE IF EXISTS Comment;
+CREATE TABLE Comment (
+    replySeq bigint NOT NULL,
+    postSeq bigint NOT NULL,
+    replyId varchar(255) NOT NULL,
+    replyComment text NOT NULL,
+    regDate datetime NULL,
+    PRIMARY KEY (replySeq, postSeq),
+    CONSTRAINT FK_Post_TO_Comment_1 FOREIGN KEY (postSeq)
+    REFERENCES Post (postSeq)
+);
+
+DROP TABLE IF EXISTS Challenge_User;
+CREATE TABLE Challenge_User (
+    userSeq bigint NOT NULL,
+    userId varchar(255) NOT NULL,
+    chellengeContent text NOT NULL,
+    PRIMARY KEY (userSeq)
+);
+
+DROP TABLE IF EXISTS ChallengeAdmin;
+CREATE TABLE ChallengeAdmin (
+    adminSeq bigint NOT NULL,
+    keyword1 varchar(255) NOT NULL,
+    keyword2 varchar(255) NOT NULL,
+    keyword3 varchar(255) NOT NULL,
+    PRIMARY KEY (adminSeq)
+);
+
+DROP TABLE IF EXISTS Challenge;
+CREATE TABLE Challenge (
+    challengeSeq bigint NOT NULL,
+    adminSeq bigint NOT NULL,
+    userSeq bigint NOT NULL,
+    PRIMARY KEY (challengeSeq)
+);
+
+#mysql
+DROP TABLE IF EXISTS Users;
+CREATE TABLE Users (
+                       userSeq bigint NOT NULL,
+                       userId varchar(255) NOT NULL,
+                       userPassword varchar(255) NOT NULL,
+                       userName varchar(255) NOT NULL,
+                       userAge int NOT NULL,
+                       userGender varchar(255) NOT NULL,
+                       userNickname varchar(255) NOT NULL,
+                       tag1 varchar(255) NULL,
+                       tag2 varchar(255) NULL,
+                       tag3 varchar(255) NULL,
+                       role varchar(255) NULL,
+                       userProfile varchar(255) NULL,
+                       PRIMARY KEY (userSeq)
+);
+
+DROP TABLE IF EXISTS Geulgwi;
+CREATE TABLE Geulgwi (
+                         geulgwiSeq bigint NOT NULL,
+                         userId varchar(255) NOT NULL,
+                         geulgwiTitle varchar(255) NOT NULL,
+                         geulgwiContent text NOT NULL,
+                         tag1 int NULL,
+                         tag2 int NULL,
+                         tag3 int NULL,
+                         regDate datetime NULL,
+                         userNumber bigint NOT NULL,
+                         PRIMARY KEY (geulgwiSeq)
+);
+
+DROP TABLE IF EXISTS Post;
+CREATE TABLE Post (
+                      postSeq bigint NOT NULL,
+                      userId varchar(255) NOT NULL,
+                      postTitle varchar(255) NOT NULL,
+                      postContent text NOT NULL,
+                      regDate datetime NULL,
+                      likes int NULL,
+                      userNumber bigint NOT NULL,
+                      PRIMARY KEY (postSeq)
+);
+
+DROP TABLE IF EXISTS Comment;
+CREATE TABLE Comment (
+                         replySeq bigint NOT NULL,
+                         postSeq bigint NOT NULL,
+                         replyId varchar(255) NOT NULL,
+                         replyComment text NOT NULL,
+                         regDate datetime NULL,
+                         PRIMARY KEY (replySeq, postSeq),
+                         CONSTRAINT FK_Post_TO_Comment_1 FOREIGN KEY (postSeq)
+                             REFERENCES Post (postSeq)
+);
+
+DROP TABLE IF EXISTS Challenge_User;
+CREATE TABLE Challenge_User (
+                                userSeq bigint NOT NULL,
+                                userId varchar(255) NOT NULL,
+                                chellengeContent text NOT NULL,
+                                PRIMARY KEY (userSeq)
+);
+
+DROP TABLE IF EXISTS ChallengeAdmin;
+CREATE TABLE ChallengeAdmin (
+                                adminSeq bigint NOT NULL,
+                                keyword1 varchar(255) NOT NULL,
+                                keyword2 varchar(255) NOT NULL,
+                                keyword3 varchar(255) NOT NULL,
+                                PRIMARY KEY (adminSeq)
+);
+
+DROP TABLE IF EXISTS Challenge;
+CREATE TABLE Challenge (
+                           challengeSeq bigint NOT NULL,
+                           adminSeq bigint NOT NULL,
+                           userSeq bigint NOT NULL,
+                           PRIMARY KEY (challengeSeq)
+);

@@ -52,14 +52,14 @@ public class UserService {
         user.setTag3(form.getTag3());
         user.setUserProfile(form.getUserProfile());
 
-        if(user.getUserId().equals("akxxkd"))
+        if(form.getUserId().equals("akxxkd"))
             user.setRole(Role.ADMIN);
         else user.setRole(Role.USER);
 
         validateDuplicateUser(user);
         jpaUserRepository.save(user);
 
-        return user.getUserNumber();
+        return user.getUserSeq();
     }
 
     //login
@@ -89,6 +89,6 @@ public class UserService {
         findUser.setTag2(form.getTag2());
         findUser.setTag3(form.getTag3());
 
-        return findUser.getUserNumber();
+        return findUser.getUserSeq();
     }
 }

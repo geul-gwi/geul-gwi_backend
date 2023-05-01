@@ -1,5 +1,6 @@
 package com.posmosalimos.geulgwi.form;
 
+import com.posmosalimos.geulgwi.entity.Role;
 import jakarta.persistence.Table;
 import lombok.*;
 
@@ -17,6 +18,6 @@ public class UserForm {
     private String tag2;
     private String tag3;
     private String userProfile;
-    private String role;
+    private Role role;
 
 }
