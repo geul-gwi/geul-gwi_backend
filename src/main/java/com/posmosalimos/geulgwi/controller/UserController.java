@@ -3,8 +3,10 @@ package com.posmosalimos.geulgwi.controller;
 
 import com.posmosalimos.geulgwi.entity.Users;
 import com.posmosalimos.geulgwi.form.LoginForm;
+import com.posmosalimos.geulgwi.form.UpdateForm;
 import com.posmosalimos.geulgwi.form.UserForm;
 import com.posmosalimos.geulgwi.service.UserService;
+import com.posmosalimos.geulgwi.session.SessionConst;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,18 +25,18 @@ public class UserController {
     private final UserService userService;
 
     //회원가입 폼 매핑
-    @GetMapping("/users/new")
-    public String createForm(Model model) {
-        model.addAttribute("JoinUserForm", new UserForm());
-        return "users/createUserForm";
+    @GetMapping("/users/join")
+    public String joinForm(Model model) {
+        model.addAttribute("JoinForm", new UserForm());
+        return "users/joinForm";
     }
 
     //회원가입 처리
-    @PostMapping("/users/new")
-    public String createUserForm(@Valid UserForm form, BindingResult result) {
+    @PostMapping("/users/join")
+    public String join(@Valid UserForm form, BindingResult result) {
         if (result.hasErrors()) {
             log.info("join error");
-            return "users/createUserForm";
+            return "users/joinForm";
         }
         userService.join(form);
         log.info("join success");
@@ -43,17 +45,17 @@ public class UserController {
 
     //로그인 폼 매핑
     @GetMapping("/users/login")
-    public String joinUserForm(Model model) {
+    public String loginForm(Model model) {
         model.addAttribute("LoginForm", new LoginForm());
-        return "users/loginUserForm";
+        return "users/loginForm";
     }
 
     //로그인 처리
     @PostMapping("/users/login")
-    public String loginForm(@Valid LoginForm form, BindingResult result, HttpSession session){
+    public String login(@Valid LoginForm form, BindingResult result, HttpSession session){
         if (result.hasErrors()) {
             log.info("에러 발생");
-            return "users/loginUserForm";
+            return "users/loginForm";
         }
 
         Users loginUser = userService.login(form.getUserId(), form.getUserPassword());
@@ -61,7 +63,7 @@ public class UserController {
         if (loginUser.equals(null)) {
             log.info("해당하는 정보가 없습니다.");
             result.reject("login fail", "일치하는 정보가 없습니다.");
-            return "/users/loginUserForm";
+            return "loginForm";
         }
 
         log.info("login success");
@@ -70,9 +72,21 @@ public class UserController {
     }
 
     //수정 폼 매핑
-    @GetMapping("/users/login")
+    @GetMapping("/users/update")
     public String updateUserForm(Model model) {
-        model.addAttribute("LoginForm", new LoginForm());
-        return "users/loginUserForm";
+        model.addAttribute("UpdateForm", new UpdateForm());
+        return "users/updateForm";
+    }
+
+    //회원정보 수정
+    @PostMapping("users/update")
+    public String update(@Valid UpdateForm form, BindingResult result, HttpSession session) {
+        if (result.hasErrors()){
+            log.info("에러 발생");
+            return "users/updateForm";
+        }
+        Users loginUser = (Users) session.getAttribute(SessionConst.LOGIN_USER);
+        userService.updateUser(loginUser.getUserId(), loginUser.getUserPassword(), form);
+        return "redirect:/";
     }
 }
