@@ -71,7 +71,7 @@ public class UserController {
         return "redirect:/";
     }
 
-    //수정 폼 매핑
+    //회원정보 수정 폼 매핑
     @GetMapping("/users/update")
     public String updateUserForm(Model model) {
         model.addAttribute("UpdateForm", new UpdateForm());
@@ -79,7 +79,7 @@ public class UserController {
     }
 
     //회원정보 수정
-    @PostMapping("users/update")
+    @PostMapping("/users/update")
     public String update(@Valid UpdateForm form, BindingResult result, HttpSession session) {
         if (result.hasErrors()){
             log.info("에러 발생");
@@ -87,6 +87,15 @@ public class UserController {
         }
         Users loginUser = (Users) session.getAttribute(SessionConst.LOGIN_USER);
         userService.updateUser(loginUser.getUserId(), loginUser.getUserPassword(), form);
+        return "redirect:/";
+    }
+
+    //회원 탈퇴
+    @PostMapping("/users/withdrawal")
+    public String withdrawal(HttpSession session) {
+        Users user = (Users) session.getAttribute(SessionConst.LOGIN_USER);
+        userService.withdrawalUser(user.getUserId(), user.getUserPassword());
+
         return "redirect:/";
     }
 }
