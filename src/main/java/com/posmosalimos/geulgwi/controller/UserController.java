@@ -68,4 +68,11 @@ public class UserController {
         session.setAttribute("loginUser", loginUser);
         return "redirect:/";
     }
+
+    //수정 폼 매핑
+    @GetMapping("/users/login")
+    public String updateUserForm(Model model) {
+        model.addAttribute("LoginForm", new LoginForm());
+        return "users/loginUserForm";
+    }
 }
