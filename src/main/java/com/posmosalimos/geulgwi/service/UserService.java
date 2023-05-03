@@ -68,19 +68,19 @@ public class UserService {
 
     //delete
     @Transactional
-    public void withdrawalUser(String userId, String userPassword){
+    public void withdrawalUser(String userId, String userPassword) {
         Users findUser = findUserByIdAndPassword(userId, userPassword);
 
         if (findUser != null) {
             jpaUserRepository.delete(findUser);
-        }else {
+        } else {
             throw new NoSuchElementException("해당하는 유저를 찾을 수 없습니다.");
         }
     }
 
     //update
     @Transactional
-    public Long updateUser(Users findUser, UpdateForm form){
+    public Long updateUser(Users findUser, UpdateForm form) {
         if (findUser != null && form.getUserPassword_current().equals(findUser.getUserPassword())) {
             findUser.setUserPassword(form.getUserPassword_new());
             findUser.setUserName(form.getUserName());
@@ -97,10 +97,10 @@ public class UserService {
 
     //find password
     public String findPassword(String id, String name) {
-        try {
-            return jpaUserRepository.findPasswordByIdAndName(id, name);
-        } catch (Exception e) {
+        String password = jpaUserRepository.findPasswordByIdAndName(id, name);
+        if (password == null)
             return "";
-        }
+        else
+            return password;
     }
 }
