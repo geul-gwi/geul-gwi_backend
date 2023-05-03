@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/users/update" th:object="${UpdateForm}" method="post">
+  current password: <input type="password" th:field="*{userPassword_current}" placeholder="current password"/>
+  new password: <input type="password" th:field="*{userPassword_new}" placeholder="new password"/>
+  name: <input type="text" th:field="*{userName}" placeholder="name"/>
+  nickname: <input type="text" th:field="*{userNickname}" placeholder="nickname"/>
+  tag1:
+  <select th:field="*{tag1}">
+    <option th:value="sentimental">감성적인</option>
+    <option th:value="motivated">동기부여</option>
+    <option th:value="console">위로</option>
+    <option th:value="realize">깨달음</option>
+    <option th:value="poem">시</option>
+    <option th:value="realistic">현실직시</option>
+    <option th:value="nature">자연</option>
+    <option th:value="wisesaying">명언</option>
+    <option th:value="love">사랑</option>
+    <option th:value="quotesInNovels">소설 속 명언</option>
+  </select>
+
+  tag2:
+  <select th:field="*{tag2}">
+    <option th:value="sentimental">감성적인</option>
+    <option th:value="motivated">동기부여</option>
+    <option th:value="console">위로</option>
+    <option th:value="realize">깨달음</option>
+    <option th:value="poem">시</option>
+    <option th:value="realistic">현실직시</option>
+    <option th:value="nature">자연</option>
+    <option th:value="wisesaying">명언</option>
+    <option th:value="love">사랑</option>
+    <option th:value="quotesInNovels">소설 속 명언</option>
+  </select>
+
+  tag3:
+  <select th:field="*{tag3}">
+    <option th:value="sentimental">감성적인</option>
+    <option th:value="motivated">동기부여</option>
+    <option th:value="console">위로</option>
+    <option th:value="realize">깨달음</option>
+    <option th:value="poem">시</option>
+    <option th:value="realistic">현실직시</option>
+    <option th:value="nature">자연</option>
+    <option th:value="wisesaying">명언</option>
+    <option th:value="love">사랑</option>
+    <option th:value="quotesInNovels">소설 속 명언</option>
+  </select>
+
+  profile: <input type="text" th:field="*{userProfile}" placeholder="url"/>
+  <button type="submit">submit</button>
+</form>
+</body>
+</html>

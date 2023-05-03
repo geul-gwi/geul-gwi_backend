@@ -8,6 +8,10 @@ logging:
             sql:
               BasicBinder: TRACE
 
+#server:
+#  session:
+#    tracking-modes: cookie  #최초접속 시 url에 jsession안붙게
+
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
@@ -24,7 +28,7 @@ spring:
     generate-ddl: true
     hibernate:
 #      format_sql: true
-      ddl-auto: create
+      ddl-auto: update
       naming:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl

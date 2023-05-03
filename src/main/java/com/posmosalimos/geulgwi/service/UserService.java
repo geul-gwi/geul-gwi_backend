@@ -30,7 +30,7 @@ public class UserService {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
     }
 
-    public Users findUserByIdAndPassword(String userId, String userPassword){
+    public Users  findUserByIdAndPassword(String userId, String userPassword){
         return jpaUserRepository.findByUserId(userId).stream()
                 .filter(u -> u.getUserPassword().equals(userPassword))
                 .findAny()
@@ -68,6 +68,7 @@ public class UserService {
     }
 
     //delete
+    @Transactional
     public void withdrawalUser(String userId, String userPassword){
         Users findUser = findUserByIdAndPassword(userId, userPassword);
 
@@ -79,16 +80,20 @@ public class UserService {
     }
 
     //update
-    public Long updateUser(String userId, String userPassword, UpdateForm form){
-        Users findUser = findUserByIdAndPassword(userId, userPassword);
+    @Transactional
+    public Long updateUser(Users findUser, UpdateForm form){
+        System.out.println(findUser.getUserPassword());
+        if (findUser != null && form.getUserPassword_current().equals(findUser.getUserPassword())) {
+            findUser.setUserPassword(form.getUserPassword_new());
+            findUser.setUserName(form.getUserName());
+            findUser.setUserNickname(form.getUserNickname());
+            findUser.setUserProfile(form.getUserProfile());
+            findUser.setTag1(form.getTag1());
+            findUser.setTag2(form.getTag2());
+            findUser.setTag3(form.getTag3());
 
-        findUser.setUserPassword(form.getUserPassword());
-        findUser.setUserNickname(form.getUserNickName());
-        findUser.setUserProfile(form.getUserProfile());
-        findUser.setTag1(form.getTag1());
-        findUser.setTag2(form.getTag2());
-        findUser.setTag3(form.getTag3());
-
+            jpaUserRepository.save(findUser);
+        }
         return findUser.getUserSeq();
     }
 

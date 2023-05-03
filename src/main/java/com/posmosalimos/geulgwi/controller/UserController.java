@@ -68,6 +68,7 @@ public class UserController {
 
         log.info("login success");
         session.setAttribute("loginUser", loginUser);
+        System.out.println(loginUser.toString());
         return "redirect:/";
     }
 
@@ -86,7 +87,8 @@ public class UserController {
             return "users/updateForm";
         }
         Users loginUser = (Users) session.getAttribute(SessionConst.LOGIN_USER);
-        userService.updateUser(loginUser.getUserId(), loginUser.getUserPassword(), form);
+        userService.updateUser(loginUser, form);
+        log.info("update user info");
         return "redirect:/";
     }
 
