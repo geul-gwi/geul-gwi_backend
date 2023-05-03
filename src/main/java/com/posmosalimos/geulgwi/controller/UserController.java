@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -130,7 +131,7 @@ public class UserController {
 
     //비밀번호 찾기
     @PostMapping("/users/findPassword")
-    public String findPassword(@Valid FindPasswordForm form, BindingResult result, HttpServletRequest request) {
+    public String findPassword(@Valid FindPasswordForm form, BindingResult result, HttpSession session) {
         if (result.hasErrors()) {
             log.info("에러 발생");
             return "users/findPasswordForm";
@@ -141,7 +142,7 @@ public class UserController {
             log.info("일치하는 회원이 없습니다.");
             return "redirect:/";
         } else {
-            request.setAttribute("password", password);
+            session.setAttribute("password", password);
             return "users/findPassword";
         }
     }
