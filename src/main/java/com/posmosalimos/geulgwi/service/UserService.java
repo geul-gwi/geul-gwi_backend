@@ -2,12 +2,11 @@ package com.posmosalimos.geulgwi.service;
 
 import com.posmosalimos.geulgwi.entity.Role;
 import com.posmosalimos.geulgwi.entity.Users;
-import com.posmosalimos.geulgwi.form.UpdateForm;
-import com.posmosalimos.geulgwi.form.UserForm;
+import com.posmosalimos.geulgwi.form.User.UpdateForm;
+import com.posmosalimos.geulgwi.form.User.UserForm;
 import com.posmosalimos.geulgwi.repository.JpaUserRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

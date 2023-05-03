@@ -2,9 +2,10 @@ package com.posmosalimos.geulgwi.controller;
 
 
 import com.posmosalimos.geulgwi.entity.Users;
-import com.posmosalimos.geulgwi.form.LoginForm;
-import com.posmosalimos.geulgwi.form.UpdateForm;
-import com.posmosalimos.geulgwi.form.UserForm;
+import com.posmosalimos.geulgwi.form.User.LoginForm;
+import com.posmosalimos.geulgwi.form.User.UpdateForm;
+import com.posmosalimos.geulgwi.form.User.UserForm;
+import com.posmosalimos.geulgwi.form.User.WithdrawalForm;
 import com.posmosalimos.geulgwi.service.UserService;
 import com.posmosalimos.geulgwi.session.SessionConst;
 import jakarta.servlet.http.HttpSession;
@@ -14,8 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @Slf4j
@@ -52,7 +52,7 @@ public class UserController {
 
     //로그인 처리
     @PostMapping("/users/login")
-    public String login(@Valid LoginForm form, BindingResult result, HttpSession session){
+    public String login(@Valid LoginForm form, BindingResult result, HttpSession session) {
         if (result.hasErrors()) {
             log.info("에러 발생");
             return "users/loginForm";
@@ -68,7 +68,6 @@ public class UserController {
 
         log.info("login success");
         session.setAttribute("loginUser", loginUser);
-        System.out.println(loginUser.toString());
         return "redirect:/";
     }
 
@@ -92,13 +91,28 @@ public class UserController {
         return "redirect:/";
     }
 
+    //회원 탈퇴 폼 매핑
+    @GetMapping("/users/withdrawal")
+    public String withdrawalUserForm(Model model) {
+        model.addAttribute("WithdrawalForm", new WithdrawalForm());
+        return "users/withdrawalForm";
+    }
+
     //회원 탈퇴
     @PostMapping("/users/withdrawal")
-    public String withdrawal(HttpSession session) {
-        Users user = (Users) session.getAttribute(SessionConst.LOGIN_USER);
-        userService.withdrawalUser(user.getUserId(), user.getUserPassword());
+    public String withdrawal(@Valid WithdrawalForm form, BindingResult result, HttpSession session) {
+        if (result.hasErrors()) {
+            log.info("에러 발생");
+            return "users/withdrawalForm";
+        }
 
-        return "redirect:/";
+        Users user = (Users) session.getAttribute(SessionConst.LOGIN_USER);
+        if (user.getUserPassword().equals(form.getUserPassword())) {
+            userService.withdrawalUser(user.getUserId(), user.getUserPassword());
+            log.info("withdrawal user");
+            session.removeAttribute(SessionConst.LOGIN_USER);
+            return "redirect:/";
+        } else return "users/withdrawalForm";
     }
 
     //로그아웃
