@@ -100,4 +100,12 @@ public class UserController {
 
         return "redirect:/";
     }
+
+    //로그아웃
+    @PostMapping("/users/logout")
+    public String logout(HttpSession session){
+        session.removeAttribute(SessionConst.LOGIN_USER);
+
+        return "redirect:/";
+    }
 }
