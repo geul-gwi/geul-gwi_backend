@@ -130,7 +130,7 @@ public class UserController {
 
     //비밀번호 찾기
     @PostMapping("/users/findPassword")
-    public String findPassword(@Valid FindPasswordForm form, BindingResult result, HttpServletRequest request) {
+    public String findPassword(@Valid FindPasswordForm form, BindingResult result, HttpSession session) {
         if (result.hasErrors()) {
             log.info("에러 발생");
             return "users/findPasswordForm";
@@ -141,8 +141,8 @@ public class UserController {
             log.info("일치하는 회원이 없습니다.");
             return "redirect:/";
         } else {
-            request.setAttribute("password", password);
-            return "users/findPassword";
+            session.setAttribute("password", password);
+            return "users/resultPassword";
         }
     }
 }

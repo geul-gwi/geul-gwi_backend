@@ -25,6 +25,9 @@ public class HomeController {
             return "index";
         }
 
+        if (session.getAttribute("password") != null)
+            session.removeAttribute("password");
+
         Users loginUser = (Users) session.getAttribute(SessionConst.LOGIN_USER);
 
         if (loginUser == null) {
