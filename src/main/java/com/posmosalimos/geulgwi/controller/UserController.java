@@ -2,12 +2,10 @@ package com.posmosalimos.geulgwi.controller;
 
 
 import com.posmosalimos.geulgwi.entity.Users;
-import com.posmosalimos.geulgwi.form.User.LoginForm;
-import com.posmosalimos.geulgwi.form.User.UpdateForm;
-import com.posmosalimos.geulgwi.form.User.UserForm;
-import com.posmosalimos.geulgwi.form.User.WithdrawalForm;
+import com.posmosalimos.geulgwi.form.User.*;
 import com.posmosalimos.geulgwi.service.UserService;
 import com.posmosalimos.geulgwi.session.SessionConst;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -71,14 +69,14 @@ public class UserController {
         return "redirect:/";
     }
 
-    //회원정보 수정 폼 매핑
+    //회원 정보 수정 폼 매핑
     @GetMapping("/users/update")
     public String updateUserForm(Model model) {
         model.addAttribute("UpdateForm", new UpdateForm());
         return "users/updateForm";
     }
 
-    //회원정보 수정
+    //회원 정보 수정
     @PostMapping("/users/update")
     public String update(@Valid UpdateForm form, BindingResult result, HttpSession session) {
         if (result.hasErrors()){
@@ -121,5 +119,30 @@ public class UserController {
         session.removeAttribute(SessionConst.LOGIN_USER);
 
         return "redirect:/";
+    }
+
+    //비밀번호 찾기 폼 매핑
+    @GetMapping("/users/findPassword")
+    public String findPasswordUserForm(Model model) {
+        model.addAttribute("FindPasswordForm", new FindPasswordForm());
+        return "users/findPasswordForm";
+    }
+
+    //비밀번호 찾기
+    @PostMapping("/users/findPassword")
+    public String findPassword(@Valid FindPasswordForm form, BindingResult result, HttpServletRequest request) {
+        if (result.hasErrors()) {
+            log.info("에러 발생");
+            return "users/findPasswordForm";
+        }
+
+        String password = userService.findPassword(form.getUserId(), form.getUserName());
+        if (password.equals("")) {
+            log.info("일치하는 회원이 없습니다.");
+            return "redirect:/";
+        } else {
+            request.setAttribute("password", password);
+            return "users/findPassword";
+        }
     }
 }

@@ -81,7 +81,6 @@ public class UserService {
     //update
     @Transactional
     public Long updateUser(Users findUser, UpdateForm form){
-        System.out.println(findUser.getUserPassword());
         if (findUser != null && form.getUserPassword_current().equals(findUser.getUserPassword())) {
             findUser.setUserPassword(form.getUserPassword_new());
             findUser.setUserName(form.getUserName());
@@ -96,4 +95,13 @@ public class UserService {
         return findUser.getUserSeq();
     }
 
+    //find password
+    public String findPassword(String id, String name) {
+        try {
+            return jpaUserRepository.findPasswordByIdAndName(id, name);
+        } catch (Exception e) {
+            return "";
+        }
+
+    }
 }

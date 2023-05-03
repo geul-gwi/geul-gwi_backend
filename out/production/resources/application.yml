@@ -10,7 +10,7 @@ logging:
 
 server:
   session:
-    tracking-modes: cookie  #최초접속 시 url에 jsession안붙게
+    tracking-modes: cookie  #최초접속 시 url에 jsession 안 붙게
 
 spring:
   datasource:
