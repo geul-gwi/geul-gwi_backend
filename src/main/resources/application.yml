@@ -36,3 +36,10 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+
+#sms
+coolsms:
+  geulgwi:
+    apikey: NCSBUA793SSRJFPM
+    apisecret: QCPWDAR3XUM7LOG5DTPSGF1ZBXFMXEKT
+    fromnumber: 010-3968-3587

@@ -3,6 +3,7 @@ package com.posmosalimos.geulgwi.controller;
 
 import com.posmosalimos.geulgwi.entity.Users;
 import com.posmosalimos.geulgwi.form.User.*;
+import com.posmosalimos.geulgwi.service.MessageService;
 import com.posmosalimos.geulgwi.service.UserService;
 import com.posmosalimos.geulgwi.session.SessionConst;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+    private final MessageService messageService;
 
     //회원가입 폼 매핑
     @GetMapping("/users/join")
@@ -145,5 +147,27 @@ public class UserController {
             session.setAttribute("password", password);
             return "users/findPassword";
         }
+    }
+
+    //문자 인증
+    @PostMapping("/users/join/sms")
+    public void smsAuth(@Valid PhoneNumberForm form, BindingResult result, HttpSession session){
+        if (result.hasErrors()){
+            log.info("에러 발생");
+        }
+        session.setAttribute("verifyNumber", String.valueOf((int)(Math.random()*1000)));
+        messageService.sendMessage(form.getPhoneNumber(), String.valueOf(session.getAttribute("verifyNumber")));
+    }
+
+    @PostMapping("/users/join/verify")
+    public void smsVerify(@Valid PhoneVerifyForm form, BindingResult result, HttpSession session){
+        if (result.hasErrors()){
+            log.info("에러 발생");
+        }
+
+        String verifyNumber = String.valueOf(session.getAttribute("verifyNumber"));
+        if (verifyNumber.equals(form.getVerify()))
+            log.info("인증 완료"); //추후 기능 추가
+        else log.info("인증번호 불일치"); //추후 기능 추가
     }
 }
