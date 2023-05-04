@@ -166,8 +166,10 @@ public class UserController {
         }
 
         String verifyNumber = String.valueOf(session.getAttribute("verifyNumber"));
-        if (verifyNumber.equals(form.getVerify()))
+        if (verifyNumber.equals(form.getVerify())) {
             log.info("인증 완료"); //추후 기능 추가
+            session.removeAttribute("verifyNumber");
+        }
         else log.info("인증번호 불일치"); //추후 기능 추가
     }
 }
