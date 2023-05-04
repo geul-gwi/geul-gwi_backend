@@ -143,11 +143,7 @@ public class UserController {
             return "redirect:/";
         } else {
             session.setAttribute("password", password);
-<<<<<<< HEAD
             return "users/findPassword";
-=======
-            return "users/resultPassword";
->>>>>>> 7c24dac8262163deb4de362aa878656dbbe97901
         }
     }
 }
