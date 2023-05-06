@@ -29,7 +29,7 @@ public class UserController {
 
     //회원가입 폼 매핑
     @GetMapping("/users/join")
-    public String joinForm(Model model) {
+    public String joinUserForm(Model model) {
         model.addAttribute("JoinForm", new UserForm());
         return "users/joinForm";
     }
@@ -48,7 +48,7 @@ public class UserController {
 
     //로그인 폼 매핑
     @GetMapping("/users/login")
-    public String loginForm(Model model) {
+    public String loginUserForm(Model model) {
         model.addAttribute("LoginForm", new LoginForm());
         return "users/loginForm";
     }

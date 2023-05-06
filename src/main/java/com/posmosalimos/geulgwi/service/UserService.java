@@ -71,11 +71,11 @@ public class UserService {
     public void withdrawalUser(String userId, String userPassword) {
         Users findUser = findUserByIdAndPassword(userId, userPassword);
 
-        if (findUser != null) {
+        if (findUser != null)
             jpaUserRepository.delete(findUser);
-        } else {
+        else
             throw new NoSuchElementException("해당하는 유저를 찾을 수 없습니다.");
-        }
+
     }
 
     //update
