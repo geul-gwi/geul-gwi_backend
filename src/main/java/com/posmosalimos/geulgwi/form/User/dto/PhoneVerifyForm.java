@@ -1,4 +1,4 @@
-package com.posmosalimos.geulgwi.form.User;
+package com.posmosalimos.geulgwi.form.User.dto;
 
 import lombok.Getter;
 

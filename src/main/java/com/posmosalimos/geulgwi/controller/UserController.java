@@ -3,15 +3,16 @@ package com.posmosalimos.geulgwi.controller;
 
 import com.posmosalimos.geulgwi.entity.Users;
 import com.posmosalimos.geulgwi.form.User.*;
+import com.posmosalimos.geulgwi.form.User.dto.*;
+import com.posmosalimos.geulgwi.service.EmailService;
 import com.posmosalimos.geulgwi.service.MessageService;
 import com.posmosalimos.geulgwi.service.UserService;
 import com.posmosalimos.geulgwi.session.SessionConst;
-import jakarta.servlet.http.HttpServletRequest;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,6 +25,7 @@ public class UserController {
 
     private final UserService userService;
     private final MessageService messageService;
+    private final EmailService emailService;
 
     //회원가입 폼 매핑
     @GetMapping("/users/join")
@@ -171,5 +173,26 @@ public class UserController {
             session.removeAttribute("verifyNumber");
         }
         else log.info("인증번호 불일치"); //추후 기능 추가
+    }
+
+    @PostMapping("/users/join/email")
+    public void sendEmail(@Valid EmailForm form, BindingResult result, HttpSession session) throws MessagingException {
+        if (result.hasErrors())
+            log.info("에러 발생");
+
+        String authNum = emailService.sendEmail(form.getEmail()); //인증 메일 전송 후, 인증번호 리턴
+        session.setAttribute("authNum", authNum); //인증번호 세션에 저장
+    }
+
+    @PostMapping("/users/join/email/auth")
+    public void emailAuth(EmailAuthForm form, BindingResult result, HttpSession session){
+        if (result.hasErrors())
+            log.info("에러 발생");
+
+        String enterNum = form.getAuthNum(); //사용자가 입력한 인증번호
+        String authNum = String.valueOf(session.getAttribute("authNum"));
+        if (enterNum.equals(authNum))
+            log.info("인증 완료"); //작업 필요
+        else log.info("인증번호 불일치"); //작업 필요
     }
 }
