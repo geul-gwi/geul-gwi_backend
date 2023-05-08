@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Entity
 @Getter @Setter
 @NoArgsConstructor
@@ -18,8 +20,5 @@ public class Post {
     private String userId;
     private String postTitle;
     private String postContent;
-    private String regDate;
-    private String userNumber;
-
-
+    private Date regDate;
 }
