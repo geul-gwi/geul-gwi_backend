@@ -23,5 +23,7 @@ public class PostService {
         post.setPostContent(form.getContent());
         post.setRegDate(new Date(System.currentTimeMillis()));
         post.setUserId(user.getUserId());
+
+        postRepository.save(post);
     }
 }
