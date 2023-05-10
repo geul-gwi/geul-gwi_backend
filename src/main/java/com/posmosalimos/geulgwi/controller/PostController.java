@@ -38,3 +38,9 @@ public class PostController {
         return "redirect:/";
     }
 }
+
+//    @PostMapping("/post/write")
+//    public String write(BindingResult result, MultipartFile file) {
+//
+//    }
+
