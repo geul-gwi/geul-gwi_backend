@@ -20,5 +20,6 @@ public class Post {
     private String userId;
     private String postTitle;
     private String postContent;
+    private String file;
     private Date regDate;
 }

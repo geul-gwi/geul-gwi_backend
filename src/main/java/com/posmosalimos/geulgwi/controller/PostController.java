@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequiredArgsConstructor
@@ -38,9 +39,3 @@ public class PostController {
         return "redirect:/";
     }
 }
-
-//    @PostMapping("/post/write")
-//    public String write(BindingResult result, MultipartFile file) {
-//
-//    }
-
