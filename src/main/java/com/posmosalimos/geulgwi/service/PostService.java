@@ -18,11 +18,13 @@ public class PostService {
     private final JpaPostRepository postRepository;
 
     public void write(WriteForm form, Users user){
-        Post post = new Post();
-        post.setPostTitle(form.getTitle());
-        post.setPostContent(form.getContent());
-        post.setRegDate(new Date(System.currentTimeMillis()));
-        post.setUserId(user.getUserId());
+        Post post = new Post(
+                user.getUserId(),
+                form.getTitle(),
+                form.getContent(),
+                form.getFile(),
+                new Date(System.currentTimeMillis()
+        ));
 
         postRepository.save(post);
     }

@@ -7,4 +7,5 @@ public class WriteForm {
 
     String title;
     String content;
+    String file;
 }

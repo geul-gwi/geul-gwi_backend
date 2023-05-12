@@ -26,5 +26,4 @@ public class Users {
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
-
 }
