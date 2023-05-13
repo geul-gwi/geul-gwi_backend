@@ -1,10 +1,12 @@
 package com.posmosalimos.geulgwi.entity;
 
+import com.posmosalimos.geulgwi.form.User.UserForm;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.util.Assert;
 
 @Entity
 @Getter @Setter
@@ -26,4 +28,22 @@ public class Users {
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
+    @Builder
+    public Users(UserForm form){
+
+        Assert.hasText(form.getUserId(), "userId must not be empty");
+        Assert.hasText(form.getUserPassword(), "userPassword must not be empty");
+        Assert.hasText(form.getUserName(), "userName must not be empty");
+
+        this.userId = form.getUserId();
+        this.userPassword = form.getUserPassword();
+        this.userName = form.getUserName();
+        this.userAge = form.getUserAge();
+        this.userGender = form.getUserGender();
+        this.userNickname = form.getUserNickname();
+        this.tag1 = form.getTag1();
+        this.tag2 = form.getTag2();
+        this.tag3 = form.getTag3();
+        this.userProfile = form.getUserProfile();
+    }
 }

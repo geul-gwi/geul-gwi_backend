@@ -38,18 +38,22 @@ public class UserService {
 
     //join
     @Transactional
-    public Long join(@Valid UserForm form) {
-        Users user = new Users();
-        user.setUserId(form.getUserId());
-        user.setUserPassword(form.getUserPassword());
-        user.setUserName(form.getUserName());
-        user.setUserAge(form.getUserAge());
-        user.setUserGender(form.getUserGender());
-        user.setUserNickname(form.getUserNickname());
-        user.setTag1(form.getTag1());
-        user.setTag2(form.getTag2());
-        user.setTag3(form.getTag3());
-        user.setUserProfile(form.getUserProfile());
+    public void join(@Valid UserForm form) {
+//        Users user = new Users();
+//        user.setUserId(form.getUserId());
+//        user.setUserPassword(form.getUserPassword());
+//        user.setUserName(form.getUserName());
+//        user.setUserAge(form.getUserAge());
+//        user.setUserGender(form.getUserGender());
+//        user.setUserNickname(form.getUserNickname());
+//        user.setTag1(form.getTag1());
+//        user.setTag2(form.getTag2());
+//        user.setTag3(form.getTag3());
+//        user.setUserProfile(form.getUserProfile());
+
+        Users user = Users.builder()
+                .form(form)
+                .build();
 
         if(form.getUserId().equals("akxxkd"))
             user.setRole(Role.ADMIN);
@@ -57,8 +61,6 @@ public class UserService {
 
         validateDuplicateUser(user);
         jpaUserRepository.save(user);
-
-        return user.getUserSeq();
     }
 
     //login
