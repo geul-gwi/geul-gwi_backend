@@ -17,7 +17,8 @@ public class PostService {
 
     private final JpaPostRepository postRepository;
 
-    public void write(WriteForm form, Users user){
+    //write
+    public void write(WriteForm form, Users user) {
         Post post = new Post(
                 user.getUserId(),
                 form.getTitle(),
@@ -27,5 +28,11 @@ public class PostService {
         ));
 
         postRepository.save(post);
+    }
+
+    //update
+    public void update(WriteForm form, Users user) {
+        Post post = user.getUserId()
+
     }
 }

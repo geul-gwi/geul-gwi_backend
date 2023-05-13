@@ -4,7 +4,6 @@ import lombok.Data;
 
 @Data
 public class WriteForm {
-
     String title;
     String content;
     String file;

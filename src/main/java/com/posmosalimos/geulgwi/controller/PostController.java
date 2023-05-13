@@ -20,12 +20,14 @@ public class PostController {
 
     private final PostService postService;
 
+    //글 쓰기 폼 매핑
     @GetMapping("/post/write")
-    public String writeUserForm(Model model) {
+    public String writePostForm(Model model) {
         model.addAttribute("writeForm", new WriteForm());
         return "/post/writeForm";
     }
 
+    //글 쓰기
     @PostMapping("/post/write")
     public String write(BindingResult result, WriteForm form, HttpSession session) {
         if (result.hasErrors()) {
@@ -33,9 +35,29 @@ public class PostController {
             return "/post/writeForm";
         }
 
-        Users loginUser = (Users)session.getAttribute("loginUser");
+        Users loginUser = (Users) session.getAttribute("loginUser");
         postService.write(form, loginUser);
 
         return "redirect:/";
     }
+
+    //글 수정 폼 매핑
+    @GetMapping("/post/update")
+    public String UpdatePostForm(Model model) {
+        model.addAttribute("updateForm", new WriteForm());
+        return "/post/updateForm";
+    }
+
+    //글 수정
+    @PostMapping("/post/update")
+    public String update(BindingResult result, WriteForm form, HttpSession session) {
+        if (result.hasErrors()) {
+            log.info("에러 발생");
+            return "/post/updateForm";
+        }
+
+        Users loginUser = (Users) session.getAttribute("loginUser");
+        postService.update(form, loginUser);
+    }
+
 }
