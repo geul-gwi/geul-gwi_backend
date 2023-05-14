@@ -84,13 +84,7 @@ public class UserService {
     @Transactional
     public Long updateUser(Users findUser, UpdateForm form) {
         if (findUser != null && form.getUserPassword_current().equals(findUser.getUserPassword())) {
-            findUser.setUserPassword(form.getUserPassword_new());
-            findUser.setUserName(form.getUserName());
-            findUser.setUserNickname(form.getUserNickname());
-            findUser.setUserProfile(form.getUserProfile());
-            findUser.setTag1(form.getTag1());
-            findUser.setTag2(form.getTag2());
-            findUser.setTag3(form.getTag3());
+            findUser.update(form);
 
             jpaUserRepository.save(findUser);
         }

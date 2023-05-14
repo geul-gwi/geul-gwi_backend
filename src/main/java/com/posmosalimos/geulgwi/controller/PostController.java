@@ -58,6 +58,8 @@ public class PostController {
 
         Users loginUser = (Users) session.getAttribute("loginUser");
         postService.update(form, loginUser);
+
+        return "redirect:/";
     }
 
 }

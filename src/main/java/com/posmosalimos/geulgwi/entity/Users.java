@@ -1,6 +1,7 @@
 package com.posmosalimos.geulgwi.entity;
 
 import com.posmosalimos.geulgwi.form.User.UserForm;
+import com.posmosalimos.geulgwi.form.User.dto.UpdateForm;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -40,6 +41,16 @@ public class Users {
         this.userName = form.getUserName();
         this.userAge = form.getUserAge();
         this.userGender = form.getUserGender();
+        this.userNickname = form.getUserNickname();
+        this.tag1 = form.getTag1();
+        this.tag2 = form.getTag2();
+        this.tag3 = form.getTag3();
+        this.userProfile = form.getUserProfile();
+    }
+
+    public void update(UpdateForm form){
+        this.userPassword = form.getUserPassword_new();
+        this.userName = form.getUserName();
         this.userNickname = form.getUserNickname();
         this.tag1 = form.getTag1();
         this.tag2 = form.getTag2();
