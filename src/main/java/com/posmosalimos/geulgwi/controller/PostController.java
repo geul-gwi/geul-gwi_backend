@@ -41,6 +41,9 @@ public class PostController {
         return "redirect:/";
     }
 
+
+
+
     //글 수정 폼 매핑
     @GetMapping("/post/update")
     public String UpdatePostForm(Model model) {
@@ -57,7 +60,7 @@ public class PostController {
         }
 
         Users loginUser = (Users) session.getAttribute("loginUser");
-        postService.update(form, loginUser);
+//        postService.update(form, loginUser);
 
         return "redirect:/";
     }

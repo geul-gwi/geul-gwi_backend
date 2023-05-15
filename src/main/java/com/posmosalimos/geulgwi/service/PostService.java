@@ -29,4 +29,9 @@ public class PostService {
         postRepository.save(post);
     }
 
+    //update
+//    public void update(WriteForm form, Users user) {
+//        Post post = user.getUserId()
+//
+//    }
 }
