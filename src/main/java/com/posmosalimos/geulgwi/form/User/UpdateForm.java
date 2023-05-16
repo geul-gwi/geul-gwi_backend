@@ -1,4 +1,4 @@
-package com.posmosalimos.geulgwi.form.User.dto;
+package com.posmosalimos.geulgwi.form.User;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;

@@ -1,15 +1,13 @@
 package com.posmosalimos.geulgwi.entity;
 
 import com.posmosalimos.geulgwi.form.User.UserForm;
-import com.posmosalimos.geulgwi.form.User.dto.UpdateForm;
+import com.posmosalimos.geulgwi.form.User.UpdateForm;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.util.Assert;
-
-import java.util.List;
 
 @Entity
 @Getter @Setter
@@ -30,8 +28,6 @@ public class Users {
     private String userProfile;
     @Enumerated(value = EnumType.STRING)
     private Role role;
-    @OneToMany(mappedBy = "postSeq")
-    private List<Post> postList;
 
     @Builder
     public Users(UserForm form){

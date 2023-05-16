@@ -1,4 +1,4 @@
-package com.posmosalimos.geulgwi.form.User.dto;
+package com.posmosalimos.geulgwi.form.User.email;
 
 import jakarta.validation.constraints.Email;
 import lombok.Getter;
