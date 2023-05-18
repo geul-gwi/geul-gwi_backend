@@ -16,6 +16,7 @@ import java.util.Date;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(updatable = false)
     private Long postSeq;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -29,6 +30,13 @@ public class Post {
     @Builder
     public Post(WriteForm form, Users user) {
         this.user = user;
+        this.postTitle = form.getTitle();
+        this.postContent = form.getContent();
+        this.file = form.getFile();
+        this.regDate = new Date(System.currentTimeMillis());
+    }
+
+    public void update(WriteForm form){
         this.postTitle = form.getTitle();
         this.postContent = form.getContent();
         this.file = form.getFile();

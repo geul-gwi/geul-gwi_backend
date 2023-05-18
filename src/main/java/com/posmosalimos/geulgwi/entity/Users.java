@@ -15,6 +15,7 @@ import org.springframework.util.Assert;
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(updatable = false)
     private Long userSeq;
     private String userId;
     private String userPassword;

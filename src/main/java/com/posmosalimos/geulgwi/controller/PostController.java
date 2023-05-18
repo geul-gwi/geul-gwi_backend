@@ -9,8 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
@@ -45,22 +44,21 @@ public class PostController {
 
 
     //글 수정 폼 매핑
-    @GetMapping("/post/update")
-    public String UpdatePostForm(Model model) {
+    @GetMapping("/post/update/{seq}")
+    public String UpdatePostForm(@PathVariable("seq")Long seq, Model model) {
         model.addAttribute("updateForm", new WriteForm());
         return "/post/updateForm";
     }
 
     //글 수정
-    @PostMapping("/post/update")
-    public String update(BindingResult result, WriteForm form, HttpSession session) {
+    @PutMapping("/post/update/{seq}")
+    public String update(@PathVariable("seq")Long seq, BindingResult result, @RequestBody WriteForm form, HttpSession session) {
         if (result.hasErrors()) {
             log.info("에러 발생");
             return "/post/updateForm";
         }
 
-        Users loginUser = (Users) session.getAttribute("loginUser");
-//        postService.update(form, loginUser);
+        postService.update(form, seq);
 
         return "redirect:/";
     }
