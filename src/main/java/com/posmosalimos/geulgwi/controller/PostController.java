@@ -52,7 +52,7 @@ public class PostController {
 
     //글 수정
     @PutMapping("/post/update/{seq}")
-    public String update(@PathVariable("seq")Long seq, BindingResult result, @RequestBody WriteForm form, HttpSession session) {
+    public String update(@PathVariable("seq")Long seq, BindingResult result, @RequestBody WriteForm form) {
         if (result.hasErrors()) {
             log.info("에러 발생");
             return "/post/updateForm";
