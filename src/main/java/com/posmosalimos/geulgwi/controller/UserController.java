@@ -182,7 +182,6 @@ public class UserController {
     public void sendEmail(@Valid EmailForm form, BindingResult result, HttpSession session) throws MessagingException {
         if (result.hasErrors())
             log.info("에러 발생");
-
         String authNum = emailService.sendEmail(form.getEmail()); //인증 메일 전송 후, 인증번호 리턴
         session.setAttribute("authNum", authNum); //인증번호 세션에 저장
     }
