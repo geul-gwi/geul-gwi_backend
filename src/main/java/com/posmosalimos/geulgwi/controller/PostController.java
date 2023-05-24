@@ -12,7 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @Slf4j
 public class PostController {
@@ -28,7 +28,7 @@ public class PostController {
 
     //글 쓰기
     @PostMapping("/post/write")
-    public String write(BindingResult result, WriteForm form, HttpSession session) {
+    public String write(BindingResult result, @RequestBody WriteForm form, HttpSession session) {
         if (result.hasErrors()) {
             log.info("에러 발생");
             return "/post/writeForm";
@@ -39,9 +39,6 @@ public class PostController {
 
         return "redirect:/";
     }
-
-
-
 
     //글 수정 폼 매핑
     @GetMapping("/post/update/{seq}")

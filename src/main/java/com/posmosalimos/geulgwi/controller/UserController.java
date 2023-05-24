@@ -21,7 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @Slf4j
 @RequiredArgsConstructor
 public class UserController {
@@ -39,7 +39,7 @@ public class UserController {
 
     //회원가입 처리
     @PostMapping("/users/join")
-    public String join(@Valid UserForm form, BindingResult result) {
+    public String join(@Valid @RequestBody UserForm form, BindingResult result) {
         if (result.hasErrors()) {
             log.info("join error");
             return "users/joinForm";
@@ -58,7 +58,7 @@ public class UserController {
 
     //로그인 처리
     @PostMapping("/users/login")
-    public String login(@Valid LoginForm form, BindingResult result, HttpSession session) {
+    public String login(@Valid @RequestBody LoginForm form, BindingResult result, HttpSession session) {
         if (result.hasErrors()) {
             log.info("에러 발생");
             return "users/loginForm";
@@ -86,7 +86,7 @@ public class UserController {
 
     //회원 정보 수정
     @PostMapping("/users/update")
-    public String update(@Valid UpdateForm form, BindingResult result, HttpSession session) {
+    public String update(@Valid @RequestBody UpdateForm form, BindingResult result, HttpSession session) {
         if (result.hasErrors()){
             log.info("에러 발생");
             return "users/updateForm";
@@ -106,7 +106,7 @@ public class UserController {
 
     //회원 탈퇴
     @PostMapping("/users/withdrawal")
-    public String withdrawal(@Valid WithdrawalForm form, BindingResult result, HttpSession session) {
+    public String withdrawal(@Valid @RequestBody WithdrawalForm form, BindingResult result, HttpSession session) {
         if (result.hasErrors()) {
             log.info("에러 발생");
             return "users/withdrawalForm";
@@ -138,7 +138,7 @@ public class UserController {
 
     //비밀번호 찾기
     @PostMapping("/users/findPassword")
-    public String findPassword(@Valid FindPasswordForm form, BindingResult result, HttpSession session) {
+    public String findPassword(@Valid @RequestBody FindPasswordForm form, BindingResult result, HttpSession session) {
         if (result.hasErrors()) {
             log.info("에러 발생");
             return "users/findPasswordForm";
@@ -156,7 +156,7 @@ public class UserController {
 
     //문자 인증
     @PostMapping("/users/join/sms")
-    public void smsAuth(@Valid PhoneNumberForm form, BindingResult result, HttpSession session){
+    public void smsAuth(@Valid @RequestBody PhoneNumberForm form, BindingResult result, HttpSession session){
         if (result.hasErrors()){
             log.info("에러 발생");
         }
@@ -165,7 +165,7 @@ public class UserController {
     }
 
     @PostMapping("/users/join/verify")
-    public void smsVerify(@Valid PhoneVerifyForm form, BindingResult result, HttpSession session){
+    public void smsVerify(@Valid @RequestBody PhoneVerifyForm form, BindingResult result, HttpSession session){
         if (result.hasErrors()){
             log.info("에러 발생");
         }
@@ -179,7 +179,7 @@ public class UserController {
     }
 
     @PostMapping("/users/join/email")
-    public void sendEmail(@Valid EmailForm form, BindingResult result, HttpSession session) throws MessagingException {
+    public void sendEmail(@Valid @RequestBody EmailForm form, BindingResult result, HttpSession session) throws MessagingException {
         if (result.hasErrors())
             log.info("에러 발생");
         String authNum = emailService.sendEmail(form.getEmail()); //인증 메일 전송 후, 인증번호 리턴
@@ -187,7 +187,7 @@ public class UserController {
     }
 
     @PostMapping("/users/join/email/auth")
-    public void emailAuth(EmailAuthForm form, BindingResult result, HttpSession session){
+    public void emailAuth(@RequestBody EmailAuthForm form, BindingResult result, HttpSession session){
         if (result.hasErrors())
             log.info("에러 발생");
 
