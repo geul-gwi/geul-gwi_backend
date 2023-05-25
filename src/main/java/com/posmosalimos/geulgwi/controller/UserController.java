@@ -16,6 +16,8 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,14 +41,14 @@ public class UserController {
 
     //회원가입 처리
     @PostMapping("/users/join")
-    public String join(@Valid @RequestBody UserForm form, BindingResult result) {
+    public int join(@Valid @RequestBody UserForm form, BindingResult result) {
         if (result.hasErrors()) {
             log.info("join error");
-            return "users/joinForm";
+//            return "users/joinForm";
         }
         userService.join(form);
         log.info("join success");
-        return "redirect:/";
+        return 1;
     }
 
     //로그인 폼 매핑
@@ -58,10 +60,11 @@ public class UserController {
 
     //로그인 처리
     @PostMapping("/users/login")
-    public String login(@Valid @RequestBody LoginForm form, BindingResult result, HttpSession session) {
+    public int login(@Valid @RequestBody LoginForm form, BindingResult result, HttpSession session) {
         if (result.hasErrors()) {
             log.info("에러 발생");
-            return "users/loginForm";
+//            return "users/loginForm";
+            return 0;
         }
 
         Users loginUser = userService.login(form.getUserId(), form.getUserPassword());
@@ -69,12 +72,14 @@ public class UserController {
         if (loginUser.equals(null)) {
             log.info("해당하는 정보가 없습니다.");
             result.reject("login fail", "일치하는 정보가 없습니다.");
-            return "loginForm";
+//            return "loginForm";
+            return 0;
         }
 
         log.info("login success");
         session.setAttribute("loginUser", loginUser);
-        return "redirect:/";
+//        return "redirect:/";
+        return 1;
     }
 
     //회원 정보 수정 폼 매핑
