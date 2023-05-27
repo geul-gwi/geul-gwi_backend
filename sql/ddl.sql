@@ -54,9 +54,9 @@ CREATE TABLE Comment (
 
 DROP TABLE IF EXISTS ChallengeUser;
 CREATE TABLE ChallengeUser (
-userSeq bigint NOT NULL,
+    userSeq bigint NOT NULL,
     userId varchar(255) NULL,
-    chellengeContent text NULL,
+    challengeContent text NULL,
     adminSeq bigint NOT NULL,
     PRIMARY KEY (userSeq)
 );
