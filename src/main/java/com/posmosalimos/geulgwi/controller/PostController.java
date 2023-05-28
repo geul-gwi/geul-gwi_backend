@@ -27,7 +27,7 @@ public class PostController {
     }
 
     //글 쓰기
-    @PostMapping("/post/write")
+    @PostMapping("/post/write/")
     public String write(BindingResult result, @RequestBody WriteForm form, HttpSession session) {
         if (result.hasErrors()) {
             log.info("에러 발생");

@@ -19,7 +19,7 @@ import java.util.Optional;
 @Slf4j
 public class PostService {
 
-    private final JpaPostRepository postRepository;
+    private final JpaPostRepository jpaPostRepository;
 
     //write
     @Transactional
@@ -30,14 +30,14 @@ public class PostService {
                         .user(user)
                         .build();
 
-        postRepository.save(post);
+        jpaPostRepository.save(post);
     }
 
     //update
     @Transactional
     public void update(WriteForm form, Long seq) {
 
-        Post findPost = postRepository.findById(seq)
+        Post findPost = jpaPostRepository.findById(seq)
                 .orElseThrow(() -> new NullPointerException("해당 게시물이 존재하지 않습니다."));
 
         findPost.update(form);
