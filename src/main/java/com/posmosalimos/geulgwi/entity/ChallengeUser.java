@@ -15,7 +15,7 @@ public class ChallengeUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false)
-    private long challengeUserSeq;
+    private Long challengeUserSeq;
     private String userId;
     private String challengeContent;
     private Date regDate;
@@ -28,5 +28,16 @@ public class ChallengeUser {
         this.userId = user.getUserId();
         this.regDate = new Date(System.currentTimeMillis());
         this.challengeContent = form.getChallengeContent();
+    }
+
+    @Override
+    public String toString() {
+        return "ChallengeUser{" +
+                "challengeUserSeq=" + challengeUserSeq +
+                ", userId='" + userId + '\'' +
+                ", challengeContent='" + challengeContent + '\'' +
+                ", regDate=" + regDate +
+                ", challengeAdmin=" + challengeAdmin +
+                '}';
     }
 }
