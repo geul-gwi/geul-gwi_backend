@@ -6,10 +6,13 @@ import com.posmosalimos.geulgwi.entity.Users;
 import com.posmosalimos.geulgwi.form.Challenge.ChallengeWriteForm;
 import com.posmosalimos.geulgwi.repository.JpaChallengeAdminRepository;
 import com.posmosalimos.geulgwi.repository.JpaChallengeUserRepository;
+import com.posmosalimos.geulgwi.repository.JpaUserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -18,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ChallengeService {
     private final JpaChallengeAdminRepository jpaChallengeAdminRepository;
     private final JpaChallengeUserRepository jpaChallengeUserRepository;
+    private final JpaUserRepository jpaUserRepository;
 
     //write
     @Transactional
@@ -55,4 +59,16 @@ public class ChallengeService {
         findChallengePost.update(form);
     }
 
+    //delete
+    @Transactional
+    public String delete(Long seq, Users users) {
+        Optional<Users> user = jpaUserRepository.findByUserId(users.getUserId());
+
+        if (user != null) {
+            jpaChallengeUserRepository.delete(seq);
+            return "delete success";
+        } else {
+            return "delete fail";
+        }
+    }
 }

@@ -56,8 +56,20 @@ public class ChallengeController {
             log.info("에러 발생");
             return "fail";
         }
-
         challengeService.update(form, seq);
         return "success";
+    }
+
+    //챌린지 글 삭제
+    @PostMapping("/challenge/delete/{seq}")
+    public String delete(@PathVariable Long seq, HttpSession session) {
+        Users user = (Users) session.getAttribute(SessionConst.LOGIN_USER);
+        String result = challengeService.delete(seq, user);
+
+        if (result.equals("delete success"))
+            return "success";
+        else // delete fail
+            return "fail";
+
     }
 }

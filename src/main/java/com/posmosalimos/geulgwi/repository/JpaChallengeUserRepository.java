@@ -11,4 +11,7 @@ public interface JpaChallengeUserRepository extends JpaRepository<ChallengeUser,
 
     @Query("select u from ChallengeUser u where u.challengeUserSeq = :challengeUserSeq")
     Optional<ChallengeUser> findById(@Param("challengeUserSeq") Long seq);
+
+    @Query("delete from ChallengeUser u where u.challengeUserSeq = :challengeUserSeq")
+    void delete(@Param("challengeUserSeq") Long seq);
 }
