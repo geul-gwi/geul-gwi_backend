@@ -46,7 +46,6 @@ public class UserController {
             log.info("join error");
             return "fail";
         }
-        userService.join(form);
         log.info("join success");
         return "success";
     }
