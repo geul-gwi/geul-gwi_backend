@@ -24,10 +24,11 @@ public class ChallengeUser {
     private ChallengeAdmin challengeAdmin;
 
     @Builder
-    public ChallengeUser(ChallengePostForm form, Users user) {
+    public ChallengeUser(ChallengePostForm form, ChallengeAdmin challengeAdmin, Users user) {
         this.userId = user.getUserId();
         this.regDate = new Date(System.currentTimeMillis());
         this.challengeContent = form.getChallengeContent();
+        this.challengeAdmin = challengeAdmin;
     }
 
     @Override
