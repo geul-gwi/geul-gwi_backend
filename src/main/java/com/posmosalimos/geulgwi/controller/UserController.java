@@ -76,7 +76,7 @@ public class UserController {
 
         log.info("login success");
         session.setAttribute("loginUser", loginUser);
-        return "success";
+        return loginUser.getUserNickname();
     }
 
     //회원 정보 수정 폼 매핑

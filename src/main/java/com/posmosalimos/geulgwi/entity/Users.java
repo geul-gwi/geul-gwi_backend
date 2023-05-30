@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.util.Assert;
 
+import java.util.List;
+
 @Entity
 @Getter @Setter
 @NoArgsConstructor
@@ -29,6 +31,8 @@ public class Users {
     private String userProfile;
     @Enumerated(value = EnumType.STRING)
     private Role role;
+    @OneToMany(mappedBy = "user")
+    private List<ChallengeUser> challengePostList;
 
     @Builder
     public Users(UserForm form){

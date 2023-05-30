@@ -61,7 +61,7 @@ public class ChallengeController {
     }
 
     //챌린지 글 삭제
-    @PostMapping("/challenge/delete/{seq}")
+    @DeleteMapping("/challenge/delete/{seq}")
     public String delete(@PathVariable Long seq, HttpSession session) {
         Users user = (Users) session.getAttribute(SessionConst.LOGIN_USER);
         String result = challengeService.delete(seq, user);

@@ -22,6 +22,9 @@ public class ChallengeUser {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "challengeAdminSeq")
     private ChallengeAdmin challengeAdmin;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userSeq")
+    private Users user;
 
     @Builder
     public ChallengeUser(ChallengeWriteForm form, ChallengeAdmin challengeAdmin, Users user) {
