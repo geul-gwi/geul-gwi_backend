@@ -51,7 +51,7 @@ public class ChallengeController {
 
     //챌린지 글 수정
     @PostMapping("/challenge/update/{seq}")
-    public String update(BindingResult result, @PathVariable Long seq, @RequestBody ChallengeWriteForm form) {
+    public String update(@RequestBody ChallengeWriteForm form, @PathVariable Long seq, BindingResult result) {
         if (result.hasErrors()) {
             log.info("에러 발생");
             return "fail";
