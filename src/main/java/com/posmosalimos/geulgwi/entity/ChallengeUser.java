@@ -1,6 +1,6 @@
 package com.posmosalimos.geulgwi.entity;
 
-import com.posmosalimos.geulgwi.form.Challenge.ChallengePostForm;
+import com.posmosalimos.geulgwi.form.Challenge.ChallengeWriteForm;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,11 +24,16 @@ public class ChallengeUser {
     private ChallengeAdmin challengeAdmin;
 
     @Builder
-    public ChallengeUser(ChallengePostForm form, ChallengeAdmin challengeAdmin, Users user) {
+    public ChallengeUser(ChallengeWriteForm form, ChallengeAdmin challengeAdmin, Users user) {
         this.userId = user.getUserId();
         this.regDate = new Date(System.currentTimeMillis());
         this.challengeContent = form.getChallengeContent();
         this.challengeAdmin = challengeAdmin;
+    }
+
+    public void update(ChallengeWriteForm form) {
+        this.challengeContent = form.getChallengeContent();
+        this.regDate = new Date(System.currentTimeMillis());
     }
 
     @Override

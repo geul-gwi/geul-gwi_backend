@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface JpaChallengeAdminRepository extends JpaRepository<ChallengeAdmin, Long> {
     @Query("select c.keyword1, c.keyword2, c.keyword3 from ChallengeAdmin c where c.challengeAdminSeq = :keyword_seq")
-    String findKeyword_seq(@Param("keyword_seq") int keyword_seq);
+    String findKeyword_seq(@Param("keyword_seq") Long keyword_seq);
 }

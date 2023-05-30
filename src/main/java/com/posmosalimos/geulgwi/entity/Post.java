@@ -36,7 +36,7 @@ public class Post {
         this.regDate = new Date(System.currentTimeMillis());
     }
 
-    public void update(WriteForm form){
+    public void update(WriteForm form) {
         this.postTitle = form.getTitle();
         this.postContent = form.getContent();
         this.file = form.getFile();

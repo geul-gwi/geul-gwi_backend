@@ -42,13 +42,13 @@ public class PostController {
 
     //글 수정 폼 매핑
     @GetMapping("/post/update/{seq}")
-    public String UpdatePostForm(@PathVariable("seq")Long seq, Model model) {
+    public String UpdatePostForm(@PathVariable("seq") Long seq, Model model) {
         model.addAttribute("updateForm", new WriteForm());
         return "/post/updateForm";
     }
 
     //글 수정
-    public String update(@PathVariable("seq")Long seq, BindingResult result, @RequestBody WriteForm form) {
+    public String update(@PathVariable("seq") Long seq, BindingResult result, @RequestBody WriteForm form) {
         if (result.hasErrors()) {
             log.info("에러 발생");
             return "/post/updateForm";

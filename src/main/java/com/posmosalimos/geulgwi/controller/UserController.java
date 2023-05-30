@@ -41,14 +41,14 @@ public class UserController {
 
     //회원가입 처리
     @PostMapping("/users/join")
-    public int join(@Valid @RequestBody UserForm form, BindingResult result) {
+    public String join(@Valid @RequestBody UserForm form, BindingResult result) {
         if (result.hasErrors()) {
             log.info("join error");
-//            return "users/joinForm";
+            return "fail";
         }
         userService.join(form);
         log.info("join success");
-        return 1;
+        return "success";
     }
 
     //로그인 폼 매핑
@@ -60,11 +60,10 @@ public class UserController {
 
     //로그인 처리
     @PostMapping("/users/login")
-    public int login(@Valid @RequestBody LoginForm form, BindingResult result, HttpSession session) {
+    public String login(@Valid @RequestBody LoginForm form, BindingResult result, HttpSession session) {
         if (result.hasErrors()) {
             log.info("에러 발생");
-//            return "users/loginForm";
-            return 0;
+            return "fail";
         }
 
         Users loginUser = userService.login(form.getUserId(), form.getUserPassword());
@@ -72,14 +71,12 @@ public class UserController {
         if (loginUser.equals(null)) {
             log.info("해당하는 정보가 없습니다.");
             result.reject("login fail", "일치하는 정보가 없습니다.");
-//            return "loginForm";
-            return 0;
+            return "fail";
         }
 
         log.info("login success");
         session.setAttribute("loginUser", loginUser);
-//        return "redirect:/";
-        return 1;
+        return "success";
     }
 
     //회원 정보 수정 폼 매핑
@@ -94,12 +91,12 @@ public class UserController {
     public String update(@Valid @RequestBody UpdateForm form, BindingResult result, HttpSession session) {
         if (result.hasErrors()){
             log.info("에러 발생");
-            return "users/updateForm";
+            return "fail";
         }
         Users loginUser = (Users) session.getAttribute(SessionConst.LOGIN_USER);
         userService.updateUser(loginUser, form);
         log.info("update user info");
-        return "redirect:/";
+        return "success";
     }
 
     //회원 탈퇴 폼 매핑
@@ -114,7 +111,7 @@ public class UserController {
     public String withdrawal(@Valid @RequestBody WithdrawalForm form, BindingResult result, HttpSession session) {
         if (result.hasErrors()) {
             log.info("에러 발생");
-            return "users/withdrawalForm";
+            return "fail";
         }
 
         Users user = (Users) session.getAttribute(SessionConst.LOGIN_USER);
@@ -122,8 +119,8 @@ public class UserController {
             userService.withdrawalUser(user.getUserId(), user.getUserPassword());
             log.info("withdrawal user");
             session.removeAttribute(SessionConst.LOGIN_USER);
-            return "redirect:/";
-        } else return "users/withdrawalForm";
+            return "success";
+        } else return "fail";
     }
 
     //로그아웃
@@ -131,7 +128,7 @@ public class UserController {
     public String logout(HttpSession session){
         session.removeAttribute(SessionConst.LOGIN_USER);
 
-        return "redirect:/";
+        return "success";
     }
 
     //비밀번호 찾기 폼 매핑
@@ -146,16 +143,16 @@ public class UserController {
     public String findPassword(@Valid @RequestBody FindPasswordForm form, BindingResult result, HttpSession session) {
         if (result.hasErrors()) {
             log.info("에러 발생");
-            return "users/findPasswordForm";
+            return "fail";
         }
 
         String password = userService.findPassword(form.getUserId(), form.getUserName());
         if (password.equals("")) {
             log.info("일치하는 회원이 없습니다.");
-            return "redirect:/";
+            return "success";
         } else {
             session.setAttribute("password", password);
-            return "users/findPassword";
+            return "fail";
         }
     }
 

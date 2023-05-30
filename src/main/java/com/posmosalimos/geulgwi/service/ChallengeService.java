@@ -3,7 +3,7 @@ package com.posmosalimos.geulgwi.service;
 import com.posmosalimos.geulgwi.entity.ChallengeAdmin;
 import com.posmosalimos.geulgwi.entity.ChallengeUser;
 import com.posmosalimos.geulgwi.entity.Users;
-import com.posmosalimos.geulgwi.form.Challenge.ChallengePostForm;
+import com.posmosalimos.geulgwi.form.Challenge.ChallengeWriteForm;
 import com.posmosalimos.geulgwi.repository.JpaChallengeAdminRepository;
 import com.posmosalimos.geulgwi.repository.JpaChallengeUserRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +19,9 @@ public class ChallengeService {
     private final JpaChallengeAdminRepository jpaChallengeAdminRepository;
     private final JpaChallengeUserRepository jpaChallengeUserRepository;
 
+    //write
     @Transactional
-    public String write(ChallengePostForm form, Users user) {
+    public String write(ChallengeWriteForm form, Users user) {
         String[] keywords = jpaChallengeAdminRepository.findKeyword_seq(form.getKeyword_seq()).split(",");
 
         ChallengeAdmin challengeAdmin = ChallengeAdmin.builder()
@@ -28,13 +29,11 @@ public class ChallengeService {
                 .keyword_seq(form.getKeyword_seq())
                 .build();
 
-
         ChallengeUser challengeUser = ChallengeUser.builder()
                 .form(form)
                 .user(user)
                 .challengeAdmin(challengeAdmin)
                 .build();
-
 
         for (String str : keywords) {
             if (!(form.getChallengeContent().contains(str))) {
@@ -47,5 +46,13 @@ public class ChallengeService {
         return "upload success";
     }
 
+    //update
+    @Transactional
+    public void update(ChallengeWriteForm form, Long seq) {
+        ChallengeUser findChallengePost = jpaChallengeUserRepository.findById(seq)
+                .orElseThrow(() -> new NullPointerException("해당 게시물이 존재하지 않습니다."));
+
+        findChallengePost.update(form);
+    }
 
 }
