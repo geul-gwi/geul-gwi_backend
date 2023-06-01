@@ -21,11 +21,12 @@ public class UserService {
     private final JpaUserRepository jpaUserRepository;
 
 
-    //validateDuplicateUser
+    //validateDuplicateUser -
     private void validateDuplicateUser(Users user) {
-        Optional<Users> findUsers = jpaUserRepository.findByUserId(user.getUserId());
+        Optional<Users> findUserById = jpaUserRepository.findByUserId(user.getUserId());
+        Optional<Users> findUserByNickname = jpaUserRepository.findByUserNickname(user.getUserNickname());
 
-        if (!findUsers.isEmpty())
+        if (!findUserById.isEmpty() || !findUserByNickname.isEmpty())
             throw new IllegalStateException("이미 존재하는 회원입니다.");
     }
 
