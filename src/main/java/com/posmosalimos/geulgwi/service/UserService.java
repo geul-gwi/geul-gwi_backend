@@ -20,17 +20,31 @@ public class UserService {
 
     private final JpaUserRepository jpaUserRepository;
 
+    //validateDuplicateUserId
+    public String validateDuplicateUserId(String id) {
+        Optional<Users> findUserById = jpaUserRepository.findByUserId(id);
 
-    //validateDuplicateUser -
-    private void validateDuplicateUser(Users user) {
-        Optional<Users> findUserById = jpaUserRepository.findByUserId(user.getUserId());
-        Optional<Users> findUserByNickname = jpaUserRepository.findByUserNickname(user.getUserNickname());
+        if (!findUserById.isEmpty()) {
+//            throw new IllegalStateException("중복된 아이디입니다.");
+            return "fail";
+        }
 
-        if (!findUserById.isEmpty() || !findUserByNickname.isEmpty())
-            throw new IllegalStateException("이미 존재하는 회원입니다.");
+        return "success";
     }
 
-    public Users  findUserByIdAndPassword(String userId, String userPassword){
+    //validateDuplicateUserNickname
+    public String validateDuplicateUserNickname(String nickname) {
+        Optional<Users> findUserByNickname = jpaUserRepository.findByUserNickname(nickname);
+
+        if (!findUserByNickname.isEmpty()) {
+//            throw new IllegalStateException("중복된 닉네임입니다");
+            return "fail";
+        }
+
+        return "success";
+    }
+
+    public Users findUserByIdAndPassword(String userId, String userPassword){
         return jpaUserRepository.findByUserId(userId).stream()
                 .filter(u -> u.getUserPassword().equals(userPassword))
                 .findAny()
@@ -49,7 +63,6 @@ public class UserService {
             user.setRole(Role.ADMIN);
         else user.setRole(Role.USER);
 
-        validateDuplicateUser(user);
         jpaUserRepository.save(user);
     }
 
