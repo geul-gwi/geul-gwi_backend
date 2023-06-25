@@ -224,6 +224,7 @@ public class UserController {
 
         String enterNum = form.getAuthNum(); //사용자가 입력한 인증번호
         String authNum = String.valueOf(session.getAttribute("authNum"));
+
         if (enterNum.equals(authNum))
             log.info("인증 완료"); //작업 필요
         else log.info("인증번호 불일치"); //작업 필요

@@ -18,8 +18,9 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(HttpServletRequest request, Model model) {
-        HttpSession session = request.getSession(false);
         //GetMapping 한 직후 세션 값을 불러오는 것을 막음 -> User 정보 보호
+        HttpSession session = request.getSession(false);
+
         if (session == null) {
             log.info("Home Page(none login)");
             return "index";
