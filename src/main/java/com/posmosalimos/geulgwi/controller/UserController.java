@@ -39,36 +39,6 @@ public class UserController {
         return "users/joinForm";
     }
 
-    //회원가입 - 아이디 중복 확인
-    @PostMapping("/users/validateDuplicateId")
-    public String validateDuplicateId(@Valid String userId, BindingResult result) {
-        if (result.hasErrors()) {
-            log.info("validateDuplicateId error");
-            return "fail";
-        }
-
-        String validateDuplicateId = userService.validateDuplicateUserId(userId);
-        if (validateDuplicateId.equals("success"))
-            return "success";
-        else
-            return "fail";
-    }
-
-    //회원가입 - 닉네임 중복 확인
-    @PostMapping("/users/validateDuplicateNickname")
-    public String validateDuplicateNickname(@Valid String userNickname, BindingResult result) {
-        if (result.hasErrors()) {
-            log.info("validateDuplicateNickname error");
-            return "fail";
-        }
-
-        String validateDuplicateNickname = userService.validateDuplicateUserNickname(userNickname);
-        if (validateDuplicateNickname.equals("success"))
-            return "success";
-        else
-            return "fail";
-    }
-
     //회원가입 처리
     @PostMapping("/users/join")
     public String join(@Valid @RequestBody UserForm form, BindingResult result) {
@@ -76,8 +46,10 @@ public class UserController {
             log.info("join error");
             return "fail";
         }
+        userService.join(form);
         log.info("join success");
         return "success";
+
     }
 
     //로그인 폼 매핑

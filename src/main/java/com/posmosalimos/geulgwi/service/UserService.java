@@ -21,27 +21,21 @@ public class UserService {
     private final JpaUserRepository jpaUserRepository;
 
     //validateDuplicateUserId
-    public String validateDuplicateUserId(String id) {
+    public void validateDuplicateUserId(String id) {
         Optional<Users> findUserById = jpaUserRepository.findByUserId(id);
 
-        if (!findUserById.isEmpty()) {
-//            throw new IllegalStateException("중복된 아이디입니다.");
-            return "fail";
-        }
+        if (!findUserById.isEmpty())
+            throw new IllegalStateException("중복된 아이디입니다.");
 
-        return "success";
     }
 
     //validateDuplicateUserNickname
-    public String validateDuplicateUserNickname(String nickname) {
+    public void validateDuplicateUserNickname(String nickname) {
         Optional<Users> findUserByNickname = jpaUserRepository.findByUserNickname(nickname);
 
         if (!findUserByNickname.isEmpty()) {
-//            throw new IllegalStateException("중복된 닉네임입니다");
-            return "fail";
+            throw new IllegalStateException("중복된 닉네임입니다");
         }
-
-        return "success";
     }
 
     public Users findUserByIdAndPassword(String userId, String userPassword){
@@ -53,17 +47,20 @@ public class UserService {
 
     //join
     @Transactional
-    public void join(@Valid UserForm form) {
+    public String join(@Valid UserForm form) {
 
         Users user = Users.builder()
                 .form(form)
                 .build();
 
+        validateDuplicateUserId(user.getUserId());
+        validateDuplicateUserNickname(user.getUserNickname());
         if(form.getUserId().equals("akxxkd"))
             user.setRole(Role.ADMIN);
         else user.setRole(Role.USER);
 
         jpaUserRepository.save(user);
+        return "success";
     }
 
     //login
