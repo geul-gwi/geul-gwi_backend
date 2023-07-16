@@ -3,9 +3,12 @@ package com.posmosalimos.geulgwi.controller;
 import com.posmosalimos.geulgwi.entity.Users;
 import com.posmosalimos.geulgwi.form.Post.WriteForm;
 import com.posmosalimos.geulgwi.service.PostService;
+import com.posmosalimos.geulgwi.session.SessionConst;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,44 +22,19 @@ public class PostController {
 
     private final PostService postService;
 
-    //글 쓰기 폼 매핑
-    @GetMapping("/post/write")
-    public String writePostForm(Model model) {
-        model.addAttribute("writeForm", new WriteForm());
-        return "/post/writeForm";
-    }
-
     //글 쓰기
-    @PostMapping("/post/write/")
-    public String write(BindingResult result, @RequestBody WriteForm form, HttpSession session) {
-        if (result.hasErrors()) {
-            log.info("에러 발생");
-            return "/post/writeForm";
-        }
-
-        Users loginUser = (Users) session.getAttribute("loginUser");
+    @PostMapping("/post/write")
+    public ResponseEntity<String> write(@Valid @RequestBody WriteForm form, HttpSession session) {
+        Users loginUser = (Users) session.getAttribute(SessionConst.LOGIN_USER);
         postService.write(form, loginUser);
 
-        return "redirect:/";
-    }
-
-    //글 수정 폼 매핑
-    @GetMapping("/post/update/{seq}")
-    public String UpdatePostForm(@PathVariable("seq") Long seq, Model model) {
-        model.addAttribute("updateForm", new WriteForm());
-        return "/post/updateForm";
+        return ResponseEntity.ok("success");
     }
 
     //글 수정
-    public String update(@PathVariable("seq") Long seq, BindingResult result, @RequestBody WriteForm form) {
-        if (result.hasErrors()) {
-            log.info("에러 발생");
-            return "/post/updateForm";
-        }
-
+    public ResponseEntity<String> update(@PathVariable("seq") Long seq, @RequestBody WriteForm form) {
         postService.update(form, seq);
-
-        return "redirect:/";
+        return ResponseEntity.ok("success");
     }
 
 }
