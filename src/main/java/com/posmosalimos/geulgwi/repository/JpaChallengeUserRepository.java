@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface JpaChallengeUserRepository extends JpaRepository<ChallengeUser, Long> {
 
     @Query("select u from ChallengeUser u where u.challengeUserSeq = :challengeUserSeq")
-    Optional<ChallengeUser> findById(@Param("challengeUserSeq") Long seq);
+    Optional<ChallengeUser> findBySeq(@Param("challengeUserSeq") Long seq);
 
     @Modifying
     @Query("delete from ChallengeUser u where u.challengeUserSeq = :challengeUserSeq")

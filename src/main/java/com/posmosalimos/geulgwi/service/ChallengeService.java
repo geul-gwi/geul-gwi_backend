@@ -71,4 +71,14 @@ public class ChallengeService {
             return "delete fail";
         }
     }
+
+    //findBySeq
+    public ChallengeUser findBySeq(Long seq) {
+        ChallengeUser challenge = jpaChallengeUserRepository.findBySeq(seq)
+                .orElseThrow(() -> new NullPointerException("에러 발생"));
+
+//        challenge.getChallengeAdmin(); // 프록시 초기화
+
+        return challenge;
+    }
 }

@@ -40,5 +40,4 @@ public class HomeController {
         log.info("Home Page(login)");
         return "loginIndex";
     }
-
 }

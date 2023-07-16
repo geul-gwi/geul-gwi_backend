@@ -1,5 +1,6 @@
 package com.posmosalimos.geulgwi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,6 +19,8 @@ public class ChallengeAdmin {
     private String keyword1;
     private String keyword2;
     private String keyword3;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "challengeAdmin")
     private List<ChallengeUser> challengeUsers;
 
