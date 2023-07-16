@@ -22,7 +22,7 @@ public class ChallengeController {
 
     //챌린지 글 쓰기
     @PostMapping("/challenge/write")
-    public ResponseEntity<String> write(@Valid @RequestBody ChallengeWriteForm form, BindingResult result, HttpSession session) {
+    public ResponseEntity<String> write(@Valid @RequestBody ChallengeWriteForm form, HttpSession session) {
         Users loginUser = (Users) session.getAttribute(SessionConst.LOGIN_USER);
         String res = challengeService.write(form, loginUser);
 
@@ -46,11 +46,19 @@ public class ChallengeController {
     //챌린지 글 조회
     @GetMapping("/challenge/view/{seq}")
     public ResponseEntity<ChallengeUser> view(@PathVariable("seq") Long seq, HttpSession session) {
-        Users user = (Users) session.getAttribute("loginUser");
+        Users user = (Users) session.getAttribute(SessionConst.LOGIN_USER);
         String userId = user.getUserId();
         ChallengeUser challenge = challengeService.findBySeq(seq);
         challenge.getChallengeAdmin().getKeyword1(); // 프록시 초기화
         session.setAttribute("loginUser", userId); // 추후 코드 수정
         return ResponseEntity.ok(challenge);
+    }
+
+    //챌린지 글 삭제
+    @DeleteMapping("challenge/delete/{seq}")
+    public ResponseEntity<String> delete(@PathVariable("seq") Long seq, HttpSession session) {
+        Users user = (Users) session.getAttribute(SessionConst.LOGIN_USER);
+        challengeService.delete(seq, user);
+        return ResponseEntity.ok("success");
     }
 }

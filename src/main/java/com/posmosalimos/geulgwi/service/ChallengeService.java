@@ -64,12 +64,11 @@ public class ChallengeService {
     public String delete(Long seq, Users users) {
         Optional<Users> user = jpaUserRepository.findByUserId(users.getUserId());
 
-        if (!user.isEmpty()) {
-            jpaChallengeUserRepository.delete(seq);
-            return "delete success";
-        } else {
-            return "delete fail";
-        }
+        if (user.isEmpty())
+            throw new NullPointerException("delete fail");
+
+        jpaChallengeUserRepository.delete(seq);
+        return "success";
     }
 
     //findBySeq
