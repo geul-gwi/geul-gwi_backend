@@ -77,10 +77,10 @@ public class UserController {
 
     //로그아웃
     @PostMapping("/users/logout")
-    public String logout(HttpSession session){
+    public ResponseEntity<String> logout(HttpSession session){
         session.removeAttribute(SessionConst.LOGIN_USER);
 
-        return "success";
+        return ResponseEntity.ok("success");
     }
 
     //비밀번호 찾기

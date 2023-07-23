@@ -4,6 +4,8 @@ import com.posmosalimos.geulgwi.entity.Role;
 import com.posmosalimos.geulgwi.entity.Users;
 import com.posmosalimos.geulgwi.form.User.UpdateForm;
 import com.posmosalimos.geulgwi.form.User.UserForm;
+import com.posmosalimos.geulgwi.global.error.ErrorCode;
+import com.posmosalimos.geulgwi.global.error.exception.BusinessException;
 import com.posmosalimos.geulgwi.repository.JpaUserRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +36,7 @@ public class UserService {
         Optional<Users> findUserByNickname = jpaUserRepository.findByUserNickname(nickname);
 
         if (!findUserByNickname.isEmpty()) {
-            throw new IllegalStateException("중복된 닉네임입니다");
+            throw new BusinessException(ErrorCode.ALREADY_REGISTERED_MEMBER);
         }
     }
 
