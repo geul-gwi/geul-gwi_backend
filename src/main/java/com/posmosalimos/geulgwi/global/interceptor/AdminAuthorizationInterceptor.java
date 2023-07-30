@@ -1,6 +1,6 @@
 package com.posmosalimos.geulgwi.global.interceptor;
 
-import com.posmosalimos.geulgwi.entity.Role;
+import com.posmosalimos.geulgwi.domain.user.constant.Role;
 import com.posmosalimos.geulgwi.global.error.ErrorCode;
 import com.posmosalimos.geulgwi.global.error.exception.AuthenticationException;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;

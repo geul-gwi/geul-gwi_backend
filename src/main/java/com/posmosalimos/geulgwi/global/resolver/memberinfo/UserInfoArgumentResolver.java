@@ -1,6 +1,6 @@
 package com.posmosalimos.geulgwi.global.resolver.memberinfo;
 
-import com.posmosalimos.geulgwi.entity.Role;
+import com.posmosalimos.geulgwi.domain.user.constant.Role;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,11 +33,11 @@ public class UserInfoArgumentResolver implements HandlerMethodArgumentResolver {
         String token = authorizationHeader.split(" ")[1];
 
         Claims tokenClaims = tokenManager.getTokenClaims(token);
-        Long id = Long.valueOf((Integer) tokenClaims.get("id"));
+        Long seq = Long.valueOf((Integer) tokenClaims.get("seq"));
         String role = (String) tokenClaims.get("role");
 
         return UserInfoDto.builder()
-                .id(id)
+                .userSeq(seq)
                 .role(Role.from(role))
                 .build();
     }

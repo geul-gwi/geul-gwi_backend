@@ -22,14 +22,10 @@ public enum ErrorCode {
 
     // 회원
     INVALID_MEMBER_TYPE(HttpStatus.BAD_REQUEST, "M-001", "잘못된 회원 타입입니다. (memberType : KAKAO)"),
-    ALREADY_REGISTERED_MEMBER(HttpStatus.BAD_REQUEST, "M-002", "이미 가입된 회원입니다."),
-    MEMBER_NOT_EXISTS(HttpStatus.BAD_REQUEST, "M-003", "해당 회원은 존재하지 않습니다."),
-
-    // 스케쥴
-    NOT_FOUND_CALENDER(HttpStatus.NOT_FOUND, "S-001", "스케쥴이 존재하지 않습니다."),
-
-    // 오피스
-    NOT_FOUND_OFFICE(HttpStatus.NOT_FOUND, "O-001","오피스가 존재하지 않습니다.")
+    ALREADY_REGISTERED_MEMBER(HttpStatus.BAD_REQUEST,  "M-002", "이미 가입된 회원입니다."),
+    DUPLICATED_NICKNAME(HttpStatus.BAD_REQUEST, "M-003", "중복된 닉네임입니다."),
+    MEMBER_NOT_EXISTS(HttpStatus.BAD_REQUEST, "M-004", "해당 회원은 존재하지 않습니다."),
+    INVALID_PASSWORD(HttpStatus.BAD_REQUEST, "M-005", "비밀번호가 일치하지 않습니다."),
     ;
 
     ErrorCode(HttpStatus httpStatus, String errorCode, String message) {

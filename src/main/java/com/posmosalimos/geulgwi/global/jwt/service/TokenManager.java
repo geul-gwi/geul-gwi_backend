@@ -1,6 +1,6 @@
 package com.posmosalimos.geulgwi.global.jwt.service;
 
-import com.posmosalimos.geulgwi.entity.Role;
+import com.posmosalimos.geulgwi.domain.user.constant.Role;
 import com.posmosalimos.geulgwi.global.error.ErrorCode;
 import com.posmosalimos.geulgwi.global.error.exception.AuthenticationException;
 import com.posmosalimos.geulgwi.global.jwt.constant.GrantType;
@@ -24,12 +24,12 @@ public class TokenManager {
     private final String refreshTokenExpirationTime;
     private final String tokenSecret;
 
-    public JwtTokenDto createJwtTokenDto(Long id, Role role){
+    public JwtTokenDto createJwtTokenDto(Long seq, Role role){
         Date accessTokenExpireTime = createAccessTokenExpireTime();
         Date refreshTokenExpireTime = createRefreshTokenExpireTime();
 
-        String accessToken = createAccessToken(id, role, accessTokenExpireTime);
-        String refreshToken = createRefreshToken(id, refreshTokenExpireTime);
+        String accessToken = createAccessToken(seq, role, accessTokenExpireTime);
+        String refreshToken = createRefreshToken(seq, refreshTokenExpireTime);
 
         return JwtTokenDto.builder()
                 .grantType(GrantType.BEARER.getType())
@@ -50,12 +50,12 @@ public class TokenManager {
         return new Date(System.currentTimeMillis() + Long.parseLong(refreshTokenExpirationTime));
     }
 
-    public String createAccessToken(Long id, Role role, Date expirationTime){
+    public String createAccessToken(Long seq, Role role, Date expirationTime){
         String accessToken = Jwts.builder()
                 .setSubject(TokenType.ACCESS.name())                // token의 제목
                 .setIssuedAt(new Date(System.currentTimeMillis()))  // token이 생성된 시간 (현재 시간)
                 .setExpiration(expirationTime)                      // 만료 시간
-                .claim("id", id)                              // 회원 id
+                .claim("seq", seq)                              // 회원 id
                 .claim("role", role)                          // 사용자 역할
                 .signWith(SignatureAlgorithm.HS512, tokenSecret.getBytes(StandardCharsets.UTF_8))
                 .setHeaderParam("type", "JWT")
@@ -64,12 +64,12 @@ public class TokenManager {
         return accessToken;
     }
 
-    public String createRefreshToken(Long id, Date expirationTime){
+    public String createRefreshToken(Long seq, Date expirationTime){
         String refreshToken = Jwts.builder()
                 .setSubject(TokenType.REFRESH.name())
                 .setIssuedAt(new Date())
                 .setExpiration(expirationTime)
-                .claim("id", id)
+                .claim("seq", seq)
                 .signWith(SignatureAlgorithm.HS512, tokenSecret.getBytes(StandardCharsets.UTF_8))
                 .setHeaderParam("type", "JWT")
                 .compact();
