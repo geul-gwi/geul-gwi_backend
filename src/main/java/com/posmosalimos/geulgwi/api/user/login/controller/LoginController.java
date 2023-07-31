@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
 
     private final LoginService loginService;
-    private final UserService userService;
 
     @PostMapping("/login")
     public ResponseEntity<LoginDTO.Response> login(@RequestBody LoginDTO.Request requestDTO) {
