@@ -1,5 +1,6 @@
 package com.posmosalimos.geulgwi.domain.user.entity;
 
+import com.posmosalimos.geulgwi.domain.challenge.entity.ChallengeUser;
 import com.posmosalimos.geulgwi.domain.user.constant.Role;
 import com.posmosalimos.geulgwi.global.jwt.dto.JwtTokenDto;
 import com.posmosalimos.geulgwi.global.util.DateTimeUtils;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter @Setter
@@ -41,8 +43,8 @@ public class User {
     private String refreshToken;
     private LocalDateTime tokenExpirationTime;
 
-//    @OneToMany(mappedBy = "user")
-//    private List<ChallengeUser> challengePostList;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<ChallengeUser> challengePostList;
 
     @Builder //join
     public User(String userId, String password,

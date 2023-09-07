@@ -1,10 +1,11 @@
-package com.posmosalimos.geulgwi.api.challenge.post.service;
+package com.posmosalimos.geulgwi.api.challenge.register.service;
 
-import com.posmosalimos.geulgwi.api.challenge.post.dto.ChallengeRegDTO;
+import com.posmosalimos.geulgwi.api.challenge.register.dto.ChallengeRegDTO;
 import com.posmosalimos.geulgwi.domain.challenge.entity.ChallengeAdmin;
 import com.posmosalimos.geulgwi.domain.challenge.entity.ChallengeUser;
 import com.posmosalimos.geulgwi.domain.challenge.repository.ChallengeAdminRepository;
 import com.posmosalimos.geulgwi.domain.challenge.repository.ChallengeUserRepository;
+import com.posmosalimos.geulgwi.domain.challenge.service.ChallengeService;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.global.error.ErrorCode;
 import com.posmosalimos.geulgwi.global.error.exception.AuthenticationException;
@@ -21,9 +22,10 @@ public class ChallengeRegService {
 
     private final ChallengeAdminRepository challengeAdminRepository;
     private final ChallengeUserRepository challengeUserRepository;
+    private final ChallengeService challengeService;
 
     @Transactional
-    public void write(ChallengeRegDTO challengeRegDTO, User user) {
+    public void register(ChallengeRegDTO challengeRegDTO, User user) {
         String[] keywords = challengeAdminRepository.findKeyword_seq(challengeRegDTO.getKeywordSeq()).split(",");
 
         ChallengeAdmin challengeAdmin = ChallengeAdmin.builder()
@@ -34,7 +36,7 @@ public class ChallengeRegService {
         ChallengeUser challengeUser = ChallengeUser.builder()
                 .challengeRegDTO(challengeRegDTO)
                 .user(user)
-                .challengeAdmin(challengeAdmin)
+                .challengeAdminSeq(challengeAdmin)
                 .build();
 
         for (String str : keywords) {
@@ -44,6 +46,6 @@ public class ChallengeRegService {
             }
         }
 
-        challengeUserRepository.save(challengeUser);
+        challengeService.register(challengeUser);
     }
 }

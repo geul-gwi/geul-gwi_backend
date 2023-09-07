@@ -1,4 +1,4 @@
-package com.posmosalimos.geulgwi.api.challenge.post.dto;
+package com.posmosalimos.geulgwi.api.challenge.register.dto;
 
 
 import lombok.Data;

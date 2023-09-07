@@ -1,7 +1,7 @@
-package com.posmosalimos.geulgwi.api.challenge.post.controller;
+package com.posmosalimos.geulgwi.api.challenge.register.controller;
 
-import com.posmosalimos.geulgwi.api.challenge.post.dto.ChallengeRegDTO;
-import com.posmosalimos.geulgwi.api.challenge.post.service.ChallengeRegService;
+import com.posmosalimos.geulgwi.api.challenge.register.dto.ChallengeRegDTO;
+import com.posmosalimos.geulgwi.api.challenge.register.service.ChallengeRegService;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.domain.user.service.UserService;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
@@ -33,7 +33,7 @@ public class ChallengeRegController {
         tokenManager.validateToken(accessToken);
         User findUser = userService.findBySeq(userSeq);
 
-        challengeRegService.write(challengeRegDTO, findUser);
+        challengeRegService.register(challengeRegDTO, findUser);
 
         return ResponseEntity.ok(true);
     }

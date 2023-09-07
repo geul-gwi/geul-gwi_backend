@@ -1,6 +1,6 @@
 package com.posmosalimos.geulgwi.domain.challenge.entity;
 
-import com.posmosalimos.geulgwi.api.challenge.post.dto.ChallengeRegDTO;
+import com.posmosalimos.geulgwi.api.challenge.register.dto.ChallengeRegDTO;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -21,18 +21,18 @@ public class ChallengeUser {
     private String challengeContent;
     private Date regDate;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "challengeAdminSeq")
-    private ChallengeAdmin challengeAdmin;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userSeq")
+    private ChallengeAdmin challengeAdminSeq;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name="userSeq")
     private User user;
 
     @Builder
-    public ChallengeUser(ChallengeRegDTO challengeRegDTO, ChallengeAdmin challengeAdmin, User user) {
+    public ChallengeUser(ChallengeRegDTO challengeRegDTO, ChallengeAdmin challengeAdminSeq, User user) {
         this.userId = user.getUserId();
         this.regDate = new Date(System.currentTimeMillis());
         this.challengeContent = challengeRegDTO.getChallengeContent();
-        this.challengeAdmin = challengeAdmin;
+        this.challengeAdminSeq = challengeAdminSeq;
+        this.user = user;
     }
 
     public void update(ChallengeRegDTO challengeRegDTO) {
@@ -47,7 +47,7 @@ public class ChallengeUser {
                 ", userId='" + userId + '\'' +
                 ", challengeContent='" + challengeContent + '\'' +
                 ", regDate=" + regDate +
-                ", challengeAdmin=" + challengeAdmin +
+                ", challengeAdmin=" + challengeAdminSeq +
                 '}';
     }
 }
