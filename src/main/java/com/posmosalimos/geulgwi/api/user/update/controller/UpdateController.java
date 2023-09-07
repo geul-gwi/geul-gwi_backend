@@ -23,7 +23,7 @@ public class UpdateController {
     private final TokenManager tokenManager;
 
     @PostMapping("/update")
-    public ResponseEntity<String> updateUser(@RequestBody UpdateDTO updateDTO,
+    public ResponseEntity<Boolean> updateUser(@RequestBody UpdateDTO updateDTO,
                                              @UserInfo UserInfoDto userInfoDto,
                                              HttpServletRequest httpServletRequest) {
 
@@ -36,6 +36,6 @@ public class UpdateController {
 
         updateService.update(userInfoDto.getUserSeq(), updateDTO);
 
-        return ResponseEntity.ok("Update Success");
+        return ResponseEntity.ok(true);
     }
 }

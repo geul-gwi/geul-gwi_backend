@@ -34,7 +34,7 @@ public class LogoutService {
 
         // 3. 토큰 만료 처리
         Long seq = Long.valueOf((Integer) tokenClaims.get("seq"));
-        User findUser = userService.findUserBySeq(seq);
+        User findUser = userService.findBySeq(seq);
         findUser.expireRefreshToken(LocalDateTime.now()); // 토큰 만료 시간을 현재 시간으로 update
     }
 }

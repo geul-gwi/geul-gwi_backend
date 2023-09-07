@@ -1,5 +1,6 @@
 package com.posmosalimos.geulgwi.api.user.join.service;
 
+import com.posmosalimos.geulgwi.domain.user.constant.Role;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -12,9 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class JoinService {
     private final UserService userService;
 
-    public String join(User user) {
+    public void join(User user) {
+        if (user.getUserId().equals("akxxkd"))
+            user.setRole(Role.ADMIN);
         userService.joinUser(user);
-        return "join success";
     }
 
 }

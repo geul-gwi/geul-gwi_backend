@@ -87,7 +87,7 @@ public class UserService {
                 .build();
     }
 
-    public User findUserBySeq(Long userSeq) {
+    public User findBySeq(Long userSeq) {
         return userRepository.findByUserSeq(userSeq)
                 .orElseThrow(() -> new AuthenticationException(ErrorCode.MEMBER_NOT_EXISTS));
     }

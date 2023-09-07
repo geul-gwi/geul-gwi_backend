@@ -15,7 +15,7 @@ public class UpdateService {
 
     public void update(Long userSeq, UpdateDTO updateDTO) {
 
-        User findUser = userService.findUserBySeq(userSeq);
+        User findUser = userService.findBySeq(userSeq);
 
         findUser.update(
                 updateDTO.getPassword(),

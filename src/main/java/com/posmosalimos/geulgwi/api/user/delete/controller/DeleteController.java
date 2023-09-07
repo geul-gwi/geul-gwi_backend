@@ -13,10 +13,10 @@ public class DeleteController {
     private DeleteService deleteService;
 
     @PostMapping("/delete/{seq}")
-    public ResponseEntity<String> delete(@PathVariable Long seq, @RequestBody String password) {
+    public ResponseEntity<Boolean> delete(@PathVariable Long seq, @RequestBody String password) {
         deleteService.delete(seq, password);
 
-        return ResponseEntity.ok("delete success");
+        return ResponseEntity.ok(true);
     }
 
 }
