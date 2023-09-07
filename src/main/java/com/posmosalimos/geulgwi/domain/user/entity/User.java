@@ -43,7 +43,7 @@ public class User {
     private String refreshToken;
     private LocalDateTime tokenExpirationTime;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user")
     private List<ChallengeUser> challengePostList;
 
     @Builder //join

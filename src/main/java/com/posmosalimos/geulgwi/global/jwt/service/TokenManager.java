@@ -41,13 +41,13 @@ public class TokenManager {
     }
 
     private Date createRefreshTokenExpireTime() {
-        // 현재시간 + 15 min
-        return new Date(System.currentTimeMillis() + Long.parseLong(accessTokenExpirationTime));
+        // 현재시간 + 2 week
+        return new Date(System.currentTimeMillis() + Long.parseLong(refreshTokenExpirationTime));
     }
 
     public Date createAccessTokenExpireTime() {
-        // 현재시간 + 2 week
-        return new Date(System.currentTimeMillis() + Long.parseLong(refreshTokenExpirationTime));
+        // 현재시간 + 15 min
+        return new Date(System.currentTimeMillis() + Long.parseLong(accessTokenExpirationTime));
     }
 
     public String createAccessToken(Long seq, Role role, Date expirationTime){
@@ -55,7 +55,7 @@ public class TokenManager {
                 .setSubject(TokenType.ACCESS.name())                // token의 제목
                 .setIssuedAt(new Date(System.currentTimeMillis()))  // token이 생성된 시간 (현재 시간)
                 .setExpiration(expirationTime)                      // 만료 시간
-                .claim("seq", seq)                              // 회원 id
+                .claim("seq", seq)                            // 회원 id
                 .claim("role", role)                          // 사용자 역할
                 .signWith(SignatureAlgorithm.HS512, tokenSecret.getBytes(StandardCharsets.UTF_8))
                 .setHeaderParam("type", "JWT")

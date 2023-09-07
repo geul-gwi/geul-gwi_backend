@@ -22,7 +22,7 @@ public class ChallengeRegController {
     private final TokenManager tokenManager;
     private final UserService userService;
 
-    @PostMapping("/post/{userSeq}")
+    @PostMapping("/register/{userSeq}")
     public ResponseEntity<Boolean> write(@Valid @RequestBody ChallengeRegDTO challengeRegDTO,
                                         @PathVariable("userSeq") Long userSeq,
                                         HttpServletRequest httpServletRequest) {

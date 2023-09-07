@@ -19,10 +19,10 @@ public class ChallengeUser {
     private Long challengeUserSeq;
     private String challengeContent;
     private Date regDate;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "challengeAdminSeq")
     private ChallengeAdmin challengeAdmin;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="userSeq")
     private User user;
 

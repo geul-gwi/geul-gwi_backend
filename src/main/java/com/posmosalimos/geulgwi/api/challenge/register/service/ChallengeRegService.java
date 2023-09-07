@@ -26,7 +26,7 @@ public class ChallengeRegService {
 
     @Transactional
     public void register(ChallengeRegDTO challengeRegDTO, User user) {
-        String[] keywords = challengeAdminRepository.findKeyword_seq(challengeRegDTO.getKeywordSeq()).split(",");
+        String[] keywords = challengeAdminRepository.findKeywordSeq(challengeRegDTO.getKeywordSeq()).split(",");
 
         ChallengeAdmin challengeAdmin = ChallengeAdmin.builder()
                 .keyword(keywords)
