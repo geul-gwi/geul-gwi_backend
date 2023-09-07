@@ -21,7 +21,7 @@ public class ChallengeAdmin {
     private String keyword3;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "challengeAdmin")
+    @OneToMany(mappedBy = "challengeAdmin", fetch = FetchType.LAZY)
     private List<ChallengeUser> challengeUsers;
 
     @Builder

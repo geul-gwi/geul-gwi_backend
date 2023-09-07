@@ -36,7 +36,7 @@ public class ChallengeRegService {
         ChallengeUser challengeUser = ChallengeUser.builder()
                 .challengeRegDTO(challengeRegDTO)
                 .user(user)
-                .challengeAdminSeq(challengeAdmin)
+                .challengeAdmin(challengeAdmin)
                 .build();
 
         for (String str : keywords) {
