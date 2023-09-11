@@ -19,6 +19,7 @@ public class ChallengeUser {
     private Long challengeUserSeq;
     private String challengeContent;
     private Date regDate;
+    private int like;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "challengeAdminSeq")
     private ChallengeAdmin challengeAdmin;

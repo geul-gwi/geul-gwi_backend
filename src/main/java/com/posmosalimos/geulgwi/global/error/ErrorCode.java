@@ -28,7 +28,8 @@ public enum ErrorCode {
     INVALID_PASSWORD(HttpStatus.BAD_REQUEST, "M-004", "비밀번호가 일치하지 않습니다."),
 
     // 글귀 챌린지
-    KEYWORD_MISSING(HttpStatus.BAD_REQUEST, "C-001", "키워드가 누락되었습니다.")
+    KEYWORD_MISSING(HttpStatus.BAD_REQUEST, "C-001", "키워드가 누락되었습니다."),
+    NOT_FOUND_CHALLENGE(HttpStatus.NOT_FOUND, "C-002", "챌린지를 찾을 수 없습니다.")
     ;
 
     ErrorCode(HttpStatus httpStatus, String errorCode, String message) {

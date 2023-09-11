@@ -23,7 +23,7 @@ public class ChallengeRegController {
     private final UserService userService;
 
     @PostMapping("/register/{userSeq}")
-    public ResponseEntity<Boolean> write(@Valid @RequestBody ChallengeRegDTO challengeRegDTO,
+    public ResponseEntity<Boolean> register(@Valid @RequestBody ChallengeRegDTO challengeRegDTO,
                                         @PathVariable("userSeq") Long userSeq,
                                         HttpServletRequest httpServletRequest) {
 
@@ -31,6 +31,7 @@ public class ChallengeRegController {
         String accessToken = authorization.split(" ")[1];
 
         tokenManager.validateToken(accessToken);
+
         User findUser = userService.findBySeq(userSeq);
 
         challengeRegService.register(challengeRegDTO, findUser);

@@ -17,6 +17,7 @@ public class LoginDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Response {
+        private Long userSeq;
         private String grantType;
         private String accessToken;
 
@@ -30,6 +31,7 @@ public class LoginDTO {
         // Service의 가독성을 위해 사용
         public static Response of(JwtTokenDto jwtTokenDto){
             return Response.builder()
+                    .userSeq(jwtTokenDto.getUserSeq())
                     .grantType(jwtTokenDto.getGrantType())
                     .accessToken(jwtTokenDto.getAccessToken())
                     .accessTokenExpireTime(jwtTokenDto.getAccessTokenExpireTime())
@@ -37,5 +39,6 @@ public class LoginDTO {
                     .refreshTokenExpireTime(jwtTokenDto.getRefreshTokenExpireTime())
                     .build();
         }
+
     }
 }
