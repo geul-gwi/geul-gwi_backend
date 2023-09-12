@@ -24,7 +24,7 @@ public class TokenManager {
     private final String refreshTokenExpirationTime;
     private final String tokenSecret;
 
-    public JwtTokenDto createJwtTokenDto(Long seq, Role role){
+    public JwtTokenDto createJwtTokenDto(Long seq, Role role) {
         Date accessTokenExpireTime = createAccessTokenExpireTime();
         Date refreshTokenExpireTime = createRefreshTokenExpireTime();
 
@@ -51,7 +51,7 @@ public class TokenManager {
         return new Date(System.currentTimeMillis() + Long.parseLong(accessTokenExpirationTime));
     }
 
-    public String createAccessToken(Long seq, Role role, Date expirationTime){
+    public String createAccessToken(Long seq, Role role, Date expirationTime) {
         String accessToken = Jwts.builder()
                 .setSubject(TokenType.ACCESS.name())                // token의 제목
                 .setIssuedAt(new Date(System.currentTimeMillis()))  // token이 생성된 시간 (현재 시간)
@@ -65,7 +65,7 @@ public class TokenManager {
         return accessToken;
     }
 
-    public String createRefreshToken(Long seq, Date expirationTime){
+    public String createRefreshToken(Long seq, Date expirationTime) {
         String refreshToken = Jwts.builder()
                 .setSubject(TokenType.REFRESH.name())
                 .setIssuedAt(new Date())
@@ -79,7 +79,7 @@ public class TokenManager {
     }
 
     // 토큰 검증
-    public void validateToken(String token){
+    public void validateToken(String token) {
         try {
             Jwts.parser()
                     .setSigningKey(tokenSecret.getBytes(StandardCharsets.UTF_8))
@@ -93,7 +93,7 @@ public class TokenManager {
         }
     }
 
-    public Claims getTokenClaims(String token){
+    public Claims getTokenClaims(String token) {
         Claims claims;
 
         try {

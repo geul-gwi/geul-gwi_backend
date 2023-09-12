@@ -29,7 +29,7 @@ public class LoginDTO {
 
         // of 메서드를 Service에 만들지 않고 숨김
         // Service의 가독성을 위해 사용
-        public static Response of(JwtTokenDto jwtTokenDto){
+        public static Response of(JwtTokenDto jwtTokenDto) {
             return Response.builder()
                     .userSeq(jwtTokenDto.getUserSeq())
                     .grantType(jwtTokenDto.getGrantType())
