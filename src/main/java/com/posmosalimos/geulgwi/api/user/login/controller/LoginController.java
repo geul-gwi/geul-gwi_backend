@@ -19,7 +19,8 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginDTO.Response> login(@RequestBody LoginDTO.Request requestDTO) {
-        LoginDTO.Response jwtTokenResponseDTO = loginService.login(requestDTO.getId(), requestDTO.getPassword());
+
+        LoginDTO.Response jwtTokenResponseDTO = loginService.login(requestDTO.getUserId(), requestDTO.getUserPassword());
 
         return ResponseEntity.ok(jwtTokenResponseDTO);
     }

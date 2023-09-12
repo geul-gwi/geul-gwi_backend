@@ -23,7 +23,7 @@ public class UserService {
 
     //join
     @Transactional
-    public User joinUser(User user) {
+    public User join(User user) {
         validateDuplicateUserId(user);
         validateDuplicateNickname(user);
         return userRepository.save(user);
@@ -65,7 +65,7 @@ public class UserService {
 
     //delete
     @Transactional
-    public void deleteUser(Long userSeq, String userPassword) {
+    public void delete(Long userSeq, String userPassword) {
         User findUser = userRepository.findByUserSeq(userSeq).orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_EXISTS));
         if (findUser.getPassword().equals(userPassword))
             userRepository.delete(findUser);

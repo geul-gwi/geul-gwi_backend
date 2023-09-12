@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 public class ChallengeRegDTO {
     private String challengeContent;
-    private Long keywordSeq;
-    private Long userSeq; // User/Long
+    private Long keywordSeq; //ChallengeAdminSeq
+    private Long userSeq; //User - UserSeq
 }

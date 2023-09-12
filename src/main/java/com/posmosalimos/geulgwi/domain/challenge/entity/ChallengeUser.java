@@ -19,7 +19,7 @@ public class ChallengeUser {
     private Long challengeUserSeq;
     private String challengeContent;
     private Date regDate;
-    private int like;
+    private int likes;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "challengeAdminSeq")
     private ChallengeAdmin challengeAdmin;
@@ -35,8 +35,8 @@ public class ChallengeUser {
         this.user = user;
     }
 
-    public void update(ChallengeRegDTO challengeRegDTO) {
-        this.challengeContent = challengeRegDTO.getChallengeContent();
+    public void update(String challengeContent) {
+        this.challengeContent = challengeContent;
         this.regDate = new Date(System.currentTimeMillis());
     }
 

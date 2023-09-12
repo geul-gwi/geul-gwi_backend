@@ -18,7 +18,7 @@ public class LoginService {
     private final UserService userService;
     private final TokenManager tokenManager;
 
-    public LoginDTO.Response login(String id, String password){
+    public LoginDTO.Response login(String id, String password) {
 
         User findUser = userService.findByIdAndPassword(id, password);
         log.info("user : {}", findUser.getUserId());

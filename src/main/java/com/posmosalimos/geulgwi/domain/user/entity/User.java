@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -44,7 +45,7 @@ public class User {
     private LocalDateTime tokenExpirationTime;
 
     @OneToMany(mappedBy = "user")
-    private List<ChallengeUser> challengePostList;
+    private List<ChallengeUser> challengePostList = new ArrayList<>();
 
     @Builder //join
     public User(String userId, String password,

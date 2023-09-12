@@ -2,6 +2,7 @@ package com.posmosalimos.geulgwi.api.user.update.controller;
 
 import com.posmosalimos.geulgwi.api.user.update.dto.UpdateDTO;
 import com.posmosalimos.geulgwi.api.user.update.service.UpdateService;
+import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import com.posmosalimos.geulgwi.global.resolver.memberinfo.UserInfo;
 import com.posmosalimos.geulgwi.global.resolver.memberinfo.UserInfoDto;

@@ -24,7 +24,6 @@ public class UpdateService {
                 updateDTO.getTag1(),
                 updateDTO.getTag2(),
                 updateDTO.getTag3(),
-                updateDTO.getProfile()
-        );
+                updateDTO.getProfile());
     }
 }

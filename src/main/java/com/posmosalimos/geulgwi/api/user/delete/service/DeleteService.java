@@ -11,8 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class DeleteService {
     private UserService userService;
 
-    public String delete(Long seq, String password) {
-        userService.deleteUser(seq, password);
-            return "delete success";
+    public void delete(Long seq, String password) {
+        userService.delete(seq, password);
     }
 }

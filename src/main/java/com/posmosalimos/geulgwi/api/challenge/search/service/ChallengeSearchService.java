@@ -19,7 +19,7 @@ public class ChallengeSearchService {
 
     public List<ChallengeSearchDto> searchChallenges(Long adminSeq){
 
-        List<ChallengeUser> challengeUserByAdminSeq = challengeService.findChallengeUserByAdminSeq(adminSeq);
+        List<ChallengeUser> challengeUserByAdminSeq = challengeService.findByAdminSeq(adminSeq);
         List<ChallengeSearchDto> searchDtos = new ArrayList<>();
 
         for (ChallengeUser challenge : challengeUserByAdminSeq){
@@ -29,7 +29,7 @@ public class ChallengeSearchService {
                         .seq(challenge.getChallengeUserSeq())
                         .challengeContent(challenge.getChallengeContent())
                         .regDate(challenge.getRegDate())
-                        .like(challenge.getLike())
+                        .like(challenge.getLikes())
                         .build()
             );
 

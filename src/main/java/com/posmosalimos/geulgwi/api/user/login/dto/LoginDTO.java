@@ -9,8 +9,9 @@ import java.util.Date;
 public class LoginDTO {
     @Getter @Setter
     public static class Request {
-        private String id;
-        private String password;
+
+        private String userId;
+        private String userPassword;
     }
 
     @Getter @Setter @Builder

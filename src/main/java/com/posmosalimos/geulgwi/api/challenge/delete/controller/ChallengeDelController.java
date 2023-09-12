@@ -24,7 +24,7 @@ public class ChallengeDelController {
 
     @DeleteMapping("/delete/user/{userSeq}")
     public ResponseEntity<Boolean> delete(@PathVariable("userSeq") Long seq, HttpServletRequest httpServletRequest) {
-        //유저 챌린지 전체 삭제
+        //유저가 작성한 챌린지 글 전체 삭제 !!!!!!오류나!!!!!!
         String authorization = httpServletRequest.getHeader("Authorization");
         String accessToken = authorization.split(" ")[1];
 
@@ -32,7 +32,7 @@ public class ChallengeDelController {
 
         User findUser = userService.findBySeq(seq);
 
-        findUser.getChallengePostList().clear();
+        challengeDelService.deletePosts(findUser);
 
         return ResponseEntity.ok(true);
     }

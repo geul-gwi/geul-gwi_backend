@@ -29,7 +29,8 @@ public enum ErrorCode {
 
     // 글귀 챌린지
     KEYWORD_MISSING(HttpStatus.BAD_REQUEST, "C-001", "키워드가 누락되었습니다."),
-    NOT_FOUND_CHALLENGE(HttpStatus.NOT_FOUND, "C-002", "챌린지를 찾을 수 없습니다.")
+    NOT_FOUND_CHALLENGE(HttpStatus.NOT_FOUND, "C-002", "챌린지를 찾을 수 없습니다."),
+    NOT_EQUAL_MEMBER(HttpStatus.BAD_REQUEST, "C-003", "글 작성자와 요청자가 다릅니다")
     ;
 
     ErrorCode(HttpStatus httpStatus, String errorCode, String message) {

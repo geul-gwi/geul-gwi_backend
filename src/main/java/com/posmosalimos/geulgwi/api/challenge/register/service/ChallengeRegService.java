@@ -4,7 +4,6 @@ import com.posmosalimos.geulgwi.api.challenge.register.dto.ChallengeRegDTO;
 import com.posmosalimos.geulgwi.domain.challenge.entity.ChallengeAdmin;
 import com.posmosalimos.geulgwi.domain.challenge.entity.ChallengeUser;
 import com.posmosalimos.geulgwi.domain.challenge.repository.ChallengeAdminRepository;
-import com.posmosalimos.geulgwi.domain.challenge.repository.ChallengeUserRepository;
 import com.posmosalimos.geulgwi.domain.challenge.service.ChallengeService;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.global.error.ErrorCode;
@@ -21,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class ChallengeRegService {
 
     private final ChallengeAdminRepository challengeAdminRepository;
-    private final ChallengeUserRepository challengeUserRepository;
     private final ChallengeService challengeService;
 
     @Transactional

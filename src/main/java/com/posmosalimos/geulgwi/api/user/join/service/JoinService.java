@@ -16,7 +16,7 @@ public class JoinService {
     public void join(User user) {
         if (user.getUserId().equals("akxxkd"))
             user.setRole(Role.ADMIN);
-        userService.joinUser(user);
+        userService.join(user);
     }
 
 }
