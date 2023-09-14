@@ -19,8 +19,9 @@ public class ChallengeUdtController {
     private final TokenManager tokenManager;
     private final ChallengeUdtService challengeUdtService;
 
-    @PostMapping("/update/{userSeq}/{challengeUserSeq}")
+    @PostMapping("/update/{keywordSeq}/{userSeq}/{challengeUserSeq}")
     public ResponseEntity<Boolean> update(@Valid @RequestBody ChallengeRegDTO challengeRegDTO,
+                                          @PathVariable("keywordSeq") Long keywordSeq,
                                           @PathVariable("userSeq") Long userSeq,
                                           @PathVariable("challengeUserSeq") Long challengeUserSeq,
                                           HttpServletRequest httpServletRequest) {
@@ -30,7 +31,7 @@ public class ChallengeUdtController {
 
         tokenManager.validateToken(accessToken);
 
-        challengeUdtService.update(userSeq, challengeUserSeq, challengeRegDTO);
+        challengeUdtService.update(keywordSeq, userSeq, challengeUserSeq, challengeRegDTO);
 
         return ResponseEntity.ok(true);
     }

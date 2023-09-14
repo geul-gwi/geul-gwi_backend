@@ -37,13 +37,7 @@ public class ChallengeRegService {
                 .challengeAdmin(challengeAdmin)
                 .build();
 
-        for (String str : keywords) {
-            if (!(challengeRegDTO.getChallengeContent().contains(str))) {
-                log.info(str + " 키워드가 들어가지 않았습니다.");
-                throw new AuthenticationException(ErrorCode.KEYWORD_MISSING);
-            }
-        }
-
+        challengeService.validateKeyword(challengeRegDTO, keywords);
         challengeService.register(challengeUser);
     }
 }

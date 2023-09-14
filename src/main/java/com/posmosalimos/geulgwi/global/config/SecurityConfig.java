@@ -16,7 +16,7 @@ public class SecurityConfig {
     private String tokenSecret;
 
     @Bean
-    public TokenManager tokenManager(){
+    public TokenManager tokenManager() {
         return new TokenManager(accessTokenExpirationTime, refreshTokenExpirationTime, tokenSecret);
     }
 }

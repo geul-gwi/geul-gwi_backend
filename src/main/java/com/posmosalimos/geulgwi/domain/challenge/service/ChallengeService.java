@@ -1,13 +1,16 @@
 package com.posmosalimos.geulgwi.domain.challenge.service;
 
+import com.posmosalimos.geulgwi.api.challenge.register.dto.ChallengeRegDTO;
 import com.posmosalimos.geulgwi.domain.challenge.entity.ChallengeAdmin;
 import com.posmosalimos.geulgwi.domain.challenge.entity.ChallengeUser;
 import com.posmosalimos.geulgwi.domain.challenge.repository.ChallengeAdminRepository;
 import com.posmosalimos.geulgwi.domain.challenge.repository.ChallengeUserRepository;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.global.error.ErrorCode;
+import com.posmosalimos.geulgwi.global.error.exception.AuthenticationException;
 import com.posmosalimos.geulgwi.global.error.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +19,7 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
+@Slf4j
 public class ChallengeService {
 
     private final ChallengeUserRepository challengeUserRepository;
@@ -31,6 +35,15 @@ public class ChallengeService {
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_CHALLENGE));
 
         return findAdmin.getChallengeUsers();
+    }
+
+    public void validateKeyword(ChallengeRegDTO challengeRegDTO, String[] keywords) {
+        for (String str : keywords) {
+            if (!(challengeRegDTO.getChallengeContent().contains(str))) {
+                log.info(str + " 키워드가 들어가지 않았습니다.");
+                throw new AuthenticationException(ErrorCode.KEYWORD_MISSING);
+            }
+        }
     }
 
     public void update(ChallengeUser challengeUser) {

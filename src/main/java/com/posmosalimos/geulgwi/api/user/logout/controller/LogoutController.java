@@ -17,6 +17,7 @@ public class LogoutController {
 
     @PostMapping("/logout")
     public ResponseEntity<Boolean> logout(HttpServletRequest httpServletRequest) {
+
         String authorization = httpServletRequest.getHeader("Authorization");
         AuthorizationHeaderUtils.validateAuthorization(authorization);
 
