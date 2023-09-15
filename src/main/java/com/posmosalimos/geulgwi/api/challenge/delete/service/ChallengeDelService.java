@@ -1,8 +1,12 @@
 package com.posmosalimos.geulgwi.api.challenge.delete.service;
 
+import com.posmosalimos.geulgwi.domain.challenge.entity.ChallengeUser;
 import com.posmosalimos.geulgwi.domain.challenge.repository.ChallengeUserRepository;
+import com.posmosalimos.geulgwi.domain.challenge.service.ChallengeService;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.domain.user.repository.UserRepository;
+import com.posmosalimos.geulgwi.global.error.ErrorCode;
+import com.posmosalimos.geulgwi.global.error.exception.AuthenticationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ChallengeDelService {
 
     private final ChallengeUserRepository challengeUserRepository;
+    private final ChallengeService challengeService;
 
     @Transactional
     public void deletePosts(User user) {
@@ -24,6 +29,12 @@ public class ChallengeDelService {
 
     @Transactional
     public void delete(Long seq) {
+
+        ChallengeUser challengeUser = challengeService.findByChallengeUserSeq(seq);
+
+        if (!(challengeUser.getUser().getUserSeq().intValue() == seq))
+            throw new AuthenticationException(ErrorCode.NOT_EQUAL_MEMBER);
+
         challengeUserRepository.delete(seq);
     }
 }

@@ -38,5 +38,4 @@ public class ChallengeUdtService {
         challengeService.validateKeyword(challengeRegDTO, keywords);
         challengeService.update(challengeUser);
     }
-
 }
