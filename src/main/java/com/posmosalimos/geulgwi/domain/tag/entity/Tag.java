@@ -1,5 +1,7 @@
-package com.posmosalimos.geulgwi.domain.challenge.entity;
+package com.posmosalimos.geulgwi.domain.tag.entity;
 
+import com.posmosalimos.geulgwi.domain.challenge.entity.ChallengeUser;
+import com.posmosalimos.geulgwi.domain.challenge.entity.Geulgwi;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
