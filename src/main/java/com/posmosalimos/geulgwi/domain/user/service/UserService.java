@@ -24,16 +24,8 @@ public class UserService {
     //join
     @Transactional
     public User join(User user) {
-        validateDuplicateUserId(user);
         validateDuplicateNickname(user);
         return userRepository.save(user);
-    }
-
-    public void validateDuplicateUserId(User user) {
-        Optional<User> findUserById = userRepository.findByUserId(user.getUserId());
-
-        if (findUserById.isPresent())
-            throw new BusinessException(ErrorCode.ALREADY_REGISTERED_MEMBER);
     }
 
     public void validateDuplicateNickname(User user) {
@@ -90,6 +82,14 @@ public class UserService {
     public User findBySeq(Long userSeq) {
         return userRepository.findByUserSeq(userSeq)
                 .orElseThrow(() -> new AuthenticationException(ErrorCode.MEMBER_NOT_EXISTS));
+    }
+
+    public Boolean findByUserId(String userId) {
+
+        if (userRepository.findByUserId(userId).isPresent())
+            throw new BusinessException(ErrorCode.ALREADY_REGISTERED_MEMBER);
+
+        return true;
     }
 
 }

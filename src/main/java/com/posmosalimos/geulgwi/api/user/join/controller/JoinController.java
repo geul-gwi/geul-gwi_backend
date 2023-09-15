@@ -8,10 +8,7 @@ import com.posmosalimos.geulgwi.global.error.ErrorCode;
 import com.posmosalimos.geulgwi.global.error.exception.AuthenticationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -40,5 +37,11 @@ public class JoinController {
         joinService.join(createUser);
 
         return ResponseEntity.ok(true);
+    }
+
+    @PostMapping("/validate/{userId}")
+    public ResponseEntity<Boolean> validateId(@PathVariable("userId") String userId) {
+
+        return ResponseEntity.ok(joinService.validateDuplicateUserId(userId));
     }
 }

@@ -38,4 +38,6 @@ public class ChallengeRegController {
 
         return ResponseEntity.ok(true);
     }
+
+
 }

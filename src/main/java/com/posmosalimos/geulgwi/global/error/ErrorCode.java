@@ -26,6 +26,7 @@ public enum ErrorCode {
     DUPLICATED_NICKNAME(HttpStatus.BAD_REQUEST, "M-002", "중복된 닉네임입니다."),
     MEMBER_NOT_EXISTS(HttpStatus.BAD_REQUEST, "M-003", "존재하지 않는 회원입니다."),
     INVALID_PASSWORD(HttpStatus.BAD_REQUEST, "M-004", "비밀번호가 일치하지 않습니다."),
+    INVALID_ID(HttpStatus.BAD_REQUEST, "M-005", "올바르지 않은 타입의 ID 입니다."),
 
     // 글귀 챌린지
     KEYWORD_MISSING(HttpStatus.BAD_REQUEST, "C-001", "키워드가 누락되었습니다."),

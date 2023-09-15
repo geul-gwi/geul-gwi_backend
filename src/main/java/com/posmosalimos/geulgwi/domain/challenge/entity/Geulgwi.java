@@ -19,7 +19,7 @@ public class Geulgwi {
     private Long geulgwiSeq;
     private String content;
 
-    @OneToMany(mappedBy = "challengeUser", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "geulgwi", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Tag> tags = new ArrayList<>();
 
     @Builder
