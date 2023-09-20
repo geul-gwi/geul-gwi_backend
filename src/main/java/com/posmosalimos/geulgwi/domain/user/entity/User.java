@@ -1,6 +1,7 @@
 package com.posmosalimos.geulgwi.domain.user.entity;
 
 import com.posmosalimos.geulgwi.domain.challenge.entity.ChallengeUser;
+import com.posmosalimos.geulgwi.domain.geulgwi.entity.Geulgwi;
 import com.posmosalimos.geulgwi.domain.user.constant.Role;
 import com.posmosalimos.geulgwi.global.jwt.dto.JwtTokenDto;
 import com.posmosalimos.geulgwi.global.util.DateTimeUtils;
@@ -46,6 +47,9 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<ChallengeUser> challengePostList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Geulgwi> geulgwiPostList = new ArrayList<>();
 
     @Builder //join
     public User(String userId, String password,

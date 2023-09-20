@@ -1,45 +1,42 @@
-//package com.posmosalimos.geulgwi.domain.geulgwi.entity;
-//
-//import com.posmosalimos.geulgwi.domain.user.entity.User;
-//import jakarta.persistence.*;
-//import lombok.Builder;
-//import lombok.Getter;
-//import lombok.NoArgsConstructor;
-//
-//import java.util.Date;
-//
-//public class Geulgwi {
-//    @Entity
-//    @Getter
-//    @NoArgsConstructor
-//    public class Post {
-//        @Id
-//        @GeneratedValue(strategy = GenerationType.IDENTITY)
-//        @Column(updatable = false)
-//        private Long postSeq;
-//
-//        @ManyToOne(fetch = FetchType.LAZY)
-//        @JoinColumn(name = "userSeq")
-//        private User user;
-//        private String postTitle;
-//        private String postContent;
-//        private String file;
-//        private Date regDate;
-//
-////        @Builder
-////        public Post(WriteForm form, Users user) {
-////            this.user = user;
-////            this.postTitle = form.getTitle();
-////            this.postContent = form.getContent();
-////            this.file = form.getFile();
-////            this.regDate = new Date(System.currentTimeMillis());
-////        }
-////
-////        public void update(WriteForm form) {
-////            this.postTitle = form.getTitle();
-////            this.postContent = form.getContent();
-////            this.file = form.getFile();
-////            this.regDate = new Date(System.currentTimeMillis());
-////        }
-//    }
-//}
+package com.posmosalimos.geulgwi.domain.geulgwi.entity;
+
+import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
+import com.posmosalimos.geulgwi.domain.user.entity.User;
+import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Getter
+@NoArgsConstructor
+public class Geulgwi {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long geulgwiSeq;
+    private String content;
+    private String regDate;
+    private int likes;
+    private List<UploadFile> files;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="userSeq")
+    private User user;
+
+    @OneToMany(mappedBy = "geulgwi", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<Tag> tags = new ArrayList<>();
+
+
+    @Builder
+    public Geulgwi(String content, List<Tag> tags, User user) {
+        this.content = content;
+        this.tags = tags;
+        this.regDate = LocalDate.now().toString() + LocalTime.now();
+        this.user = user;
+    }
+}

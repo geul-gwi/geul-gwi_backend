@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.util.Date;
 import java.util.Optional;
 
 public interface ChallengeUserRepository extends JpaRepository<ChallengeUser, Long> {
@@ -20,6 +19,6 @@ public interface ChallengeUserRepository extends JpaRepository<ChallengeUser, Lo
 
     @Modifying
     @Query("update ChallengeUser u set u.challengeContent = :challengeContent, u.regDate = :challengeRegDate where u.challengeUserSeq = :challengeUserSeq")
-    void update(@Param("challengeUserSeq") Long challengeUserSeq, @Param("challengeContent") String challengeContent, @Param("challengeRegDate") Date challengeRegDate);
+    void update(@Param("challengeUserSeq") Long challengeUserSeq, @Param("challengeContent") String challengeContent, @Param("challengeRegDate") String challengeRegDate);
 
 }

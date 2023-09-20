@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,7 +23,7 @@ public class ChallengeUser {
     @Column(updatable = false)
     private Long challengeUserSeq;
     private String challengeContent;
-    private Date regDate;
+    private String regDate;
     private int likes;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "challengeAdminSeq")
@@ -35,7 +37,7 @@ public class ChallengeUser {
 
     @Builder
     public ChallengeUser(ChallengeRegDTO challengeRegDTO, ChallengeAdmin challengeAdmin, User user) {
-        this.regDate = new Date(System.currentTimeMillis());
+        this.regDate = LocalDate.now().toString() + LocalTime.now();
         this.challengeContent = challengeRegDTO.getChallengeContent();
         this.challengeAdmin = challengeAdmin;
         this.user = user;
@@ -43,7 +45,7 @@ public class ChallengeUser {
 
     public void update(String challengeContent) {
         this.challengeContent = challengeContent;
-        this.regDate = new Date(System.currentTimeMillis());
+        this.regDate = LocalDate.now().toString() + LocalTime.now();
     }
 
     @Override

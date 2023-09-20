@@ -44,4 +44,10 @@ public class JoinController {
 
         return ResponseEntity.ok(joinService.validateDuplicateUserId(userId));
     }
+
+    @PostMapping("/validate/nickname/{nickname}")
+    public ResponseEntity<Boolean> validateNickname(@PathVariable("nickname") String nickname) {
+
+        return ResponseEntity.ok(joinService.validateDuplicateNickname(nickname));
+    }
 }

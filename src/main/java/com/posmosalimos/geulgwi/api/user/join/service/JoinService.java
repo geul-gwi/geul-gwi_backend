@@ -31,4 +31,9 @@ public class JoinService {
 
         return userService.findByUserId(userId);
     }
+
+    public Boolean validateDuplicateNickname(String nickname) {
+
+        return userService.findByNickname(nickname);
+    }
 }
