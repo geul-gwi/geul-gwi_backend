@@ -3,6 +3,8 @@ package com.posmosalimos.geulgwi.domain.geulgwi.service;
 
 import com.posmosalimos.geulgwi.domain.geulgwi.entity.Geulgwi;
 import com.posmosalimos.geulgwi.domain.geulgwi.repository.GeulgwiRepository;
+import com.posmosalimos.geulgwi.global.error.ErrorCode;
+import com.posmosalimos.geulgwi.global.error.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,7 +18,18 @@ public class GeulgwiService {
 
     private final GeulgwiRepository geulgwiRepository;
 
+    public Geulgwi findBySeq(Long geulgwiSeq) {
+        Geulgwi geulgwiUser = geulgwiRepository.findBySeq(geulgwiSeq)
+                .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_EXISTS));
+
+        return geulgwiUser;
+    }
+
     public void register(Geulgwi geulgwi) {
         geulgwiRepository.save(geulgwi);
+    }
+
+    public void delete(Long seq) {
+        geulgwiRepository.delete(seq);
     }
 }

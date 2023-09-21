@@ -34,8 +34,6 @@ public class GeulgwiRegController {
 
         User findUser = userService.findBySeq(seq);
 
-        System.out.println("++++++++" + geulgwiRegDTO.getGeulgwiContent());
-
         geulgwiRegService.register(geulgwiRegDTO, findUser);
 
         return ResponseEntity.ok(true);

@@ -19,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class ChallengeDelService {
 
-    private final ChallengeUserRepository challengeUserRepository;
     private final ChallengeService challengeService;
 
     @Transactional
@@ -32,9 +31,9 @@ public class ChallengeDelService {
 
         ChallengeUser challengeUser = challengeService.findByChallengeUserSeq(seq);
 
-        if (!(challengeUser.getUser().getUserSeq().intValue() == seq))
+        if (challengeUser.getUser().getUserSeq().intValue() != seq)
             throw new AuthenticationException(ErrorCode.NOT_EQUAL_MEMBER);
 
-        challengeUserRepository.delete(seq);
+        challengeService.delete(seq);
     }
 }

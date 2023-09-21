@@ -37,6 +37,10 @@ public class ChallengeService {
         return findAdmin.getChallengeUsers();
     }
 
+    public void delete(Long seq) {
+        challengeUserRepository.delete(seq);
+    }
+
     public void validateKeyword(ChallengeRegDTO challengeRegDTO, String[] keywords) {
         for (String str : keywords) {
             if (!(challengeRegDTO.getChallengeContent().contains(str))) {

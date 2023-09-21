@@ -20,8 +20,6 @@ public class GeulgwiRegService {
     @Transactional
     public void register(GeulgwiRegDTO geulgwiRegDTO, User user) {
 
-
-        System.out.println("-----------" + geulgwiRegDTO.getGeulgwiContent());
         Geulgwi geulgwi = Geulgwi.builder()
                 .content(geulgwiRegDTO.getGeulgwiContent())
                 .tags(geulgwiRegDTO.getTags())
