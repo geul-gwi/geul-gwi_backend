@@ -6,10 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -20,9 +17,10 @@ public class GeulgwiDelController {
     private final GeulgwiDelService geulgwiDelService;
     private final TokenManager tokenManager;
 
-    @PostMapping("/delete/{geulgwiSeq}")
+    @DeleteMapping("/delete/{geulgwiSeq}")
     public ResponseEntity<Boolean> delete(@PathVariable("geulgwiSeq") Long seq,
                                           HttpServletRequest httpServletRequest) {
+
         String authorization = httpServletRequest.getHeader("authorization");
         String accessToken = authorization.split(" ")[1];
 

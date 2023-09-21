@@ -32,6 +32,7 @@ public class ChallengeDelService {
         ChallengeUser challengeUser = challengeService.findByChallengeUserSeq(seq);
 
         if (challengeUser.getUser().getUserSeq().intValue() != seq)
+            //이상함...히않하뇌....이러면 안되는데.......
             throw new AuthenticationException(ErrorCode.NOT_EQUAL_MEMBER);
 
         challengeService.delete(seq);

@@ -20,4 +20,7 @@ public interface GeulgwiRepository extends JpaRepository<Geulgwi, Long> {
     @Query("delete from Geulgwi g where g.geulgwiSeq = :geulgwiSeq")
     void delete(@Param("geulgwiSeq") Long seq);
 
+    @Modifying
+    @Query("update Geulgwi g set g.geulgwiContent = :geulgwiContent, g.regDate = :regDate where g.geulgwiSeq = :geulgwiSeq")
+    void update(@Param("geulgwiSeq") Long geulgwiSeq, @Param("geulgwiContent") String geulgwiContent, @Param("regDate") String regDate);
 }

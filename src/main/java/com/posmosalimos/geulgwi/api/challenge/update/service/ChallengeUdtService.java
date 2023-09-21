@@ -25,7 +25,7 @@ public class ChallengeUdtService {
     public void update(Long keywordSeq,
                        Long userSeq,
                        Long challengeUserSeq,
-                       @Valid ChallengeRegDTO challengeRegDTO) {
+                       ChallengeRegDTO challengeRegDTO) {
 
         String[] keywords = challengeAdminRepository.findKeywordSeq(keywordSeq).split(",");
         ChallengeUser challengeUser = challengeService.findByChallengeUserSeq(challengeUserSeq);

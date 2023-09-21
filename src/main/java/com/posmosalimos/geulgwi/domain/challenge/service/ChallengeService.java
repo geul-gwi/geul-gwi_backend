@@ -51,7 +51,9 @@ public class ChallengeService {
     }
 
     public void update(ChallengeUser challengeUser) {
-        challengeUserRepository.update(challengeUser.getChallengeUserSeq(), challengeUser.getChallengeContent(), challengeUser.getRegDate());
+        challengeUserRepository.update(challengeUser.getChallengeUserSeq(),
+                challengeUser.getChallengeContent(),
+                challengeUser.getRegDate());
     }
 
     public ChallengeUser findByChallengeUserSeq(Long challengeUserSeq) {

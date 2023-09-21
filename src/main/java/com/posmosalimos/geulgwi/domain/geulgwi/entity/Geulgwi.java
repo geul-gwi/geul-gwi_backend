@@ -21,7 +21,7 @@ public class Geulgwi {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long geulgwiSeq;
-    private String content;
+    private String geulgwiContent;
     private String regDate;
     private int likes;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -36,9 +36,14 @@ public class Geulgwi {
 
     @Builder
     public Geulgwi(String content, List<Tag> tags, User user) {
-        this.content = content;
+        this.geulgwiContent = content;
         this.tags = tags;
         this.regDate = LocalDate.now().toString() + LocalTime.now();
         this.user = user;
+    }
+
+    public void update(String geulgwiContent) {
+        this.geulgwiContent = geulgwiContent;
+        this.regDate = LocalDate.now().toString() + LocalTime.now();
     }
 }
