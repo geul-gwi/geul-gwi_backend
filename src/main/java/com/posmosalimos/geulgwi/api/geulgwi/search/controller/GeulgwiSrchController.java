@@ -22,13 +22,7 @@ public class GeulgwiSrchController {
     private final TokenManager tokenManager;
 
     @PostMapping("/search/{geulgwiSeq}")
-    public ResponseEntity<GeulgwiSrchDTO.Response> search(@PathVariable("geulgwiSeq") Long geulgwiSeq,
-                                                          HttpServletRequest httpServletRequest) {
-
-        String authorization = httpServletRequest.getHeader("Authorization");
-        String accessToken = authorization.split(" ")[1];
-
-        tokenManager.validateToken(accessToken);
+    public ResponseEntity<GeulgwiSrchDTO.Response> search(@PathVariable("geulgwiSeq") Long geulgwiSeq) {
 
         GeulgwiSrchDTO.Response searchDto = geulgwiSrchService.search(geulgwiSeq);
 

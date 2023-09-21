@@ -37,4 +37,9 @@ public class ChallengeUpdtService {
         challengeService.validateKeyword(challengeRegDTO, keywords);
         challengeService.update(challengeUser);
     }
+
+    @Transactional
+    public void likes(Long challengeUserSeq) {
+        challengeService.likes(challengeUserSeq);
+    }
 }

@@ -35,4 +35,18 @@ public class ChallengeUpdtController {
 
         return ResponseEntity.ok(true);
     }
+
+    @PostMapping("/likes/{challengeUserSeq}")
+    public ResponseEntity<Boolean> likes(@PathVariable("challengeUserSeq") Long challengeUserSeq,
+                                         HttpServletRequest httpServletRequest) {
+
+        String authorization = httpServletRequest.getHeader("authorization");
+        String accessToken = authorization.split(" ")[1];
+
+        tokenManager.validateToken(accessToken);
+
+        challengeUdtService.likes(challengeUserSeq);
+
+        return ResponseEntity.ok(true);
+    }
 }
