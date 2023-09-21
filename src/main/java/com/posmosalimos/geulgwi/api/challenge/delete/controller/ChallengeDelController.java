@@ -37,8 +37,9 @@ public class ChallengeDelController {
         return ResponseEntity.ok(true);
     }
 
-    @DeleteMapping("/delete/{challengeSeq}")
-    public ResponseEntity<Boolean> deleteChallenge(@PathVariable("challengeSeq") Long seq,
+    @DeleteMapping("/delete/{userSeq}/{challengeUserSeq}")
+    public ResponseEntity<Boolean> deleteChallenge(@PathVariable("challengeSeq") Long challengeUserSeq,
+                                                   @PathVariable("userSeq") Long userSeq,
                                                    HttpServletRequest httpServletRequest) {
         // 챌린지 단일 삭제
         String authorization = httpServletRequest.getHeader("Authorization");
@@ -46,7 +47,7 @@ public class ChallengeDelController {
 
         tokenManager.validateToken(accessToken);
 
-        challengeDelService.delete(seq);
+        challengeDelService.delete(challengeUserSeq, userSeq);
 
         return ResponseEntity.ok(true);
     }

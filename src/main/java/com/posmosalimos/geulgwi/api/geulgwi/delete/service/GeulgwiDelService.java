@@ -18,14 +18,13 @@ public class GeulgwiDelService {
     private final GeulgwiService geulgwiService;
 
     @Transactional
-    public void delete(Long seq) {
+    public void delete(Long geulgwiSeq, Long userSeq) {
 
-        Geulgwi geulgwiUser = geulgwiService.findBySeq(seq);
+        Geulgwi geulgwiUser = geulgwiService.findBySeq(geulgwiSeq);
 
-        if (geulgwiUser.getUser().getUserSeq().intValue() != seq)
-            //이상함...히않하뇌....이러면 안되는데...... . -> url에 userSeq를 받자...
+        if (geulgwiUser.getUser().getUserSeq().intValue() != userSeq)
             throw new BusinessException(ErrorCode.MEMBER_NOT_EXISTS);
 
-        geulgwiService.delete(seq);
+        geulgwiService.delete(userSeq);
     }
 }
