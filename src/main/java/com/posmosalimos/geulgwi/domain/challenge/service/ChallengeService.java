@@ -26,6 +26,7 @@ public class ChallengeService {
     private final ChallengeUserRepository challengeUserRepository;
     private final ChallengeAdminRepository challengeAdminRepository;
 
+    @Transactional
     public void register(ChallengeUser challengeUser) {
         challengeUserRepository.save(challengeUser);
     }
@@ -38,6 +39,7 @@ public class ChallengeService {
         return findAdmin.getChallengeUsers();
     }
 
+    @Transactional
     public void delete(Long seq) {
         challengeUserRepository.delete(seq);
     }
@@ -51,6 +53,7 @@ public class ChallengeService {
         }
     }
 
+    @Transactional
     public void update(ChallengeUser challengeUser) {
         challengeUserRepository.update(challengeUser.getChallengeUserSeq(),
                 challengeUser.getChallengeContent(),
@@ -64,6 +67,7 @@ public class ChallengeService {
         return challengeUser;
     }
 
+    @Transactional
     public void likes(Long challengeUserSeq) {
         challengeUserRepository.likes(challengeUserSeq);
     }

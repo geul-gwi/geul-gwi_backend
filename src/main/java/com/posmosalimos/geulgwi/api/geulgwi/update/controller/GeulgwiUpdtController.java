@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import retrofit2.http.Path;
 
 @RestController
 @RequestMapping("/geulgwi")
@@ -35,7 +36,19 @@ public class GeulgwiUpdtController {
         return ResponseEntity.ok(true);
     }
 
+    @PostMapping("/likes/{geulgwiSeq}")
+    public ResponseEntity<Boolean> likes(@PathVariable("geulgwiSeq") Long geulgwiSeq,
+                                         HttpServletRequest httpServletRequest) {
 
+        String authorization = httpServletRequest.getHeader("authorization");
+        String accessToken = authorization.split(" ")[1];
+
+        tokenManager.validateToken(accessToken);
+
+        geulgwiUdtService.likes(geulgwiSeq);
+
+        return ResponseEntity.ok(true);
+    }
 
 
 }

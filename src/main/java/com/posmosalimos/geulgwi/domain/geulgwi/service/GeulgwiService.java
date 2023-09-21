@@ -41,4 +41,9 @@ public class GeulgwiService {
                 geulgwiUser.getGeulgwiContent(),
                 geulgwiUser.getRegDate());
     }
+
+    @Transactional
+    public void likes(Long geulgwiSeq) {
+        geulgwiRepository.likes(geulgwiSeq);
+    }
 }
