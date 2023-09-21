@@ -14,9 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class GeulgwiSrchService {
 
-    private GeulgwiService geulgwiService;
+    private final GeulgwiService geulgwiService;
 
-    @Transactional
     public GeulgwiSrchDTO.Response search(Long seq) {
         Geulgwi dto = geulgwiService.findBySeq(seq);
 

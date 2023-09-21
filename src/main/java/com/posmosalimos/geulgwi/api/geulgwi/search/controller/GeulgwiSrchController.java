@@ -2,7 +2,6 @@ package com.posmosalimos.geulgwi.api.geulgwi.search.controller;
 
 import com.posmosalimos.geulgwi.api.geulgwi.search.dto.GeulgwiSrchDTO;
 import com.posmosalimos.geulgwi.api.geulgwi.search.service.GeulgwiSrchService;
-import com.posmosalimos.geulgwi.domain.geulgwi.entity.Geulgwi;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
