@@ -1,8 +1,8 @@
 package com.posmosalimos.geulgwi.domain.geulgwi.service;
 
 
-import com.posmosalimos.geulgwi.domain.challenge.repository.GeulgwiRepository;
 import com.posmosalimos.geulgwi.domain.geulgwi.entity.Geulgwi;
+import com.posmosalimos.geulgwi.domain.geulgwi.repository.GeulgwiRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

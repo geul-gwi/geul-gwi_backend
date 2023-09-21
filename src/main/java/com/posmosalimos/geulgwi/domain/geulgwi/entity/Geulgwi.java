@@ -17,13 +17,13 @@ import java.util.List;
 @NoArgsConstructor
 public class Geulgwi {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long geulgwiSeq;
     private String content;
     private String regDate;
     private int likes;
-    private List<UploadFile> files;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="userSeq")
     private User user;
@@ -31,6 +31,8 @@ public class Geulgwi {
     @OneToMany(mappedBy = "geulgwi", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Tag> tags = new ArrayList<>();
 
+    @OneToMany(mappedBy = "geulgwi", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<UploadFile> uploadFiles = new ArrayList<>();
 
     @Builder
     public Geulgwi(String content, List<Tag> tags, User user) {

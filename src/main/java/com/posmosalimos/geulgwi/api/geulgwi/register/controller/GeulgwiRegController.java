@@ -23,16 +23,18 @@ public class GeulgwiRegController {
     private final UserService userService;
 
     @PostMapping("/register/{userSeq}")
-    public ResponseEntity<Boolean> register(@Valid GeulgwiRegDTO geulgwiRegDTO,
+    public ResponseEntity<Boolean> register(@Valid @RequestBody GeulgwiRegDTO geulgwiRegDTO,
                                             @PathVariable("userSeq") Long seq,
                                             HttpServletRequest httpServletRequest) {
 
-        String authorization = httpServletRequest.getHeader("Authentication");
+        String authorization = httpServletRequest.getHeader("Authorization");
         String accessToken = authorization.split(" ")[1];
 
         tokenManager.validateToken(accessToken);
 
         User findUser = userService.findBySeq(seq);
+
+        System.out.println("++++++++" + geulgwiRegDTO.getGeulgwiContent());
 
         geulgwiRegService.register(geulgwiRegDTO, findUser);
 

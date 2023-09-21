@@ -13,7 +13,7 @@ public class ChallengeSearchDto {
 
     private String challengeContent;
 
-    private Date regDate;
+    private String regDate;
 
     private int like;
 }

@@ -66,7 +66,6 @@ public class UserService {
                 .userSeq(userSeq)
                 .userId(findUser.get().getUserId())
                 .userName(findUser.get().getUserName())
-                .profile(findUser.get().getProfile())
                 .nickname(findUser.get().getNickname())
                 .role(findUser.get().getRole())
                 .build();
