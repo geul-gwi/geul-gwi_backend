@@ -25,6 +25,6 @@ public class GeulgwiDelService {
         if (geulgwiUser.getUser().getUserSeq().intValue() != userSeq)
             throw new BusinessException(ErrorCode.MEMBER_NOT_EXISTS);
 
-        geulgwiService.delete(userSeq);
+        geulgwiService.delete(geulgwiSeq);
     }
 }

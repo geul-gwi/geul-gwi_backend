@@ -19,7 +19,7 @@ public class GeulgwiDelController {
 
     @DeleteMapping("/delete/{userSeq}/{geulgwiSeq}")
     public ResponseEntity<Boolean> delete(@PathVariable("geulgwiSeq") Long geulgwiSeq,
-                                          @PathVariable("userSeq") Long userSeq
+                                          @PathVariable("userSeq") Long userSeq,
                                           HttpServletRequest httpServletRequest) {
 
         String authorization = httpServletRequest.getHeader("authorization");

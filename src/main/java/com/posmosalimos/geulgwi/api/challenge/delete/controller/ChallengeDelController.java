@@ -38,7 +38,7 @@ public class ChallengeDelController {
     }
 
     @DeleteMapping("/delete/{userSeq}/{challengeUserSeq}")
-    public ResponseEntity<Boolean> deleteChallenge(@PathVariable("challengeSeq") Long challengeUserSeq,
+    public ResponseEntity<Boolean> deleteChallenge(@PathVariable("challengeUserSeq") Long challengeUserSeq,
                                                    @PathVariable("userSeq") Long userSeq,
                                                    HttpServletRequest httpServletRequest) {
         // 챌린지 단일 삭제
