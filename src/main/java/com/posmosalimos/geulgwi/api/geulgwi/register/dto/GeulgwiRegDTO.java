@@ -9,7 +9,6 @@ import java.util.List;
 
 @Data
 public class GeulgwiRegDTO {
-
     private String geulgwiContent;
     private Long userSeq;
     private List<UploadFile> files;

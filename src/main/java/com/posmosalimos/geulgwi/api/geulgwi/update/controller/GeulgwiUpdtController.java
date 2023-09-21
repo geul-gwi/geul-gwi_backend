@@ -1,7 +1,7 @@
 package com.posmosalimos.geulgwi.api.geulgwi.update.controller;
 
 import com.posmosalimos.geulgwi.api.geulgwi.register.dto.GeulgwiRegDTO;
-import com.posmosalimos.geulgwi.api.geulgwi.update.service.GeulgwiUdtService;
+import com.posmosalimos.geulgwi.api.geulgwi.update.service.GeulgwiUpdtService;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/geulgwi")
 @Slf4j
 @RequiredArgsConstructor
-public class GeulgwiUdtController {
+public class GeulgwiUpdtController {
 
-    private final GeulgwiUdtService geulgwiUdtService;
+    private final GeulgwiUpdtService geulgwiUdtService;
     private final TokenManager tokenManager;
 
     @PostMapping("/update/{userSeq}/{geulgwiSeq}")

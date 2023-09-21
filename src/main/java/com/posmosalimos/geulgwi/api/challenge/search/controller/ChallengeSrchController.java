@@ -1,7 +1,7 @@
 package com.posmosalimos.geulgwi.api.challenge.search.controller;
 
-import com.posmosalimos.geulgwi.api.challenge.search.dto.ChallengeSearchDto;
-import com.posmosalimos.geulgwi.api.challenge.search.service.ChallengeSearchService;
+import com.posmosalimos.geulgwi.api.challenge.search.dto.ChallengeSrchDTO;
+import com.posmosalimos.geulgwi.api.challenge.search.service.ChallengeSrchService;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -16,10 +16,10 @@ import java.util.List;
 @RestController
 @RequestMapping("challenge")
 @RequiredArgsConstructor
-public class ChallengeSearchController {
+public class ChallengeSrchController {
 
     private final TokenManager tokenManager;
-    private final ChallengeSearchService challengeSearchService;
+    private final ChallengeSrchService challengeSearchService;
 
     @GetMapping("/search/{challengeSeq}")
     public ResponseEntity<List> findChallengeUser(@PathVariable("challengeSeq") Long seq,
@@ -30,7 +30,7 @@ public class ChallengeSearchController {
 
         tokenManager.validateToken(accessToken);
 
-        List<ChallengeSearchDto> searchDtos = challengeSearchService.searchChallenges(seq);
+        List<ChallengeSrchDTO> searchDtos = challengeSearchService.searchChallenges(seq);
 
         return ResponseEntity.ok(searchDtos);
     }

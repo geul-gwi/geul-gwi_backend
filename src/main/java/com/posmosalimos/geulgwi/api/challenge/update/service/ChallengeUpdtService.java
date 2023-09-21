@@ -6,7 +6,6 @@ import com.posmosalimos.geulgwi.domain.challenge.repository.ChallengeAdminReposi
 import com.posmosalimos.geulgwi.domain.challenge.service.ChallengeService;
 import com.posmosalimos.geulgwi.global.error.ErrorCode;
 import com.posmosalimos.geulgwi.global.error.exception.AuthenticationException;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Service
 @Transactional(readOnly = true)
-public class ChallengeUdtService {
+public class ChallengeUpdtService {
 
     private final ChallengeService challengeService;
     private final ChallengeAdminRepository challengeAdminRepository;

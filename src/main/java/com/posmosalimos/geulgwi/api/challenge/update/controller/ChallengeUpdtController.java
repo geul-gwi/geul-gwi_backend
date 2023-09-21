@@ -1,7 +1,7 @@
 package com.posmosalimos.geulgwi.api.challenge.update.controller;
 
 import com.posmosalimos.geulgwi.api.challenge.register.dto.ChallengeRegDTO;
-import com.posmosalimos.geulgwi.api.challenge.update.service.ChallengeUdtService;
+import com.posmosalimos.geulgwi.api.challenge.update.service.ChallengeUpdtService;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/challenge")
-public class ChallengeUdtController {
+public class ChallengeUpdtController {
 
     private final TokenManager tokenManager;
-    private final ChallengeUdtService challengeUdtService;
+    private final ChallengeUpdtService challengeUdtService;
 
     @PostMapping("/update/{keywordSeq}/{userSeq}/{challengeUserSeq}")
     public ResponseEntity<Boolean> update(@Valid @RequestBody ChallengeRegDTO challengeRegDTO,
