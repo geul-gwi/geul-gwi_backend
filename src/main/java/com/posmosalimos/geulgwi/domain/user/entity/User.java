@@ -3,6 +3,7 @@ package com.posmosalimos.geulgwi.domain.user.entity;
 import com.posmosalimos.geulgwi.domain.challenge.entity.ChallengeUser;
 import com.posmosalimos.geulgwi.domain.geulgwi.entity.Geulgwi;
 import com.posmosalimos.geulgwi.domain.geulgwi.entity.UploadFile;
+import com.posmosalimos.geulgwi.domain.like.entity.Like;
 import com.posmosalimos.geulgwi.domain.user.constant.Role;
 import com.posmosalimos.geulgwi.global.jwt.dto.JwtTokenDto;
 import com.posmosalimos.geulgwi.global.util.DateTimeUtils;
@@ -52,6 +53,10 @@ public class User {
 
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     private UploadFile userProfile;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "likeSeq")
+    private Like likes;
 
     @Builder //join
     public User(String userId, String password,

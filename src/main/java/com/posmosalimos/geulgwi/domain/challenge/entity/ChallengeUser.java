@@ -1,6 +1,7 @@
 package com.posmosalimos.geulgwi.domain.challenge.entity;
 
 import com.posmosalimos.geulgwi.api.challenge.register.dto.ChallengeRegDTO;
+import com.posmosalimos.geulgwi.domain.like.entity.Like;
 import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import jakarta.persistence.*;
@@ -11,7 +12,6 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -24,7 +24,6 @@ public class ChallengeUser {
     private Long challengeUserSeq;
     private String challengeContent;
     private String regDate;
-    private int likes;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "challengeAdminSeq")
     private ChallengeAdmin challengeAdmin;
@@ -34,6 +33,10 @@ public class ChallengeUser {
 
     @OneToMany(mappedBy = "challengeUser", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Tag> tags = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "likeSeq")
+    private Like likes;
 
     @Builder
     public ChallengeUser(ChallengeRegDTO challengeRegDTO, ChallengeAdmin challengeAdmin, User user) {
