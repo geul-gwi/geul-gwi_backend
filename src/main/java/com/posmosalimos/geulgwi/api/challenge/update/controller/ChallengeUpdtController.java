@@ -45,7 +45,7 @@ public class ChallengeUpdtController {
 
         tokenManager.validateToken(accessToken);
 
-        challengeUdtService.likes(challengeUserSeq);
+//        challengeUdtService.likes(challengeUserSeq);
 
         return ResponseEntity.ok(true);
     }

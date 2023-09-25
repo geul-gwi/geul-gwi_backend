@@ -19,11 +19,11 @@ public class UpdateService {
 
         findUser.update(
                 updateDTO.getPassword(),
-                updateDTO.getName(),
+                updateDTO.getComment(),
                 updateDTO.getNickname(),
-                updateDTO.getTag1(),
-                updateDTO.getTag2(),
-                updateDTO.getTag3(),
+                updateDTO.getTags().get(0),
+                updateDTO.getTags().get(1),
+                updateDTO.getTags().get(2),
                 updateDTO.getProfile());
     }
 }

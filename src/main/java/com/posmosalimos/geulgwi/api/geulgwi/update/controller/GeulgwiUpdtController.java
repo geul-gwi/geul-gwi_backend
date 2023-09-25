@@ -45,7 +45,7 @@ public class GeulgwiUpdtController {
 
         tokenManager.validateToken(accessToken);
 
-        geulgwiUdtService.likes(geulgwiSeq);
+//        geulgwiUdtService.likes(geulgwiSeq);
 
         return ResponseEntity.ok(true);
     }

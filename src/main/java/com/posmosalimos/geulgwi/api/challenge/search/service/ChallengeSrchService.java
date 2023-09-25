@@ -29,7 +29,7 @@ public class ChallengeSrchService {
                         .seq(challenge.getChallengeUserSeq())
                         .challengeContent(challenge.getChallengeContent())
                         .regDate(challenge.getRegDate())
-                        .likes(challenge.getLikes())
+//                        .likes(challenge.getLikes())
                         .build()
             );
 

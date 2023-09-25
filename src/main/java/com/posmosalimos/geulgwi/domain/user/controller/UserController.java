@@ -4,6 +4,7 @@ import com.posmosalimos.geulgwi.domain.user.service.UserService;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import com.posmosalimos.geulgwi.global.resolver.memberinfo.UserInfo;
 import com.posmosalimos.geulgwi.global.resolver.memberinfo.UserInfoDto;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +20,16 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/info")
-    public ResponseEntity<UserInfoDto> getUserInfo(@UserInfo UserInfoDto userInfoDto) {
+    public ResponseEntity<UserInfoDto> getUserInfo(@UserInfo UserInfoDto userInfoDto,
+                                                   HttpServletRequest httpServletRequest) {
+
+        String authorization = httpServletRequest.getHeader("authorization");
+        String accessToken = authorization.split(" ")[1];
+
+        tokenManager.validateToken(accessToken);
+
         Long seq = userInfoDto.getUserSeq();
         UserInfoDto userInfo = userService.findUserInfo(seq);
-        return ResponseEntity.ok(userInfoDto);
+        return ResponseEntity.ok(userInfo);
     }
 }

@@ -38,8 +38,8 @@ public class ChallengeUpdtService {
         challengeService.update(challengeUser);
     }
 
-    @Transactional
-    public void likes(Long challengeUserSeq) {
-        challengeService.likes(challengeUserSeq);
-    }
+//    @Transactional
+//    public void likes(Long challengeUserSeq) {
+//        challengeService.likes(challengeUserSeq);
+//    }
 }

@@ -34,8 +34,8 @@ public class GeulgwiUpdtService {
         geulgwiService.update(geulgwiUser);
     }
 
-    @Transactional
-    public void likes(Long geulgwiSeq) {
-        geulgwiService.likes(geulgwiSeq);
-    }
+//    @Transactional
+//    public void likes(Long geulgwiSeq) {
+//        geulgwiService.likes(geulgwiSeq);
+//    }
 }

@@ -67,8 +67,8 @@ public class ChallengeService {
         return challengeUser;
     }
 
-    @Transactional
-    public void likes(Long challengeUserSeq) {
-        challengeUserRepository.likes(challengeUserSeq);
-    }
+//    @Transactional
+//    public void likes(Long challengeUserSeq) {
+//        challengeUserRepository.likes(challengeUserSeq);
+//    }
 }

@@ -34,8 +34,7 @@ dependencies {
 	//coolsms : 문자 인증 서비스
 	implementation 'net.nurigo:sdk:4.2.7'
 	//메일 인증
-	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.6.3'
-	implementation 'jakarta.mail:jakarta.mail-api:2.1.0'
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 
 	//security
 //	implementation 'org.springframework.boot:spring-boot-starter-security'

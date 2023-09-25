@@ -19,10 +19,17 @@ public class Like {
     @Column(name = "likeSeq")
     private Long likeSeq;
 
-    @OneToMany(mappedBy = "likes", fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<User> users = new ArrayList<>();
+//    @OneToMany(mappedBy = "likes", fetch = FetchType.LAZY, orphanRemoval = true)
+//    private List<User> users = new ArrayList<>();
 
-    @OneToMany(mappedBy = "likes", fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<ChallengeUser> challengeUsers = new ArrayList<>();
+//    @OneToMany(mappedBy = "likes", fetch = FetchType.LAZY, orphanRemoval = true)
+//    private List<ChallengeUser> challengeUsers = new ArrayList<>();
 
+//    @ManyToOne
+//    @JoinColumn(name = "userSeq")
+//    private User user;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "challengeUserSeq")
+//    private ChallengeUser challengeUser;
 }

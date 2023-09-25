@@ -65,9 +65,10 @@ public class UserService {
         return UserInfoDto.builder()
                 .userSeq(userSeq)
                 .userId(findUser.get().getUserId())
-                .userName(findUser.get().getUserName())
                 .nickname(findUser.get().getNickname())
                 .role(findUser.get().getRole())
+                .userPassword(findUser.get().getPassword())
+                .profile(findUser.get().getUserProfile())
                 .build();
     }
 

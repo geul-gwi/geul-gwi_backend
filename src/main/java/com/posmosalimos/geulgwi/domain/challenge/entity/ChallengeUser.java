@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -23,6 +24,7 @@ public class ChallengeUser {
     @Column(updatable = false)
     private Long challengeUserSeq;
     private String challengeContent;
+//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String regDate;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "challengeAdminSeq")
@@ -34,9 +36,9 @@ public class ChallengeUser {
     @OneToMany(mappedBy = "challengeUser", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Tag> tags = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "likeSeq")
-    private Like likes;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "likeSeq")
+//    private Like likes;
 
     @Builder
     public ChallengeUser(ChallengeRegDTO challengeRegDTO, ChallengeAdmin challengeAdmin, User user) {

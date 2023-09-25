@@ -27,9 +27,9 @@ public class JoinController {
                     .nickname(joinDTO.getUserNickname())
                     .gender(joinDTO.getUserGender())
                     .age(joinDTO.getUserAge())
-                    .tag1(joinDTO.getTag1())
-                    .tag2(joinDTO.getTag2())
-                    .tag3(joinDTO.getTag3())
+                    .tag1(joinDTO.getUserTags().get(0))
+                    .tag2(joinDTO.getUserTags().get(1))
+                    .tag3(joinDTO.getUserTags().get(2))
                     .profile(joinDTO.getUserProfile())
                     .role(Role.COMMON)
                     .build();

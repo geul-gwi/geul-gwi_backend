@@ -1,11 +1,13 @@
 package com.posmosalimos.geulgwi.domain.geulgwi.entity;
 
+import com.posmosalimos.geulgwi.domain.like.entity.Like;
 import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -22,8 +24,8 @@ public class Geulgwi {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long geulgwiSeq;
     private String geulgwiContent;
+//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String regDate;
-    private int likes;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="userSeq")
     private User user;
@@ -33,6 +35,10 @@ public class Geulgwi {
 
     @OneToMany(mappedBy = "geulgwi", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     private List<UploadFile> uploadFiles = new ArrayList<>();
+
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "likeSeq")
+//    private Like likes;
 
     @Builder
     public Geulgwi(String content, List<Tag> tags, User user) {
