@@ -1,7 +1,5 @@
 package com.posmosalimos.geulgwi.domain.tag.service;
 
-import com.posmosalimos.geulgwi.domain.tag.dto.TagDto;
-import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
 import com.posmosalimos.geulgwi.domain.tag.repository.TagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,15 +12,17 @@ public class TagService {
 
     private final TagRepository tagRepository;
 
-    public Long createTag(TagDto.Request request) {
+//    public Long createTag(CreateTagDTO.Request request) {
+//
+//        Tag tag = Tag.builder()
+//                .backColor(request.getBackColor())
+//                .fontColor(request.getFontColor())
+//                .value(request.getValue())
+//                .build();
+//
+//        tagRepository.save(tag);
+//
+//        return tag.getTagSeq();
+//}
 
-        Tag tag = Tag.builder()
-                .tagName(request.getTagName())
-                .color(request.getColor())
-                .build();
-
-        tagRepository.save(tag);
-
-        return tag.getTagSeq();
-    }
 }

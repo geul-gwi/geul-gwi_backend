@@ -18,17 +18,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ChallengeSrchController {
 
-    private final TokenManager tokenManager;
     private final ChallengeSrchService challengeSearchService;
 
     @GetMapping("/search/{challengeSeq}")
-    public ResponseEntity<List> findChallengeUser(@PathVariable("challengeSeq") Long seq,
-                                                  HttpServletRequest httpServletRequest){
-
-        String authorization = httpServletRequest.getHeader("Authorization");
-        String accessToken = authorization.split(" ")[1];
-
-        tokenManager.validateToken(accessToken);
+    public ResponseEntity<List> findChallengeUser(@PathVariable("challengeSeq") Long seq){
 
         List<ChallengeSrchDTO> searchDtos = challengeSearchService.searchChallenges(seq);
 

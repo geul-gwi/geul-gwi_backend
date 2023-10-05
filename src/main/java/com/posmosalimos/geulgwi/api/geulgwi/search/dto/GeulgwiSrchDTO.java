@@ -1,6 +1,5 @@
 package com.posmosalimos.geulgwi.api.geulgwi.search.dto;
 
-import com.posmosalimos.geulgwi.domain.like.entity.Like;
 import lombok.*;
 
 @Data
@@ -12,12 +11,12 @@ public class GeulgwiSrchDTO {
     public static class Response {
         private String geulgwiContent;
         private String regDate;
-        private Like likes;
+//        private Like likes;
     }
 
     private String geulgwiContent;
     private String regDate;
-    private Like likes;
+//    private Like likes;
 
 
 }

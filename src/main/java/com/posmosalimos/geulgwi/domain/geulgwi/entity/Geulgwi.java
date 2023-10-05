@@ -1,13 +1,11 @@
 package com.posmosalimos.geulgwi.domain.geulgwi.entity;
 
-import com.posmosalimos.geulgwi.domain.like.entity.Like;
 import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

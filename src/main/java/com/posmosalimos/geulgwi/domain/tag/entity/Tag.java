@@ -15,8 +15,9 @@ public class Tag {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long tagSeq;
-    private String tagName;
-    private String color;
+    private String backColor;
+    private String fontColor;
+    private String value;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "challengeUserSeq")
@@ -27,10 +28,9 @@ public class Tag {
     private Geulgwi geulgwi;
 
     @Builder
-    public Tag(String tagName, String color, ChallengeUser challengeUser, Geulgwi geulgwi) {
-        this.tagName = tagName;
-        this.color = color;
-        this.challengeUser = challengeUser;
-        this.geulgwi = geulgwi;
+    public Tag(String backColor, String fontColor, String value) {
+        this.backColor = backColor;
+        this.fontColor = fontColor;
+        this.value = value;
     }
 }

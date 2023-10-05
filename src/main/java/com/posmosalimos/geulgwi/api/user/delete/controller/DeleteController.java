@@ -1,6 +1,9 @@
 package com.posmosalimos.geulgwi.api.user.delete.controller;
 
 import com.posmosalimos.geulgwi.api.user.delete.service.DeleteService;
+import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
+import com.posmosalimos.geulgwi.global.util.AuthorizationHeaderUtils;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,10 +13,20 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 public class DeleteController {
 
+    private TokenManager tokenManager;
     private DeleteService deleteService;
 
     @PostMapping("/delete/{seq}")
-    public ResponseEntity<Boolean> delete(@PathVariable Long seq, @RequestBody String password) {
+    public ResponseEntity<Boolean> delete(@PathVariable Long seq, @RequestBody String password,
+                                          HttpServletRequest httpServletRequest) {
+
+        String authorization = httpServletRequest.getHeader("Authorization");
+        AuthorizationHeaderUtils.validateAuthorization(authorization);
+
+        String accessToken = authorization.split(" ")[1];
+
+        tokenManager.validateToken(accessToken);
+
         deleteService.delete(seq, password);
 
         return ResponseEntity.ok(true);
