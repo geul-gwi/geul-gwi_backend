@@ -1,4 +1,4 @@
-package com.posmosalimos.geulgwi.api.user.list.dto;
+package com.posmosalimos.geulgwi.api.user.search.dto;
 
 import com.posmosalimos.geulgwi.domain.geulgwi.entity.UploadFile;
 import lombok.Builder;

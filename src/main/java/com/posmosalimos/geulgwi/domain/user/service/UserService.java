@@ -1,6 +1,6 @@
 package com.posmosalimos.geulgwi.domain.user.service;
 
-import com.posmosalimos.geulgwi.api.user.list.dto.UserListDTO;
+import com.posmosalimos.geulgwi.api.user.search.dto.UserListDTO;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.domain.user.repository.UserRepository;
 import com.posmosalimos.geulgwi.global.error.ErrorCode;
