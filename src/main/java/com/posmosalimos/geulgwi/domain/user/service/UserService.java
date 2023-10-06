@@ -1,17 +1,20 @@
 package com.posmosalimos.geulgwi.domain.user.service;
 
+import com.posmosalimos.geulgwi.api.user.list.dto.UserListDTO;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.domain.user.repository.UserRepository;
 import com.posmosalimos.geulgwi.global.error.ErrorCode;
 import com.posmosalimos.geulgwi.global.error.exception.AuthenticationException;
 import com.posmosalimos.geulgwi.global.error.exception.BusinessException;
 import com.posmosalimos.geulgwi.global.error.exception.EntityNotFoundException;
-import com.posmosalimos.geulgwi.global.resolver.memberinfo.UserInfoDto;
+import com.posmosalimos.geulgwi.global.resolver.memberinfo.UserInfoDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -37,7 +40,7 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public User findUserByRefreshToken(String refreshToken){
+    public User findUserByRefreshToken(String refreshToken) {
         User findUser = userRepository.findByRefreshToken(refreshToken)
                 .orElseThrow(() -> new AuthenticationException(ErrorCode.REFRESH_TOKEN_NOT_FOUND));
 
@@ -65,12 +68,13 @@ public class UserService {
         userRepository.delete(findUser);
     }
 
-    public UserInfoDto findUserInfo(Long userSeq){
+    //유저정보 - 단건
+    public UserInfoDTO findUserInfo(Long userSeq) {
         Optional<User> findUser = userRepository.findByUserSeq(userSeq);
         if (findUser.isEmpty())
             throw new EntityNotFoundException(ErrorCode.MEMBER_NOT_EXISTS);
 
-        return UserInfoDto.builder()
+        return UserInfoDTO.builder()
                 .userSeq(userSeq)
                 .userId(findUser.get().getUserId())
                 .nickname(findUser.get().getNickname())
@@ -78,6 +82,25 @@ public class UserService {
                 .userPassword(findUser.get().getPassword())
                 .profile(findUser.get().getUserProfile())
                 .build();
+    }
+
+    //유저정보 - 복수건
+    public List<UserListDTO> findUserInfos() {
+        List<User> users = userRepository.findAll();
+        List<UserListDTO> userListDtos = new ArrayList<>();
+
+        for (User u : users) {
+            userListDtos.add(
+                    UserListDTO.builder()
+                            .userSeq(u.getUserSeq())
+                            .userId(u.getUserId())
+                            .nickname(u.getNickname())
+                            .profile(u.getUserProfile())
+                            .build()
+            );
+        }
+
+        return userListDtos;
     }
 
     public User findBySeq(Long userSeq) {

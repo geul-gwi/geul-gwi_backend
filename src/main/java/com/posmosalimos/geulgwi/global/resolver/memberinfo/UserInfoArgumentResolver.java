@@ -22,7 +22,7 @@ public class UserInfoArgumentResolver implements HandlerMethodArgumentResolver {
     public boolean supportsParameter(MethodParameter parameter) {
         // return값이 true이면, resolveArgument가 실행됨
         boolean hasMemberInfoAnnotation = parameter.hasParameterAnnotation(UserInfo.class);
-        boolean hasMemberInfoDto = UserInfoDto.class.isAssignableFrom(parameter.getParameterType());
+        boolean hasMemberInfoDto = UserInfoDTO.class.isAssignableFrom(parameter.getParameterType());
         return hasMemberInfoAnnotation && hasMemberInfoDto;
     }
 
@@ -36,7 +36,7 @@ public class UserInfoArgumentResolver implements HandlerMethodArgumentResolver {
         Long seq = Long.valueOf((Integer) tokenClaims.get("seq"));
         String role = (String) tokenClaims.get("role");
 
-        return UserInfoDto.builder()
+        return UserInfoDTO.builder()
                 .userSeq(seq)
                 .role(Role.from(role))
                 .build();

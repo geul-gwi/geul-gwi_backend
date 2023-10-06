@@ -3,7 +3,7 @@ package com.posmosalimos.geulgwi.domain.user.controller;
 import com.posmosalimos.geulgwi.domain.user.service.UserService;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import com.posmosalimos.geulgwi.global.resolver.memberinfo.UserInfo;
-import com.posmosalimos.geulgwi.global.resolver.memberinfo.UserInfoDto;
+import com.posmosalimos.geulgwi.global.resolver.memberinfo.UserInfoDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/info")
-    public ResponseEntity<UserInfoDto> getUserInfo(@UserInfo UserInfoDto userInfoDto,
+    public ResponseEntity<UserInfoDTO> getUserInfo(@UserInfo UserInfoDTO userInfoDto,
                                                    HttpServletRequest httpServletRequest) {
 
         String authorization = httpServletRequest.getHeader("authorization");
@@ -29,7 +29,7 @@ public class UserController {
         tokenManager.validateToken(accessToken);
 
         Long seq = userInfoDto.getUserSeq();
-        UserInfoDto userInfo = userService.findUserInfo(seq);
+        UserInfoDTO userInfo = userService.findUserInfo(seq);
         return ResponseEntity.ok(userInfo);
     }
 }

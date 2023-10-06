@@ -2,10 +2,9 @@ package com.posmosalimos.geulgwi.api.user.update.controller;
 
 import com.posmosalimos.geulgwi.api.user.update.dto.UpdateDTO;
 import com.posmosalimos.geulgwi.api.user.update.service.UpdateService;
-import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import com.posmosalimos.geulgwi.global.resolver.memberinfo.UserInfo;
-import com.posmosalimos.geulgwi.global.resolver.memberinfo.UserInfoDto;
+import com.posmosalimos.geulgwi.global.resolver.memberinfo.UserInfoDTO;
 import com.posmosalimos.geulgwi.global.util.AuthorizationHeaderUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +24,7 @@ public class UpdateController {
 
     @PostMapping("/update")
     public ResponseEntity<Boolean> updateUser(@RequestBody UpdateDTO updateDTO,
-                                             @UserInfo UserInfoDto userInfoDto,
+                                             @UserInfo UserInfoDTO userInfoDto,
                                              HttpServletRequest httpServletRequest) {
 
         String authorization = httpServletRequest.getHeader("Authorization");

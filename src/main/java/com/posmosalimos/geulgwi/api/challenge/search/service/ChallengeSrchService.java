@@ -17,7 +17,7 @@ public class ChallengeSrchService {
 
     private final ChallengeService challengeService;
 
-    public List<ChallengeSrchDTO> searchChallenges(Long adminSeq){
+    public List<ChallengeSrchDTO> searchChallenges(Long adminSeq) {
 
         List<ChallengeUser> challengeUserByAdminSeq = challengeService.findByAdminSeq(adminSeq);
         List<ChallengeSrchDTO> searchDtos = new ArrayList<>();

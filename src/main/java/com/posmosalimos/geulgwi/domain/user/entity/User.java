@@ -27,8 +27,6 @@ public class User {
     private String userId;
     @Column(name = "userPassword")
     private String password;
-    @Column(name = "userName")
-    private String userName;
     @Column(name = "userAge")
     private int age;
     @Column(name = "userGender")
@@ -68,7 +66,6 @@ public class User {
                 ) {
         this.userId = userId;
         this.password = password;
-        this.userName = userName;
         this.age = age;
         this.gender = gender;
         this.nickname = nickname;
