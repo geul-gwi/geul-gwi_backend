@@ -1,4 +1,4 @@
-package com.posmosalimos.geulgwi.api.tag.register.service;
+package com.posmosalimos.geulgwi.api.tag.delete.service;
 
 import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
 import com.posmosalimos.geulgwi.domain.tag.repository.TagRepository;
@@ -8,23 +8,18 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
+@RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class RegTagService {
+public class DelTagService {
 
-//    private final TagService tagService;
     private final TagRepository tagRepository;
 
     @Transactional
-    public void create(List<Tag> tags) {
-        try {
-            tagRepository.saveAll(tags);
-        } catch (Exception e) {
-            throw new BusinessException(ErrorCode.TAG_CREATION_FAILED);
+    public void delete(String value) {
+        Tag tag = tagRepository.findByValue(value).orElseThrow(() -> new BusinessException(ErrorCode.TAG_DELETION_FAILED));
+        tagRepository.delete(tag);
         }
-    }
 }

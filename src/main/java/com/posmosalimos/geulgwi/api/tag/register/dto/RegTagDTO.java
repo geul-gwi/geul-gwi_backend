@@ -13,11 +13,9 @@ public class RegTagDTO {
     private String fontColor;
     private String value;
 
-//    private List<RegTagDTO> tagList;
-
     /*
 
-    "tagList": [
+[
      {
         "backColor": "asdf",
         "fontColor": "asdf",
@@ -28,7 +26,7 @@ public class RegTagDTO {
         "fontColor": "asdf",
         "value": "asdf"
      }
-    ]
+]
 
      */
 

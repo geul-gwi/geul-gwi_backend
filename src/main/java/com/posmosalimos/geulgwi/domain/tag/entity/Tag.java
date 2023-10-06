@@ -20,10 +20,6 @@ public class Tag {
     private String value;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "challengeUserSeq")
-    private ChallengeUser challengeUser;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "geulgwiSeq")
     private Geulgwi geulgwi;
 

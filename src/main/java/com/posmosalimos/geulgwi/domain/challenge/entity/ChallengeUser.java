@@ -1,18 +1,14 @@
 package com.posmosalimos.geulgwi.domain.challenge.entity;
 
 import com.posmosalimos.geulgwi.api.challenge.register.dto.ChallengeRegDTO;
-import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -31,9 +27,6 @@ public class ChallengeUser {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="userSeq")
     private User user;
-
-    @OneToMany(mappedBy = "challengeUser", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
-    private List<Tag> tags = new ArrayList<>();
 
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "likeSeq")

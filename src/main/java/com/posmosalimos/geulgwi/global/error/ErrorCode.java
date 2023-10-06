@@ -36,7 +36,7 @@ public enum ErrorCode {
 
     // 태그
     TAG_CREATION_FAILED(HttpStatus.BAD_REQUEST, "T-001", "태그 생성에 실패하였습니다."),
-    TAG_DELETION_FAILED(HttpStatus.BAD_REQUEST, "T-002", "태그 삭제에 실패하였습니다.")
+    TAG_DELETION_FAILED(HttpStatus.BAD_REQUEST, "T-002", "존재하지 않는 태그입니다.")
 
     ;
 
