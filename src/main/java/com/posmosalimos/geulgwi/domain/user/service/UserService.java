@@ -52,6 +52,7 @@ public class UserService {
     @Transactional
     public void delete(Long userSeq, String userPassword) {
         User findUser = userRepository.findByUserSeq(userSeq).orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_EXISTS));
+
         if (findUser.getPassword().equals(userPassword))
             userRepository.delete(findUser);
         else throw new BusinessException(ErrorCode.INVALID_PASSWORD);

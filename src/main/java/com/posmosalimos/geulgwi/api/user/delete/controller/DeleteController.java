@@ -1,5 +1,6 @@
 package com.posmosalimos.geulgwi.api.user.delete.controller;
 
+import com.posmosalimos.geulgwi.api.user.delete.dto.DeleteDTO;
 import com.posmosalimos.geulgwi.api.user.delete.service.DeleteService;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import com.posmosalimos.geulgwi.global.util.AuthorizationHeaderUtils;
@@ -17,8 +18,10 @@ public class DeleteController {
     private final DeleteService deleteService;
 
     @DeleteMapping("/delete/{seq}")
-    public ResponseEntity<Boolean> delete(@PathVariable Long seq, @RequestBody String password,
+    public ResponseEntity<Boolean> delete(@PathVariable Long seq, @RequestBody DeleteDTO deleteDTO,
                                           HttpServletRequest httpServletRequest) {
+
+        String password = deleteDTO.getPassword();
 
         String authorization = httpServletRequest.getHeader("Authorization");
         AuthorizationHeaderUtils.validateAuthorization(authorization);
