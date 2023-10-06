@@ -48,13 +48,20 @@ public class UserService {
         return findUser;
     }
 
-    //delete
+    //delete - user
     @Transactional
     public void delete(Long userSeq, String userPassword) {
         User findUser = userRepository.findByUserSeq(userSeq).orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_EXISTS));
         if (findUser.getPassword().equals(userPassword))
             userRepository.delete(findUser);
         else throw new BusinessException(ErrorCode.INVALID_PASSWORD);
+    }
+
+    //delete - admin
+    @Transactional
+    public void delete(Long userSeq) {
+        User findUser = userRepository.findByUserSeq(userSeq).orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_EXISTS));
+        userRepository.delete(findUser);
     }
 
     public UserInfoDto findUserInfo(Long userSeq){

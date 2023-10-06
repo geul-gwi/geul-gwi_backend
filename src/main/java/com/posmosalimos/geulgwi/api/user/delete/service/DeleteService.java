@@ -7,11 +7,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
+@Transactional(readOnly = true)
 public class DeleteService {
-    private UserService userService;
+    private final UserService userService;
 
+    @Transactional
     public void delete(Long seq, String password) {
         userService.delete(seq, password);
+    }
+
+    @Transactional
+    public void delete(Long seq) {
+        userService.delete(seq);
     }
 }

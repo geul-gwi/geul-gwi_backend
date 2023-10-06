@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 public class DeleteController {
 
-    private TokenManager tokenManager;
-    private DeleteService deleteService;
+    private final TokenManager tokenManager;
+    private final DeleteService deleteService;
 
-    @PostMapping("/delete/{seq}")
+    @DeleteMapping("/delete/{seq}")
     public ResponseEntity<Boolean> delete(@PathVariable Long seq, @RequestBody String password,
                                           HttpServletRequest httpServletRequest) {
 
@@ -32,4 +32,10 @@ public class DeleteController {
         return ResponseEntity.ok(true);
     }
 
+    @DeleteMapping("/admin/delete/{seq}")
+    public ResponseEntity<Boolean> delete(@PathVariable Long seq) {
+        deleteService.delete(seq);
+
+        return ResponseEntity.ok(true);
+    }
 }
