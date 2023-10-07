@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,14 +25,16 @@ public class FileService {
     private String fileDir;
     private final FileRepository fileRepository;
 
-    public void storeFiles(List<MultipartFile> multipartFiles) throws IOException {
+    public List<String> storeFiles(List<MultipartFile> multipartFiles) throws IOException {
         //여러 파일 처리
+        List<String> files = new ArrayList<>();
 
         for (MultipartFile multipartFile : multipartFiles) {
             if (!multipartFile.isEmpty())
-                storeFile(multipartFile);
+                files.add(storeFile(multipartFile));
         }
 
+        return files;
     }
 
     public String storeFile(MultipartFile multipartFile) throws IOException {

@@ -10,6 +10,5 @@ import java.util.List;
 public class GeulgwiRegDTO {
     private String geulgwiContent;
     private Long userSeq;
-    private List<UploadFile> files;
     private List<Tag> tags;
 }

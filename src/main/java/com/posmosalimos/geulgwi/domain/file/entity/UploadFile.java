@@ -18,14 +18,6 @@ public class UploadFile {
     private String upload; //고객이 업로드한 파일명
     private String store; //서버 내부에서 관리하는 패스+파일명(중복된 파일명일 때의 충돌 방지를 위해 서버용 파일명을 별도로 둠)
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "geulgwiSeq")
-    private Geulgwi geulgwi;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userSeq")
-    private User user;
-
     @Builder
     public UploadFile(String upload, String store) {
         this.upload = upload;
