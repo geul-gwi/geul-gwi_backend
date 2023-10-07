@@ -41,7 +41,6 @@ public class UpdateController {
         String storeFile = fileService.storeFile(file);
         updateService.update(userSeq, updateDTO, storeFile);
 
-
         return ResponseEntity.ok(true);
     }
 }

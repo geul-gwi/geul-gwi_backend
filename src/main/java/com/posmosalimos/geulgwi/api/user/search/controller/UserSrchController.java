@@ -39,7 +39,7 @@ public class UserSrchController {
                 .userSeq(findUser.getUserSeq())
                 .userId(findUser.getUserId())
                 .nickname(findUser.getNickname())
-//                .profile(findUser.getUserProfile())
+                .profile(findUser.getUserProfile())
                 .role(findUser.getRole())
                 .comment(findUser.getComment())
                 .userPassword(findUser.getPassword())

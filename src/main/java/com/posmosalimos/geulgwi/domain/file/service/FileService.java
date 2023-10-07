@@ -44,14 +44,13 @@ public class FileService {
         multipartFile.transferTo(new File(getFullPath(storeFilename))); //로컬에 uuid를 파일명으로 저장
 
         UploadFile file = UploadFile.builder()
-                .uploadFileName(originalFilename)
-                .storeFileName(storeFilename)
-                .path(getFullPath(storeFilename))
+                .upload(originalFilename)
+                .store(getFullPath(storeFilename)) //패스 + 파일명
                 .build();
 
         fileRepository.save(file);
 
-        return file.getStoreFileName();
+        return file.getStore();
 
     }
 

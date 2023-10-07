@@ -15,8 +15,8 @@ public class UploadFile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long fileSeq;
-    private String uploadFileName; //고객이 업로드한 파일명
-    private String storeFileName; //서버 내부에서 관리하는 파일명(중복된 파일명일 때의 충돌 방지를 위해 서버용 파일명을 별도로 둠)
+    private String upload; //고객이 업로드한 파일명
+    private String store; //서버 내부에서 관리하는 패스+파일명(중복된 파일명일 때의 충돌 방지를 위해 서버용 파일명을 별도로 둠)
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "geulgwiSeq")
@@ -26,14 +26,9 @@ public class UploadFile {
     @JoinColumn(name = "userSeq")
     private User user;
 
-    public UploadFile(String uploadFileName, String storeFileName) {
-        this.uploadFileName = uploadFileName;
-        this.storeFileName = storeFileName;
-    }
-
     @Builder
-    public UploadFile(String uploadFileName, String storeFileName, String path) {
-        this.uploadFileName = uploadFileName;
-        this.storeFileName = storeFileName;
+    public UploadFile(String upload, String store) {
+        this.upload = upload;
+        this.store = store;
     }
 }

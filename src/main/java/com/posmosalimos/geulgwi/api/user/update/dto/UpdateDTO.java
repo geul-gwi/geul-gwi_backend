@@ -6,7 +6,6 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-@Builder
 public class UpdateDTO {
     private String password;
     private String nickname;
