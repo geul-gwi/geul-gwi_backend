@@ -1,6 +1,5 @@
 package com.posmosalimos.geulgwi.global.resolver.memberinfo;
 
-import com.posmosalimos.geulgwi.domain.geulgwi.entity.UploadFile;
 import com.posmosalimos.geulgwi.domain.user.constant.Role;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,7 +10,7 @@ public class UserInfoDTO {
     private Long userSeq;
     private String userId;
     private String nickname;
-    private UploadFile profile;
+    private String profile;
     private Role role;
     private String comment;
     private String userPassword;

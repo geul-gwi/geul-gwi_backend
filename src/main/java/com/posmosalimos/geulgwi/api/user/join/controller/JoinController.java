@@ -30,7 +30,6 @@ public class JoinController {
                     .tag1(joinDTO.getUserTags().get(0))
                     .tag2(joinDTO.getUserTags().get(1))
                     .tag3(joinDTO.getUserTags().get(2))
-                    .profile(joinDTO.getUserProfile())
                     .role(Role.COMMON)
                     .build();
 

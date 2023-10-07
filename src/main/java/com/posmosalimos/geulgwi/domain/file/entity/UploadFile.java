@@ -1,8 +1,9 @@
-package com.posmosalimos.geulgwi.domain.geulgwi.entity;
+package com.posmosalimos.geulgwi.domain.file.entity;
 
+import com.posmosalimos.geulgwi.domain.geulgwi.entity.Geulgwi;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -26,6 +27,12 @@ public class UploadFile {
     private User user;
 
     public UploadFile(String uploadFileName, String storeFileName) {
+        this.uploadFileName = uploadFileName;
+        this.storeFileName = storeFileName;
+    }
+
+    @Builder
+    public UploadFile(String uploadFileName, String storeFileName, String path) {
         this.uploadFileName = uploadFileName;
         this.storeFileName = storeFileName;
     }

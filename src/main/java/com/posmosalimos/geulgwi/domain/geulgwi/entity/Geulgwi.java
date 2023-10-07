@@ -1,5 +1,6 @@
 package com.posmosalimos.geulgwi.domain.geulgwi.entity;
 
+import com.posmosalimos.geulgwi.domain.file.entity.UploadFile;
 import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import jakarta.persistence.*;

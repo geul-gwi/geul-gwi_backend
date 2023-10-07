@@ -5,7 +5,7 @@ import com.posmosalimos.geulgwi.api.user.logout.service.LogoutService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class LogoutController {
     private final LogoutService logoutService;
 
-    @DeleteMapping("/logout")
+    @PostMapping("/logout")
     public ResponseEntity<Boolean> logout(HttpServletRequest httpServletRequest) {
 
         String authorization = httpServletRequest.getHeader("Authorization");

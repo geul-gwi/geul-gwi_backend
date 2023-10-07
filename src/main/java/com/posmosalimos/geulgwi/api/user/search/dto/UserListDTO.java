@@ -1,6 +1,5 @@
 package com.posmosalimos.geulgwi.api.user.search.dto;
 
-import com.posmosalimos.geulgwi.domain.geulgwi.entity.UploadFile;
 import lombok.Builder;
 import lombok.Data;
 
@@ -10,5 +9,5 @@ public class UserListDTO {
     private Long userSeq;
     private String userId;
     private String nickname;
-    private UploadFile profile;
+    private String profile;
 }

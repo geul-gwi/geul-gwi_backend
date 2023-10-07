@@ -2,7 +2,6 @@ package com.posmosalimos.geulgwi.domain.user.entity;
 
 import com.posmosalimos.geulgwi.domain.challenge.entity.ChallengeUser;
 import com.posmosalimos.geulgwi.domain.geulgwi.entity.Geulgwi;
-import com.posmosalimos.geulgwi.domain.geulgwi.entity.UploadFile;
 import com.posmosalimos.geulgwi.domain.user.constant.Role;
 import com.posmosalimos.geulgwi.global.jwt.dto.JwtTokenDto;
 import com.posmosalimos.geulgwi.global.util.DateTimeUtils;
@@ -39,6 +38,7 @@ public class User {
     private String comment;
     @Enumerated(value = EnumType.STRING)
     private Role role;
+    private String userProfile;
     @Column(length = 250)
     private String refreshToken;
     private LocalDateTime tokenExpirationTime;
@@ -48,9 +48,6 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Geulgwi> geulgwiPostList = new ArrayList<>();
-
-    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
-    private UploadFile userProfile;
 
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "likeSeq")
@@ -82,6 +79,7 @@ public class User {
         this.tag2 = tag2;
         this.tag3 = tag3;
         this.comment = comment;
+        this.userProfile = profile;
     }
 
     public void updateRefreshToken(JwtTokenDto jwtTokenDto) {

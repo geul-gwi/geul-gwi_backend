@@ -16,5 +16,4 @@ public class JoinDTO {
     private String userGender;
     private int userAge;
     private List<String> userTags;
-    private String userProfile;
 }
