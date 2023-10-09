@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter @Setter
+@Getter
 @NoArgsConstructor
 public class User {
     @Id
@@ -55,12 +55,10 @@ public class User {
 
     @Builder //join
     public User(String userId, String password,
-                String userName, String nickname,
-                String gender, int age,
-                String tag1, String tag2,
-                String tag3, String profile,
-                Role role
-                ) {
+                String nickname, String gender,
+                int age, String tag1,
+                String tag2, String tag3,
+                Role role) {
         this.userId = userId;
         this.password = password;
         this.age = age;
@@ -72,7 +70,10 @@ public class User {
         this.role = role;
     }
 
-    public void update(String password, String nickname, String tag1, String tag2, String tag3, String profile, String comment) {
+    public void update(String password, String nickname,
+                       String tag1, String tag2,
+                       String tag3, String profile,
+                       String comment) {
         this.password = password;
         this.nickname = nickname;
         this.tag1 = tag1;

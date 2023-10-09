@@ -20,20 +20,7 @@ public class JoinController {
     @PostMapping("/join")
     public ResponseEntity<Boolean> join(@RequestBody JoinDTO joinDTO) {
 
-        User createUser = User.builder()
-                    .userId(joinDTO.getUserId())
-                    .password(joinDTO.getUserPassword())
-                    .userName(joinDTO.getUserName())
-                    .nickname(joinDTO.getUserNickname())
-                    .gender(joinDTO.getUserGender())
-                    .age(joinDTO.getUserAge())
-                    .tag1(joinDTO.getUserTags().get(0))
-                    .tag2(joinDTO.getUserTags().get(1))
-                    .tag3(joinDTO.getUserTags().get(2))
-                    .role(Role.COMMON)
-                    .build();
-
-        joinService.join(createUser);
+        joinService.join(joinDTO);
 
         return ResponseEntity.ok(true);
     }
