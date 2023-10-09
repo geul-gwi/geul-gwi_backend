@@ -1,7 +1,5 @@
 package com.posmosalimos.geulgwi.domain.geulgwi.entity;
 
-import com.posmosalimos.geulgwi.domain.file.entity.UploadFile;
-import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -31,17 +29,16 @@ public class Geulgwi {
     private String file2;
     private String file3;
 
-    @OneToMany(mappedBy = "geulgwi", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
-    private List<Tag> tags = new ArrayList<>();
+    @OneToMany(mappedBy = "geulgwi")
+    private List<GeulgwiTag> tagToGeulgwis = new ArrayList<>();
 
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "likeSeq")
 //    private Like likes;
 
     @Builder
-    public Geulgwi(String content, List<Tag> tags, User user, List<String> files) {
+    public Geulgwi(String content, User user, List<String> files) {
         this.geulgwiContent = content;
-        this.tags = tags;
         this.regDate = LocalDate.now().toString() + LocalTime.now();
         this.user = user;
         this.file1 = files.get(0);
@@ -52,7 +49,6 @@ public class Geulgwi {
     public void update(String geulgwiContent, List<String> files) {
         this.geulgwiContent = geulgwiContent;
         this.regDate = LocalDate.now().toString() + LocalTime.now();
-        this.tags = tags;
         this.file1 = files.get(0);
         this.file2 = files.get(1);
         this.file3 = files.get(2);

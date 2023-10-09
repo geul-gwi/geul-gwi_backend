@@ -1,6 +1,5 @@
 package com.posmosalimos.geulgwi.api.geulgwi.register.dto;
 
-import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
 import lombok.Data;
 
 import java.util.List;
@@ -9,5 +8,5 @@ import java.util.List;
 public class GeulgwiRegDTO {
     private String geulgwiContent;
     private Long userSeq;
-    private List<Tag> tags;
+    private List<String> tags;
 }
