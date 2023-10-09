@@ -37,9 +37,13 @@ public class GeulgwiService {
 
     @Transactional
     public void update(Geulgwi geulgwiUser) {
-        geulgwiRepository.update(geulgwiUser.getGeulgwiSeq(),
+        geulgwiRepository.update(
+                geulgwiUser.getGeulgwiSeq(),
                 geulgwiUser.getGeulgwiContent(),
-                geulgwiUser.getRegDate());
+                geulgwiUser.getRegDate(),
+                geulgwiUser.getFile1(),
+                geulgwiUser.getFile2(),
+                geulgwiUser.getFile3());
     }
 
 //    @Transactional

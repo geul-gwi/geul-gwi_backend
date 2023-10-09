@@ -46,6 +46,7 @@ public class UserSrchController {
                 .tag1(findUser.getTag1())
                 .tag2(findUser.getTag2())
                 .tag3(findUser.getTag3())
+                .profile(findUser.getUserProfile())
                 .build()
         );
 

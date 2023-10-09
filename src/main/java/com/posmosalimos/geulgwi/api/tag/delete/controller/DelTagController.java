@@ -18,9 +18,9 @@ public class DelTagController {
 
     private final DelTagService delTagService;
 
-    @DeleteMapping("/delete/{value}")
-    public ResponseEntity<Boolean> delete(@PathVariable("value") String value) {
-        delTagService.delete(value);
+    @DeleteMapping("/delete/{seq}")
+    public ResponseEntity<Boolean> delete(@PathVariable("seq") Long seq) {
+        delTagService.delete(seq);
         return ResponseEntity.ok(true);
     }
 }

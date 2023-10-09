@@ -49,8 +49,12 @@ public class Geulgwi {
         this.file3 = files.get(2);
     }
 
-    public void update(String geulgwiContent) {
+    public void update(String geulgwiContent, List<String> files) {
         this.geulgwiContent = geulgwiContent;
         this.regDate = LocalDate.now().toString() + LocalTime.now();
+        this.tags = tags;
+        this.file1 = files.get(0);
+        this.file2 = files.get(1);
+        this.file3 = files.get(2);
     }
 }

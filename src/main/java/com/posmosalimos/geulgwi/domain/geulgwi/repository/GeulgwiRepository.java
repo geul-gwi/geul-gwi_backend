@@ -21,8 +21,10 @@ public interface GeulgwiRepository extends JpaRepository<Geulgwi, Long> {
     void delete(@Param("geulgwiSeq") Long seq);
 
     @Modifying
-    @Query("update Geulgwi g set g.geulgwiContent = :geulgwiContent, g.regDate = :regDate where g.geulgwiSeq = :geulgwiSeq")
-    void update(@Param("geulgwiSeq") Long geulgwiSeq, @Param("geulgwiContent") String geulgwiContent, @Param("regDate") String regDate);
+    @Query("update Geulgwi g set g.geulgwiContent = :geulgwiContent, g.regDate = :regDate, g.file1 = :file1, g.file2 = :file2, g.file3 = :file3 where g.geulgwiSeq = :geulgwiSeq")
+    void update(@Param("geulgwiSeq") Long geulgwiSeq, @Param("geulgwiContent") String geulgwiContent,
+                @Param("regDate") String regDate, @Param("file1") String file1,
+                @Param("file1") String file2, @Param("file1") String file3);
 
 //    @Modifying
 //    @Query("update Geulgwi g set g.likes = + 1 where g.geulgwiSeq = :geulgwiSeq")

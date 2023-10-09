@@ -8,13 +8,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,27 +23,17 @@ public class RegTagController {
     private final TokenManager tokenManager;
     private final RegTagService createTagService;
 
-    @PostMapping("/register")
-    public ResponseEntity<Boolean> create(@RequestBody List<RegTagDTO> createTagDTOList,
+    @PostMapping("/register/{seq}")
+    public ResponseEntity<Boolean> create(@RequestBody RegTagDTO regTagDTO,
+                                          @PathVariable("seq") Long seq,
                                           HttpServletRequest httpServletRequest) {
+
         String authorization = httpServletRequest.getHeader("Authorization");
         String accessToken = authorization.split(" ")[1];
 
         tokenManager.validateToken(accessToken);
 
-        List<Tag> tags = new ArrayList<>();
-
-        for (RegTagDTO tag : createTagDTOList) {
-            Tag dto = Tag.builder()
-                    .backColor(tag.getBackColor())
-                    .fontColor(tag.getFontColor())
-                    .value(tag.getValue())
-                    .build();
-
-            tags.add(dto);
-        }
-
-        createTagService.create(tags);
+        createTagService.create(regTagDTOS, seq);
 
         return ResponseEntity.ok(true);
 
