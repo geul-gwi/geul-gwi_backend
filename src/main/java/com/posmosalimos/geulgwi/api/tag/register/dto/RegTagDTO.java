@@ -57,4 +57,12 @@ public class RegTagDTO {
                 .tagType(TagType.DEFAULT)
                 .build();
     }
+
+    @Data @Builder
+    public static class Response {
+        private Long seq;
+        private String backColor;
+        private String fontColor;
+        private String value;
+    }
 }

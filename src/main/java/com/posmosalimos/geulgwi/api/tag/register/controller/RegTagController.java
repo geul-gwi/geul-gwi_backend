@@ -24,7 +24,7 @@ public class RegTagController {
     private final RegTagService createTagService;
 
     @PostMapping("/register/{seq}")
-    public ResponseEntity<Boolean> create(@RequestBody RegTagDTO regTagDTO,
+    public ResponseEntity<RegTagDTO.Response> create(@RequestBody RegTagDTO regTagDTO,
                                           @PathVariable("seq") Long seq,
                                           HttpServletRequest httpServletRequest) {
 
@@ -33,9 +33,14 @@ public class RegTagController {
 
         tokenManager.validateToken(accessToken);
 
-        createTagService.create(regTagDTOS, seq);
+        Tag tag = createTagService.create(regTagDTO, seq);
 
-        return ResponseEntity.ok(true);
-
+        return ResponseEntity.ok(
+                RegTagDTO.Response.builder()
+                        .seq(tag.getTagSeq())
+                        .backColor(tag.getBackColor())
+                        .fontColor(tag.getFontColor())
+                        .value(tag.getValue())
+                        .build());
     }
 }

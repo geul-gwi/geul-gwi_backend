@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,7 +33,7 @@ public class RegTagService {
         User findUser = userService.findBySeq(seq);
         Tag tag = new Tag();
 
-        if (!tagRepository.findByValue(regTagDTO.getValue()).isPresent()) { //중복이 아님
+        if (tagRepository.findByValue(regTagDTO.getValue()) == null) { //중복이 아님
             if (findUser.getRole().equals("ADMIN")) {
                 tag = Tag.builder()
                         .backColor(regTagDTO.getBackColor())
@@ -48,10 +49,8 @@ public class RegTagService {
                         .tagType(TagType.USER_ADDED)
                         .build();
             }
-        }
-
-        tagRepository.save(tag);
-
-        return
+            return tagRepository.save(tag);
+        } else
+            return tagRepository.findByValue(regTagDTO.getValue());
     }
 }
