@@ -53,7 +53,7 @@ public class ChallengeUpdtController {
         return ResponseEntity.ok(true);
     }
 
-    @PostMapping("/unlike/{challengeUserSeq}/{userSeq}")
+    @DeleteMapping("/unlike/{challengeUserSeq}/{userSeq}")
     public ResponseEntity<Boolean> unlike(@PathVariable("challengeUserSeq") Long challengeUserSeq,
                                           @PathVariable("userSeq") Long userSeq,
                                           HttpServletRequest httpServletRequest) {
