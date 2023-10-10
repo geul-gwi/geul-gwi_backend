@@ -4,7 +4,6 @@ import com.posmosalimos.geulgwi.api.user.update.dto.UpdateDTO;
 import com.posmosalimos.geulgwi.api.user.update.service.UpdateService;
 import com.posmosalimos.geulgwi.domain.file.service.FileService;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
-import com.posmosalimos.geulgwi.global.resolver.memberinfo.UserInfo;
 import com.posmosalimos.geulgwi.global.resolver.memberinfo.UserInfoDTO;
 import com.posmosalimos.geulgwi.global.util.AuthorizationHeaderUtils;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,7 +25,7 @@ public class UpdateController {
     private final TokenManager tokenManager;
 
     @PostMapping(value = "/update/{seq}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<UserInfoDTO> updateUser(@RequestPart(value = "updateDTO") UpdateDTO.Request updateDTO,
+    public ResponseEntity<Boolean> updateUser(@RequestPart(value = "updateDTO") UpdateDTO.Request updateDTO,
                                              @RequestPart(value = "file") MultipartFile file,
                                              @PathVariable("seq") Long userSeq,
                                              HttpServletRequest httpServletRequest) throws IOException {
@@ -39,8 +38,8 @@ public class UpdateController {
         tokenManager.validateToken(accessToken);
 
         String storeFile = fileService.storeFile(file);
-        UserInfoDTO userInfoDTO = updateService.update(userSeq, updateDTO, storeFile);
+        updateService.update(userSeq, updateDTO, storeFile);
 
-        return ResponseEntity.ok(userInfoDTO);
+        return ResponseEntity.ok(true);
     }
 }
