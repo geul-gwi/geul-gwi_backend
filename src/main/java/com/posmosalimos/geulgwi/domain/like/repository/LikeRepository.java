@@ -12,7 +12,7 @@ public interface LikeRepository extends JpaRepository<Likes, Long> {
     @Query("select l from Likes l where l.user.userSeq = :userSeq and l.geulgwi.geulgwiSeq = :geulgwiSeq")
     Likes findGeulgwiByUserSeq(@Param("geulgwiSeq") Long geulgwiSeq, @Param("userSeq") Long userSeq);
 
-    @Query("select l from Likes l where l.user.userSeq = :userSeq and l.challengeUser.challengeUserSeq = :challengeuserSeq")
+    @Query("select l from Likes l where l.user.userSeq = :userSeq and l.challengeUser.challengeUserSeq = :challengeUserSeq")
     Likes findChallengeUserByUserSeq(@Param("challengeUserSeq") Long challengeUserSeq, @Param("userSeq") Long userSeq);
 
 }

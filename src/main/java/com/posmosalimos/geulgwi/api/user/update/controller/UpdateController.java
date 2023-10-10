@@ -3,6 +3,8 @@ package com.posmosalimos.geulgwi.api.user.update.controller;
 import com.posmosalimos.geulgwi.api.user.update.dto.UpdateDTO;
 import com.posmosalimos.geulgwi.api.user.update.service.UpdateService;
 import com.posmosalimos.geulgwi.domain.file.service.FileService;
+import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
+import com.posmosalimos.geulgwi.domain.tag.service.TagService;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import com.posmosalimos.geulgwi.global.resolver.memberinfo.UserInfoDTO;
 import com.posmosalimos.geulgwi.global.util.AuthorizationHeaderUtils;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,6 +26,7 @@ public class UpdateController {
     private final UpdateService updateService;
     private final FileService fileService;
     private final TokenManager tokenManager;
+    private final TagService tagService;
 
     @PostMapping(value = "/update/{seq}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<Boolean> updateUser(@RequestPart(value = "updateDTO") UpdateDTO.Request updateDTO,
@@ -41,5 +45,12 @@ public class UpdateController {
         updateService.update(userSeq, updateDTO, storeFile);
 
         return ResponseEntity.ok(true);
+    }
+
+    @PostMapping("/update/tags")
+    public UpdateDTO.Response tags() {
+        List<Tag> tags = tagService.findAll();
+
+        return UpdateDTO.Response.builder().tags(tags).build();
     }
 }
