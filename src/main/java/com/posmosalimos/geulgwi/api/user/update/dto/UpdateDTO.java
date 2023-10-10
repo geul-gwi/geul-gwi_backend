@@ -14,12 +14,4 @@ public class UpdateDTO {
         private String comment;
     }
 
-//    @Data
-//    public static class Response {
-//        private String nickname;
-//        private String comment;
-//        private String profile;
-//
-//    }
-
 }

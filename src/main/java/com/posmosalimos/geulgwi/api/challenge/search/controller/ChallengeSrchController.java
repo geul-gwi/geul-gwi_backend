@@ -2,8 +2,6 @@ package com.posmosalimos.geulgwi.api.challenge.search.controller;
 
 import com.posmosalimos.geulgwi.api.challenge.search.dto.ChallengeSrchDTO;
 import com.posmosalimos.geulgwi.api.challenge.search.service.ChallengeSrchService;
-import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("challenge")
+@RequestMapping("/challenge")
 @RequiredArgsConstructor
 public class ChallengeSrchController {
 

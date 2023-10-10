@@ -22,6 +22,9 @@ public class GeulgwiSrchService {
         return GeulgwiSrchDTO.Response.builder()
                 .geulgwiContent(dto.getGeulgwiContent())
                 .regDate(dto.getRegDate())
+                .file1(dto.getFile1())
+                .file2(dto.getFile2())
+                .file3(dto.getFile3())
 //                .likes(dto.getLikes())
                 .build();
     }
