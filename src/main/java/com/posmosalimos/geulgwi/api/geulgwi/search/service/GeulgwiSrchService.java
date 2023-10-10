@@ -27,6 +27,7 @@ public class GeulgwiSrchService {
                 .file2(dto.getFile2())
                 .file3(dto.getFile3())
                 .likeCount(dto.getLikes().size())
+                .tags(dto.getGeulgwiTags())
                 .build();
     }
 

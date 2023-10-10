@@ -41,7 +41,8 @@ public class LikeService {
 
     @Transactional
     public void unlikeGeulgwi(Long geulgwiSeq, Long userSeq) {
-
+        Likes findGeulgwi = likeRepository.findGeulgwiByUserSeq(geulgwiSeq, userSeq);
+        likeRepository.delete(findGeulgwi);
     }
 
     @Transactional
@@ -57,7 +58,4 @@ public class LikeService {
         likeRepository.save(likes);
     }
 
-    public int getGeulgwiLikes(Long seq) {
-        return likeRepository.findLikeCountByGeulgwiSeq(seq);
-    }
 }

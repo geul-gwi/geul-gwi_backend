@@ -49,8 +49,8 @@ public class GeulgwiUpdtController {
         return ResponseEntity.ok(true);
     }
 
-    @PostMapping("/likes/{geulgwiSeq}/{userSeq}")
-    public ResponseEntity<Boolean> likes(@PathVariable("geulgwiSeq") Long geulgwiSeq,
+    @PostMapping("/like/{geulgwiSeq}/{userSeq}")
+    public ResponseEntity<Boolean> like(@PathVariable("geulgwiSeq") Long geulgwiSeq,
                                          @PathVariable("userSeq") Long userSeq,
                                          HttpServletRequest httpServletRequest) {
 
@@ -60,6 +60,21 @@ public class GeulgwiUpdtController {
         tokenManager.validateToken(accessToken);
 
         likeService.likeGeulgwi(geulgwiSeq, userSeq);
+
+        return ResponseEntity.ok(true);
+    }
+
+    @DeleteMapping("/unlike/{geulgwiSeq}/{userSeq}")
+    public ResponseEntity<Boolean> unlike(@PathVariable("geulgwiSeq") Long geulgwiSeq,
+                                          @PathVariable("userSeq") Long userSeq,
+                                          HttpServletRequest httpServletRequest) {
+
+        String authorization = httpServletRequest.getHeader("authorization");
+        String accessToken = authorization.split(" ")[1];
+
+        tokenManager.validateToken(accessToken);
+
+        likeService.unlikeGeulgwi(geulgwiSeq, userSeq);
 
         return ResponseEntity.ok(true);
     }
