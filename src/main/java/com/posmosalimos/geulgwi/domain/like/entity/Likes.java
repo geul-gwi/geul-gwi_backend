@@ -1,5 +1,6 @@
 package com.posmosalimos.geulgwi.domain.like.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.posmosalimos.geulgwi.domain.challenge.entity.ChallengeUser;
 import com.posmosalimos.geulgwi.domain.geulgwi.entity.Geulgwi;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
@@ -23,7 +24,7 @@ public class Likes {
     @Column(name = "likeSeq")
     private Long likeSeq;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String likeDate;
 
     @ManyToOne(fetch = FetchType.LAZY)

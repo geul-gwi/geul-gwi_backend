@@ -1,5 +1,6 @@
 package com.posmosalimos.geulgwi.domain.geulgwi.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.posmosalimos.geulgwi.domain.like.entity.Likes;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import jakarta.persistence.*;
@@ -22,7 +23,7 @@ public class Geulgwi {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long geulgwiSeq;
     private String geulgwiContent;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String regDate;
     private String file1;
     private String file2;

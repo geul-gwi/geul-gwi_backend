@@ -1,5 +1,6 @@
 package com.posmosalimos.geulgwi.domain.challenge.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.posmosalimos.geulgwi.api.challenge.register.dto.ChallengeRegDTO;
 import com.posmosalimos.geulgwi.domain.like.entity.Likes;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
@@ -23,7 +24,7 @@ public class ChallengeUser {
     @Column(updatable = false)
     private Long challengeUserSeq;
     private String challengeContent;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String regDate;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "challengeAdminSeq")
