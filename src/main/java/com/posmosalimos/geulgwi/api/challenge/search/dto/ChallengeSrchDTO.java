@@ -12,5 +12,5 @@ public class ChallengeSrchDTO {
     private Long seq;
     private String challengeContent;
     private String regDate;
-//    private Likes likes;
+    private int likeCount;
 }

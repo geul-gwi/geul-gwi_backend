@@ -39,7 +39,6 @@ public class Geulgwi {
     @OneToMany(mappedBy = "geulgwi")
     private List<Likes> likes = new ArrayList<>();
 
-    private int likeCount;
 
     @Builder
     public Geulgwi(String content, User user, List<String> files) {

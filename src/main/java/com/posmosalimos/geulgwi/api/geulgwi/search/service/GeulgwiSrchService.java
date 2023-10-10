@@ -3,6 +3,7 @@ package com.posmosalimos.geulgwi.api.geulgwi.search.service;
 import com.posmosalimos.geulgwi.api.geulgwi.search.dto.GeulgwiSrchDTO;
 import com.posmosalimos.geulgwi.domain.geulgwi.entity.Geulgwi;
 import com.posmosalimos.geulgwi.domain.geulgwi.service.GeulgwiService;
+import com.posmosalimos.geulgwi.domain.like.service.LikeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class GeulgwiSrchService {
                 .file1(dto.getFile1())
                 .file2(dto.getFile2())
                 .file3(dto.getFile3())
-                .likeCount(dto.getLikeCount())
+                .likeCount(dto.getLikes().size())
                 .build();
     }
 

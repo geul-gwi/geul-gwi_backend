@@ -56,4 +56,8 @@ public class LikeService {
 
         likeRepository.save(likes);
     }
+
+    public int getGeulgwiLikes(Long seq) {
+        return likeRepository.findLikeCountByGeulgwiSeq(seq);
+    }
 }
