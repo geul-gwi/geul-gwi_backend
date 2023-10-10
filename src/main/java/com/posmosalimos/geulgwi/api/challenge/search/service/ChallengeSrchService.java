@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -17,25 +18,14 @@ import java.util.List;
 public class ChallengeSrchService {
 
     private final ChallengeService challengeService;
-    private final LikeService likeService;
 
     public List<ChallengeSrchDTO> searchChallenges(Long adminSeq) {
 
         List<ChallengeUser> challengeUserByAdminSeq = challengeService.findByAdminSeq(adminSeq);
-        List<ChallengeSrchDTO> searchDtos = new ArrayList<>();
 
-        for (ChallengeUser challenge : challengeUserByAdminSeq) {
-
-            searchDtos.add(
-                ChallengeSrchDTO.builder()
-                        .seq(challenge.getChallengeUserSeq())
-                        .challengeContent(challenge.getChallengeContent())
-                        .regDate(challenge.getRegDate())
-                        .likeCount()
-                        .build()
-            );
-
-        }
+        List<ChallengeSrchDTO> searchDtos = challengeUserByAdminSeq.stream()
+                .map(ChallengeSrchDTO::from)
+                .collect(Collectors.toList());
 
         return searchDtos;
     }

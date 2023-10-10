@@ -10,4 +10,7 @@ public interface LikeRepository extends JpaRepository<Likes, Long> {
 
     @Query("select count(*) from Likes l where l.geulgwi.geulgwiSeq = :seq")
     int findLikeCountByGeulgwiSeq(Long seq);
+
+    @Query("select count(*) from Likes l where l.challengeUser.challengeUserSeq = :seq")
+    int findLikeCountByChallengeUserSeq(Long seq);
 }
