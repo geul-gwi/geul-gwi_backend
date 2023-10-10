@@ -15,11 +15,11 @@ public class GeulgwiSrchDTO {
         private String file1;
         private String file2;
         private String file3;
-//        private Like likes;
+        private int likeCount;
     }
 
     private String geulgwiContent;
     private String regDate;
-//    private Like likes;
+    private int likeCount;
 
 }

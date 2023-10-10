@@ -1,7 +1,7 @@
 package com.posmosalimos.geulgwi.domain.challenge.entity;
 
 import com.posmosalimos.geulgwi.api.challenge.register.dto.ChallengeRegDTO;
-import com.posmosalimos.geulgwi.domain.like.entity.Like;
+import com.posmosalimos.geulgwi.domain.like.entity.Likes;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -33,7 +33,7 @@ public class ChallengeUser {
     private User user;
 
     @OneToMany(mappedBy = "challengeUser")
-    private List<Like> likes = new ArrayList<>();
+    private List<Likes> likes = new ArrayList<>();
 
     private int likeCount;
 

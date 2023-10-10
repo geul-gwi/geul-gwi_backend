@@ -1,6 +1,6 @@
 package com.posmosalimos.geulgwi.domain.geulgwi.entity;
 
-import com.posmosalimos.geulgwi.domain.like.entity.Like;
+import com.posmosalimos.geulgwi.domain.like.entity.Likes;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -24,18 +24,19 @@ public class Geulgwi {
     private String geulgwiContent;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String regDate;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="userSeq")
-    private User user;
     private String file1;
     private String file2;
     private String file3;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="userSeq")
+    private User user;
 
     @OneToMany(mappedBy = "geulgwi")
     private List<GeulgwiTag> geulgwiTags = new ArrayList<>();
 
     @OneToMany(mappedBy = "geulgwi")
-    private List<Like> likes = new ArrayList<>();
+    private List<Likes> likes = new ArrayList<>();
 
     private int likeCount;
 

@@ -46,8 +46,8 @@ public class GeulgwiService {
                 geulgwiUser.getFile3());
     }
 
-//    @Transactional
-//    public void likes(Long geulgwiSeq) {
-//        geulgwiRepository.likes(geulgwiSeq);
-//    }
+    @Transactional
+    public void likes(Long geulgwiSeq) {
+        geulgwiRepository.like(geulgwiSeq);
+    }
 }

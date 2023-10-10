@@ -51,7 +51,7 @@ public class User {
 
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "likeSeq")
-//    private Like likes;
+//    private Likes likes;
 
     @Builder //join
     public User(String userId, String password,

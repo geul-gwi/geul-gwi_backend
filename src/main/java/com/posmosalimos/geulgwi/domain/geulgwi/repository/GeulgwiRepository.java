@@ -26,7 +26,7 @@ public interface GeulgwiRepository extends JpaRepository<Geulgwi, Long> {
                 @Param("regDate") String regDate, @Param("file1") String file1,
                 @Param("file1") String file2, @Param("file1") String file3);
 
-//    @Modifying
-//    @Query("update Geulgwi g set g.likes = + 1 where g.geulgwiSeq = :geulgwiSeq")
-//    void likes(@Param("geulgwiSeq") Long geulgwiSeq);
+    @Modifying
+    @Query("update Geulgwi g set g.likeCount = + 1 where g.geulgwiSeq = :geulgwiSeq")
+    void like(@Param("geulgwiSeq") Long geulgwiSeq);
 }

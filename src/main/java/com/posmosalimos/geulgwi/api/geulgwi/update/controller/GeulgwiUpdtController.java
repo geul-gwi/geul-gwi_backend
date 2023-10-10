@@ -3,6 +3,7 @@ package com.posmosalimos.geulgwi.api.geulgwi.update.controller;
 import com.posmosalimos.geulgwi.api.geulgwi.register.dto.GeulgwiRegDTO;
 import com.posmosalimos.geulgwi.api.geulgwi.update.service.GeulgwiUpdtService;
 import com.posmosalimos.geulgwi.domain.file.service.FileService;
+import com.posmosalimos.geulgwi.domain.like.service.LikeService;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,6 +27,7 @@ public class GeulgwiUpdtController {
 
     private final TokenManager tokenManager;
     private final GeulgwiUpdtService geulgwiUdtService;
+    private final LikeService likeService;
     private final FileService fileService;
 
     @PostMapping(value = "/update/{userSeq}/{geulgwiSeq}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
@@ -47,8 +49,9 @@ public class GeulgwiUpdtController {
         return ResponseEntity.ok(true);
     }
 
-    @PostMapping("/likes/{geulgwiSeq}")
+    @PostMapping("/likes/{geulgwiSeq}/{userSeq}")
     public ResponseEntity<Boolean> likes(@PathVariable("geulgwiSeq") Long geulgwiSeq,
+                                         @PathVariable("userSeq") Long userSeq,
                                          HttpServletRequest httpServletRequest) {
 
         String authorization = httpServletRequest.getHeader("authorization");
@@ -56,10 +59,9 @@ public class GeulgwiUpdtController {
 
         tokenManager.validateToken(accessToken);
 
-//        geulgwiUdtService.likes(geulgwiSeq);
+        likeService.likeGeulgwi(geulgwiSeq, userSeq);
 
         return ResponseEntity.ok(true);
     }
-
 
 }
