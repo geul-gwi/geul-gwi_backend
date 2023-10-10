@@ -58,4 +58,9 @@ public class LikeService {
         likeRepository.save(likes);
     }
 
+    @Transactional
+    public void unlikeChallengeUser(Long challengeUserSeq, Long userSeq) {
+        Likes findChallengeUser = likeRepository.findChallengeUserByUserSeq(challengeUserSeq, userSeq);
+        likeRepository.delete(findChallengeUser);
+    }
 }

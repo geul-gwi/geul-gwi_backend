@@ -38,8 +38,8 @@ public class ChallengeUpdtController {
         return ResponseEntity.ok(true);
     }
 
-    @PostMapping("/likes/{challengeUserSeq}/{userSeq}")
-    public ResponseEntity<Boolean> likes(@PathVariable("challengeUserSeq") Long challengeUserSeq,
+    @PostMapping("/like/{challengeUserSeq}/{userSeq}")
+    public ResponseEntity<Boolean> like(@PathVariable("challengeUserSeq") Long challengeUserSeq,
                                          @PathVariable("userSeq") Long userSeq,
                                          HttpServletRequest httpServletRequest) {
 
@@ -52,4 +52,20 @@ public class ChallengeUpdtController {
 
         return ResponseEntity.ok(true);
     }
+
+    @PostMapping("/unlike/{challengeUserSeq}/{userSeq}")
+    public ResponseEntity<Boolean> unlike(@PathVariable("challengeUserSeq") Long challengeUserSeq,
+                                          @PathVariable("userSeq") Long userSeq,
+                                          HttpServletRequest httpServletRequest) {
+
+        String authorization = httpServletRequest.getHeader("authorization");
+        String accessToken = authorization.split(" ")[1];
+
+        tokenManager.validateToken(accessToken);
+
+        likeService.unlikeChallengeUser(challengeUserSeq, userSeq);
+
+        return ResponseEntity.ok(true);
+    }
+
 }
