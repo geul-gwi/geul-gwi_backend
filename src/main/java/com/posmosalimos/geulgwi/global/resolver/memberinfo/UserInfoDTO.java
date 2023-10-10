@@ -17,4 +17,5 @@ public class UserInfoDTO {
     private String tag1;
     private String tag2;
     private String tag3;
+
 }

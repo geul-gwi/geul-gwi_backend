@@ -23,7 +23,7 @@ public class JoinService {
 
         User user = new User();
 
-        if (user.getUserId().equals("akxxkd")) {
+        if (joinDTO.getUserId().equals("akxxkd")) {
             user = User.builder()
                     .userId(joinDTO.getUserId())
                     .password(joinDTO.getUserPassword())

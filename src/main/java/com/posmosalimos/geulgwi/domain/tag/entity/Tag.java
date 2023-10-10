@@ -23,10 +23,11 @@
         private String fontColor;
         private String value;
         @JsonFormat(shape = JsonFormat.Shape.STRING)
+        @Enumerated(EnumType.STRING)
         private TagType type;
 
         @OneToMany(mappedBy = "tag")
-        private List<GeulgwiTag> tagToGeulgwis = new ArrayList<>();
+        private List<GeulgwiTag> geulgwiTags = new ArrayList<>();
 
         @Builder
         public Tag(String backColor, String fontColor, String value, TagType tagType) {

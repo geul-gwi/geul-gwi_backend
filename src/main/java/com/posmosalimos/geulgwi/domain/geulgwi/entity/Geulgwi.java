@@ -30,7 +30,7 @@ public class Geulgwi {
     private String file3;
 
     @OneToMany(mappedBy = "geulgwi")
-    private List<GeulgwiTag> tagToGeulgwis = new ArrayList<>();
+    private List<GeulgwiTag> geulgwiTags = new ArrayList<>();
 
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "likeSeq")

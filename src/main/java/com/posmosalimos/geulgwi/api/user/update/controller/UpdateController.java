@@ -26,7 +26,7 @@ public class UpdateController {
     private final TokenManager tokenManager;
 
     @PostMapping(value = "/update/{seq}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<Boolean> updateUser(@RequestPart(value = "updateDTO") UpdateDTO updateDTO,
+    public ResponseEntity<UserInfoDTO> updateUser(@RequestPart(value = "updateDTO") UpdateDTO.Request updateDTO,
                                              @RequestPart(value = "file") MultipartFile file,
                                              @PathVariable("seq") Long userSeq,
                                              HttpServletRequest httpServletRequest) throws IOException {
@@ -39,8 +39,8 @@ public class UpdateController {
         tokenManager.validateToken(accessToken);
 
         String storeFile = fileService.storeFile(file);
-        updateService.update(userSeq, updateDTO, storeFile);
+        UserInfoDTO userInfoDTO = updateService.update(userSeq, updateDTO, storeFile);
 
-        return ResponseEntity.ok(true);
+        return ResponseEntity.ok(userInfoDTO);
     }
 }

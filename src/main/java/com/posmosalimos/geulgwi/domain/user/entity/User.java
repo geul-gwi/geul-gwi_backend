@@ -79,8 +79,8 @@ public class User {
         this.tag1 = tag1;
         this.tag2 = tag2;
         this.tag3 = tag3;
-        this.comment = comment;
         this.userProfile = profile;
+        this.comment = comment;
     }
 
     public void updateRefreshToken(JwtTokenDto jwtTokenDto) {
