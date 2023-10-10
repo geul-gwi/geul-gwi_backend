@@ -1,14 +1,18 @@
 package com.posmosalimos.geulgwi.domain.challenge.entity;
 
 import com.posmosalimos.geulgwi.api.challenge.register.dto.ChallengeRegDTO;
+import com.posmosalimos.geulgwi.domain.like.entity.Like;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -19,7 +23,7 @@ public class ChallengeUser {
     @Column(updatable = false)
     private Long challengeUserSeq;
     private String challengeContent;
-//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String regDate;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "challengeAdminSeq")
@@ -28,9 +32,11 @@ public class ChallengeUser {
     @JoinColumn(name="userSeq")
     private User user;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "likeSeq")
-//    private Like likes;
+    @OneToMany(mappedBy = "challengeUser")
+    private List<Like> likes = new ArrayList<>();
+
+    private int likeCount;
+
 
     @Builder
     public ChallengeUser(ChallengeRegDTO challengeRegDTO, ChallengeAdmin challengeAdmin, User user) {

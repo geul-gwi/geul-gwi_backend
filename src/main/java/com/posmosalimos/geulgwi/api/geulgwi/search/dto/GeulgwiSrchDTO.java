@@ -22,5 +22,4 @@ public class GeulgwiSrchDTO {
     private String regDate;
 //    private Like likes;
 
-
 }
