@@ -1,5 +1,7 @@
 package com.posmosalimos.geulgwi.domain.like.service;
 
+import com.posmosalimos.geulgwi.domain.challenge.entity.ChallengeUser;
+import com.posmosalimos.geulgwi.domain.challenge.service.ChallengeService;
 import com.posmosalimos.geulgwi.domain.geulgwi.entity.Geulgwi;
 import com.posmosalimos.geulgwi.domain.geulgwi.service.GeulgwiService;
 import com.posmosalimos.geulgwi.domain.like.entity.Likes;
@@ -20,6 +22,7 @@ public class LikeService {
     private final LikeRepository likeRepository;
     private final UserService userService;
     private final GeulgwiService geulgwiService;
+    private final ChallengeService challengeService;
 
     @Transactional
     public void likeGeulgwi(Long geulgwiSeq, Long userSeq) {
@@ -33,7 +36,6 @@ public class LikeService {
                 .build();
 
         likeRepository.save(likes);
-        geulgwiService.likes(geulgwiSeq);
 
     }
 
@@ -42,4 +44,16 @@ public class LikeService {
 
     }
 
+    @Transactional
+    public void likeChallengeUser(Long challengeUserSeq, Long userSeq) {
+        User findUser = userService.findBySeq(userSeq);
+        ChallengeUser findChallengeUser = challengeService.findByChallengeUserSeq(challengeUserSeq);
+
+        Likes likes = Likes.builder()
+                .challengeUser(findChallengeUser)
+                .user(findUser)
+                .build();
+
+        likeRepository.save(likes);
+    }
 }

@@ -21,7 +21,4 @@ public interface ChallengeUserRepository extends JpaRepository<ChallengeUser, Lo
     @Query("update ChallengeUser c set c.challengeContent = :challengeContent, c.regDate = :challengeRegDate where c.challengeUserSeq = :challengeUserSeq")
     void update(@Param("challengeUserSeq") Long challengeUserSeq, @Param("challengeContent") String challengeContent, @Param("challengeRegDate") String challengeRegDate);
 
-//    @Modifying
-//    @Query("update ChallengeUser c set c.likes = + 1 where c.challengeUserSeq = : challengeUserSeq")
-//    void likes(@Param("challengeUserSeq") Long challengeUserSeq);
 }

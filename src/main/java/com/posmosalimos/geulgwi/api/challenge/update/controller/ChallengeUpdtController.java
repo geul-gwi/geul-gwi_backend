@@ -2,6 +2,7 @@ package com.posmosalimos.geulgwi.api.challenge.update.controller;
 
 import com.posmosalimos.geulgwi.api.challenge.register.dto.ChallengeRegDTO;
 import com.posmosalimos.geulgwi.api.challenge.update.service.ChallengeUpdtService;
+import com.posmosalimos.geulgwi.domain.like.service.LikeService;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -18,6 +19,7 @@ public class ChallengeUpdtController {
 
     private final TokenManager tokenManager;
     private final ChallengeUpdtService challengeUdtService;
+    private final LikeService likeService;
 
     @PostMapping("/update/{keywordSeq}/{userSeq}/{challengeUserSeq}")
     public ResponseEntity<Boolean> update(@Valid @RequestBody ChallengeRegDTO challengeRegDTO,
@@ -36,8 +38,9 @@ public class ChallengeUpdtController {
         return ResponseEntity.ok(true);
     }
 
-    @PostMapping("/likes/{challengeUserSeq}")
+    @PostMapping("/likes/{challengeUserSeq}/{userSeq}")
     public ResponseEntity<Boolean> likes(@PathVariable("challengeUserSeq") Long challengeUserSeq,
+                                         @PathVariable("userSeq") Long userSeq,
                                          HttpServletRequest httpServletRequest) {
 
         String authorization = httpServletRequest.getHeader("authorization");
@@ -45,7 +48,7 @@ public class ChallengeUpdtController {
 
         tokenManager.validateToken(accessToken);
 
-//        challengeUdtService.likes(challengeUserSeq);
+        likeService.likeChallengeUser(challengeUserSeq, userSeq);
 
         return ResponseEntity.ok(true);
     }

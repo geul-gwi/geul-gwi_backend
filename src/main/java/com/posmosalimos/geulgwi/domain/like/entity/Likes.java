@@ -17,10 +17,11 @@ import java.time.LocalTime;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class Likes {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "likeSeq")
     private Long likeSeq;
 
@@ -40,17 +41,11 @@ public class Likes {
     private ChallengeUser challengeUser;
 
     @Builder
-    public Likes(User user, Geulgwi geulgwi) { //geulgwi
-        this.likeDate = LocalDate.now().toString() + LocalTime.now();
+    public Likes(String likeDate, User user, Geulgwi geulgwi, ChallengeUser challengeUser) {
+        this.likeDate = likeDate;
+        this.user = user;
         this.geulgwi = geulgwi;
-        this.user = user;
-    }
-
-    @Builder
-    public Likes(User user, ChallengeUser challengeUser) { //challenge
-        this.likeDate = LocalDate.now().toString() + LocalTime.now();
         this.challengeUser = challengeUser;
-        this.user = user;
     }
 }
 

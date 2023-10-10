@@ -19,10 +19,8 @@ public class GeulgwiService {
     private final GeulgwiRepository geulgwiRepository;
 
     public Geulgwi findBySeq(Long geulgwiSeq) {
-        Geulgwi geulgwiUser = geulgwiRepository.findBySeq(geulgwiSeq)
+        return geulgwiRepository.findBySeq(geulgwiSeq)
                 .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_EXISTS));
-
-        return geulgwiUser;
     }
 
     @Transactional
@@ -46,8 +44,4 @@ public class GeulgwiService {
                 geulgwiUser.getFile3());
     }
 
-    @Transactional
-    public void likes(Long geulgwiSeq) {
-        geulgwiRepository.like(geulgwiSeq);
-    }
 }
