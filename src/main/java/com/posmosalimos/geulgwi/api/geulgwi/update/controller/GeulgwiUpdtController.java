@@ -30,8 +30,8 @@ public class GeulgwiUpdtController {
     private final LikeService likeService;
     private final FileService fileService;
 
-    @PostMapping(value = "/update/{userSeq}/{geulgwiSeq}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<Boolean> update(@PathVariable("userSeq") Long userSeq,
+    @PostMapping(value = "/update/{geulgwiSeq}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<Boolean> update(
                                           @PathVariable("geulgwiSeq") Long geulgwiSeq,
                                           @RequestPart(value = "geulgwiRegDTO") GeulgwiRegDTO geulgwiRegDTO,
                                           @RequestPart(value = "files") List<MultipartFile> files,
@@ -44,7 +44,7 @@ public class GeulgwiUpdtController {
 
         List<String> storeFiles = fileService.storeFiles(files);
 
-        geulgwiUdtService.update(userSeq, geulgwiSeq, geulgwiRegDTO, storeFiles);
+        geulgwiUdtService.update(geulgwiSeq, geulgwiRegDTO, storeFiles);
 
         return ResponseEntity.ok(true);
     }

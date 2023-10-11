@@ -22,15 +22,12 @@ public class GeulgwiUpdtService {
     private final GeulgwiService geulgwiService;
 
     @Transactional
-    public void update(Long userSeq,
+    public void update(
                        Long geulgwiSeq,
                        GeulgwiRegDTO geulgwiRegDTO,
                        List<String> files) {
 
         Geulgwi geulgwiUser = geulgwiService.findBySeq(geulgwiSeq);
-
-        if (!(geulgwiUser.getUser().getUserSeq().intValue() == userSeq))
-            throw new AuthenticationException(ErrorCode.NOT_EQUAL_MEMBER);
 
         geulgwiUser.update(geulgwiRegDTO.getGeulgwiContent(), files);
     }
