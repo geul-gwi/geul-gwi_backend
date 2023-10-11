@@ -2,6 +2,7 @@ package com.posmosalimos.geulgwi.domain.user.entity;
 
 import com.posmosalimos.geulgwi.domain.challenge.entity.ChallengeUser;
 import com.posmosalimos.geulgwi.domain.geulgwi.entity.Geulgwi;
+import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
 import com.posmosalimos.geulgwi.domain.user.constant.Role;
 import com.posmosalimos.geulgwi.global.jwt.dto.JwtTokenDto;
 import com.posmosalimos.geulgwi.global.util.DateTimeUtils;
@@ -9,7 +10,6 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -32,9 +32,6 @@ public class User {
     private String gender;
     @Column(name = "userNickname")
     private String nickname;
-    private String tag1;
-    private String tag2;
-    private String tag3;
     private String comment;
     @Enumerated(value = EnumType.STRING)
     private Role role;
@@ -43,43 +40,35 @@ public class User {
     private String refreshToken;
     private LocalDateTime tokenExpirationTime;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
+    List<Tag> tags = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<ChallengeUser> challengePostList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Geulgwi> geulgwiPostList = new ArrayList<>();
-
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "likeSeq")
-//    private Likes likes;
 
     @Builder //join
     public User(String userId, String password,
                 String nickname, String gender,
-                int age, String tag1,
-                String tag2, String tag3,
+                int age, List<Tag> tags,
                 Role role) {
         this.userId = userId;
         this.password = password;
         this.age = age;
+        this.tags = tags;
         this.gender = gender;
         this.nickname = nickname;
-        this.tag1 = tag1;
-        this.tag2 = tag2;
-        this.tag3 = tag3;
         this.role = role;
     }
 
-    public void update(String password, String nickname,
-                       String tag1, String tag2,
-                       String tag3, String profile,
+    public void update(String password, String nickname, String profile, List<Tag> tags,
                        String comment) {
         this.password = password;
         this.nickname = nickname;
-        this.tag1 = tag1;
-        this.tag2 = tag2;
-        this.tag3 = tag3;
         this.userProfile = profile;
+        this.tags = tags;
         this.comment = comment;
     }
 

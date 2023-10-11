@@ -3,6 +3,7 @@
     import com.fasterxml.jackson.annotation.JsonFormat;
     import com.posmosalimos.geulgwi.domain.geulgwi.entity.GeulgwiTag;
     import com.posmosalimos.geulgwi.domain.tag.constant.TagType;
+    import com.posmosalimos.geulgwi.domain.user.entity.User;
     import jakarta.persistence.*;
     import lombok.Builder;
     import lombok.Getter;
@@ -28,6 +29,10 @@
 
         @OneToMany(mappedBy = "tag")
         private List<GeulgwiTag> geulgwiTags = new ArrayList<>();
+
+        @ManyToOne
+        @JoinColumn(name = "userSeq")
+        private User user;
 
         @Builder
         public Tag(String backColor, String fontColor, String value, TagType tagType) {

@@ -43,9 +43,7 @@ public class UserSrchController {
                 .role(findUser.getRole())
                 .comment(findUser.getComment())
                 .userPassword(findUser.getPassword())
-                .tag1(findUser.getTag1())
-                .tag2(findUser.getTag2())
-                .tag3(findUser.getTag3())
+                .tags(findUser.getTags())
                 .profile(findUser.getUserProfile())
                 .build()
         );

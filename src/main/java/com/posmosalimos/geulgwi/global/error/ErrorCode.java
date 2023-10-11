@@ -35,9 +35,9 @@ public enum ErrorCode {
     NOT_EQUAL_MEMBER(HttpStatus.BAD_REQUEST, "C-003", "글 작성자와 요청자가 다릅니다."),
 
     // 태그
-    TAG_CREATION_FAILED(HttpStatus.BAD_REQUEST, "T-001", "태그 생성에 실패하였습니다."),
-    TAG_DELETION_FAILED(HttpStatus.BAD_REQUEST, "T-002", "존재하지 않는 태그입니다.")
-
+    TAG_NOT_FOUND(HttpStatus.BAD_REQUEST, "T-001", "일치하는 태그가 존재하지 않습니다."),
+    TAG_CREATION_FAILED(HttpStatus.BAD_REQUEST, "T-002", "태그 생성에 실패하였습니다."),
+    TAG_DELETION_FAILED(HttpStatus.BAD_REQUEST, "T-003", "태그 삭제에 실패하였습니다.")
     ;
 
     ErrorCode(HttpStatus httpStatus, String errorCode, String message) {

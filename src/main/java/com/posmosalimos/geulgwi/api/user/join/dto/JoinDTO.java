@@ -1,5 +1,6 @@
 package com.posmosalimos.geulgwi.api.user.join.dto;
 
+import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
 import lombok.*;
 
 import java.util.List;
@@ -15,5 +16,5 @@ public class JoinDTO {
     private String userNickname;
     private String userGender;
     private int userAge;
-    private List<String> userTags;
+    private List<Tag> userTags;
 }

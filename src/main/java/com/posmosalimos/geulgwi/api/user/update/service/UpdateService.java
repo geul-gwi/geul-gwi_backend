@@ -25,10 +25,8 @@ public class UpdateService {
         findUser.update(
                 updateDTO.getPassword(),
                 updateDTO.getNickname(),
-                updateDTO.getTags().get(0),
-                updateDTO.getTags().get(1),
-                updateDTO.getTags().get(2),
                 storeFile,
+                updateDTO.getTags(),
                 updateDTO.getComment()
         );
 

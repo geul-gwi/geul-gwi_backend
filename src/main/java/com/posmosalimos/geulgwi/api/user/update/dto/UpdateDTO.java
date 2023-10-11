@@ -12,7 +12,7 @@ public class UpdateDTO {
     public static class Request {
         private String password;
         private String nickname;
-        private List<String> tags;
+        private List<Tag> tags;
         private String comment;
     }
 
