@@ -22,8 +22,7 @@ public class GeulgwiUpdtService {
     private final GeulgwiService geulgwiService;
 
     @Transactional
-    public void update(
-                       Long geulgwiSeq,
+    public void update(Long geulgwiSeq,
                        GeulgwiRegDTO geulgwiRegDTO,
                        List<String> files) {
 

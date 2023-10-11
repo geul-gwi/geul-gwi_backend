@@ -17,9 +17,8 @@ public class GeulgwiDelController {
     private final GeulgwiDelService geulgwiDelService;
     private final TokenManager tokenManager;
 
-    @DeleteMapping("/delete/{userSeq}/{geulgwiSeq}")
+    @DeleteMapping("/delete/{geulgwiSeq}")
     public ResponseEntity<Boolean> delete(@PathVariable("geulgwiSeq") Long geulgwiSeq,
-                                          @PathVariable("userSeq") Long userSeq,
                                           HttpServletRequest httpServletRequest) {
 
         String authorization = httpServletRequest.getHeader("authorization");
@@ -27,7 +26,7 @@ public class GeulgwiDelController {
 
         tokenManager.validateToken(accessToken);
 
-        geulgwiDelService.delete(geulgwiSeq, userSeq);
+        geulgwiDelService.delete(geulgwiSeq);
 
         return ResponseEntity.ok(true);
     }

@@ -27,10 +27,9 @@ public class ChallengeDelService {
     }
 
     @Transactional
-    public void delete(Long challengeUserSeq, Long userSeq) {
+    public void delete(Long challengeUserSeq) {
 
-        ChallengeUser challengeUser = challengeService.findByChallengeUserSeq(challengeUserSeq);
-
+        challengeService.findByChallengeUserSeq(challengeUserSeq);
         challengeService.delete(challengeUserSeq);
     }
 }
