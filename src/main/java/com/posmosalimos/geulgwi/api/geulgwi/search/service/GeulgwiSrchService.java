@@ -4,7 +4,6 @@ import com.posmosalimos.geulgwi.api.geulgwi.search.dto.GeulgwiSrchDTO;
 import com.posmosalimos.geulgwi.domain.geulgwi.entity.Geulgwi;
 import com.posmosalimos.geulgwi.domain.geulgwi.entity.GeulgwiTag;
 import com.posmosalimos.geulgwi.domain.geulgwi.service.GeulgwiService;
-import com.posmosalimos.geulgwi.domain.like.service.LikeService;
 import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

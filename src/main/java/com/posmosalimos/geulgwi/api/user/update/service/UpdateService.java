@@ -22,13 +22,12 @@ public class UpdateService {
 
         User findUser = userService.findBySeq(userSeq);
 
-        findUser.update(
-                updateDTO.getPassword(),
-                updateDTO.getNickname(),
-                storeFile,
-                updateDTO.getTags(),
-                updateDTO.getComment()
-        );
+//        findUser.update(
+//                updateDTO.getPassword(),
+//                updateDTO.getNickname(),
+//                storeFile,
+//                updateDTO.getComment()
+//        );
 
     }
 }

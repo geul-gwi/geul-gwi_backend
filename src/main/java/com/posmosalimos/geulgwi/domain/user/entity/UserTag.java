@@ -1,4 +1,4 @@
-package com.posmosalimos.geulgwi.domain.geulgwi.entity;
+package com.posmosalimos.geulgwi.domain.user.entity;
 
 import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
 import jakarta.persistence.*;
@@ -7,25 +7,25 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Getter
 @NoArgsConstructor
-public class GeulgwiTag {
+@Getter
+public class UserTag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long geulgwiTagSeq;
+    private Long userTagSeq;
 
     @ManyToOne
-    @JoinColumn(name = "geulgwiSeq")
-    private Geulgwi geulgwi;
+    @JoinColumn(name = "userSeq")
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "tagSeq")
     private Tag tag;
 
     @Builder
-    public GeulgwiTag (Geulgwi geulgwi, Tag tag) {
-        this.geulgwi = geulgwi;
+    public UserTag(User user, Tag tag) {
+        this.user = user;
         this.tag = tag;
     }
 

@@ -41,35 +41,35 @@ public class User {
     private LocalDateTime tokenExpirationTime;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
-    List<Tag> tags = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<ChallengeUser> challengePostList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Geulgwi> geulgwiPostList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<UserTag> userTags = new ArrayList<>();
+
     @Builder //join
     public User(String userId, String password,
                 String nickname, String gender,
-                int age, List<Tag> tags,
-                Role role) {
+                int age, Role role, List<UserTag> userTags) {
         this.userId = userId;
         this.password = password;
         this.age = age;
-        this.tags = tags;
         this.gender = gender;
         this.nickname = nickname;
         this.role = role;
+        this.userTags = userTags;
     }
 
-    public void update(String password, String nickname, String profile, List<Tag> tags,
-                       String comment) {
+    public void update(String password, String nickname,
+                       String profile, String comment,
+                       List<UserTag> userTags) {
         this.password = password;
         this.nickname = nickname;
         this.userProfile = profile;
-        this.tags = tags;
         this.comment = comment;
+        this.userTags = userTags;
     }
 
     public void updateRefreshToken(JwtTokenDto jwtTokenDto) {

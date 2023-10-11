@@ -2,27 +2,27 @@ package com.posmosalimos.geulgwi.api.user.join.service;
 
 import com.posmosalimos.geulgwi.api.user.join.dto.JoinDTO;
 import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
-import com.posmosalimos.geulgwi.domain.tag.service.TagService;
 import com.posmosalimos.geulgwi.domain.user.constant.Role;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
+import com.posmosalimos.geulgwi.domain.user.entity.UserTag;
 import com.posmosalimos.geulgwi.domain.user.service.UserService;
+import com.posmosalimos.geulgwi.domain.user.service.UserTagService;
 import com.posmosalimos.geulgwi.global.error.ErrorCode;
 import com.posmosalimos.geulgwi.global.error.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
+@Transactional(readOnly = true)
 public class JoinService {
 
     private final UserService userService;
+    private final UserTagService userTagService;
 
+    @Transactional
     public void join(JoinDTO joinDTO) {
 
         User user = new User();
@@ -34,7 +34,6 @@ public class JoinService {
                     .nickname(joinDTO.getUserNickname())
                     .gender(joinDTO.getUserGender())
                     .age(joinDTO.getUserAge())
-                    .tags(joinDTO.getUserTags())
                     .role(Role.ADMIN)
                     .build();
         } else {
@@ -44,12 +43,21 @@ public class JoinService {
                     .nickname(joinDTO.getUserNickname())
                     .gender(joinDTO.getUserGender())
                     .age(joinDTO.getUserAge())
-                    .tags(joinDTO.getUserTags())
                     .role(Role.COMMON)
                     .build();
         }
 
         userService.join(user);
+
+        for (Tag tag : joinDTO.getUserTags()) {
+            UserTag userTag = UserTag.builder()
+                    .user(user)
+                    .tag(tag)
+                    .build();
+            userTagService.save(userTag);
+        }
+
+
     }
 
     public Boolean validateDuplicateUserId(String userId) {
