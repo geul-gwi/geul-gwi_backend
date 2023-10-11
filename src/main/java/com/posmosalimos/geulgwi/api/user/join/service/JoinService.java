@@ -62,7 +62,7 @@ public class JoinService {
 
     public Boolean validateDuplicateUserId(String userId) {
 
-        if (userId == "" || userId == null)
+        if (userId.equals("") || userId == null)
             throw new BusinessException(ErrorCode.INVALID_ID);
 
         return userService.findByUserId(userId);
