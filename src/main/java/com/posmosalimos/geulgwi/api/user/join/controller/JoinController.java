@@ -36,4 +36,5 @@ public class JoinController {
 
         return ResponseEntity.ok(joinService.validateDuplicateNickname(nickname));
     }
+
 }
