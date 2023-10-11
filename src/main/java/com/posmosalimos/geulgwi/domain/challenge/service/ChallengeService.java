@@ -53,13 +53,6 @@ public class ChallengeService {
         }
     }
 
-    @Transactional
-    public void update(ChallengeUser challengeUser) {
-        challengeUserRepository.update(challengeUser.getChallengeUserSeq(),
-                challengeUser.getChallengeContent(),
-                challengeUser.getRegDate());
-    }
-
     public ChallengeUser findByChallengeUserSeq(Long challengeUserSeq) {
         ChallengeUser challengeUser = challengeUserRepository.findBySeq(challengeUserSeq)
                 .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_EXISTS));

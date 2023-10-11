@@ -29,13 +29,10 @@ public class ChallengeUpdtService {
         String[] keywords = challengeAdminRepository.findKeywordSeq(keywordSeq).split(",");
         ChallengeUser challengeUser = challengeService.findByChallengeUserSeq(challengeUserSeq);
 
-        if (!(challengeUser.getUser().getUserSeq().intValue() == userSeq))
-            throw new AuthenticationException(ErrorCode.NOT_EQUAL_MEMBER);
 
         challengeUser.update(challengeRegDTO.getChallengeContent());
 
         challengeService.validateKeyword(challengeRegDTO, keywords);
-        challengeService.update(challengeUser);
     }
 
 }
