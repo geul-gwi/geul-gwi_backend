@@ -33,15 +33,4 @@ public class GeulgwiService {
         geulgwiRepository.delete(seq);
     }
 
-    @Transactional
-    public void update(Geulgwi geulgwiUser) {
-        geulgwiRepository.update(
-                geulgwiUser.getGeulgwiSeq(),
-                geulgwiUser.getGeulgwiContent(),
-                geulgwiUser.getRegDate(),
-                geulgwiUser.getFile1(),
-                geulgwiUser.getFile2(),
-                geulgwiUser.getFile3());
-    }
-
 }

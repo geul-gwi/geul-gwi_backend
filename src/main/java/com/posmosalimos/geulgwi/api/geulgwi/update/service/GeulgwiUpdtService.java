@@ -33,7 +33,6 @@ public class GeulgwiUpdtService {
             throw new AuthenticationException(ErrorCode.NOT_EQUAL_MEMBER);
 
         geulgwiUser.update(geulgwiRegDTO.getGeulgwiContent(), files);
-        geulgwiService.update(geulgwiUser);
     }
 
 }
