@@ -29,7 +29,6 @@ public class ChallengeUpdtService {
         String[] keywords = challengeAdminRepository.findKeywordSeq(keywordSeq).split(",");
         ChallengeUser challengeUser = challengeService.findByChallengeUserSeq(challengeUserSeq);
 
-
         challengeUser.update(challengeRegDTO.getChallengeContent());
 
         challengeService.validateKeyword(challengeRegDTO, keywords);
