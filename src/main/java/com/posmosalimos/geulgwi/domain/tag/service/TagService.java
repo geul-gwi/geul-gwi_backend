@@ -1,5 +1,6 @@
 package com.posmosalimos.geulgwi.domain.tag.service;
 
+import com.posmosalimos.geulgwi.domain.tag.constant.TagType;
 import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
 import com.posmosalimos.geulgwi.domain.tag.repository.TagRepository;
 import com.posmosalimos.geulgwi.global.error.ErrorCode;
@@ -23,8 +24,11 @@ public class TagService {
 
     public List<Tag> findAll() {
         return tagRepository.findAll();
+    }
 
-
+    public List<Tag> findByType(TagType type) {
+        //필요 시 수정
+        return tagRepository.findByType(type.toString());
     }
 
     public Tag findBySeq(Long seq){
