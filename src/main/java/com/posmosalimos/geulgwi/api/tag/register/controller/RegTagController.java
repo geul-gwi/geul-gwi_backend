@@ -25,7 +25,7 @@ public class RegTagController {
 
     @PostMapping("/register/{userSeq}")
     public ResponseEntity<RegTagDTO.Response> create(@RequestBody RegTagDTO regTagDTO,
-                                          @PathVariable("seq") Long userSeq,
+                                          @PathVariable("userSeq") Long userSeq,
                                           HttpServletRequest httpServletRequest) {
 
         String authorization = httpServletRequest.getHeader("Authorization");
@@ -41,6 +41,7 @@ public class RegTagController {
                         .backColor(tag.getBackColor())
                         .fontColor(tag.getFontColor())
                         .value(tag.getValue())
+                        .type(tag.getType().toString())
                         .build());
     }
 }

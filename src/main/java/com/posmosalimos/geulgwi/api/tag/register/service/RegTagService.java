@@ -33,7 +33,7 @@ public class RegTagService {
         User findUser = userService.findBySeq(userSeq);
         Tag tag = new Tag();
 
-        if (tagRepository.findByValue(regTagDTO.getValue()) == null) { //중복이 아님
+        if (tagRepository.findByValue(regTagDTO.getValue()) == null) { //중복이 아님(새로운 태그)
             if (findUser.getRole().equals("ADMIN")) {
                 tag = Tag.builder()
                         .backColor(regTagDTO.getBackColor())
@@ -50,7 +50,7 @@ public class RegTagService {
                         .build();
             }
             return tagRepository.save(tag);
-        } else
+        } else //중복 태그
             return tagRepository.findByValue(regTagDTO.getValue());
     }
 }

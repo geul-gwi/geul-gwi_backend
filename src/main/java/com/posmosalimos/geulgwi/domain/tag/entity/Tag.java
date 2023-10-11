@@ -1,6 +1,7 @@
     package com.posmosalimos.geulgwi.domain.tag.entity;
 
     import com.fasterxml.jackson.annotation.JsonFormat;
+    import com.posmosalimos.geulgwi.api.tag.register.dto.RegTagDTO;
     import com.posmosalimos.geulgwi.domain.geulgwi.entity.GeulgwiTag;
     import com.posmosalimos.geulgwi.domain.tag.constant.TagType;
     import com.posmosalimos.geulgwi.domain.user.entity.User;
