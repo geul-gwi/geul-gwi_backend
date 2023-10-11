@@ -29,4 +29,8 @@ public class UserTag {
         this.tag = tag;
     }
 
+    public void update(User user, Tag tag) {
+        this.user = user;
+        this.tag = tag;
+    }
 }

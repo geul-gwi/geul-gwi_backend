@@ -20,4 +20,5 @@ public class UserTagService {
     public void save(UserTag userTag) {
         userTagRepository.save(userTag);
     }
+
 }

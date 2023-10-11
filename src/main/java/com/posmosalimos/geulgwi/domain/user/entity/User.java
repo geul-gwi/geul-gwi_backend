@@ -49,27 +49,24 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<UserTag> userTags = new ArrayList<>();
 
-    @Builder //join
+    @Builder
     public User(String userId, String password,
                 String nickname, String gender,
-                int age, Role role, List<UserTag> userTags) {
+                int age, Role role) {
         this.userId = userId;
         this.password = password;
         this.age = age;
         this.gender = gender;
         this.nickname = nickname;
         this.role = role;
-        this.userTags = userTags;
     }
 
     public void update(String password, String nickname,
-                       String profile, String comment,
-                       List<UserTag> userTags) {
+                       String profile, String comment) {
         this.password = password;
         this.nickname = nickname;
         this.userProfile = profile;
         this.comment = comment;
-        this.userTags = userTags;
     }
 
     public void updateRefreshToken(JwtTokenDto jwtTokenDto) {
