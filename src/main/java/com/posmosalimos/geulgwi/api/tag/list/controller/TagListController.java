@@ -34,7 +34,7 @@ public class TagListController {
     }
 
     @PostMapping("/list")
-    public ResponseEntity<List<TagDTO>> listByDefaulType() {
+    public ResponseEntity<List<TagDTO>> listByDefaultType() {
         List<Tag> tags = tagService.findByType(TagType.DEFAULT);
 
         List<TagDTO> response = tags.stream()

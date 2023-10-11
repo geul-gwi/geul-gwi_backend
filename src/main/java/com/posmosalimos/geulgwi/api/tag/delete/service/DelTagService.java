@@ -18,8 +18,8 @@ public class DelTagService {
     private final TagRepository tagRepository;
 
     @Transactional
-    public void delete(Long seq) {
-        Tag tag = tagRepository.findById(seq).orElseThrow(() -> new BusinessException(ErrorCode.TAG_DELETION_FAILED));
+    public void delete(Long tagSeq) {
+        Tag tag = tagRepository.findById(tagSeq).orElseThrow(() -> new BusinessException(ErrorCode.TAG_DELETION_FAILED));
         tagRepository.delete(tag);
         }
 }
