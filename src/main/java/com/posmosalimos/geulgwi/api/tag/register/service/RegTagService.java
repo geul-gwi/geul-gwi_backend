@@ -29,8 +29,8 @@ public class RegTagService {
     private final UserService userService;
 
     @Transactional
-    public Tag create(RegTagDTO regTagDTO, Long seq) {
-        User findUser = userService.findBySeq(seq);
+    public Tag create(RegTagDTO regTagDTO, Long userSeq) {
+        User findUser = userService.findBySeq(userSeq);
         Tag tag = new Tag();
 
         if (tagRepository.findByValue(regTagDTO.getValue()) == null) { //중복이 아님

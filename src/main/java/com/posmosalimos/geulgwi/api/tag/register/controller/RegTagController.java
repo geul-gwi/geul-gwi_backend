@@ -23,9 +23,9 @@ public class RegTagController {
     private final TokenManager tokenManager;
     private final RegTagService createTagService;
 
-    @PostMapping("/register/{seq}")
+    @PostMapping("/register/{userSeq}")
     public ResponseEntity<RegTagDTO.Response> create(@RequestBody RegTagDTO regTagDTO,
-                                          @PathVariable("seq") Long seq,
+                                          @PathVariable("seq") Long userSeq,
                                           HttpServletRequest httpServletRequest) {
 
         String authorization = httpServletRequest.getHeader("Authorization");
@@ -33,7 +33,7 @@ public class RegTagController {
 
         tokenManager.validateToken(accessToken);
 
-        Tag tag = createTagService.create(regTagDTO, seq);
+        Tag tag = createTagService.create(regTagDTO, userSeq);
 
         return ResponseEntity.ok(
                 RegTagDTO.Response.builder()
