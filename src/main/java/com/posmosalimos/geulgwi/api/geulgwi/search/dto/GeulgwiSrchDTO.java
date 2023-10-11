@@ -1,6 +1,7 @@
 package com.posmosalimos.geulgwi.api.geulgwi.search.dto;
 
 import com.posmosalimos.geulgwi.domain.geulgwi.entity.GeulgwiTag;
+import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
 import lombok.*;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class GeulgwiSrchDTO {
         private String file2;
         private String file3;
         private int likeCount;
-        private List<GeulgwiTag> tags;
+        private List<Tag> tags;
     }
 
     private String geulgwiContent;

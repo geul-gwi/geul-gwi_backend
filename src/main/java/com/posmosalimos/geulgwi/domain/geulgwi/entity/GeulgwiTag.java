@@ -3,9 +3,11 @@ package com.posmosalimos.geulgwi.domain.geulgwi.entity;
 import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
 import jakarta.persistence.*;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Getter
 @NoArgsConstructor
 public class GeulgwiTag {
 
