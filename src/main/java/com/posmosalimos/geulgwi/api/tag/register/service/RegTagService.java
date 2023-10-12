@@ -39,14 +39,14 @@ public class RegTagService {
                         .backColor(regTagDTO.getBackColor())
                         .fontColor(regTagDTO.getFontColor())
                         .value(regTagDTO.getValue())
-                        .tagType(TagType.DEFAULT)
+                        .tagType("DEFAULT")
                         .build();
             } else {
                 tag = Tag.builder()
                         .backColor(regTagDTO.getBackColor())
                         .fontColor(regTagDTO.getFontColor())
                         .value(regTagDTO.getValue())
-                        .tagType(TagType.USER_ADDED)
+                        .tagType("USER_ADDED")
                         .build();
             }
             return tagRepository.save(tag);

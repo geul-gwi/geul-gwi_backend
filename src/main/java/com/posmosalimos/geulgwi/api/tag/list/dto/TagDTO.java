@@ -20,7 +20,6 @@ public class TagDTO {
     private TagType type;
 
     public static TagDTO from(Tag tag){
-
         return TagDTO.builder()
                         .tagSeq(tag.getTagSeq())
                         .backColor(tag.getBackColor())
@@ -29,4 +28,5 @@ public class TagDTO {
                         .type(tag.getType())
                         .build();
     }
+
 }

@@ -26,9 +26,13 @@ public class TagService {
         return tagRepository.findAll();
     }
 
-    public List<Tag> findByType(TagType type) {
-        //필요 시 수정
-        return tagRepository.findByType(type.toString());
+    public List<Tag> findByType(String tagType) {
+
+        try {
+            return tagRepository.findByType(TagType.from(tagType));
+        } catch (Exception e) {
+            throw new BusinessException(ErrorCode.TAG_NOT_FOUND);
+        }
     }
 
     public Tag findBySeq(Long seq){

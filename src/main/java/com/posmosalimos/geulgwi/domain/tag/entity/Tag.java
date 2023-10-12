@@ -34,10 +34,10 @@
         private List<UserTag> userTags = new ArrayList<>();
 
         @Builder
-        public Tag(String backColor, String fontColor, String value, TagType tagType) {
+        public Tag(String backColor, String fontColor, String value, String tagType) {
             this.backColor = backColor;
             this.fontColor = fontColor;
             this.value = value;
-            this.type = tagType;
+            this.type = TagType.from(tagType);
         }
     }
