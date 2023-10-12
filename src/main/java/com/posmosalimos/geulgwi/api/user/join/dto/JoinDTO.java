@@ -12,9 +12,8 @@ public class JoinDTO {
 
     private String userId;
     private String userPassword;
-    private String userName;
     private String userNickname;
     private String userGender;
     private int userAge;
-    private List<Tag> userTags;
+    private List<Long> userTagSeq;
 }

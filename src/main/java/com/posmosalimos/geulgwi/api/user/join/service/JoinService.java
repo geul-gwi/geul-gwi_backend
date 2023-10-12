@@ -2,6 +2,7 @@ package com.posmosalimos.geulgwi.api.user.join.service;
 
 import com.posmosalimos.geulgwi.api.user.join.dto.JoinDTO;
 import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
+import com.posmosalimos.geulgwi.domain.tag.service.TagService;
 import com.posmosalimos.geulgwi.domain.user.constant.Role;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.domain.user.entity.UserTag;
@@ -21,6 +22,7 @@ public class JoinService {
 
     private final UserService userService;
     private final UserTagService userTagService;
+    private final TagService tagService;
 
     @Transactional
     public void join(JoinDTO joinDTO) {
@@ -49,10 +51,11 @@ public class JoinService {
 
         userService.join(user);
 
-        for (Tag tag : joinDTO.getUserTags()) {
+        for (Long tagSeq : joinDTO.getUserTagSeq()) {
+            Tag findTag = tagService.findBySeq(tagSeq);
             UserTag userTag = UserTag.builder()
                     .user(user)
-                    .tag(tag)
+                    .tag(findTag)
                     .build();
             userTagService.save(userTag);
         }

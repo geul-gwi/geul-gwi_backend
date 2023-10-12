@@ -4,17 +4,14 @@ import com.posmosalimos.geulgwi.api.geulgwi.register.dto.GeulgwiRegDTO;
 import com.posmosalimos.geulgwi.api.geulgwi.update.service.GeulgwiUpdtService;
 import com.posmosalimos.geulgwi.domain.file.service.FileService;
 import com.posmosalimos.geulgwi.domain.like.service.LikeService;
-import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import retrofit2.http.Path;
 
 import java.io.IOException;
 import java.util.List;

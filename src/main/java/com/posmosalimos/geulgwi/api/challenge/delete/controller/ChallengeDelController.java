@@ -1,12 +1,10 @@
 package com.posmosalimos.geulgwi.api.challenge.delete.controller;
 
 import com.posmosalimos.geulgwi.api.challenge.delete.service.ChallengeDelService;
-import com.posmosalimos.geulgwi.api.challenge.register.service.ChallengeRegService;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.domain.user.service.UserService;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
