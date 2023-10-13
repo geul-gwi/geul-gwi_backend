@@ -36,8 +36,8 @@ public class GeulgwiRegService {
 
         geulgwiService.register(geulgwi);
 
-        for (String tagName : geulgwiRegDTO.getTags()) {
-            Tag tag = tagService.findByValue(tagName);
+        for (Long tagSeqs : geulgwiRegDTO.getTagSeqs()) {
+            Tag tag = tagService.findBySeq(tagSeqs);
             GeulgwiTag geulgwiTag = GeulgwiTag.builder()
                     .geulgwi(geulgwi)
                     .tag(tag)

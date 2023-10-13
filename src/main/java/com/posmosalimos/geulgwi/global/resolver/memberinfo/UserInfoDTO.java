@@ -1,5 +1,6 @@
 package com.posmosalimos.geulgwi.global.resolver.memberinfo;
 
+import com.posmosalimos.geulgwi.api.tag.list.dto.TagDTO;
 import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
 import com.posmosalimos.geulgwi.domain.user.constant.Role;
 import lombok.Builder;
@@ -16,7 +17,6 @@ public class UserInfoDTO {
     private String profile;
     private Role role;
     private String comment;
-    private String userPassword;
-    private List<Tag> tags;
+    private List<TagDTO> tags;
 
 }

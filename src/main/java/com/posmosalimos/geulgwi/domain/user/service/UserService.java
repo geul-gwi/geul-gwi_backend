@@ -1,7 +1,10 @@
 package com.posmosalimos.geulgwi.domain.user.service;
 
+import com.posmosalimos.geulgwi.api.tag.list.dto.TagDTO;
 import com.posmosalimos.geulgwi.api.user.search.dto.UserListDTO;
+import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
+import com.posmosalimos.geulgwi.domain.user.entity.UserTag;
 import com.posmosalimos.geulgwi.domain.user.repository.UserRepository;
 import com.posmosalimos.geulgwi.global.error.ErrorCode;
 import com.posmosalimos.geulgwi.global.error.exception.AuthenticationException;
@@ -15,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -70,17 +73,21 @@ public class UserService {
 
     //유저정보 - 단건
     public UserInfoDTO findUserInfo(Long userSeq) {
-        Optional<User> findUser = userRepository.findByUserSeq(userSeq);
-        if (findUser.isEmpty())
-            throw new EntityNotFoundException(ErrorCode.MEMBER_NOT_EXISTS);
+        User findUser = userRepository.findByUserSeq(userSeq).orElseThrow(() -> new EntityNotFoundException(ErrorCode.MEMBER_NOT_EXISTS));
+
+        List<TagDTO> tags = findUser.getUserTags().stream()
+                .map(UserTag::getTag)
+                .map(TagDTO::from)
+                .collect(Collectors.toList());
 
         return UserInfoDTO.builder()
                 .userSeq(userSeq)
-                .userId(findUser.get().getUserId())
-                .nickname(findUser.get().getNickname())
-                .role(findUser.get().getRole())
-                .userPassword(findUser.get().getPassword())
-                .profile(findUser.get().getUserProfile())
+                .userId(findUser.getUserId())
+                .nickname(findUser.getNickname())
+                .role(findUser.getRole())
+                .profile(findUser.getUserProfile())
+                .comment(findUser.getComment())
+                .tags(tags)
                 .build();
     }
 

@@ -1,6 +1,7 @@
     package com.posmosalimos.geulgwi.domain.tag.entity;
 
     import com.fasterxml.jackson.annotation.JsonFormat;
+    import com.posmosalimos.geulgwi.api.tag.list.dto.TagDTO;
     import com.posmosalimos.geulgwi.domain.geulgwi.entity.GeulgwiTag;
     import com.posmosalimos.geulgwi.domain.tag.constant.TagType;
     import com.posmosalimos.geulgwi.domain.user.entity.UserTag;
@@ -18,7 +19,8 @@
     @NoArgsConstructor
     public class Tag {
 
-        @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long tagSeq;
         private String backColor;
         private String fontColor;
@@ -40,4 +42,5 @@
             this.value = value;
             this.type = TagType.from(tagType);
         }
+
     }

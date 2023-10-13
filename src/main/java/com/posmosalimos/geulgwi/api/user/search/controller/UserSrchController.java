@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/user")
@@ -36,24 +37,8 @@ public class UserSrchController {
     @PostMapping("/detail/{seq}")
     public ResponseEntity<UserInfoDTO> detail(@PathVariable("seq") Long seq) {
 
-        User findUser = userService.findBySeq(seq);
-        List<UserTag> userTags = findUser.getUserTags();
-        List<Tag> tags = new ArrayList<>();
+        UserInfoDTO userInfo = userService.findUserInfo(seq);
 
-        for (UserTag tag : userTags)
-            tags.add(tag.getTag());
-
-        return ResponseEntity.ok(UserInfoDTO.builder()
-                .userSeq(findUser.getUserSeq())
-                .userId(findUser.getUserId())
-                .nickname(findUser.getNickname())
-                .profile(findUser.getUserProfile())
-                .role(findUser.getRole())
-                .comment(findUser.getComment())
-                .userPassword(findUser.getPassword())
-                .tags(tags)
-                .profile(findUser.getUserProfile())
-                .build());
-
+        return ResponseEntity.ok(userInfo);
     }
 }

@@ -8,5 +8,5 @@ import java.util.List;
 public class GeulgwiRegDTO {
     private String geulgwiContent;
     private Long userSeq;
-    private List<String> tags;
+    private List<Long> tagSeqs;
 }

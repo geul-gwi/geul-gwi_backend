@@ -13,6 +13,4 @@ public class UpdateDTO {
         private List<Long> userTagSeq;
         private String comment;
     }
-
-
 }
