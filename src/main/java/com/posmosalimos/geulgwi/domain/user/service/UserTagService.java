@@ -3,6 +3,8 @@ package com.posmosalimos.geulgwi.domain.user.service;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.domain.user.entity.UserTag;
 import com.posmosalimos.geulgwi.domain.user.repository.UserTagRepository;
+import com.posmosalimos.geulgwi.global.error.ErrorCode;
+import com.posmosalimos.geulgwi.global.error.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -31,5 +33,9 @@ public class UserTagService {
 
     public List<UserTag> findByUser(User user) {
         return userTagRepository.findByUser(user);
+    }
+
+    public UserTag findBySeq(Long seq) {
+        return userTagRepository.findById(seq).orElseThrow(() -> new BusinessException(ErrorCode.TAG_NOT_FOUND));
     }
 }

@@ -26,7 +26,6 @@ public class UpdateController {
     private final UpdateService updateService;
     private final FileService fileService;
     private final TokenManager tokenManager;
-    private final TagService tagService;
 
     @PostMapping(value = "/update/{seq}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<Boolean> updateUser(@RequestPart(value = "updateDTO") UpdateDTO.Request updateDTO,
