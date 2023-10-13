@@ -41,16 +41,9 @@ public class UpdateController {
         // 토큰 유효성 체크
         tokenManager.validateToken(accessToken);
 
-        String storeFile = fileService.storeFile(file);
+        String storeFile = fileService.storeFile(file); //update로 수정해야대나??
         updateService.update(userSeq, updateDTO, storeFile);
 
         return ResponseEntity.ok(true);
-    }
-
-    @PostMapping("/update/tags")
-    public UpdateDTO.Response tags() {
-        List<Tag> tags = tagService.findAll();
-
-        return UpdateDTO.Response.builder().tags(tags).build();
     }
 }

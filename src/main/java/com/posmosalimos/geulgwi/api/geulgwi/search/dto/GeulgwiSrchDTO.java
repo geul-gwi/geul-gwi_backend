@@ -1,6 +1,5 @@
 package com.posmosalimos.geulgwi.api.geulgwi.search.dto;
 
-import com.posmosalimos.geulgwi.domain.geulgwi.entity.GeulgwiTag;
 import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
 import lombok.*;
 

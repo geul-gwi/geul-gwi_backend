@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -31,6 +33,10 @@ public class GeulgwiService {
     @Transactional
     public void delete(Long seq) {
         geulgwiRepository.delete(seq);
+    }
+
+    public List<Geulgwi> list() {
+        return geulgwiRepository.findAll();
     }
 
 }

@@ -6,12 +6,12 @@ import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.domain.user.entity.UserTag;
 import com.posmosalimos.geulgwi.domain.user.service.UserService;
 import com.posmosalimos.geulgwi.domain.user.service.UserTagService;
-import com.posmosalimos.geulgwi.global.resolver.memberinfo.UserInfoDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,22 +21,26 @@ import java.util.List;
 public class UpdateService {
 
     private final UserService userService;
+    private final UserTagService userTagService;
 
     @Transactional
     public void update(Long userSeq, UpdateDTO.Request updateDTO, String storeFile) {
 
         User findUser = userService.findBySeq(userSeq);
-        List<UserTag> userTags = findUser.getUserTags();
-        List<Tag> tags = updateDTO.getTags();
+        List<UserTag> userTags = userTagService.findByUser(findUser); //수정 전 유저 태그들
+
+        for (int i = 0; i < updateDTO.getTags().size(); i++) {
+
+            UserTag userTag = userTags.get(i);  //수정 전 태그
+            Tag newTag = updateDTO.getTags().get(i); //수정 요청 태그
+            userTag.update(findUser, newTag);
+        }
 
         findUser.update(
-                updateDTO.getPassword(),
-                updateDTO.getNickname(),
-                storeFile,
-                updateDTO.getComment()
+                    updateDTO.getPassword(),
+                    updateDTO.getNickname(),
+                    storeFile,
+                    updateDTO.getComment()
         );
-
-        for (int i = 0; i < updateDTO.getTags().size(); i++)
-            userTags.get(i).update(findUser, tags.get(i));
     }
 }

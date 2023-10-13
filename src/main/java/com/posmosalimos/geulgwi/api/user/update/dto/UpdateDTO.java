@@ -16,9 +16,5 @@ public class UpdateDTO {
         private String comment;
     }
 
-    @Builder
-    public static class Response { //tag list
-        private List<Tag> tags;
-    }
 
 }

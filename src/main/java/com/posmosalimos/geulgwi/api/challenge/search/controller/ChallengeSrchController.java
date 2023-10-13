@@ -18,7 +18,7 @@ public class ChallengeSrchController {
 
     private final ChallengeSrchService challengeSearchService;
 
-    @GetMapping("/search/{challengeSeq}")
+    @GetMapping("/list/{challengeSeq}")
     public ResponseEntity<List> findChallengeUser(@PathVariable("challengeSeq") Long seq) {
 
         List<ChallengeSrchDTO> searchDtos = challengeSearchService.searchChallenges(seq);
