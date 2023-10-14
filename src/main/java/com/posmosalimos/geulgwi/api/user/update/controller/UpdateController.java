@@ -2,13 +2,9 @@ package com.posmosalimos.geulgwi.api.user.update.controller;
 
 import com.posmosalimos.geulgwi.api.user.update.dto.UpdateDTO;
 import com.posmosalimos.geulgwi.api.user.update.service.UpdateService;
-import com.posmosalimos.geulgwi.domain.file.entity.UploadFile;
 import com.posmosalimos.geulgwi.domain.file.service.FileService;
-import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
-import com.posmosalimos.geulgwi.domain.tag.service.TagService;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
-import com.posmosalimos.geulgwi.global.resolver.memberinfo.UserInfoDTO;
 import com.posmosalimos.geulgwi.global.util.AuthorizationHeaderUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor

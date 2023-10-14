@@ -12,7 +12,9 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 
 @Entity
@@ -41,8 +43,8 @@ public class Likes {
     private ChallengeUser challengeUser;
 
     @Builder
-    public Likes(String likeDate, User user, Geulgwi geulgwi, ChallengeUser challengeUser) {
-        this.likeDate = likeDate;
+    public Likes(User user, Geulgwi geulgwi, ChallengeUser challengeUser) {
+        this.likeDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         this.user = user;
         this.geulgwi = geulgwi;
         this.challengeUser = challengeUser;
