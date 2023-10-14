@@ -37,8 +37,8 @@ public class GeulgwiRegService {
                 .user(user)
                 .build();
 
-        Geulgwi registerGeulgwi = geulgwiService.register(geulgwi);
-        fileService.storeGeulgwiFiles(registerGeulgwi, files);
+        Geulgwi registerGeulgwi = geulgwiService.register(geulgwi); //글 등록
+        fileService.storeGeulgwiFiles(registerGeulgwi, files); //파일 등록
 
         for (Long tagSeqs : geulgwiRegDTO.getTagSeqs()) {
             Tag tag = tagService.findBySeq(tagSeqs);

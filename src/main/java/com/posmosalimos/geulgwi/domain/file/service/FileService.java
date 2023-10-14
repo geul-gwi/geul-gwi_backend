@@ -12,7 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,7 +27,6 @@ public class FileService {
 
     public void storeGeulgwiFiles(Geulgwi geulgwi, List<MultipartFile> multipartFiles) throws IOException {
         //글귀 파일 등록
-
         for (MultipartFile multipartFile : multipartFiles) {
             if (!multipartFile.isEmpty()) {
                 String originalFilename = multipartFile.getOriginalFilename(); //원래 파일명
@@ -47,7 +45,7 @@ public class FileService {
 
     }
 
-    public void deleteGeulgwiFiles(Geulgwi geulgwi) {
+    public void removeGeulgwiFiles(Geulgwi geulgwi) {
         fileRepository.deleteByGeulgwi(geulgwi);
     }
 

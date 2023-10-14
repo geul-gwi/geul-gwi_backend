@@ -2,8 +2,6 @@ package com.posmosalimos.geulgwi.api.geulgwi.update.controller;
 
 import com.posmosalimos.geulgwi.api.geulgwi.register.dto.GeulgwiRegDTO;
 import com.posmosalimos.geulgwi.api.geulgwi.update.service.GeulgwiUpdtService;
-import com.posmosalimos.geulgwi.domain.file.entity.UploadFile;
-import com.posmosalimos.geulgwi.domain.file.service.FileService;
 import com.posmosalimos.geulgwi.domain.like.service.LikeService;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,10 +25,9 @@ public class GeulgwiUpdtController {
     private final GeulgwiUpdtService geulgwiUdtService;
     private final LikeService likeService;
 
-    @PostMapping(value = "/update/{geulgwiSeq}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+    @PostMapping(value = "/update/{geulgwiSeq}")
     public ResponseEntity<Boolean> update(@PathVariable("geulgwiSeq") Long geulgwiSeq,
-                                          @RequestPart(value = "geulgwiRegDTO") GeulgwiRegDTO geulgwiRegDTO,
-                                          @RequestPart(value = "files") List<MultipartFile> files,
+                                          @RequestBody GeulgwiRegDTO geulgwiRegDTO,
                                           HttpServletRequest httpServletRequest) throws IOException {
 
         String authorization = httpServletRequest.getHeader("Authorization");
@@ -38,7 +35,38 @@ public class GeulgwiUpdtController {
 
         tokenManager.validateToken(accessToken);
 
-        geulgwiUdtService.update(geulgwiSeq, geulgwiRegDTO, files);
+        geulgwiUdtService.update(geulgwiSeq, geulgwiRegDTO);
+
+        return ResponseEntity.ok(true);
+    }
+
+    @PostMapping(value = "/update/file/upload/{geulgwiSeq}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<Boolean> uploadFiles(@PathVariable("geulgwiSeq") Long geulgwiSeq,
+                                               @RequestPart(value = "files") List<MultipartFile> files,
+                                               HttpServletRequest httpServletRequest) throws IOException {
+        //파일 등록(복수건)
+
+        String authorization = httpServletRequest.getHeader("Authorization");
+        String accessToken = authorization.split(" ")[1];
+
+        tokenManager.validateToken(accessToken);
+
+        geulgwiUdtService.uploadFiles(geulgwiSeq, files);
+
+        return ResponseEntity.ok(true);
+    }
+
+    @DeleteMapping("/update/file/remove/{geulgwiSeq}")
+    public ResponseEntity<Boolean> removeFiles(@PathVariable("geulgwiSeq") Long geulgwiSeq,
+                                                HttpServletRequest httpServletRequest) {
+        //파일 삭제(전체)
+
+        String authorization = httpServletRequest.getHeader("Authorization");
+        String accessToken = authorization.split(" ")[1];
+
+        tokenManager.validateToken(accessToken);
+
+        geulgwiUdtService.removeFiles(geulgwiSeq);
 
         return ResponseEntity.ok(true);
     }
