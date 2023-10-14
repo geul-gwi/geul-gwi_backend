@@ -2,6 +2,7 @@ package com.posmosalimos.geulgwi.api.geulgwi.update.controller;
 
 import com.posmosalimos.geulgwi.api.geulgwi.register.dto.GeulgwiRegDTO;
 import com.posmosalimos.geulgwi.api.geulgwi.update.service.GeulgwiUpdtService;
+import com.posmosalimos.geulgwi.domain.file.entity.UploadFile;
 import com.posmosalimos.geulgwi.domain.file.service.FileService;
 import com.posmosalimos.geulgwi.domain.like.service.LikeService;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
@@ -25,11 +26,9 @@ public class GeulgwiUpdtController {
     private final TokenManager tokenManager;
     private final GeulgwiUpdtService geulgwiUdtService;
     private final LikeService likeService;
-    private final FileService fileService;
 
     @PostMapping(value = "/update/{geulgwiSeq}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<Boolean> update(
-                                          @PathVariable("geulgwiSeq") Long geulgwiSeq,
+    public ResponseEntity<Boolean> update(@PathVariable("geulgwiSeq") Long geulgwiSeq,
                                           @RequestPart(value = "geulgwiRegDTO") GeulgwiRegDTO geulgwiRegDTO,
                                           @RequestPart(value = "files") List<MultipartFile> files,
                                           HttpServletRequest httpServletRequest) throws IOException {
@@ -39,9 +38,7 @@ public class GeulgwiUpdtController {
 
         tokenManager.validateToken(accessToken);
 
-        List<String> storeFiles = fileService.storeFiles(files);
-
-        geulgwiUdtService.update(geulgwiSeq, geulgwiRegDTO, storeFiles);
+        geulgwiUdtService.update(geulgwiSeq, geulgwiRegDTO, files);
 
         return ResponseEntity.ok(true);
     }

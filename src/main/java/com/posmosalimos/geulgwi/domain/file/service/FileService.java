@@ -2,6 +2,7 @@ package com.posmosalimos.geulgwi.domain.file.service;
 
 import com.posmosalimos.geulgwi.domain.file.entity.UploadFile;
 import com.posmosalimos.geulgwi.domain.file.repository.FileRepository;
+import com.posmosalimos.geulgwi.domain.geulgwi.entity.Geulgwi;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,36 +26,29 @@ public class FileService {
     private String fileDir;
     private final FileRepository fileRepository;
 
-    public List<String> storeFiles(List<MultipartFile> multipartFiles) throws IOException {
-        //여러 파일 처리
-        List<String> files = new ArrayList<>();
+    public void storeGeulgwiFiles(Geulgwi geulgwi, List<MultipartFile> multipartFiles) throws IOException {
+        //글귀 파일 등록
 
         for (MultipartFile multipartFile : multipartFiles) {
-            if (!multipartFile.isEmpty())
-                files.add(storeFile(multipartFile));
+            if (!multipartFile.isEmpty()) {
+                String originalFilename = multipartFile.getOriginalFilename(); //원래 파일명
+                String storeFilename = createStoreFileName(originalFilename); //디비 저장용 파일명
+                multipartFile.transferTo(new File(getFullPath(storeFilename))); //로컬에 uuid를 파일명으로 저장
+
+                UploadFile file = UploadFile.builder()
+                        .upload(originalFilename)
+                        .store(getFullPath(storeFilename)) //패스 + 파일명
+                        .geulgwi(geulgwi)
+                        .build();
+
+                fileRepository.save(file);
+            }
         }
 
-        return files;
     }
 
-    public String storeFile(MultipartFile multipartFile) throws IOException {
-        //하나의 파일 처리
-        if (multipartFile.isEmpty())
-            return null;
-
-        String originalFilename = multipartFile.getOriginalFilename(); //원래 파일명
-        String storeFilename = createStoreFileName(originalFilename); //디비 저장용 파일명
-        multipartFile.transferTo(new File(getFullPath(storeFilename))); //로컬에 uuid를 파일명으로 저장
-
-        UploadFile file = UploadFile.builder()
-                .upload(originalFilename)
-                .store(getFullPath(storeFilename)) //패스 + 파일명
-                .build();
-
-        fileRepository.save(file);
-
-        return file.getStore();
-
+    public void deleteGeulgwiFiles(Geulgwi geulgwi) {
+        fileRepository.deleteByGeulgwi(geulgwi);
     }
 
     public String getFullPath(String filename) {
@@ -62,7 +56,7 @@ public class FileService {
         return fileDir + filename;
     }
 
-    private String createStoreFileName(String originalFilename) {
+    public String createStoreFileName(String originalFilename) {
         //서버에 저장하는 파일명
         String ext = extractExt(originalFilename);
         String uuid = UUID.randomUUID().toString();
@@ -74,4 +68,6 @@ public class FileService {
         int pos = originalFilename.lastIndexOf("."); //위치
         return originalFilename.substring(pos + 1);
     }
+
+
 }

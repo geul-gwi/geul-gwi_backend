@@ -26,8 +26,8 @@ public class GeulgwiService {
     }
 
     @Transactional
-    public void register(Geulgwi geulgwi) {
-        geulgwiRepository.save(geulgwi);
+    public Geulgwi register(Geulgwi geulgwi) {
+        return geulgwiRepository.save(geulgwi);
     }
 
     @Transactional

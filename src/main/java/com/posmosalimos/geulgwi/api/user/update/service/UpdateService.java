@@ -1,6 +1,7 @@
 package com.posmosalimos.geulgwi.api.user.update.service;
 
 import com.posmosalimos.geulgwi.api.user.update.dto.UpdateDTO;
+import com.posmosalimos.geulgwi.domain.file.entity.UploadFile;
 import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
 import com.posmosalimos.geulgwi.domain.tag.service.TagService;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
@@ -26,7 +27,7 @@ public class UpdateService {
     private final TagService tagService;
 
     @Transactional
-    public void update(Long userSeq, UpdateDTO.Request updateDTO, String storeFile) {
+    public void update(Long userSeq, UpdateDTO.Request updateDTO, UploadFile storeFile) {
 
         User findUser = userService.findBySeq(userSeq);
         List<UserTag> userTags = userTagService.findByUser(findUser); //수정 전 유저 태그들

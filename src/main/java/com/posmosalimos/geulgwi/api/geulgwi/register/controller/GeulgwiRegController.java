@@ -2,12 +2,10 @@ package com.posmosalimos.geulgwi.api.geulgwi.register.controller;
 
 import com.posmosalimos.geulgwi.api.geulgwi.register.dto.GeulgwiRegDTO;
 import com.posmosalimos.geulgwi.api.geulgwi.register.service.GeulgwiRegService;
-import com.posmosalimos.geulgwi.domain.file.service.FileService;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.domain.user.service.UserService;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -26,7 +24,6 @@ public class GeulgwiRegController {
 
     private final TokenManager tokenManager;
     private final UserService userService;
-    private final FileService fileService;
     private final GeulgwiRegService geulgwiRegService;
 
 
@@ -43,10 +40,9 @@ public class GeulgwiRegController {
 
         User findUser = userService.findBySeq(seq);
 
-        List<String> storeFiles = fileService.storeFiles(files);
-
-        geulgwiRegService.register(geulgwiRegDTO, findUser, storeFiles);
+        geulgwiRegService.register(geulgwiRegDTO, findUser, files);
 
         return ResponseEntity.ok(true);
     }
+
 }

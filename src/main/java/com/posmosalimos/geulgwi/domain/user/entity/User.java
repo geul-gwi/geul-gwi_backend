@@ -1,6 +1,7 @@
 package com.posmosalimos.geulgwi.domain.user.entity;
 
 import com.posmosalimos.geulgwi.domain.challenge.entity.ChallengeUser;
+import com.posmosalimos.geulgwi.domain.file.entity.UploadFile;
 import com.posmosalimos.geulgwi.domain.geulgwi.entity.Geulgwi;
 import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
 import com.posmosalimos.geulgwi.domain.user.constant.Role;
@@ -35,7 +36,6 @@ public class User {
     private String comment;
     @Enumerated(value = EnumType.STRING)
     private Role role;
-    private String userProfile;
     @Column(length = 250)
     private String refreshToken;
     private LocalDateTime tokenExpirationTime;
@@ -49,6 +49,9 @@ public class User {
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<UserTag> userTags = new ArrayList<>();
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private UploadFile uploadFile;
+
     @Builder
     public User(String userId, String password,
                 String nickname, String gender,
@@ -61,11 +64,10 @@ public class User {
         this.role = role;
     }
 
-    public void update(String password, String nickname,
-                       String profile, String comment) {
+    public void update(String password, String nickname, UploadFile uploadFile, String comment) {
         this.password = password;
         this.nickname = nickname;
-        this.userProfile = profile;
+        this.uploadFile = uploadFile;
         this.comment = comment;
     }
 

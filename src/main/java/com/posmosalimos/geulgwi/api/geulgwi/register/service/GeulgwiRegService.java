@@ -1,6 +1,7 @@
 package com.posmosalimos.geulgwi.api.geulgwi.register.service;
 
 import com.posmosalimos.geulgwi.api.geulgwi.register.dto.GeulgwiRegDTO;
+import com.posmosalimos.geulgwi.domain.file.service.FileService;
 import com.posmosalimos.geulgwi.domain.geulgwi.entity.Geulgwi;
 import com.posmosalimos.geulgwi.domain.geulgwi.entity.GeulgwiTag;
 import com.posmosalimos.geulgwi.domain.geulgwi.repository.GeulgwiTagRepository;
@@ -12,7 +13,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Transactional(readOnly = true)
@@ -24,17 +27,18 @@ public class GeulgwiRegService {
     private final GeulgwiService geulgwiService;
     private final TagService tagService;
     private final GeulgwiTagRepository geulgwiTagRepository;
+    private final FileService fileService;
 
     @Transactional
-    public void register(GeulgwiRegDTO geulgwiRegDTO, User user, List<String> files) {
+    public void register(GeulgwiRegDTO geulgwiRegDTO, User user, List<MultipartFile> files) throws IOException {
 
         Geulgwi geulgwi = Geulgwi.builder()
                 .content(geulgwiRegDTO.getGeulgwiContent())
                 .user(user)
-                .files(files)
                 .build();
 
-        geulgwiService.register(geulgwi);
+        Geulgwi registerGeulgwi = geulgwiService.register(geulgwi);
+        fileService.storeGeulgwiFiles(registerGeulgwi, files);
 
         for (Long tagSeqs : geulgwiRegDTO.getTagSeqs()) {
             Tag tag = tagService.findBySeq(tagSeqs);
@@ -42,6 +46,7 @@ public class GeulgwiRegService {
                     .geulgwi(geulgwi)
                     .tag(tag)
                     .build();
+
             geulgwiTagRepository.save(geulgwiTag);
         }
     }

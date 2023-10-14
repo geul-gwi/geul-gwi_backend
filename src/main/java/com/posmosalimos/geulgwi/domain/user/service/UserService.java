@@ -85,7 +85,7 @@ public class UserService {
                 .userId(findUser.getUserId())
                 .nickname(findUser.getNickname())
                 .role(findUser.getRole())
-                .profile(findUser.getUserProfile())
+                .profile(findUser.getUploadFile().getStore())
                 .comment(findUser.getComment())
                 .tags(tags)
                 .build();
@@ -102,7 +102,7 @@ public class UserService {
                             .userSeq(u.getUserSeq())
                             .userId(u.getUserId())
                             .nickname(u.getNickname())
-                            .profile(u.getUserProfile())
+                            .profile(u.getUploadFile().getStore())
                             .build()
             );
         }

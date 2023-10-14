@@ -25,7 +25,7 @@ public enum ErrorCode {
 //    INVALID_MEMBER_TYPE(HttpStatus.BAD_REQUEST, "M-001", "잘못된 회원 타입입니다. (memberType : KAKAO)"),
     ALREADY_REGISTERED_MEMBER(HttpStatus.BAD_REQUEST,  "M-001", "이미 가입된 회원입니다."),
     DUPLICATED_NICKNAME(HttpStatus.BAD_REQUEST, "M-002", "중복된 닉네임입니다."),
-    MEMBER_NOT_EXISTS(HttpStatus.BAD_REQUEST, "M-003", "존재하지 않는 회원입니다."),
+    MEMBER_NOT_EXISTS(HttpStatus.NOT_FOUND, "M-003", "존재하지 않는 회원입니다."),
     INVALID_PASSWORD(HttpStatus.BAD_REQUEST, "M-004", "비밀번호가 일치하지 않습니다."),
     INVALID_ID(HttpStatus.BAD_REQUEST, "M-005", "올바르지 않은 타입의 ID 입니다."),
 
@@ -37,7 +37,10 @@ public enum ErrorCode {
     // 태그
     TAG_NOT_FOUND(HttpStatus.BAD_REQUEST, "T-001", "일치하는 태그가 존재하지 않습니다."),
     TAG_CREATION_FAILED(HttpStatus.BAD_REQUEST, "T-002", "태그 생성에 실패하였습니다."),
-    TAG_DELETION_FAILED(HttpStatus.BAD_REQUEST, "T-003", "태그 삭제에 실패하였습니다.")
+    TAG_DELETION_FAILED(HttpStatus.BAD_REQUEST, "T-003", "태그 삭제에 실패하였습니다."),
+
+    // 파일
+    MULTIPART_FILE_NOT_FOUND(HttpStatus.NOT_FOUND, "F-001", "Multipart File이 비어있습니다.")
     ;
 
     ErrorCode(HttpStatus httpStatus, String errorCode, String message) {
