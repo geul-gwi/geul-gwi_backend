@@ -27,7 +27,7 @@ public class UpdateService {
     private final TagService tagService;
 
     @Transactional
-    public void update(Long userSeq, UpdateDTO.Request updateDTO, UploadFile storeFile) {
+    public User update(Long userSeq, UpdateDTO.Request updateDTO) {
 
         User findUser = userService.findBySeq(userSeq);
         List<UserTag> userTags = userTagService.findByUser(findUser); //수정 전 유저 태그들
@@ -42,8 +42,9 @@ public class UpdateService {
         findUser.update(
                     updateDTO.getPassword(),
                     updateDTO.getNickname(),
-                    storeFile,
                     updateDTO.getComment()
         );
+
+        return findUser;
     }
 }

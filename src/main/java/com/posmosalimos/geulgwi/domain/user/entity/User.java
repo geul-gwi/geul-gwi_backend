@@ -64,10 +64,9 @@ public class User {
         this.role = role;
     }
 
-    public void update(String password, String nickname, UploadFile uploadFile, String comment) {
+    public void update(String password, String nickname, String comment) {
         this.password = password;
         this.nickname = nickname;
-        this.uploadFile = uploadFile;
         this.comment = comment;
     }
 

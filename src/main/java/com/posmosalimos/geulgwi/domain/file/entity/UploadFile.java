@@ -27,17 +27,11 @@ public class UploadFile {
     @JoinColumn(name = "geulgwiSeq")
     private Geulgwi geulgwi;
 
-    @Builder //글귀용
-    public UploadFile(String upload, String store, Geulgwi geulgwi) {
+    @Builder
+    public UploadFile(String upload, String store, Geulgwi geulgwi, User user) {
         this.upload = upload;
         this.store = store;
         this.geulgwi = geulgwi;
-    }
-
-    @Builder //프로필사진용
-    public UploadFile(String upload, String store, User user) {
-        this.upload = upload;
-        this.store = store;
         this.user = user;
     }
 

@@ -3,6 +3,9 @@ package com.posmosalimos.geulgwi.domain.file.service;
 import com.posmosalimos.geulgwi.domain.file.entity.UploadFile;
 import com.posmosalimos.geulgwi.domain.file.repository.FileRepository;
 import com.posmosalimos.geulgwi.domain.geulgwi.entity.Geulgwi;
+import com.posmosalimos.geulgwi.domain.user.entity.User;
+import com.posmosalimos.geulgwi.global.error.ErrorCode;
+import com.posmosalimos.geulgwi.global.error.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,6 +28,7 @@ public class FileService {
     private String fileDir;
     private final FileRepository fileRepository;
 
+    @Transactional
     public void storeGeulgwiFiles(Geulgwi geulgwi, List<MultipartFile> multipartFiles) throws IOException {
         //글귀 파일 등록
         for (MultipartFile multipartFile : multipartFiles) {
@@ -45,8 +49,28 @@ public class FileService {
 
     }
 
+    @Transactional
     public void removeGeulgwiFiles(Geulgwi geulgwi) {
+        //글귀 파일 삭제
         fileRepository.deleteByGeulgwi(geulgwi);
+    }
+
+    @Transactional
+    public void storeUserFile(User user, MultipartFile multipartFile) throws IOException {
+        if (multipartFile.isEmpty())
+            throw new BusinessException(ErrorCode.MULTIPART_FILE_NOT_FOUND);
+
+        String originalFilename = multipartFile.getOriginalFilename(); //원래 파일명
+        String storeFilename = createStoreFileName(originalFilename); //디비 저장용 파일명
+        multipartFile.transferTo(new File(getFullPath(storeFilename))); //로컬에 uuid를 파일명으로 저장
+
+        UploadFile file = UploadFile.builder()
+                .upload(originalFilename)
+                .store(getFullPath(storeFilename)) //패스 + 파일명
+                .user(user)
+                .build();
+
+        fileRepository.save(file);
     }
 
     public String getFullPath(String filename) {

@@ -6,6 +6,7 @@ import com.posmosalimos.geulgwi.domain.file.entity.UploadFile;
 import com.posmosalimos.geulgwi.domain.file.service.FileService;
 import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
 import com.posmosalimos.geulgwi.domain.tag.service.TagService;
+import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import com.posmosalimos.geulgwi.global.resolver.memberinfo.UserInfoDTO;
 import com.posmosalimos.geulgwi.global.util.AuthorizationHeaderUtils;
@@ -41,8 +42,8 @@ public class UpdateController {
         // 토큰 유효성 체크
         tokenManager.validateToken(accessToken);
 
-        UploadFile storeFile = fileService.storeFile(file);
-        updateService.update(userSeq, updateDTO, storeFile);
+        User user = updateService.update(userSeq, updateDTO);
+        fileService.storeUserFile(user, file);
 
         return ResponseEntity.ok(true);
     }
