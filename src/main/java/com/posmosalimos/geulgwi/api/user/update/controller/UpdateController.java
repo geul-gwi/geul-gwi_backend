@@ -28,7 +28,7 @@ public class UpdateController {
 
     @PostMapping(value = "/update/{seq}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<Boolean> updateUser(@RequestPart(value = "updateDTO") UpdateDTO.Request updateDTO,
-                                             @RequestPart(value = "file") MultipartFile file,
+                                             @RequestPart(value = "file", required = false) MultipartFile file,
                                              @PathVariable("seq") Long userSeq,
                                              HttpServletRequest httpServletRequest) throws IOException {
 

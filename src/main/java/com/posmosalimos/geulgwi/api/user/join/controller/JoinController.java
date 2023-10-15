@@ -38,7 +38,7 @@ public class JoinController {
         joinService.validateDuplicateNickname(nickname);
         log.info("user - nickname duplicate check success");
 
-        return ResponseEntity.ok(true;
+        return ResponseEntity.ok(true);
     }
 
 }

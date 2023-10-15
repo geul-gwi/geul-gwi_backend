@@ -30,7 +30,7 @@ public class GeulgwiRegController {
     @PostMapping(value = "/register/{userSeq}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<Boolean> register(@RequestPart(value = "geulgwiContent") String geulgwiContent,
                                             @RequestPart(value = "tagSeqs") List<Long> tagSeqs,
-                                            @RequestPart(value = "files") List<MultipartFile> files,
+                                            @RequestPart(value = "files", required = false) List<MultipartFile> files,
                                             @PathVariable("userSeq") Long seq,
                                             HttpServletRequest httpServletRequest) throws IOException {
 
