@@ -45,6 +45,7 @@ public class ChallengeDelController {
         tokenManager.validateToken(accessToken);
 
         challengeDelService.delete(challengeUserSeq);
+        log.info("challenge - delete success");
 
         return ResponseEntity.ok(true);
     }

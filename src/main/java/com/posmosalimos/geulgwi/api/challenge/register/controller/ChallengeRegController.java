@@ -35,6 +35,7 @@ public class ChallengeRegController {
         User findUser = userService.findBySeq(userSeq);
 
         challengeRegService.register(challengeRegDTO, findUser);
+        log.info("challenge - register success");
 
         return ResponseEntity.ok(true);
     }

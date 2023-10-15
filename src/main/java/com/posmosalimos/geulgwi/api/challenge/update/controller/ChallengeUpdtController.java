@@ -34,6 +34,7 @@ public class ChallengeUpdtController {
         tokenManager.validateToken(accessToken);
 
         challengeUdtService.update(keywordSeq, userSeq, challengeUserSeq, challengeRegDTO);
+        log.info("challenge - update success(challengeSeq: {})", challengeUserSeq);
 
         return ResponseEntity.ok(true);
     }
@@ -49,6 +50,7 @@ public class ChallengeUpdtController {
         tokenManager.validateToken(accessToken);
 
         likeService.likeChallengeUser(challengeUserSeq, userSeq);
+        log.info("challenge - like success(userSeq:{})", userSeq);
 
         return ResponseEntity.ok(true);
     }
@@ -64,6 +66,7 @@ public class ChallengeUpdtController {
         tokenManager.validateToken(accessToken);
 
         likeService.unlikeChallengeUser(challengeUserSeq, userSeq);
+        log.info("challenge - unlike success(userSeq: {})", userSeq);
 
         return ResponseEntity.ok(true);
     }

@@ -36,6 +36,7 @@ public class GeulgwiUpdtController {
         tokenManager.validateToken(accessToken);
 
         geulgwiUdtService.update(geulgwiSeq, geulgwiRegDTO);
+        log.info("geulgwi - update success(geulgwiSeq: {})", geulgwiSeq);
 
         return ResponseEntity.ok(true);
     }
@@ -52,6 +53,7 @@ public class GeulgwiUpdtController {
         tokenManager.validateToken(accessToken);
 
         geulgwiUdtService.uploadFiles(geulgwiSeq, files);
+        log.info("file upload success");
 
         return ResponseEntity.ok(true);
     }
@@ -67,6 +69,7 @@ public class GeulgwiUpdtController {
         tokenManager.validateToken(accessToken);
 
         geulgwiUdtService.removeFiles(geulgwiSeq);
+        log.info("file remove success");
 
         return ResponseEntity.ok(true);
     }
@@ -82,6 +85,7 @@ public class GeulgwiUpdtController {
         tokenManager.validateToken(accessToken);
 
         likeService.likeGeulgwi(geulgwiSeq, userSeq);
+        log.info("geulgwi - like success(userSeq: {})", userSeq);
 
         return ResponseEntity.ok(true);
     }
@@ -97,6 +101,7 @@ public class GeulgwiUpdtController {
         tokenManager.validateToken(accessToken);
 
         likeService.unlikeGeulgwi(geulgwiSeq, userSeq);
+        log.info("geulgwi - unlike success(userSeq: {})", userSeq);
 
         return ResponseEntity.ok(true);
     }

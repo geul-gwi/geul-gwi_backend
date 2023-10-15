@@ -27,6 +27,7 @@ public class GeulgwiDelController {
         tokenManager.validateToken(accessToken);
 
         geulgwiDelService.delete(geulgwiSeq);
+        log.info("geulgwi - delete success");
 
         return ResponseEntity.ok(true);
     }

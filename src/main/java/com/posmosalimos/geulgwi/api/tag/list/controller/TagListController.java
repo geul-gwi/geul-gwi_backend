@@ -33,6 +33,7 @@ public class TagListController {
         List<TagDTO> response = tags.stream()
                 .map(TagDTO::from)
                 .collect(Collectors.toList());
+        log.info("tag - list");
 
         return ResponseEntity.ok(response);
     }
@@ -44,6 +45,7 @@ public class TagListController {
         List<TagDTO> tagDTOS = tags.stream()
                 .map(TagDTO::from)
                 .collect(Collectors.toList());
+        log.info("tag - list(default)");
 
         return ResponseEntity.ok(tagDTOS);
     }

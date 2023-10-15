@@ -30,6 +30,7 @@ public class UserSrchController {
     public ResponseEntity<List> list() {
 
         List<UserListDTO> listDtos = userService.findUserInfos();
+        log.info("user - list");
 
         return ResponseEntity.ok(listDtos);
     }
@@ -38,6 +39,7 @@ public class UserSrchController {
     public ResponseEntity<UserInfoDTO> detail(@PathVariable("seq") Long seq) {
 
         UserInfoDTO userInfo = userService.findUserInfo(seq);
+        log.info("user - detail(userSeq: {})", seq);
 
         return ResponseEntity.ok(userInfo);
     }

@@ -22,6 +22,7 @@ public class GeulgwiSrchController {
     public ResponseEntity<GeulgwiSrchDTO.Response> search(@PathVariable("geulgwiSeq") Long geulgwiSeq) {
 
         GeulgwiSrchDTO.Response searchDto = geulgwiSrchService.search(geulgwiSeq);
+        log.info("geulgwi - search(geulgwiSeq: {})", geulgwiSeq);
 
         return ResponseEntity.ok(searchDto);
     }
@@ -29,6 +30,7 @@ public class GeulgwiSrchController {
     @GetMapping("/list")
     public ResponseEntity<List> list() {
         List<GeulgwiListDTO> geulgwiListDTOS = geulgwiSrchService.list();
+        log.info("geulgwi - list");
 
         return ResponseEntity.ok(geulgwiListDTOS);
 

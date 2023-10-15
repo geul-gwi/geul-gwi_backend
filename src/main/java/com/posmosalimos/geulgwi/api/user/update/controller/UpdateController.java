@@ -8,6 +8,7 @@ import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import com.posmosalimos.geulgwi.global.util.AuthorizationHeaderUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,7 @@ import java.io.IOException;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/user")
+@Slf4j
 public class UpdateController {
 
     private final UpdateService updateService;
@@ -39,6 +41,7 @@ public class UpdateController {
 
         User user = updateService.update(userSeq, updateDTO);
         fileService.storeUserFile(user, file);
+        log.info("user - update success(userSeq: {})", userSeq);
 
         return ResponseEntity.ok(true);
     }

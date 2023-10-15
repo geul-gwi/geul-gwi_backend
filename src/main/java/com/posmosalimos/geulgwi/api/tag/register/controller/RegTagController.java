@@ -10,9 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -34,6 +31,7 @@ public class RegTagController {
         tokenManager.validateToken(accessToken);
 
         Tag tag = createTagService.create(regTagDTO, userSeq);
+        log.info("tag - register success");
 
         return ResponseEntity.ok(
                 RegTagDTO.Response.builder()

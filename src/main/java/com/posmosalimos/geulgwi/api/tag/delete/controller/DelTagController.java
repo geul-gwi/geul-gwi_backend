@@ -21,6 +21,7 @@ public class DelTagController {
     @DeleteMapping("/delete/{tagSeq}")
     public ResponseEntity<Boolean> delete(@PathVariable("tagSeq") Long tagSeq) {
         delTagService.delete(tagSeq);
+        log.info("tag - delete success");
         return ResponseEntity.ok(true);
     }
 }

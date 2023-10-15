@@ -24,14 +24,16 @@ public class EmailController {
         int number = emailService.sendMail(dto.getEmail());
 
         String num = String.valueOf(number);
+        log.info("user - email sending success");
 
         return ResponseEntity.ok(num);
     }
 
     @PostMapping("/valid/code")
     public ResponseEntity<Boolean> validCode(@RequestBody EmailDTO.Valid valid){
-
-        return ResponseEntity.ok(emailService.validNumber(valid.getCode()));
+        emailService.validNumber(valid.getCode());
+        log.info("user - email verification success");
+        return ResponseEntity.ok(true);
     }
 
 }
