@@ -2,7 +2,6 @@ package com.posmosalimos.geulgwi.domain.user.service;
 
 import com.posmosalimos.geulgwi.api.tag.list.dto.TagDTO;
 import com.posmosalimos.geulgwi.api.user.search.dto.UserListDTO;
-import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.domain.user.entity.UserTag;
 import com.posmosalimos.geulgwi.domain.user.repository.UserRepository;
@@ -18,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -80,12 +80,17 @@ public class UserService {
                 .map(TagDTO::from)
                 .collect(Collectors.toList());
 
+        String profile = Optional.ofNullable(findUser.getUploadFile())
+                .map(uploadFile -> uploadFile.getStore())
+                .orElse(null);
+
         return UserInfoDTO.builder()
                 .userSeq(userSeq)
                 .userId(findUser.getUserId())
                 .nickname(findUser.getNickname())
+                .password(findUser.getPassword())
                 .role(findUser.getRole())
-                .profile(findUser.getUploadFile().getStore())
+                .profile(profile)
                 .comment(findUser.getComment())
                 .tags(tags)
                 .build();
@@ -97,12 +102,16 @@ public class UserService {
         List<UserListDTO> userListDtos = new ArrayList<>();
 
         for (User u : users) {
+            String profile = Optional.ofNullable(u.getUploadFile())
+                    .map(uploadFile -> uploadFile.getStore())
+                    .orElse(null);
+
             userListDtos.add(
                     UserListDTO.builder()
                             .userSeq(u.getUserSeq())
                             .userId(u.getUserId())
                             .nickname(u.getNickname())
-                            .profile(u.getUploadFile().getStore())
+                            .profile(profile)
                             .build()
             );
         }
