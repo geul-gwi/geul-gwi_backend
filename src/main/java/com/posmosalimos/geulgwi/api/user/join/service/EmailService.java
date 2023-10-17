@@ -58,10 +58,8 @@ public class EmailService {
         return message;
     }
 
-    public int sendMail(String mail){
+    public void sendMail(String mail){
         MimeMessage message = createMail(mail);
         javaMailSender.send(message);
-
-        return number;
     }
 }

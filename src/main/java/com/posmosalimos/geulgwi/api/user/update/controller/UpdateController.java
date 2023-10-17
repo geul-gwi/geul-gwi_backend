@@ -1,5 +1,6 @@
 package com.posmosalimos.geulgwi.api.user.update.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.posmosalimos.geulgwi.api.user.update.dto.UpdateDTO;
 import com.posmosalimos.geulgwi.api.user.update.service.UpdateService;
 import com.posmosalimos.geulgwi.domain.file.service.FileService;
@@ -26,7 +27,7 @@ public class UpdateController {
     private final FileService fileService;
     private final TokenManager tokenManager;
 
-    @PostMapping(value = "/update/{seq}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+    @PostMapping(value = "/update/{seq}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<Boolean> updateUser(@RequestPart(value = "updateDTO") UpdateDTO.Request updateDTO,
                                              @RequestPart(value = "file", required = false) MultipartFile file,
                                              @PathVariable("seq") Long userSeq,
@@ -36,7 +37,7 @@ public class UpdateController {
         AuthorizationHeaderUtils.validateAuthorization(authorization);
 
         String accessToken = authorization.split(" ")[1];
-        // 토큰 유효성 체크
+        //토큰 유효성 체크
         tokenManager.validateToken(accessToken);
 
         User user = updateService.update(userSeq, updateDTO);

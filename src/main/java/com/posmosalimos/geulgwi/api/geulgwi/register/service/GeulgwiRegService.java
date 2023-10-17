@@ -9,6 +9,7 @@ import com.posmosalimos.geulgwi.domain.geulgwi.service.GeulgwiService;
 import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
 import com.posmosalimos.geulgwi.domain.tag.service.TagService;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
+import com.posmosalimos.geulgwi.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -28,19 +29,20 @@ public class GeulgwiRegService {
     private final TagService tagService;
     private final GeulgwiTagRepository geulgwiTagRepository;
     private final FileService fileService;
+    private final UserService userService;
 
     @Transactional
-    public void register(String geulgwiContent, List<Long> tagSeqs, User user, List<MultipartFile> files) throws IOException {
+    public void register(GeulgwiRegDTO geulgwiRegDTO, Long userSeq, List<MultipartFile> files) throws IOException {
 
         Geulgwi geulgwi = Geulgwi.builder()
-                .content(geulgwiContent)
-                .user(user)
+                .content(geulgwiRegDTO.getGeulgwiContent())
+                .user(userService.findBySeq(userSeq))
                 .build();
 
         Geulgwi registerGeulgwi = geulgwiService.register(geulgwi); //글 등록
         fileService.storeGeulgwiFiles(registerGeulgwi, files); //파일 등록
 
-        for (Long tagSeq : tagSeqs) {
+        for (Long tagSeq : geulgwiRegDTO.getTagSeqs()) {
             Tag tag = tagService.findBySeq(tagSeq);
             GeulgwiTag geulgwiTag = GeulgwiTag.builder()
                     .geulgwi(geulgwi)

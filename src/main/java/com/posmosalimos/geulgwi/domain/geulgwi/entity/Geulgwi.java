@@ -26,7 +26,7 @@ public class Geulgwi {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String regDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name="userSeq")
     private User user;
 

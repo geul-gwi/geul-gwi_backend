@@ -28,8 +28,7 @@ public class GeulgwiRegController {
 
 
     @PostMapping(value = "/register/{userSeq}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<Boolean> register(@RequestPart(value = "geulgwiContent") String geulgwiContent,
-                                            @RequestPart(value = "tagSeqs") List<Long> tagSeqs,
+    public ResponseEntity<Boolean> register(@RequestPart(value = "geulgwiRegDTO") GeulgwiRegDTO geulgwiRegDTO,
                                             @RequestPart(value = "files", required = false) List<MultipartFile> files,
                                             @PathVariable("userSeq") Long seq,
                                             HttpServletRequest httpServletRequest) throws IOException {
@@ -39,9 +38,7 @@ public class GeulgwiRegController {
 
         tokenManager.validateToken(accessToken);
 
-        User findUser = userService.findBySeq(seq);
-
-        geulgwiRegService.register(geulgwiContent, tagSeqs, findUser, files);
+        geulgwiRegService.register(geulgwiRegDTO, seq, files);
         log.info("geulgwi - register success");
 
         return ResponseEntity.ok(true);
