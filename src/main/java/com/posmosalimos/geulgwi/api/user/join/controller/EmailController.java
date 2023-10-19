@@ -19,7 +19,7 @@ public class EmailController {
     private final EmailService emailService;
 
     @PostMapping("/valid")
-    public ResponseEntity<Boolean> validEmail(@RequestBody EmailDTO dto){
+    public ResponseEntity<Boolean> validEmail(@RequestBody EmailDTO dto) {
 
         emailService.sendMail(dto.getEmail());
         log.info("user - email sending success");
@@ -28,9 +28,11 @@ public class EmailController {
     }
 
     @PostMapping("/valid/code")
-    public ResponseEntity<Boolean> validCode(@RequestBody EmailDTO.Valid valid){
+    public ResponseEntity<Boolean> validCode(@RequestBody EmailDTO.Valid valid) {
+
         emailService.validNumber(valid.getCode());
         log.info("user - email verification success");
+
         return ResponseEntity.ok(true);
     }
 

@@ -1,23 +1,22 @@
 package com.posmosalimos.geulgwi.api.user.search.controller;
 
 import com.posmosalimos.geulgwi.api.user.search.dto.UserListDTO;
-import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
-import com.posmosalimos.geulgwi.domain.user.entity.User;
-import com.posmosalimos.geulgwi.domain.user.entity.UserTag;
 import com.posmosalimos.geulgwi.domain.user.service.UserService;
+import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import com.posmosalimos.geulgwi.global.resolver.memberinfo.UserInfoDTO;
+import com.posmosalimos.geulgwi.global.util.AuthorizationHeaderUtils;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+//@CrossOrigin("*")
 @RestController
 @RequestMapping("/user")
 @Slf4j
@@ -25,9 +24,17 @@ import java.util.stream.Collectors;
 public class UserSrchController {
 
     private final UserService userService;
+    private final TokenManager tokenManager;
 
-    @PostMapping("/list")
-    public ResponseEntity<List> list() {
+    @GetMapping("/list")
+    public ResponseEntity<List> list(HttpServletRequest httpServletRequest) {
+
+        String authorization = httpServletRequest.getHeader("Authorization");
+        AuthorizationHeaderUtils.validateAuthorization(authorization);
+
+        String accessToken = authorization.split(" ")[1];
+
+        tokenManager.validateToken(accessToken);
 
         List<UserListDTO> listDtos = userService.findUserInfos();
         log.info("user - list");
@@ -35,10 +42,17 @@ public class UserSrchController {
         return ResponseEntity.ok(listDtos);
     }
 
-    @PostMapping("/detail/{seq}")
-    public ResponseEntity<UserInfoDTO> detail(@PathVariable("seq") Long seq) {
+    @GetMapping("/detail/{seq}")
+    public ResponseEntity<UserInfoDTO> detail(@PathVariable("seq") Long seq,
+                                              HttpServletRequest httpServletRequest) {
+
+        String authorization = httpServletRequest.getHeader("Authorization");
+        String accessToken = authorization.split(" ")[1];
+
+        tokenManager.validateToken(accessToken);
 
         UserInfoDTO userInfo = userService.findUserInfo(seq);
+
         log.info("user - detail(userSeq: {})", seq);
 
         return ResponseEntity.ok(userInfo);

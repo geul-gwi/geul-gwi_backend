@@ -13,6 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
 
+
 @Configuration
 @RequiredArgsConstructor
 public class WebConfig implements WebMvcConfigurer {
@@ -24,37 +25,46 @@ public class WebConfig implements WebMvcConfigurer {
     // Role ADMIN 체크하는 인터셉터
     private final AdminAuthorizationInterceptor adminAuthorizationInterceptor;
 
+
+
     @Override
     public void addCorsMappings(CorsRegistry registry) {
 
         registry.addMapping("/**")
-                .allowedOrigins("*", "http://localhost:8082")
+                .allowedOrigins("**", "http://localhost:3000")
                 .allowedMethods(
                         HttpMethod.GET.name(),
                         HttpMethod.POST.name(),
                         HttpMethod.PUT.name(),
                         HttpMethod.PATCH.name(),
                         HttpMethod.DELETE.name(),
-                        HttpMethod.OPTIONS.name()
-                ).maxAge(3600); // Access-Control-Max-Age: 3600 으로 설정
+                        HttpMethod.OPTIONS.name())
+                .allowedHeaders("*")
+                .maxAge(3600); // Access-Control-Max-Age: 3600 으로 설정
     }
+
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authenticationInterceptor) // accessToken 검증 우선
                 .order(1)
-                .addPathPatterns("/meeti/**")
+                .addPathPatterns("/**")
                 .excludePathPatterns(
-                        "/meeti/user/join",
-                        "/meeti/user/login",
-                        "/meeti/oauth/login",
-                        "/meeti/access-token/issue",
-                        "/meeti/user/logout"
+                        "/user/list",
+                        "/user/join",
+                        "/user/login",
+                        "/email/valid/**",
+                        "/user/validate/**",
+                        "/user/nickname/**",
+                        "/geulgwi/list",
+                        "/geulgwi/search/**",
+                        "/challenge/list/**",
+                        "/tag/**"
                 );
 
         registry.addInterceptor(adminAuthorizationInterceptor)
                 .order(2)
-                .addPathPatterns("/meeti/admin/**");
+                .addPathPatterns("/user/admin/**");
     }
 
     @Override

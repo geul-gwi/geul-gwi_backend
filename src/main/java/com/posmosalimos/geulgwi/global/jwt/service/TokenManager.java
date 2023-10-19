@@ -47,7 +47,7 @@ public class TokenManager {
     }
 
     public Date createAccessTokenExpireTime() {
-        // 현재시간 + 15 min
+        // 현재시간 + 150 min
         return new Date(System.currentTimeMillis() + Long.parseLong(accessTokenExpirationTime));
     }
 

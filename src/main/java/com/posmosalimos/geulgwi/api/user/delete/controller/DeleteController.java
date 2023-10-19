@@ -39,7 +39,15 @@ public class DeleteController {
     }
 
     @DeleteMapping("/admin/delete/{seq}")
-    public ResponseEntity<Boolean> delete(@PathVariable Long seq) {
+    public ResponseEntity<Boolean> delete(@PathVariable Long seq,
+                                          HttpServletRequest httpServletRequest) {
+
+        String authorization = httpServletRequest.getHeader("Authorization");
+        AuthorizationHeaderUtils.validateAuthorization(authorization);
+
+        String accessToken = authorization.split(" ")[1];
+
+        tokenManager.validateToken(accessToken);
         deleteService.delete(seq);
         log.info("user - delete success(admin)");
 
