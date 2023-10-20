@@ -57,7 +57,7 @@ public class UserService {
     //delete - user
     @Transactional
     public void delete(Long userSeq, String userPassword) {
-        User findUser = userRepository.findByUserSeq(userSeq).orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_EXISTS));
+        User findUser = userRepository.findByUserSeq(userSeq).orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
 
         if (findUser.getPassword().equals(userPassword))
             userRepository.delete(findUser);
@@ -67,13 +67,13 @@ public class UserService {
     //delete - admin
     @Transactional
     public void delete(Long userSeq) {
-        User findUser = userRepository.findByUserSeq(userSeq).orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_EXISTS));
+        User findUser = userRepository.findByUserSeq(userSeq).orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
         userRepository.delete(findUser);
     }
 
     //유저정보 - 단건
     public UserInfoDTO findUserInfo(Long userSeq) {
-        User findUser = userRepository.findByUserSeq(userSeq).orElseThrow(() -> new EntityNotFoundException(ErrorCode.MEMBER_NOT_EXISTS));
+        User findUser = userRepository.findByUserSeq(userSeq).orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_FOUND));
 
         List<TagDTO> tags = findUser.getUserTags().stream()
                 .map(UserTag::getTag)
@@ -121,13 +121,13 @@ public class UserService {
 
     public User findBySeq(Long userSeq) {
         return userRepository.findByUserSeq(userSeq)
-                .orElseThrow(() -> new AuthenticationException(ErrorCode.MEMBER_NOT_EXISTS));
+                .orElseThrow(() -> new AuthenticationException(ErrorCode.USER_NOT_FOUND));
     }
 
     public Boolean findByUserId(String userId) {
 
         if (userRepository.findByUserId(userId).isPresent())
-            throw new BusinessException(ErrorCode.ALREADY_REGISTERED_MEMBER);
+            throw new BusinessException(ErrorCode.ALREADY_REGISTERED_USER);
 
         return true;
     }

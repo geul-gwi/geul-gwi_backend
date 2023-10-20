@@ -59,4 +59,5 @@ public class Message {
         this.sender = sender;
         this.receiver = reciever;
     }
+
 }

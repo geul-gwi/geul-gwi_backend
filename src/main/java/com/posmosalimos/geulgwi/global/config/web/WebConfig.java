@@ -40,13 +40,13 @@ public class WebConfig implements WebMvcConfigurer {
                         HttpMethod.DELETE.name(),
                         HttpMethod.OPTIONS.name())
                 .allowedHeaders("*")
-                .maxAge(3600); // Access-Control-Max-Age: 3600 으로 설정
+                .maxAge(3600); //Access-Control-Max-Age: 3600 으로 설정
     }
 
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(authenticationInterceptor) // accessToken 검증 우선
+        registry.addInterceptor(authenticationInterceptor) //accessToken 검증 우선
                 .order(1)
                 .addPathPatterns("/**")
                 .excludePathPatterns(
@@ -59,8 +59,7 @@ public class WebConfig implements WebMvcConfigurer {
                         "/geulgwi/list",
                         "/geulgwi/search/**",
                         "/challenge/list/**",
-                        "/tag/**",
-                        "/file/**"
+                        "/tag/**"
                 );
 
         registry.addInterceptor(adminAuthorizationInterceptor)
@@ -71,6 +70,6 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
 
-        resolvers.add(userInfoArgumentResolver); // 유저 정보 탐색 리졸버 등록
+        resolvers.add(userInfoArgumentResolver); //유저 정보 탐색 리졸버 등록
     }
 }

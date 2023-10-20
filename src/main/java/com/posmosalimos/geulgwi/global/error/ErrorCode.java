@@ -22,12 +22,11 @@ public enum ErrorCode {
     NOT_EQUAL_CODE(HttpStatus.UNAUTHORIZED, "A-010", "Email Code가 일치하지 않습니다."),
 
     // 회원
-//    INVALID_MEMBER_TYPE(HttpStatus.BAD_REQUEST, "M-001", "잘못된 회원 타입입니다. (memberType : KAKAO)"),
-    ALREADY_REGISTERED_MEMBER(HttpStatus.BAD_REQUEST,  "M-001", "이미 가입된 회원입니다."),
-    DUPLICATED_NICKNAME(HttpStatus.BAD_REQUEST, "M-002", "중복된 닉네임입니다."),
-    MEMBER_NOT_EXISTS(HttpStatus.NOT_FOUND, "M-003", "존재하지 않는 회원입니다."),
-    INVALID_PASSWORD(HttpStatus.BAD_REQUEST, "M-004", "비밀번호가 일치하지 않습니다."),
-    INVALID_ID(HttpStatus.BAD_REQUEST, "M-005", "올바르지 않은 타입의 ID 입니다."),
+    ALREADY_REGISTERED_USER(HttpStatus.BAD_REQUEST,  "U-001", "이미 가입된 회원입니다."),
+    DUPLICATED_NICKNAME(HttpStatus.BAD_REQUEST, "U-002", "중복된 닉네임입니다."),
+    USER_NOT_FOUND(HttpStatus.NOT_FOUND, "U-003", "존재하지 않는 회원입니다."),
+    INVALID_PASSWORD(HttpStatus.BAD_REQUEST, "U-004", "비밀번호가 일치하지 않습니다."),
+    INVALID_ID(HttpStatus.BAD_REQUEST, "U-005", "올바르지 않은 타입의 ID 입니다."),
 
     // 글귀 챌린지
     KEYWORD_MISSING(HttpStatus.BAD_REQUEST, "C-001", "키워드가 누락되었습니다."),
@@ -40,7 +39,10 @@ public enum ErrorCode {
     TAG_DELETION_FAILED(HttpStatus.BAD_REQUEST, "T-003", "태그 삭제에 실패하였습니다."),
 
     // 파일
-    MULTIPART_FILE_NOT_FOUND(HttpStatus.NOT_FOUND, "F-001", "Multipart File이 비어있습니다.")
+    MULTIPART_FILE_NOT_FOUND(HttpStatus.NOT_FOUND, "F-001", "Multipart File이 비어있습니다."),
+
+    // 메시지
+    MESSAGE_NOT_FOUND(HttpStatus.NOT_FOUND, "M-001", "메시지를 찾을 수 없습니다."),
     ;
 
     ErrorCode(HttpStatus httpStatus, String errorCode, String message) {

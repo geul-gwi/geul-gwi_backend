@@ -39,7 +39,7 @@ public class GeulgwiRegController {
         tokenManager.validateToken(accessToken);
 
         geulgwiRegService.register(geulgwiRegDTO, seq, files);
-        log.info("geulgwi - register success");
+        log.info("geulgwi - register");
 
         return ResponseEntity.ok(true);
     }

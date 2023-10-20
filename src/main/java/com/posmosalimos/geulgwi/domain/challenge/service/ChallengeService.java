@@ -55,7 +55,7 @@ public class ChallengeService {
 
     public ChallengeUser findByChallengeUserSeq(Long challengeUserSeq) {
         ChallengeUser challengeUser = challengeUserRepository.findBySeq(challengeUserSeq)
-                .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_EXISTS));
+                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
 
         return challengeUser;
     }

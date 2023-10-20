@@ -22,7 +22,7 @@ public class GeulgwiService {
 
     public Geulgwi findBySeq(Long geulgwiSeq) {
         return geulgwiRepository.findBySeq(geulgwiSeq)
-                .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_EXISTS));
+                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
     }
 
     @Transactional

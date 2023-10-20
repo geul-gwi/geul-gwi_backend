@@ -3,6 +3,7 @@ package com.posmosalimos.geulgwi.domain.user.entity;
 import com.posmosalimos.geulgwi.domain.challenge.entity.ChallengeUser;
 import com.posmosalimos.geulgwi.domain.file.entity.UploadFile;
 import com.posmosalimos.geulgwi.domain.geulgwi.entity.Geulgwi;
+import com.posmosalimos.geulgwi.domain.message.entity.Message;
 import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
 import com.posmosalimos.geulgwi.domain.user.constant.Role;
 import com.posmosalimos.geulgwi.global.jwt.dto.JwtTokenDto;
