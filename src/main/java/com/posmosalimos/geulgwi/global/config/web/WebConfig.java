@@ -59,7 +59,8 @@ public class WebConfig implements WebMvcConfigurer {
                         "/geulgwi/list",
                         "/geulgwi/search/**",
                         "/challenge/list/**",
-                        "/tag/**"
+                        "/tag/**",
+                        "/file/**"
                 );
 
         registry.addInterceptor(adminAuthorizationInterceptor)
