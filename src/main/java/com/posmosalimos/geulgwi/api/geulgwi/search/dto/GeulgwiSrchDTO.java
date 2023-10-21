@@ -18,6 +18,7 @@ public class GeulgwiSrchDTO {
         private String regDate;
         private List<String> files;
         private int likeCount;
+        private Boolean isLiked;
         private List<TagDTO> tags;
     }
 

@@ -51,7 +51,13 @@ public class TagListController {
     }
 
     @PostMapping("/list/{tagType}")
-    public ResponseEntity<List<TagDTO>> listByDefaultType(@PathVariable("tagType") String tagType) {
+    public ResponseEntity<List<TagDTO>> listByDefaultType(@PathVariable("tagType") String tagType,
+                                                          HttpServletRequest httpServletRequest) {
+
+        String authorization = httpServletRequest.getHeader("Authorization");
+        AuthorizationHeaderUtils.validateAuthorization(authorization);
+        String accessToken = authorization.split(" ")[1];
+        tokenManager.validateToken(accessToken);
 
         List<Tag> tags = tagService.findByType(tagType);
 

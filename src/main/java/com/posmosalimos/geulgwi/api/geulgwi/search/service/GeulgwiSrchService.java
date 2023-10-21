@@ -7,7 +7,10 @@ import com.posmosalimos.geulgwi.domain.file.entity.UploadFile;
 import com.posmosalimos.geulgwi.domain.geulgwi.entity.Geulgwi;
 import com.posmosalimos.geulgwi.domain.geulgwi.entity.GeulgwiTag;
 import com.posmosalimos.geulgwi.domain.geulgwi.service.GeulgwiService;
+import com.posmosalimos.geulgwi.domain.like.service.LikeService;
 import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
+import com.posmosalimos.geulgwi.domain.user.entity.User;
+import com.posmosalimos.geulgwi.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,13 +27,20 @@ import java.util.stream.Collectors;
 public class GeulgwiSrchService {
 
     private final GeulgwiService geulgwiService;
+    private final LikeService likeService;
+    private final UserService userService;
 
-    public GeulgwiSrchDTO.Response search(Long seq) {
-        Geulgwi dto = geulgwiService.findBySeq(seq);
-        List<GeulgwiTag> geulgwiTags = dto.getGeulgwiTags();
+    public GeulgwiSrchDTO.Response search(Long geulgwiSeq, Long userSeq) {
+
+        Geulgwi findGeulgwi = geulgwiService.findBySeq(geulgwiSeq);
+        User findUser = userService.findBySeq(userSeq);
+
+        Boolean isLiked = likeService.findByGeulgwi(findGeulgwi, findUser);
+
+        List<GeulgwiTag> geulgwiTags = findGeulgwi.getGeulgwiTags();
         List<TagDTO> tags = new ArrayList<>();
 
-        List<UploadFile> uploadFiles = dto.getUploadFiles();
+        List<UploadFile> uploadFiles = findGeulgwi.getUploadFiles();
         List<String> storeFiles = new ArrayList<>();
 
         for (GeulgwiTag tag : geulgwiTags)
@@ -41,11 +51,12 @@ public class GeulgwiSrchService {
             storeFiles.add(uploadFile.getStore());
 
         return GeulgwiSrchDTO.Response.builder()
-                .geulgwiContent(dto.getGeulgwiContent())
-                .userSeq(dto.getUser().getUserSeq())
-                .regDate(dto.getRegDate())
-                .likeCount(dto.getLikes().size())
+                .geulgwiContent(findGeulgwi.getGeulgwiContent())
+                .userSeq(findGeulgwi.getUser().getUserSeq())
+                .regDate(findGeulgwi.getRegDate())
+                .likeCount(findGeulgwi.getLikes().size())
                 .files(storeFiles)
+                .isLiked(isLiked)
                 .tags(tags)
                 .build();
     }
@@ -71,6 +82,7 @@ public class GeulgwiSrchService {
                             .geulgwiContent(geulgwi.getGeulgwiContent())
                             .userSeq(geulgwi.getUser().getUserSeq())
                             .regDate(geulgwi.getRegDate())
+                            .likeCount(geulgwi.getLikes().size())
                             .files(storeFiles)
                             .build());
 

@@ -31,7 +31,7 @@ public class ChallengeService {
         challengeUserRepository.save(challengeUser);
     }
 
-    public List<ChallengeUser> findByAdminSeq(Long adminSeq){
+    public List<ChallengeUser> findByAdminSeq(Long adminSeq) {
 
         ChallengeAdmin findAdmin = challengeAdminRepository.findById(adminSeq)
                 .orElseThrow(() -> new BusinessException(ErrorCode.CHALLENGE_NOT_FOUND));

@@ -69,12 +69,21 @@ public class LikeService {
         likeRepository.delete(findChallengeUser);
     }
 
-    public Boolean findByChallenge(ChallengeUser challengeUser) {
-        Likes likes = likeRepository.findByChallenge(challengeUser);
+    public Boolean findByChallenge(ChallengeUser challengeUser, User user) {
+        Likes likes = likeRepository.findByChallenge(challengeUser, user);
 
         if (likes != null) //좋아요를 누른 상태
             return true;
          else
+            return false;
+    }
+
+    public Boolean findByGeulgwi(Geulgwi geulgwi, User user) {
+        Likes likes = likeRepository.findByGeulgwi(geulgwi, user);
+
+        if (likes != null) //좋아요를 누른 상태
+            return true;
+        else
             return false;
     }
 }

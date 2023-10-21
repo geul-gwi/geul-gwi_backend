@@ -55,11 +55,7 @@ public class WebConfig implements WebMvcConfigurer {
                         "/user/login",
                         "/email/valid/**",
                         "/user/validate/**",
-                        "/user/nickname/**",
-                        "/geulgwi/list",
-                        "/geulgwi/search/**",
-                        "/challenge/list/**",
-                        "/tag/**"
+                        "/user/nickname/**"
                 );
 
         registry.addInterceptor(adminAuthorizationInterceptor)
