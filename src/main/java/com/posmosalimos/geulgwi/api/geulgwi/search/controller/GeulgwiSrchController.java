@@ -37,7 +37,7 @@ public class GeulgwiSrchController {
     }
 
     @GetMapping("/list/{userSeq}") //특정 회원이 쓴 글 리스트
-    public ResponseEntity<List> listByUserSeq(@PathVariable("usreSeq") Long userSeq,
+    public ResponseEntity<List> listByUserSeq(@PathVariable("userSeq") Long userSeq,
                                               HttpServletRequest httpServletRequest) {
 
         String authorization = httpServletRequest.getHeader("Authorization");

@@ -11,6 +11,7 @@ import java.util.Date;
 public class JwtTokenDto {
 
     private Long userSeq;
+    private String userNickname;
     private String grantType;
     private String accessToken;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")

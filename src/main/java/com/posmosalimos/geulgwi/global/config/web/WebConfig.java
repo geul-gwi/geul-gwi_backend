@@ -56,14 +56,16 @@ public class WebConfig implements WebMvcConfigurer {
                         "/email/valid/**",
                         "/user/validate/**",
                         "/user/nickname/**",
-                        "/tag/list/**"
+                        "/tag/list/**",
+                        "/file"
                 );
 
         registry.addInterceptor(adminAuthorizationInterceptor)
                 .order(2)
                 .addPathPatterns(
                         "/user/admin/**",
-                        "tag/admin/list");
+                        "tag/admin/list"
+                );
     }
 
     @Override

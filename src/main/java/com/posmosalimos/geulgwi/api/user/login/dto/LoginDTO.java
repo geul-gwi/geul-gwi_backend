@@ -19,6 +19,7 @@ public class LoginDTO {
     @AllArgsConstructor
     public static class Response {
         private Long userSeq;
+        private String userNickname;
         private String grantType;
         private String accessToken;
 
@@ -33,6 +34,7 @@ public class LoginDTO {
         public static Response of(JwtTokenDto jwtTokenDto) {
             return Response.builder()
                     .userSeq(jwtTokenDto.getUserSeq())
+                    .userNickname(jwtTokenDto.getUserNickname())
                     .grantType(jwtTokenDto.getGrantType())
                     .accessToken(jwtTokenDto.getAccessToken())
                     .accessTokenExpireTime(jwtTokenDto.getAccessTokenExpireTime())
