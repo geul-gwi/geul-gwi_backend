@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -91,5 +92,10 @@ public class FileService {
         return originalFilename.substring(pos + 1);
     }
 
+    public String findByUserSeq(User user) {
+        UploadFile profile = fileRepository.findByUser(user);
+
+        return profile == null ? null : profile.getStore();
+    }
 
 }

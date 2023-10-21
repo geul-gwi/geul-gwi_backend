@@ -1,6 +1,7 @@
 package com.posmosalimos.geulgwi.api.user.login.service;
 
 import com.posmosalimos.geulgwi.api.user.login.dto.LoginDTO;
+import com.posmosalimos.geulgwi.domain.file.service.FileService;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.domain.user.service.UserService;
 import com.posmosalimos.geulgwi.global.jwt.dto.JwtTokenDto;
@@ -17,17 +18,19 @@ import org.springframework.transaction.annotation.Transactional;
 public class LoginService {
     private final UserService userService;
     private final TokenManager tokenManager;
+    private final FileService fileService;
 
-    public LoginDTO.Response login(String id, String password) {
+    public LoginDTO.Response login(String seq, String password) {
 
-        User findUser = userService.findByIdAndPassword(id, password);
-        log.info("user : {}", findUser.getUserId());
+        User findUser = userService.findByIdAndPassword(seq, password);
+        String profile = fileService.findByUserSeq(findUser);
+        log.info("user : {}", findUser.getUserSeq());
 
         JwtTokenDto jwtTokenDto;
 
         jwtTokenDto = tokenManager.createJwtTokenDto(findUser.getUserSeq(), findUser.getRole());
         findUser.updateRefreshToken(jwtTokenDto);
 
-        return LoginDTO.Response.of(jwtTokenDto);
+        return LoginDTO.Response.of(jwtTokenDto, findUser.getNickname(), profile);
     }
 }
