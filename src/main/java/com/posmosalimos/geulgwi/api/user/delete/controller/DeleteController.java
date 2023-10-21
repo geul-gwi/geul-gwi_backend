@@ -48,6 +48,7 @@ public class DeleteController {
         String accessToken = authorization.split(" ")[1];
 
         tokenManager.validateToken(accessToken);
+
         deleteService.delete(seq);
         log.info("user - delete success(admin)");
 
