@@ -14,6 +14,7 @@ public class GeulgwiSrchDTO {
     @Builder @NoArgsConstructor @AllArgsConstructor
     public static class Response {
         private String geulgwiContent;
+        private Long userSeq;
         private String regDate;
         private String file1;
         private String file2;

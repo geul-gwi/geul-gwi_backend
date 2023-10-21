@@ -20,7 +20,7 @@ public class MessageSrchController {
     private final TokenManager tokenManager;
     private final MessageSrchService messageSrchService;
 
-    @PostMapping("/receive/list/{userSeq}") //받은 쪽지 리스트
+    @PostMapping("/receiver/list/{userSeq}") //받은 쪽지 리스트
     public ResponseEntity<List> listByReceived(@PathVariable("userSeq") Long userSeq,
                                                HttpServletRequest httpServletRequest) {
 
@@ -32,6 +32,21 @@ public class MessageSrchController {
         List<MessageDTO.Response> messageDTOS = messageSrchService.listByReceiver(userSeq);
 
         log.info("message - listByReceived");
+        return ResponseEntity.ok(messageDTOS);
+    }
+
+    @PostMapping("/sender/list/{userSeq}") //보낸 쪽지 리스트
+    public ResponseEntity<List> listBySended(@PathVariable("userSeq") Long userSeq,
+                                               HttpServletRequest httpServletRequest) {
+
+        String authorization = httpServletRequest.getHeader("Authorization");
+        String accessToken = authorization.split(" ")[1];
+
+        tokenManager.validateToken(accessToken);
+
+        List<MessageDTO.Response> messageDTOS = messageSrchService.listBySender(userSeq);
+
+        log.info("message - listBySended");
         return ResponseEntity.ok(messageDTOS);
     }
 
@@ -48,22 +63,6 @@ public class MessageSrchController {
 
         log.info("message - search({messageSeq}");
         return ResponseEntity.ok(message);
-    }
-
-
-    @PostMapping("/send/list/{userSeq}") //보낸 쪽지 리스트
-    public ResponseEntity<List> listBySended(@PathVariable("userSeq") Long userSeq,
-                                               HttpServletRequest httpServletRequest) {
-
-        String authorization = httpServletRequest.getHeader("Authorization");
-        String accessToken = authorization.split(" ")[1];
-
-        tokenManager.validateToken(accessToken);
-
-        List<MessageDTO.Response> messageDTOS = messageSrchService.listBySender(userSeq);
-
-        log.info("message - listBySended");
-        return ResponseEntity.ok(messageDTOS);
     }
 
 }

@@ -33,6 +33,7 @@ public class GeulgwiSrchService {
 
         return GeulgwiSrchDTO.Response.builder()
                 .geulgwiContent(dto.getGeulgwiContent())
+                .userSeq(dto.getUser().getUserSeq())
                 .regDate(dto.getRegDate())
                 .likeCount(dto.getLikes().size())
                 .tags(tags)
@@ -45,6 +46,7 @@ public class GeulgwiSrchService {
         return list.stream()
                 .map(geulgwi -> GeulgwiListDTO.builder()
                         .geulgwiSeq(geulgwi.getGeulgwiSeq())
+                        .userSeq(geulgwi.getUser().getUserSeq())
                         .nickname(geulgwi.getUser().getNickname())
                         .geulgwiContent(geulgwi.getGeulgwiContent())
                         .regDate(geulgwi.getRegDate())

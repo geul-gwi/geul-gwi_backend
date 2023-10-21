@@ -8,6 +8,7 @@ import lombok.Data;
 public class GeulgwiListDTO {
 
     private Long geulgwiSeq;
+    private Long userSeq;
     private String nickname;
     private String geulgwiContent;
     private String regDate;

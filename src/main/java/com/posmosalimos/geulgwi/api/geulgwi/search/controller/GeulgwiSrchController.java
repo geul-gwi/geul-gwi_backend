@@ -30,6 +30,7 @@ public class GeulgwiSrchController {
     @GetMapping("/list")
     public ResponseEntity<List> list() {
         List<GeulgwiListDTO> geulgwiListDTOS = geulgwiSrchService.list();
+
         log.info("geulgwi - list");
 
         return ResponseEntity.ok(geulgwiListDTOS);

@@ -20,7 +20,7 @@ public class MessageDelController {
     private final TokenManager tokenManager;
     private final MessageDelService messageDelService;
 
-    @PostMapping("/delete/received/{messageSeq}") //받은 쪽지 삭제
+    @PostMapping("/receiver/delete/{messageSeq}") //받은 쪽지 삭제
     public ResponseEntity<Boolean> deleteByReceiver(@PathVariable("messageSeq") Long messageSeq,
                                                     HttpServletRequest httpServletRequest) {
 
@@ -35,7 +35,7 @@ public class MessageDelController {
         return ResponseEntity.ok(true);
     }
 
-    @PostMapping("/delete/sended/{messageSeq}") //보낸 쪽지 삭제
+    @PostMapping("/sender/delete/{messageSeq}") //보낸 쪽지 삭제
     public ResponseEntity<Boolean> deleteBySender(@PathVariable("userSeq") Long messageSeq,
                                                   HttpServletRequest httpServletRequest) {
 
