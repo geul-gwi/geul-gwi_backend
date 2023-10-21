@@ -2,6 +2,7 @@ package com.posmosalimos.geulgwi.domain.message.entity;
 
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,10 +25,10 @@ public class Message {
     private String content;
 
     @Column(nullable = false)
-    private boolean deletedBySender;
+    private String deletedBySender;
 
     @Column(nullable = false)
-    private boolean deletedByReceiver;
+    private String deletedByReceiver;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "senderSeq")
@@ -39,24 +40,25 @@ public class Message {
     @OnDelete(action = OnDeleteAction.NO_ACTION)
     private User receiver;
 
-    public void deleteBySender() {
-        this.deletedBySender = true;
+    public String deleteBySender() {
+        this.deletedBySender = "Y";
+        return deletedBySender;
     }
 
-    public void deleteByReceiver() {
-        this.deletedByReceiver = true;
+    public String deleteByReceiver() {
+        this.deletedByReceiver = "Y";
+        return deletedByReceiver;
     }
 
-    public boolean isDeleted() {
-        return isDeletedBySender() && isDeletedByReceiver();
-    }
 
     @Builder
-    public Message (String title, String content, User sender, User reciever) {
+    public Message (String title, String content, User sender, User receiver, String deletedByReceiver, String deletedBySender) {
         this.title = title;
         this.content = content;
         this.sender = sender;
-        this.receiver = reciever;
+        this.receiver = receiver;
+        this.deletedByReceiver = deletedByReceiver; //초기값 N
+        this.deletedBySender = deletedBySender; //초기값 N
     }
 
 }

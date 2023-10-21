@@ -32,8 +32,7 @@ public class MessageSrchService {
         List<MessageDTO.Response> messageDTOS = new ArrayList<>();
 
         for(Message message : messages) {
-            //삭제하지 않았으면 보낼 때 추가해서 보내줌
-            if (!message.isDeletedByReceiver()) {
+            if (message.getDeletedByReceiver().equals("N")) { //삭제하지 않았으면 보낼 때 추가해서 보내줌
                 messageDTOS.add(
                         MessageDTO.Response.builder()
                                 .messageSeq(message.getMessageSeq())
@@ -59,9 +58,10 @@ public class MessageSrchService {
         List<MessageDTO.Response> messageDTOS = new ArrayList<>();
 
         for (Message message : messages) {
-            if (!message.isDeletedByReceiver()) {
+            if (message.getDeletedBySender().equals("N")) { //삭제하지 않았으면 보낼 때 추가해서 보내줌
                 messageDTOS.add(
                         MessageDTO.Response.builder()
+                                .messageSeq(message.getMessageSeq())
                                 .title(message.getTitle())
                                 .content(message.getContent())
                                 .senderSeq(message.getSender().getUserSeq())
@@ -75,7 +75,7 @@ public class MessageSrchService {
         return messageDTOS;
     }
 
-    public MessageDTO.Response search(Long messageSeq) {
+    public MessageDTO.Response search(Long messageSeq) { //안쓸듯??
         Message message = messageRepository.findById(messageSeq)
                 .orElseThrow(() -> new BusinessException(ErrorCode.MESSAGE_NOT_FOUND));
 

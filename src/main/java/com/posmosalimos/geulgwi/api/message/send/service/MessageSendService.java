@@ -35,7 +35,9 @@ public class MessageSendService {
                 .title(messageDTO.getTitle())
                 .content(messageDTO.getContent())
                 .sender(sender)
-                .reciever(receiver)
+                .receiver(receiver)
+                .deletedByReceiver("N")
+                .deletedBySender("N")
                 .build();
 
         messageRepository.save(message);

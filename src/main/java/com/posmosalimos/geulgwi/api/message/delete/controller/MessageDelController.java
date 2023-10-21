@@ -36,7 +36,7 @@ public class MessageDelController {
     }
 
     @PostMapping("/sender/delete/{messageSeq}") //보낸 쪽지 삭제
-    public ResponseEntity<Boolean> deleteBySender(@PathVariable("userSeq") Long messageSeq,
+    public ResponseEntity<Boolean> deleteBySender(@PathVariable("messageSeq") Long messageSeq,
                                                   HttpServletRequest httpServletRequest) {
 
         String authorization = httpServletRequest.getHeader("Authorization");
