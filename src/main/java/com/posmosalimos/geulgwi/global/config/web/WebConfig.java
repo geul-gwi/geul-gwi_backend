@@ -55,12 +55,15 @@ public class WebConfig implements WebMvcConfigurer {
                         "/user/login",
                         "/email/valid/**",
                         "/user/validate/**",
-                        "/user/nickname/**"
+                        "/user/nickname/**",
+                        "/tag/list/**"
                 );
 
         registry.addInterceptor(adminAuthorizationInterceptor)
                 .order(2)
-                .addPathPatterns("/user/admin/**");
+                .addPathPatterns(
+                        "/user/admin/**",
+                        "tag/admin/list");
     }
 
     @Override

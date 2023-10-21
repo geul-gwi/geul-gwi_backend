@@ -26,8 +26,6 @@ public class MessageDelService {
         message.deleteByReceiver();
         if (message.isDeleted())
             messageRepository.delete(message);
-        else
-            throw new BusinessException(ErrorCode.USER_NOT_FOUND);
     }
 
     @Transactional //보낸 쪽지 삭제
@@ -38,7 +36,5 @@ public class MessageDelService {
         message.deleteBySender();
         if (message.isDeleted())
             messageRepository.delete(message);
-        else
-            throw new BusinessException(ErrorCode.USER_NOT_FOUND);
     }
 }

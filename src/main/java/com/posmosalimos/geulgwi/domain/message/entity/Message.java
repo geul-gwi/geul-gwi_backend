@@ -1,6 +1,5 @@
 package com.posmosalimos.geulgwi.domain.message.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -21,7 +20,7 @@ public class Message {
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 250)
     private String content;
 
     @Column(nullable = false)
