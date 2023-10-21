@@ -18,15 +18,19 @@ import java.util.stream.Collectors;
 public class ChallengeSrchService {
 
     private final ChallengeService challengeService;
+    private final LikeService likeService;
 
     public List<ChallengeSrchDTO> searchChallenges(Long adminSeq) {
 
         List<ChallengeUser> challengeUserByAdminSeq = challengeService.findByAdminSeq(adminSeq);
+        List<ChallengeSrchDTO> searchDTOS = new ArrayList<>();
 
-        List<ChallengeSrchDTO> searchDtos = challengeUserByAdminSeq.stream()
-                .map(ChallengeSrchDTO::from)
-                .collect(Collectors.toList());
+        for (ChallengeUser challenge : challengeUserByAdminSeq) {
+            Boolean isLiked = likeService.findByChallenge(challenge);
+            searchDTOS.add(ChallengeSrchDTO.from(challenge, isLiked));
 
-        return searchDtos;
+        }
+
+        return searchDTOS;
     }
 }

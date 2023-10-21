@@ -8,6 +8,8 @@ import com.posmosalimos.geulgwi.domain.like.entity.Likes;
 import com.posmosalimos.geulgwi.domain.like.repository.LikeRepository;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.domain.user.service.UserService;
+import com.posmosalimos.geulgwi.global.error.ErrorCode;
+import com.posmosalimos.geulgwi.global.error.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -41,7 +43,8 @@ public class LikeService {
 
     @Transactional
     public void unlikeGeulgwi(Long geulgwiSeq, Long userSeq) {
-        Likes findGeulgwi = likeRepository.findGeulgwiByUserSeq(geulgwiSeq, userSeq);
+        Likes findGeulgwi = likeRepository.findGeulgwiByUserSeq(geulgwiSeq, userSeq)
+                .orElseThrow(() -> new BusinessException(ErrorCode.GEULGWI_NOT_FOUND));
         likeRepository.delete(findGeulgwi);
     }
 
@@ -60,7 +63,18 @@ public class LikeService {
 
     @Transactional
     public void unlikeChallengeUser(Long challengeUserSeq, Long userSeq) {
-        Likes findChallengeUser = likeRepository.findChallengeUserByUserSeq(challengeUserSeq, userSeq);
+        Likes findChallengeUser = likeRepository.findChallengeUserByUserSeq(challengeUserSeq, userSeq)
+                .orElseThrow(() -> new BusinessException(ErrorCode.CHALLENGE_NOT_FOUND));
+
         likeRepository.delete(findChallengeUser);
+    }
+
+    public Boolean findByChallenge(ChallengeUser challengeUser) {
+        Likes likes = likeRepository.findByChallenge(challengeUser);
+
+        if (likes != null) //좋아요를 누른 상태
+            return true;
+         else
+            return false;
     }
 }

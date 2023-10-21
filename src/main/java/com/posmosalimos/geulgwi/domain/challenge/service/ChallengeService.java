@@ -34,7 +34,7 @@ public class ChallengeService {
     public List<ChallengeUser> findByAdminSeq(Long adminSeq){
 
         ChallengeAdmin findAdmin = challengeAdminRepository.findById(adminSeq)
-                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_CHALLENGE));
+                .orElseThrow(() -> new BusinessException(ErrorCode.CHALLENGE_NOT_FOUND));
 
         return findAdmin.getChallengeUsers();
     }

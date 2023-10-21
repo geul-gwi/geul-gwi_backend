@@ -28,10 +28,13 @@ public enum ErrorCode {
     INVALID_PASSWORD(HttpStatus.BAD_REQUEST, "U-004", "비밀번호가 일치하지 않습니다."),
     INVALID_ID(HttpStatus.BAD_REQUEST, "U-005", "올바르지 않은 타입의 ID 입니다."),
 
-    // 글귀 챌린지
+    // 챌린지
     KEYWORD_MISSING(HttpStatus.BAD_REQUEST, "C-001", "키워드가 누락되었습니다."),
-    NOT_FOUND_CHALLENGE(HttpStatus.NOT_FOUND, "C-002", "챌린지를 찾을 수 없습니다."),
+    CHALLENGE_NOT_FOUND(HttpStatus.NOT_FOUND, "C-002", "챌린지를 찾을 수 없습니다."),
     NOT_EQUAL_MEMBER(HttpStatus.BAD_REQUEST, "C-003", "글 작성자와 요청자가 다릅니다."),
+
+    // 글귀
+    GEULGWI_NOT_FOUND(HttpStatus.NOT_FOUND, "G-001", "글귀를 찾을 수 없습니다."),
 
     // 태그
     TAG_NOT_FOUND(HttpStatus.BAD_REQUEST, "T-001", "일치하는 태그가 존재하지 않습니다."),
