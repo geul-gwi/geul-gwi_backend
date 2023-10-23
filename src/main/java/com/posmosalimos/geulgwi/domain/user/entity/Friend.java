@@ -34,5 +34,4 @@ public class Friend {
         this.approved = approved;
     }
 
-
 }

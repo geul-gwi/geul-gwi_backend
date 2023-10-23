@@ -22,7 +22,7 @@ import java.util.List;
 public class GeulgwiUpdtController {
 
     private final TokenManager tokenManager;
-    private final GeulgwiUpdtService geulgwiUdtService;
+    private final GeulgwiUpdtService geulgwiUpdtService;
     private final LikeService likeService;
 
     @PostMapping(value = "/update/{geulgwiSeq}")
@@ -35,7 +35,7 @@ public class GeulgwiUpdtController {
 
         tokenManager.validateToken(accessToken);
 
-        geulgwiUdtService.update(geulgwiSeq, geulgwiRegDTO);
+        geulgwiUpdtService.update(geulgwiSeq, geulgwiRegDTO);
         log.info("geulgwi - update success(geulgwiSeq: {})", geulgwiSeq);
 
         return ResponseEntity.ok(true);
@@ -52,8 +52,8 @@ public class GeulgwiUpdtController {
 
         tokenManager.validateToken(accessToken);
 
-        geulgwiUdtService.uploadFiles(geulgwiSeq, files);
-        log.info("file upload success");
+        geulgwiUpdtService.uploadFiles(geulgwiSeq, files);
+        log.info("file - upload success");
 
         return ResponseEntity.ok(true);
     }
@@ -68,8 +68,8 @@ public class GeulgwiUpdtController {
 
         tokenManager.validateToken(accessToken);
 
-        geulgwiUdtService.removeFiles(geulgwiSeq);
-        log.info("file remove success");
+        geulgwiUpdtService.removeFiles(geulgwiSeq);
+        log.info("file - remove success");
 
         return ResponseEntity.ok(true);
     }

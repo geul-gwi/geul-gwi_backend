@@ -1,4 +1,4 @@
-package com.posmosalimos.geulgwi.api.user.friend.confirm.dto;
+package com.posmosalimos.geulgwi.api.friend.confirm.dto;
 
 import lombok.Builder;
 import lombok.Data;

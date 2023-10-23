@@ -23,14 +23,14 @@ public class GeulgwiSrchController {
 
     @GetMapping("/search/{geulgwiSeq}") //특정 글 세부 조회
     public ResponseEntity<GeulgwiSrchDTO.Response> search(@PathVariable("geulgwiSeq") Long geulgwiSeq,
-                                                          @RequestParam("userSeq") Long userSeq,
+                                                          @RequestParam("viewSeq") Long viewSeq,
                                                           HttpServletRequest httpServletRequest) {
 
         String authorization = httpServletRequest.getHeader("Authorization");
         String accessToken = authorization.split(" ")[1];
         tokenManager.validateToken(accessToken);
 
-        GeulgwiSrchDTO.Response searchDto = geulgwiSrchService.search(geulgwiSeq, userSeq);
+        GeulgwiSrchDTO.Response searchDto = geulgwiSrchService.search(geulgwiSeq, viewSeq);
         log.info("geulgwi - search(geulgwiSeq: {})", geulgwiSeq);
 
         return ResponseEntity.ok(searchDto);
@@ -38,6 +38,7 @@ public class GeulgwiSrchController {
 
     @GetMapping("/list/{userSeq}") //특정 회원이 쓴 글 리스트
     public ResponseEntity<List> listByUserSeq(@PathVariable("userSeq") Long userSeq,
+                                              @RequestParam("viewSeq") Long viewSeq,
                                               HttpServletRequest httpServletRequest) {
 
         String authorization = httpServletRequest.getHeader("Authorization");
@@ -45,7 +46,7 @@ public class GeulgwiSrchController {
 
         tokenManager.validateToken(accessToken);
 
-        List<GeulgwiSrchDTO.Response> geulgwiSrchDTOS = geulgwiSrchService.listByUserSeq(userSeq);
+        List<GeulgwiSrchDTO.Response> geulgwiSrchDTOS = geulgwiSrchService.listByUserSeq(userSeq, viewSeq);
 
         return ResponseEntity.ok(geulgwiSrchDTOS);
     }

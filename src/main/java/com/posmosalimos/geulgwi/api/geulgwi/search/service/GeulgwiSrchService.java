@@ -8,7 +8,6 @@ import com.posmosalimos.geulgwi.domain.geulgwi.entity.Geulgwi;
 import com.posmosalimos.geulgwi.domain.geulgwi.entity.GeulgwiTag;
 import com.posmosalimos.geulgwi.domain.geulgwi.service.GeulgwiService;
 import com.posmosalimos.geulgwi.domain.like.service.LikeService;
-import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -30,12 +29,12 @@ public class GeulgwiSrchService {
     private final LikeService likeService;
     private final UserService userService;
 
-    public GeulgwiSrchDTO.Response search(Long geulgwiSeq, Long userSeq) {
+    public GeulgwiSrchDTO.Response search(Long geulgwiSeq, Long viewSeq) {
 
         Geulgwi findGeulgwi = geulgwiService.findBySeq(geulgwiSeq);
-        User findUser = userService.findBySeq(userSeq);
+        User findUser = userService.findBySeq(viewSeq);
 
-        Boolean isLiked = likeService.findByGeulgwi(findGeulgwi, findUser);
+        boolean isLiked = likeService.findByGeulgwi(findGeulgwi, findUser);
 
         List<String> storeFiles = findGeulgwi.getUploadFiles().stream()
                 .filter(file -> file.getStore() != null).toList()
@@ -58,9 +57,10 @@ public class GeulgwiSrchService {
                 .build();
     }
 
-    public List<GeulgwiSrchDTO.Response> listByUserSeq(Long userSeq) {
+    public List<GeulgwiSrchDTO.Response> listByUserSeq(Long userSeq, Long viewSeq) {
         List<Geulgwi> list = geulgwiService.findByUserSeq(userSeq);
         List<GeulgwiSrchDTO.Response> dtos = new ArrayList<>();
+        User viewUser = userService.findBySeq(viewSeq);
 
         for (Geulgwi geulgwi : list) {
             List<String> storeFiles = geulgwi.getUploadFiles().stream()
@@ -72,6 +72,8 @@ public class GeulgwiSrchService {
                     .stream().map(GeulgwiTag::getTag).toList()
                     .stream().map(tag -> TagDTO.from(tag)).toList();
 
+            boolean isLiked = likeService.findByGeulgwi(geulgwi, viewUser);
+
             dtos.add(
                     GeulgwiSrchDTO.Response.builder()
                             .geulgwiSeq(geulgwi.getGeulgwiSeq())
@@ -80,10 +82,12 @@ public class GeulgwiSrchService {
                             .regDate(geulgwi.getRegDate())
                             .likeCount(geulgwi.getLikes().size())
                             .files(storeFiles)
+                            .isLiked(isLiked)
                             .tags(tags)
                             .build());
 
         }
+
         return dtos;
     }
 
@@ -97,8 +101,7 @@ public class GeulgwiSrchService {
                         .nickname(geulgwi.getUser().getNickname())
                         .geulgwiContent(geulgwi.getGeulgwiContent())
                         .regDate(geulgwi.getRegDate())
-                        .build())
-                .collect(Collectors.toList());
+                        .build()).toList();
 
     }
 

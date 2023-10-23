@@ -35,7 +35,9 @@ public class GeulgwiUpdtService {
     @Transactional
     public void update(Long geulgwiSeq, GeulgwiRegDTO geulgwiRegDTO) {
         Geulgwi findGeulgwi = geulgwiService.findBySeq(geulgwiSeq);
-        findGeulgwi.getGeulgwiTags().clear(); //글귀 안에 있는 태그 전체 삭제
+        findGeulgwi.getGeulgwiTags()
+                .stream().filter(geulgwiTag -> geulgwiTag.getGeulgwiTagSeq() != null).toList().clear(); //기등록 태그 전체 삭제
+
         for (Long tagSeq : geulgwiRegDTO.getTagSeqs()) {
 
             Tag findTag = tagService.findBySeq(tagSeq);

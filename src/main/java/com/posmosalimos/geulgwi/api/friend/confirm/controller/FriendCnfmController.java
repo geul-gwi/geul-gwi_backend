@@ -1,7 +1,7 @@
-package com.posmosalimos.geulgwi.api.user.friend.confirm.controller;
+package com.posmosalimos.geulgwi.api.friend.confirm.controller;
 
-import com.posmosalimos.geulgwi.api.user.friend.confirm.dto.FriendDTO;
-import com.posmosalimos.geulgwi.api.user.friend.confirm.service.FriendCnfmService;
+import com.posmosalimos.geulgwi.api.friend.confirm.dto.FriendDTO;
+import com.posmosalimos.geulgwi.api.friend.confirm.service.FriendCnfmService;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;

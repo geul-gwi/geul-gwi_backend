@@ -1,11 +1,10 @@
-package com.posmosalimos.geulgwi.api.user.friend.confirm.service;
+package com.posmosalimos.geulgwi.api.friend.confirm.service;
 
-import com.posmosalimos.geulgwi.api.user.friend.confirm.dto.FriendDTO;
+import com.posmosalimos.geulgwi.api.friend.confirm.dto.FriendDTO;
 import com.posmosalimos.geulgwi.domain.user.entity.Friend;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.domain.user.repository.FriendRepository;
 import com.posmosalimos.geulgwi.domain.user.service.UserService;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -42,7 +41,7 @@ public class FriendCnfmService {
 
         friendRepository.save(friend);
 
-        return approved ? "친구" : "보류";
+        return approved ? "승낙" : "신청";
     }
 
 }

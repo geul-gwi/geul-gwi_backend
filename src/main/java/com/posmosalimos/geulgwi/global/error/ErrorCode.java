@@ -46,6 +46,9 @@ public enum ErrorCode {
 
     // 메시지
     MESSAGE_NOT_FOUND(HttpStatus.NOT_FOUND, "M-001", "메시지를 찾을 수 없습니다."),
+
+    // 친구
+    FORBIDDEN_FRIEND(HttpStatus.FORBIDDEN, "F-001", "친구가 아닙니다.")
     ;
 
     ErrorCode(HttpStatus httpStatus, String errorCode, String message) {

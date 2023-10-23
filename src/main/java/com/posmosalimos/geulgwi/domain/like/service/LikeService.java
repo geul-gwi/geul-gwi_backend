@@ -76,7 +76,7 @@ public class LikeService {
 
     }
 
-    public Boolean findByGeulgwi(Geulgwi geulgwi, User user) {
+    public boolean findByGeulgwi(Geulgwi geulgwi, User user) {
         Likes likes = likeRepository.findByGeulgwi(geulgwi, user);
 
         return likes != null ? true : false;
