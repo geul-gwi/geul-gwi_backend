@@ -23,9 +23,7 @@ import java.util.List;
 public class GeulgwiRegController {
 
     private final TokenManager tokenManager;
-    private final UserService userService;
     private final GeulgwiRegService geulgwiRegService;
-
 
     @PostMapping(value = "/register/{userSeq}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<Boolean> register(@RequestPart(value = "geulgwiRegDTO") GeulgwiRegDTO geulgwiRegDTO,

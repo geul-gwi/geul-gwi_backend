@@ -40,17 +40,18 @@ public class GeulgwiRegService {
                 .build();
 
         Geulgwi registerGeulgwi = geulgwiService.register(geulgwi); //글 등록
-        fileService.storeGeulgwiFiles(registerGeulgwi, files); //파일 등록
 
-        for (Long tagSeq : geulgwiRegDTO.getTagSeqs()) {
-            Tag tag = tagService.findBySeq(tagSeq);
-            GeulgwiTag geulgwiTag = GeulgwiTag.builder()
-                    .geulgwi(geulgwi)
-                    .tag(tag)
-                    .build();
+        if (files != null)
+            fileService.storeGeulgwiFiles(registerGeulgwi, files); //파일 등록
 
-            geulgwiTagRepository.save(geulgwiTag);
+            for (Long tagSeq : geulgwiRegDTO.getTagSeqs()) {
+                Tag tag = tagService.findBySeq(tagSeq);
+                GeulgwiTag geulgwiTag = GeulgwiTag.builder()
+                        .geulgwi(geulgwi)
+                        .tag(tag)
+                        .build();
+
+                geulgwiTagRepository.save(geulgwiTag);
+            }
         }
-    }
-
 }

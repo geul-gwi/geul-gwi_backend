@@ -22,7 +22,7 @@ public class FriendCnfmController {
     private final FriendCnfmService friendCnfmService;
 
     @PostMapping("/confirm")
-    public ResponseEntity<Boolean> confirm(@RequestPart("friendDTO") FriendDTO friendDTO,
+    public ResponseEntity<String> confirm(@RequestPart("friendDTO") FriendDTO friendDTO,
                                            HttpServletRequest httpServletRequest) {
 
         String authorization = httpServletRequest.getHeader("Authorization");
@@ -30,10 +30,10 @@ public class FriendCnfmController {
 
         tokenManager.validateToken(accessToken);
 
-        friendCnfmService.confirm(friendDTO);
+        String status = friendCnfmService.confirm(friendDTO);
         log.info("friend - confirm({} -> {})", friendDTO.getFromUser(), friendDTO.getToUser());
-        log.info("status: {}", )
+        log.info("status: {}", status);
 
-        return ResponseEntity.ok(true);
+        return ResponseEntity.ok(status);
     }
 }

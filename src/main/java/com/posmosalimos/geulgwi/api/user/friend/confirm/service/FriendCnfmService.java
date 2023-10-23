@@ -21,15 +21,18 @@ public class FriendCnfmService {
     private final UserService userService;
 
     @Transactional
-    public void confirm(FriendDTO friendDTO) {
+    public String confirm(FriendDTO friendDTO) {
 
-        User toUser = userService.findBySeq(friendDTO.getToUser()); //요청받은
-        User fromUser = userService.findBySeq(friendDTO.getFromUser()); //요청한
+        User toUser = userService.findBySeq(friendDTO.getToUser()); //요청받은 회원
+        User fromUser = userService.findBySeq(friendDTO.getFromUser()); //요청한 회원
+        Friend findFriend = friendRepository.findByTwoUser(fromUser, toUser.getUserSeq());
         boolean approved;
 
-        if (friendRepository.findByTwoUser(toUser, fromUser.getUserSeq()) == null) //상호 요청이 아닌 상태
-            approved = false;
-        else approved = true;
+        if (findFriend != null) {
+            //상대로부터 기요청이 왔던 상태
+            findFriend.isApproved();
+            approved = true;
+        } else approved = false;
 
         Friend friend = Friend.builder()
                 .toUser(toUser)
@@ -38,6 +41,8 @@ public class FriendCnfmService {
                 .build();
 
         friendRepository.save(friend);
+
+        return approved ? "친구" : "보류";
     }
 
 }

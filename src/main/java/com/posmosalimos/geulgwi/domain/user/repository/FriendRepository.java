@@ -9,5 +9,5 @@ import org.springframework.data.repository.query.Param;
 public interface FriendRepository extends JpaRepository<Friend, Long> {
 
     @Query("select f from Friend f where f.toUser = :user and f.fromUser = :userSeq")
-    public Friend findByTwoUser(@Param("user") User user, @Param("userSeq") Long userSeq);
+    Friend findByTwoUser(@Param("user") User user, @Param("userSeq") Long userSeq);
 }
