@@ -21,9 +21,9 @@ public class GeulgwiSrchController {
     private final GeulgwiSrchService geulgwiSrchService;
     private final TokenManager tokenManager;
 
-    @GetMapping("/search/{geulgwiSeq}/{userSeq}")
+    @GetMapping("/search/{geulgwiSeq}")
     public ResponseEntity<GeulgwiSrchDTO.Response> search(@PathVariable("geulgwiSeq") Long geulgwiSeq,
-                                                          @PathVariable("userSeq") Long userSeq,
+                                                          @RequestParam("userSeq") Long userSeq,
                                                           HttpServletRequest httpServletRequest) {
 
         String authorization = httpServletRequest.getHeader("Authorization");

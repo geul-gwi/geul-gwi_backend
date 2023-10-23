@@ -1,12 +1,10 @@
 package com.posmosalimos.geulgwi.api.user.update.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.posmosalimos.geulgwi.api.user.update.dto.UpdateDTO;
 import com.posmosalimos.geulgwi.api.user.update.service.UpdateService;
 import com.posmosalimos.geulgwi.domain.file.service.FileService;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
-import com.posmosalimos.geulgwi.global.util.AuthorizationHeaderUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,13 +32,15 @@ public class UpdateController {
                                              HttpServletRequest httpServletRequest) throws IOException {
 
         String authorization = httpServletRequest.getHeader("Authorization");
-        AuthorizationHeaderUtils.validateAuthorization(authorization);
 
         String accessToken = authorization.split(" ")[1];
         //토큰 유효성 체크
         tokenManager.validateToken(accessToken);
 
         User user = updateService.update(userSeq, updateDTO);
+
+        if (fileService.findByUser(user) != null)
+            fileService.removeUserFile(user);
         fileService.storeUserFile(user, file);
         log.info("user - update success(userSeq: {})", userSeq);
 

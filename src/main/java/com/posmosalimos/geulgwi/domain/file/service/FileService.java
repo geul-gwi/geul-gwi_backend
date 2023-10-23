@@ -92,10 +92,14 @@ public class FileService {
         return originalFilename.substring(pos + 1);
     }
 
-    public String findByUserSeq(User user) {
+    public String findByUser(User user) {
         UploadFile profile = fileRepository.findByUser(user);
 
         return profile == null ? null : profile.getStore();
+    }
+
+    public void removeUserFile(User user) {
+        fileRepository.deleteByUser(user);
     }
 
 }

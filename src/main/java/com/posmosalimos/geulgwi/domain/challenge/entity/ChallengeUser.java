@@ -33,7 +33,7 @@ public class ChallengeUser {
     @JoinColumn(name="userSeq")
     private User user;
 
-    @OneToMany(mappedBy = "challengeUser")
+    @OneToMany(mappedBy = "challengeUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Likes> likes = new ArrayList<>();
 
     private int likeCount;

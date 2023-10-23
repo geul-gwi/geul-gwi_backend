@@ -50,7 +50,6 @@ public class WebConfig implements WebMvcConfigurer {
                 .order(1)
                 .addPathPatterns("/**")
                 .excludePathPatterns(
-                        "/user/list",
                         "/user/join",
                         "/user/login",
                         "/email/valid/**",
@@ -63,6 +62,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(adminAuthorizationInterceptor)
                 .order(2)
                 .addPathPatterns(
+                        "/user/list",
                         "/user/admin/**",
                         "tag/admin/list"
                 );

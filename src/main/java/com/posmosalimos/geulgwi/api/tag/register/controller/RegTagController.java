@@ -35,7 +35,7 @@ public class RegTagController {
 
         return ResponseEntity.ok(
                 RegTagDTO.Response.builder()
-                        .seq(tag.getTagSeq())
+                        .tagSeq(tag.getTagSeq())
                         .backColor(tag.getBackColor())
                         .fontColor(tag.getFontColor())
                         .value(tag.getValue())

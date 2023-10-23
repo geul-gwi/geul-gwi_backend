@@ -7,10 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,9 +20,9 @@ public class ChallengeSrchController {
     private final ChallengeSrchService challengeSearchService;
     private final TokenManager tokenManager;
 
-    @GetMapping("/list/{challengeSeq}/{userSeq}")
+    @GetMapping("/list/{challengeSeq}")
     public ResponseEntity<List> findChallengeUser(@PathVariable("challengeSeq") Long challengeSeq,
-                                                  @PathVariable("userSeq") Long userSeq,
+                                                  @RequestParam("userSeq") Long userSeq,
                                                   HttpServletRequest httpServletRequest) {
 
         String authorization = httpServletRequest.getHeader("Authorization");

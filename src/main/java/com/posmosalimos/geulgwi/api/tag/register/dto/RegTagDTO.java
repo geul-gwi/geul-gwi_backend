@@ -27,7 +27,7 @@ public class RegTagDTO {
 
     @Data @Builder
     public static class Response {
-        private Long seq;
+        private Long tagSeq;
         private String backColor;
         private String fontColor;
         private String value;

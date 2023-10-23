@@ -17,4 +17,7 @@ public interface FileRepository extends JpaRepository<UploadFile, Long> {
 
     @Query("select u From UploadFile u where u.user = :user")
     UploadFile findByUser(@Param("user") User user);
+
+    @Query("delete from UploadFile u where u.user = :user")
+    void deleteByUser(@Param("user") User user);
 }

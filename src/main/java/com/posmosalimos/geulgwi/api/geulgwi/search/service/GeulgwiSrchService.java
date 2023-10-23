@@ -84,6 +84,7 @@ public class GeulgwiSrchService {
                             .regDate(geulgwi.getRegDate())
                             .likeCount(geulgwi.getLikes().size())
                             .files(storeFiles)
+                            .tags(tagDTOS)
                             .build());
 
         }

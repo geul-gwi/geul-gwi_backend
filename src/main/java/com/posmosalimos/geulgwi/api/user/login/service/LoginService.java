@@ -23,7 +23,7 @@ public class LoginService {
     public LoginDTO.Response login(String seq, String password) {
 
         User findUser = userService.findByIdAndPassword(seq, password);
-        String profile = fileService.findByUserSeq(findUser);
+        String profile = fileService.findByUser(findUser);
         log.info("user : {}", findUser.getUserSeq());
 
         JwtTokenDto jwtTokenDto;

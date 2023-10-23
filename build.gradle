@@ -32,8 +32,6 @@ dependencies {
 //    implementation 'org.springframework.boot:spring-boot-starter-security'
     runtimeOnly 'com.mysql:mysql-connector-j'
 
-	//coolsms : 문자 인증 서비스
-	implementation 'net.nurigo:sdk:4.2.7'
 	//메일 인증
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 

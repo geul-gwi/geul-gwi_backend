@@ -3,7 +3,6 @@ package com.posmosalimos.geulgwi.api.user.delete.controller;
 import com.posmosalimos.geulgwi.api.user.delete.dto.DeleteDTO;
 import com.posmosalimos.geulgwi.api.user.delete.service.DeleteService;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
-import com.posmosalimos.geulgwi.global.util.AuthorizationHeaderUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +25,6 @@ public class DeleteController {
         String password = deleteDTO.getPassword();
 
         String authorization = httpServletRequest.getHeader("Authorization");
-        AuthorizationHeaderUtils.validateAuthorization(authorization);
 
         String accessToken = authorization.split(" ")[1];
 
@@ -43,7 +41,6 @@ public class DeleteController {
                                           HttpServletRequest httpServletRequest) {
 
         String authorization = httpServletRequest.getHeader("Authorization");
-        AuthorizationHeaderUtils.validateAuthorization(authorization);
 
         String accessToken = authorization.split(" ")[1];
 

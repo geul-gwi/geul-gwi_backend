@@ -4,7 +4,6 @@ import com.posmosalimos.geulgwi.api.tag.list.dto.TagDTO;
 import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
 import com.posmosalimos.geulgwi.domain.tag.service.TagService;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
-import com.posmosalimos.geulgwi.global.util.AuthorizationHeaderUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +29,6 @@ public class TagSrchController {
     public ResponseEntity<List<TagDTO>> listAll(HttpServletRequest httpServletRequest) {
 
         String authorization = httpServletRequest.getHeader("Authorization");
-        AuthorizationHeaderUtils.validateAuthorization(authorization);
 
         String accessToken = authorization.split(" ")[1];
 
@@ -54,7 +52,7 @@ public class TagSrchController {
         List<TagDTO> tagDTOS = tags.stream()
                 .map(TagDTO::from)
                 .collect(Collectors.toList());
-        log.info("tag - list(default)");
+        log.info("tag - list(tagType: {})", tagType);
 
         return ResponseEntity.ok(tagDTOS);
     }

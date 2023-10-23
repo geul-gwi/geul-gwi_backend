@@ -29,10 +29,10 @@
         @Enumerated(EnumType.STRING)
         private TagType type;
 
-        @OneToMany(mappedBy = "tag", fetch = FetchType.LAZY)
+        @OneToMany(mappedBy = "tag", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
         private List<GeulgwiTag> geulgwiTags = new ArrayList<>();
 
-        @OneToMany(mappedBy = "tag", fetch = FetchType.LAZY)
+        @OneToMany(mappedBy = "tag", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
         private List<UserTag> userTags = new ArrayList<>();
 
         @Builder

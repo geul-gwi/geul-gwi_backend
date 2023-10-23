@@ -32,12 +32,10 @@ public class Message {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "senderSeq")
-    @OnDelete(action = OnDeleteAction.NO_ACTION) //계정 삭제 시 연쇄 삭제
     private User sender;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "receiverSeq")
-    @OnDelete(action = OnDeleteAction.NO_ACTION)
     private User receiver;
 
     public String deleteBySender() {

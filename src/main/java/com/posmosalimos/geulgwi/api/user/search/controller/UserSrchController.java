@@ -4,19 +4,14 @@ import com.posmosalimos.geulgwi.api.user.search.dto.UserListDTO;
 import com.posmosalimos.geulgwi.domain.user.service.UserService;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import com.posmosalimos.geulgwi.global.resolver.memberinfo.UserInfoDTO;
-import com.posmosalimos.geulgwi.global.util.AuthorizationHeaderUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-//@CrossOrigin("*")
 @RestController
 @RequestMapping("/user")
 @Slf4j
@@ -30,10 +25,8 @@ public class UserSrchController {
     public ResponseEntity<List> list(HttpServletRequest httpServletRequest) {
 
         String authorization = httpServletRequest.getHeader("Authorization");
-        AuthorizationHeaderUtils.validateAuthorization(authorization);
 
         String accessToken = authorization.split(" ")[1];
-
         tokenManager.validateToken(accessToken);
 
         List<UserListDTO> listDtos = userService.findUserInfos();
