@@ -13,6 +13,7 @@ public class GeulgwiSrchDTO {
     @Getter @Setter
     @Builder @NoArgsConstructor @AllArgsConstructor
     public static class Response {
+        private Long geulgwiSeq;
         private String geulgwiContent;
         private Long userSeq;
         private String regDate;

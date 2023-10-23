@@ -1,4 +1,4 @@
-package com.posmosalimos.geulgwi.domain.friend.entity;
+package com.posmosalimos.geulgwi.domain.user.entity;
 
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import jakarta.persistence.*;
@@ -23,9 +23,8 @@ public class Friend {
 
     private boolean approved;
 
-    public String isApproved() {
+    public void isApproved() { //기요청했던 사람 승인으로 변경
         this.approved = true;
-        return String.valueOf(approved);
     }
 
     @Builder

@@ -21,7 +21,7 @@ public class GeulgwiSrchController {
     private final GeulgwiSrchService geulgwiSrchService;
     private final TokenManager tokenManager;
 
-    @GetMapping("/search/{geulgwiSeq}")
+    @GetMapping("/search/{geulgwiSeq}") //특정 글 세부 조회
     public ResponseEntity<GeulgwiSrchDTO.Response> search(@PathVariable("geulgwiSeq") Long geulgwiSeq,
                                                           @RequestParam("userSeq") Long userSeq,
                                                           HttpServletRequest httpServletRequest) {

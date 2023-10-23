@@ -2,14 +2,13 @@ package com.posmosalimos.geulgwi.domain.user.entity;
 
 import com.posmosalimos.geulgwi.domain.challenge.entity.ChallengeUser;
 import com.posmosalimos.geulgwi.domain.file.entity.UploadFile;
-import com.posmosalimos.geulgwi.domain.friend.entity.Friend;
 import com.posmosalimos.geulgwi.domain.geulgwi.entity.Geulgwi;
-import com.posmosalimos.geulgwi.domain.message.entity.Message;
-import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
 import com.posmosalimos.geulgwi.domain.user.constant.Role;
 import com.posmosalimos.geulgwi.global.jwt.dto.JwtTokenDto;
 import com.posmosalimos.geulgwi.global.util.DateTimeUtils;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,20 +25,34 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false)
     private Long userSeq;
+
+    @NotNull
     private String userId;
+
+    @NotNull
     @Column(name = "userPassword")
     private String password;
+
+    @NotNull
     @Column(name = "userAge")
     private int age;
+
+    @NotNull
     @Column(name = "userGender")
     private String gender;
+
+    @NotNull
     @Column(name = "userNickname")
     private String nickname;
+
     private String comment;
+
     @Enumerated(value = EnumType.STRING)
     private Role role;
+
     @Column(length = 250)
     private String refreshToken;
+
     private LocalDateTime tokenExpirationTime;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)

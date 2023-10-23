@@ -1,12 +1,8 @@
 package com.posmosalimos.geulgwi.api.tag.register.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.posmosalimos.geulgwi.domain.tag.constant.TagType;
 import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
 import lombok.Builder;
 import lombok.Data;
-
-import java.util.List;
 
 @Data
 @Builder

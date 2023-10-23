@@ -37,20 +37,17 @@ public class GeulgwiSrchService {
 
         Boolean isLiked = likeService.findByGeulgwi(findGeulgwi, findUser);
 
-        List<GeulgwiTag> geulgwiTags = findGeulgwi.getGeulgwiTags();
-        List<TagDTO> tags = new ArrayList<>();
+        List<String> storeFiles = findGeulgwi.getUploadFiles().stream()
+                .filter(file -> file.getStore() != null).toList()
+                .stream().map(UploadFile::getStore).collect(Collectors.toList());
 
-        List<UploadFile> uploadFiles = findGeulgwi.getUploadFiles();
-        List<String> storeFiles = new ArrayList<>();
-
-        for (GeulgwiTag tag : geulgwiTags)
-            tags.add(TagDTO.from(tag.getTag()));
-
-
-        for (UploadFile uploadFile : uploadFiles)
-            storeFiles.add(uploadFile.getStore());
+        List<TagDTO> tags = findGeulgwi.getGeulgwiTags().stream()
+                .filter(tag -> tag.getTag() != null).toList()
+                .stream().map(GeulgwiTag::getTag).toList()
+                .stream().map(tag -> TagDTO.from(tag)).toList();
 
         return GeulgwiSrchDTO.Response.builder()
+                .geulgwiSeq(findGeulgwi.getGeulgwiSeq())
                 .geulgwiContent(findGeulgwi.getGeulgwiContent())
                 .userSeq(findGeulgwi.getUser().getUserSeq())
                 .regDate(findGeulgwi.getRegDate())
@@ -66,25 +63,24 @@ public class GeulgwiSrchService {
         List<GeulgwiSrchDTO.Response> dtos = new ArrayList<>();
 
         for (Geulgwi geulgwi : list) {
-            List<GeulgwiTag> tags = geulgwi.getGeulgwiTags();
-            List<TagDTO> tagDTOS = new ArrayList<>();
-            List<UploadFile> files = geulgwi.getUploadFiles();
-            List<String> storeFiles = new ArrayList<>();
+            List<String> storeFiles = geulgwi.getUploadFiles().stream()
+                    .filter(file -> file.getStore() != null).toList()
+                    .stream().map(UploadFile::getStore).collect(Collectors.toList());
 
-            for (GeulgwiTag tag : tags)
-                tagDTOS.add(TagDTO.from(tag.getTag()));
-
-            for (UploadFile uploadFile : files)
-                storeFiles.add(uploadFile.getStore());
+            List<TagDTO> tags = geulgwi.getGeulgwiTags().stream()
+                    .filter(tag -> tag.getTag() != null).toList()
+                    .stream().map(GeulgwiTag::getTag).toList()
+                    .stream().map(tag -> TagDTO.from(tag)).toList();
 
             dtos.add(
                     GeulgwiSrchDTO.Response.builder()
+                            .geulgwiSeq(geulgwi.getGeulgwiSeq())
                             .geulgwiContent(geulgwi.getGeulgwiContent())
                             .userSeq(geulgwi.getUser().getUserSeq())
                             .regDate(geulgwi.getRegDate())
                             .likeCount(geulgwi.getLikes().size())
                             .files(storeFiles)
-                            .tags(tagDTOS)
+                            .tags(tags)
                             .build());
 
         }
@@ -105,4 +101,5 @@ public class GeulgwiSrchService {
                 .collect(Collectors.toList());
 
     }
+
 }
