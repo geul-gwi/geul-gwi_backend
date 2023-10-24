@@ -1,10 +1,14 @@
 package com.posmosalimos.geulgwi.domain.notice.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Getter
@@ -22,6 +26,9 @@ public class Notice {
     private Long fromUser; //알림보낸 사람
 
     private boolean checked;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private String regDate;
 
     private Long friendSeq;
 
@@ -41,6 +48,7 @@ public class Notice {
     public Notice(User toUser, Long fromUser, boolean checked,
                   Long friendSeq, Long messageSeq, Long geulgwiSeq,
                   Long geulgwiLikeSeq, Long challengeLikeSeq) {
+        this.regDate = LocalDate.now().toString() + LocalTime.now();
         this.toUser = toUser;
         this.fromUser = fromUser;
         this.checked = checked;

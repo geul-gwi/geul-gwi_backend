@@ -63,6 +63,19 @@ public class NoticeService {
     }
 
     @Transactional
+    public void sendByLikeChallenge(Likes likes) {
+
+        Notice notice = Notice.builder()
+                .toUser(likes.getChallengeUser().getUser())
+                .fromUser(likes.getUser().getUserSeq())
+                .checked(false)
+                .challengeLikeSeq(likes.getChallengeUser().getChallengeUserSeq())
+                .build();
+
+        noticeRepository.save(notice);
+    }
+
+    @Transactional
     public void update(Long noticeSeq) {
         Notice notice = noticeRepository.findById(noticeSeq)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOTIFICATION_NOT_FOUND));

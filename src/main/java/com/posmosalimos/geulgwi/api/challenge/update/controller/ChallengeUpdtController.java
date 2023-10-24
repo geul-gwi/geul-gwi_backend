@@ -2,7 +2,9 @@ package com.posmosalimos.geulgwi.api.challenge.update.controller;
 
 import com.posmosalimos.geulgwi.api.challenge.register.dto.ChallengeRegDTO;
 import com.posmosalimos.geulgwi.api.challenge.update.service.ChallengeUpdtService;
+import com.posmosalimos.geulgwi.domain.like.entity.Likes;
 import com.posmosalimos.geulgwi.domain.like.service.LikeService;
+import com.posmosalimos.geulgwi.domain.notice.service.NoticeService;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -20,6 +22,7 @@ public class ChallengeUpdtController {
     private final TokenManager tokenManager;
     private final ChallengeUpdtService challengeUdtService;
     private final LikeService likeService;
+    private final NoticeService noticeService;
 
     @PostMapping("/update/{keywordSeq}/{userSeq}/{challengeUserSeq}")
     public ResponseEntity<Boolean> update(@Valid @RequestBody ChallengeRegDTO challengeRegDTO,
@@ -49,7 +52,9 @@ public class ChallengeUpdtController {
 
         tokenManager.validateToken(accessToken);
 
-        likeService.likeChallengeUser(challengeUserSeq, userSeq);
+        Likes likes = likeService.likeChallengeUser(challengeUserSeq, userSeq);
+        noticeService.sendByLikeChallenge(likes);
+
         log.info("challenge - like success(userSeq:{})", userSeq);
 
         return ResponseEntity.ok(true);

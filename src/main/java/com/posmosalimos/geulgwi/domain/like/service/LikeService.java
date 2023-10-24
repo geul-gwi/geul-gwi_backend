@@ -49,7 +49,7 @@ public class LikeService {
     }
 
     @Transactional
-    public void likeChallengeUser(Long challengeUserSeq, Long userSeq) {
+    public Likes likeChallengeUser(Long challengeUserSeq, Long userSeq) {
         User findUser = userService.findBySeq(userSeq);
         ChallengeUser findChallengeUser = challengeService.findByChallengeUserSeq(challengeUserSeq);
 
@@ -58,7 +58,7 @@ public class LikeService {
                 .user(findUser)
                 .build();
 
-        likeRepository.save(likes);
+        return likeRepository.save(likes);
     }
 
     @Transactional
