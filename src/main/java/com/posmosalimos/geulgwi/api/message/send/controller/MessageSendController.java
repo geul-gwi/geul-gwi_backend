@@ -2,6 +2,8 @@ package com.posmosalimos.geulgwi.api.message.send.controller;
 
 import com.posmosalimos.geulgwi.api.message.send.dto.MessageDTO;
 import com.posmosalimos.geulgwi.api.message.send.service.MessageSendService;
+import com.posmosalimos.geulgwi.domain.message.entity.Message;
+import com.posmosalimos.geulgwi.domain.notice.service.NoticeService;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ public class MessageSendController {
 
     private final TokenManager tokenManager;
     private final MessageSendService messageService;
+    private final NoticeService noticeService;
 
     @PostMapping("/send")
     public ResponseEntity<Boolean> send(@RequestBody MessageDTO messageDTO,
@@ -27,9 +30,10 @@ public class MessageSendController {
 
         tokenManager.validateToken(accessToken);
 
-        messageService.send(messageDTO);
-
+        Message message = messageService.send(messageDTO);
         log.info("message - send");
+
+        noticeService.sendByMessage(message);
 
         return ResponseEntity.ok(true);
     }

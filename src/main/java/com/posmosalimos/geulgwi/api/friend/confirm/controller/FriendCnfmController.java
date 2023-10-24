@@ -3,6 +3,7 @@ package com.posmosalimos.geulgwi.api.friend.confirm.controller;
 import com.posmosalimos.geulgwi.api.friend.confirm.dto.FriendDTO;
 import com.posmosalimos.geulgwi.api.friend.confirm.service.FriendCnfmService;
 import com.posmosalimos.geulgwi.domain.notice.service.NoticeService;
+import com.posmosalimos.geulgwi.domain.user.entity.Friend;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -34,13 +35,13 @@ public class FriendCnfmController {
 
         tokenManager.validateToken(accessToken);
 
-        List<Object> list = friendCnfmService.confirm(friendDTO);
-        String status = noticeService.sendByGeulgwi(list); //친구 신청/승인 알림 저장
+        Friend friend = friendCnfmService.confirm(friendDTO);
+        String status = noticeService.sendByGeulgwi(friend); //친구 알림 저장 후 상태 리턴
 
         log.info("friend - confirm({} -> {})", friendDTO.getFromUser(), friendDTO.getToUser());
-        log.info("status - {}", list.get(1));
+        log.info("status - {}", status);
 
-        return ResponseEntity.ok(status); //친구 상태 리턴
+        return ResponseEntity.ok(status);
     }
 
 }

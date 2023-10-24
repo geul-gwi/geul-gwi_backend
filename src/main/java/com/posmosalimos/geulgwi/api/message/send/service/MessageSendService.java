@@ -12,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+
 
 @Service
 @RequiredArgsConstructor
@@ -23,7 +25,7 @@ public class MessageSendService {
     private final MessageRepository messageRepository;
 
     @Transactional
-    public void send(MessageDTO messageDTO) {
+    public Message send(MessageDTO messageDTO) {
 
         User sender = userRepository.findByUserSeq(messageDTO.getSenderSeq())
                 .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
@@ -40,6 +42,9 @@ public class MessageSendService {
                 .deletedBySender("N")
                 .build();
 
-        messageRepository.save(message);
+        Message findMessage = messageRepository.save(message);
+
+        return messageRepository.findById(findMessage.getMessageSeq())
+                .orElseThrow(() -> new BusinessException(ErrorCode.MESSAGE_NOT_FOUND));
     }
 }

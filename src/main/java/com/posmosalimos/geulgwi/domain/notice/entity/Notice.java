@@ -21,6 +21,8 @@ public class Notice {
 
     private Long fromUser; //알림보낸 사람
 
+    private boolean checked;
+
     private Long friendSeq;
 
     private Long messageSeq;
@@ -30,9 +32,10 @@ public class Notice {
     private Long likeSeq;
 
     @Builder
-    public Notice(User toUser, Long fromUser, Long friendSeq, Long messageSeq, Long geulgwiSeq, Long likeSeq) {
+    public Notice(User toUser, Long fromUser, boolean checked, Long friendSeq, Long messageSeq, Long geulgwiSeq, Long likeSeq) {
         this.toUser = toUser;
         this.fromUser = fromUser;
+        this.checked = checked;
         this.friendSeq = friendSeq;
         this.messageSeq = messageSeq;
         this.geulgwiSeq = geulgwiSeq;

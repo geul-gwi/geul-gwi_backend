@@ -1,6 +1,5 @@
 package com.posmosalimos.geulgwi.domain.user.entity;
 
-import com.posmosalimos.geulgwi.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,6 +26,10 @@ public class Friend {
 
     public void isApproved() { //기요청했던 사람 승인으로 변경
         this.approved = true;
+    }
+
+    public boolean getApprove(Friend friend) {
+        return friend.approved ? true : false;
     }
 
     public void isSubscribed() {

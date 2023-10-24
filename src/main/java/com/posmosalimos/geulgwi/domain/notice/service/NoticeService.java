@@ -1,5 +1,6 @@
 package com.posmosalimos.geulgwi.domain.notice.service;
 
+import com.posmosalimos.geulgwi.domain.message.entity.Message;
 import com.posmosalimos.geulgwi.domain.notice.entity.Notice;
 import com.posmosalimos.geulgwi.domain.notice.repository.NoticeRepository;
 import com.posmosalimos.geulgwi.domain.user.entity.Friend;
@@ -10,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 
 @Service
 @Slf4j
@@ -21,20 +21,33 @@ public class NoticeService {
     private final NoticeRepository noticeRepository;
 
     @Transactional
-    public String sendByGeulgwi(List<Object> list) {
-        Friend friend = (Friend) list.get(0);
-        String status = (String) list.get(1);
+    public String sendByGeulgwi(Friend friend) {
 
         Notice notice = Notice.builder()
                 .toUser(friend.getToUser())
                 .fromUser(friend.getFromUser())
+                .checked(false)
                 .friendSeq(friend.getFriendSeq())
                 .build();
 
         noticeRepository.save(notice);
 
-        return status;
+        return friend.getApprove(friend) ? "승인" : "대기";
     }
+
+    public void sendByMessage(Message message) {
+
+        Notice notice = Notice.builder()
+                .toUser(message.getReceiver())
+                .fromUser(message.getSender().getUserSeq())
+                .checked(false)
+                .messageSeq(message.getMessageSeq())
+                .build();
+
+        noticeRepository.save(notice);
+    }
+
+
 
     public void deleteBySeq(Long noticeSeq) {
         Notice findNotification = noticeRepository.findById(noticeSeq)

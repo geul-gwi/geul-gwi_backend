@@ -23,7 +23,7 @@ public class FriendCnfmService {
     private final UserService userService;
 
     @Transactional
-    public List<Object> confirm(FriendDTO friendDTO) {
+    public Friend confirm(FriendDTO friendDTO) {
 
         User toUser = userService.findBySeq(friendDTO.getToUser()); //요청받은 회원
         User fromUser = userService.findBySeq(friendDTO.getFromUser()); //요청한 회원
@@ -47,12 +47,7 @@ public class FriendCnfmService {
 
         Friend findFriend = friendRepository.findByTwoUser(toUser, fromUser.getUserSeq());
 
-        List<Object> list = new ArrayList<>();
-
-        list.add(findFriend);
-        list.add(approved ? "Accepted" : "Pending");
-
-        return list;
+        return findFriend;
     }
 
 }
