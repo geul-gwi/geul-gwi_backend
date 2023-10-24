@@ -75,18 +75,4 @@ public class MessageSrchService {
         return messageDTOS;
     }
 
-    public MessageDTO.Response search(Long messageSeq) { //안쓸듯??
-        Message message = messageRepository.findById(messageSeq)
-                .orElseThrow(() -> new BusinessException(ErrorCode.MESSAGE_NOT_FOUND));
-
-        return MessageDTO.Response.builder()
-                .messageSeq(message.getMessageSeq())
-                .title(message.getTitle())
-                .content(message.getContent())
-                .receiverSeq(message.getReceiver().getUserSeq())
-                .receiverNickname(message.getReceiver().getNickname())
-                .senderSeq(message.getSender().getUserSeq())
-                .senderNickname(message.getSender().getNickname())
-                .build();
-    }
 }

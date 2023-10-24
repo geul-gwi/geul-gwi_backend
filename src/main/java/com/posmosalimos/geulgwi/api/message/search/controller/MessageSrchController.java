@@ -50,19 +50,4 @@ public class MessageSrchController {
         return ResponseEntity.ok(messageDTOS);
     }
 
-    @PostMapping("/search/{messageSeq}") //특정 쪽지 세부조회
-    public ResponseEntity<MessageDTO.Response> search(@PathVariable("messageSeq") Long messageSeq,
-                                                      HttpServletRequest httpServletRequest) {
-
-        String authorization = httpServletRequest.getHeader("Authorization");
-        String accessToken = authorization.split(" ")[1];
-
-        tokenManager.validateToken(accessToken);
-
-        MessageDTO.Response message = messageSrchService.search(messageSeq);
-
-        log.info("message - search({})", messageSeq);
-        return ResponseEntity.ok(message);
-    }
-
 }
