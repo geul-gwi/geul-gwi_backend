@@ -35,11 +35,12 @@ public class FriendCnfmController {
         tokenManager.validateToken(accessToken);
 
         List<Object> list = friendCnfmService.confirm(friendDTO);
+        String status = noticeService.sendByGeulgwi(list); //친구 신청/승인 알림 저장
+
         log.info("friend - confirm({} -> {})", friendDTO.getFromUser(), friendDTO.getToUser());
+        log.info("status - {}", list.get(1));
 
-        String status = noticeService.sendByGeulgwi(list);
-
-        return ResponseEntity.ok(status); //return Accepted | Pending
+        return ResponseEntity.ok(status); //친구 상태 리턴
     }
 
 }

@@ -3,6 +3,8 @@ package com.posmosalimos.geulgwi.domain.notice.service;
 import com.posmosalimos.geulgwi.domain.notice.entity.Notice;
 import com.posmosalimos.geulgwi.domain.notice.repository.NoticeRepository;
 import com.posmosalimos.geulgwi.domain.user.entity.Friend;
+import com.posmosalimos.geulgwi.global.error.ErrorCode;
+import com.posmosalimos.geulgwi.global.error.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -32,5 +34,12 @@ public class NoticeService {
         noticeRepository.save(notice);
 
         return status;
+    }
+
+    public void deleteBySeq(Long noticeSeq) {
+        Notice findNotification = noticeRepository.findById(noticeSeq)
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOTIFICATION_NOT_FOUND));
+
+        noticeRepository.delete(findNotification);
     }
 }
