@@ -36,7 +36,7 @@ public class FriendCnfmController {
         tokenManager.validateToken(accessToken);
 
         Friend friend = friendCnfmService.confirm(friendDTO);
-        String status = noticeService.sendByGeulgwi(friend); //친구 알림 저장 후 상태 리턴
+        String status = noticeService.sendByFriend(friend); //친구 알림 저장 후 상태 리턴 ???????
 
         log.info("friend - confirm({} -> {})", friendDTO.getFromUser(), friendDTO.getToUser());
         log.info("status - {}", status);

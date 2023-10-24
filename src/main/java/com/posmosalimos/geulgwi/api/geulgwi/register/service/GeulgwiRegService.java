@@ -32,7 +32,7 @@ public class GeulgwiRegService {
     private final UserService userService;
 
     @Transactional
-    public void register(GeulgwiRegDTO geulgwiRegDTO, Long userSeq, List<MultipartFile> files) throws IOException {
+    public Geulgwi register(GeulgwiRegDTO geulgwiRegDTO, Long userSeq, List<MultipartFile> files) throws IOException {
 
         Geulgwi geulgwi = Geulgwi.builder()
                 .content(geulgwiRegDTO.getGeulgwiContent())
@@ -53,5 +53,7 @@ public class GeulgwiRegService {
 
                 geulgwiTagRepository.save(geulgwiTag);
             }
+
+        return registerGeulgwi;
         }
 }

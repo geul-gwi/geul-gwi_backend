@@ -5,12 +5,16 @@ import com.posmosalimos.geulgwi.domain.message.entity.Message;
 import com.posmosalimos.geulgwi.domain.notice.entity.Notice;
 import com.posmosalimos.geulgwi.domain.notice.repository.NoticeRepository;
 import com.posmosalimos.geulgwi.domain.user.entity.Friend;
+import com.posmosalimos.geulgwi.domain.user.entity.User;
+import com.posmosalimos.geulgwi.domain.user.service.UserService;
 import com.posmosalimos.geulgwi.global.error.ErrorCode;
 import com.posmosalimos.geulgwi.global.error.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 @Service
@@ -20,9 +24,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class NoticeService {
 
     private final NoticeRepository noticeRepository;
+    private final UserService userService;
 
     @Transactional
-    public String sendByGeulgwi(Friend friend) {
+    public String sendByFriend(Friend friend) { //친구 신청(승인) 알림 전송
 
         Notice notice = Notice.builder()
                 .toUser(friend.getToUser())
@@ -37,7 +42,7 @@ public class NoticeService {
     }
 
     @Transactional
-    public void sendByMessage(Message message) {
+    public void sendByMessage(Message message) { //쪽지 알림 전송
 
         Notice notice = Notice.builder()
                 .toUser(message.getReceiver())
@@ -49,8 +54,23 @@ public class NoticeService {
         noticeRepository.save(notice);
     }
 
+    public void sendByGeulgwi(Long geulgwiSeq, Long fromUser, List<Long> subscribers) { //구독자들에게 알림 전송
+
+        for (Long subscriber : subscribers) {
+            User findUser = userService.findBySeq(subscriber);
+            Notice notice = Notice.builder()
+                    .toUser(findUser)
+                    .fromUser(fromUser)
+                    .checked(false)
+                    .geulgwiSeq(geulgwiSeq)
+                    .build();
+
+            noticeRepository.save(notice);
+        }
+    }
+
     @Transactional
-    public void sendByLikeGeulgwi(Likes likes) {
+    public void sendByLikeGeulgwi(Likes likes) { //좋아요 누른 회원 -> 글 작성자
 
         Notice notice = Notice.builder()
                 .toUser(likes.getGeulgwi().getUser())
@@ -63,7 +83,7 @@ public class NoticeService {
     }
 
     @Transactional
-    public void sendByLikeChallenge(Likes likes) {
+    public void sendByLikeChallenge(Likes likes) { //좋아요 누른 회원 -> 글 작성자
 
         Notice notice = Notice.builder()
                 .toUser(likes.getChallengeUser().getUser())
@@ -76,7 +96,7 @@ public class NoticeService {
     }
 
     @Transactional
-    public void update(Long noticeSeq) {
+    public void update(Long noticeSeq) { //알림 체크 확인
         Notice notice = noticeRepository.findById(noticeSeq)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOTIFICATION_NOT_FOUND));
 
@@ -84,7 +104,7 @@ public class NoticeService {
     }
 
     @Transactional
-    public void delete(Long noticeSeq) {
+    public void delete(Long noticeSeq) { //알림 삭제
         Notice notice = noticeRepository.findById(noticeSeq)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOTIFICATION_NOT_FOUND));
 

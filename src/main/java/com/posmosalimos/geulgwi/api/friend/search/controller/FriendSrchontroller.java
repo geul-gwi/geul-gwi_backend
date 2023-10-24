@@ -1,6 +1,6 @@
-package com.posmosalimos.geulgwi.api.friend.list.controller;
+package com.posmosalimos.geulgwi.api.friend.search.controller;
 
-import com.posmosalimos.geulgwi.api.friend.list.service.FriendListService;
+import com.posmosalimos.geulgwi.api.friend.search.service.FriendSrchService;
 import com.posmosalimos.geulgwi.api.user.search.dto.UserListDTO;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,9 +18,9 @@ import java.util.List;
 @RequestMapping("/friend")
 @Slf4j
 @RequiredArgsConstructor
-public class FriendListController {
+public class FriendSrchontroller {
 
-    private final FriendListService friendListService;
+    private final FriendSrchService friendListService;
     private final TokenManager tokenManager;
 
     @PostMapping("/list/{userSeq}")
