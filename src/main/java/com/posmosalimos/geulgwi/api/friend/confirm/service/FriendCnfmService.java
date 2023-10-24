@@ -32,7 +32,7 @@ public class FriendCnfmService {
 
         if (alreadyPending != null) {
             //상대로부터 기요청이 왔던 상태
-            alreadyPending.isApproved();
+            alreadyPending.toggleApproval();
             approved = true;
         } else approved = false;
 

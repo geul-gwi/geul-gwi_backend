@@ -33,7 +33,7 @@ public class NoticeService {
 
         noticeRepository.save(notice);
 
-        return friend.getApprove(friend) ? "승인" : "대기";
+        return friend.isApproved() ? "승인" : "대기";
     }
 
     @Transactional

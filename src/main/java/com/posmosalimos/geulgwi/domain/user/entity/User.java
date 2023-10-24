@@ -72,7 +72,10 @@ public class User {
     private List<Friend> friendList = new ArrayList<>();
 
     @OneToMany(mappedBy = "toUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Notice> noticeList = new ArrayList<>();
+    private List<Notice> toUserNotificationList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "fromUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Notice> fromUserNotificaionList = new ArrayList<>();
 
     @Builder
     public User(String userId, String password,

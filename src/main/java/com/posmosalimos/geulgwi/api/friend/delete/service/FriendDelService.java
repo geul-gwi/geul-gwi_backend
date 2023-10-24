@@ -1,6 +1,7 @@
 package com.posmosalimos.geulgwi.api.friend.delete.service;
 
 import com.posmosalimos.geulgwi.api.friend.confirm.dto.FriendDTO;
+import com.posmosalimos.geulgwi.domain.user.entity.Friend;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.domain.user.repository.FriendRepository;
 import com.posmosalimos.geulgwi.domain.user.service.UserService;
@@ -25,10 +26,13 @@ public class FriendDelService {
         User toUser = userService.findBySeq(friendDTO.getToUser()); //요청받은 유저
         User fromUser = userService.findBySeq(friendDTO.getFromUser()); //요청한 유저
 
-        if ( friendRepository.findByTwoUser(toUser, fromUser.getUserSeq()) != null &&
-        friendRepository.findByTwoUser(fromUser, toUser.getUserSeq()) != null) {
+        Friend byToUser = friendRepository.findByTwoUser(toUser, fromUser.getUserSeq());
+        Friend byFromUser = friendRepository.findByTwoUser(fromUser, toUser.getUserSeq());
+
+        if (byToUser != null && byFromUser != null) { //친구상태
             friendRepository.delete(toUser, fromUser.getUserSeq());
             friendRepository.delete(fromUser, toUser.getUserSeq());
         } else throw new BusinessException(ErrorCode.FORBIDDEN_FRIEND);
+
     }
 }

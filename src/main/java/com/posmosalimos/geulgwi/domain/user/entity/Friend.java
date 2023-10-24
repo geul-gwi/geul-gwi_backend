@@ -24,16 +24,12 @@ public class Friend {
 
     private boolean subscribe;
 
-    public void isApproved() { //기요청했던 사람 승인으로 변경
+    public void toggleApproval() { //기요청했던 사람 승인으로 변경
         this.approved = true;
     }
 
-    public boolean getApprove(Friend friend) {
-        return friend.approved ? true : false;
-    }
-
-    public void isSubscribed() {
-        this.subscribe = true;
+    public void toggleSubscription() {
+        this.subscribe = (this.subscribe) ? false : true;
     }
 
     @Builder
