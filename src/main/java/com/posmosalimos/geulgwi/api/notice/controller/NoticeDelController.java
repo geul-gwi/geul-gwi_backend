@@ -1,6 +1,6 @@
 package com.posmosalimos.geulgwi.api.notice.controller;
 
-import com.posmosalimos.geulgwi.domain.notice.service.NoticeService;
+import com.posmosalimos.geulgwi.api.notice.service.NoticeService;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;

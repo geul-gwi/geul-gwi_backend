@@ -1,6 +1,6 @@
 package com.posmosalimos.geulgwi.api.notice.controller;
 
-import com.posmosalimos.geulgwi.domain.notice.service.NoticeService;
+import com.posmosalimos.geulgwi.api.notice.service.NoticeService;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ public class NoticeUpdtController {
     private final NoticeService noticeService;
 
     @PostMapping("/update/{noticeSeq}")
-    public ResponseEntity<Boolean> update(@PathVariable("noticeSeq") Long noticeSeq,
+    public ResponseEntity<Boolean> update(@PathVariable("noticeSeq") Long noticeSeq, //알림 체크 여부
                                           HttpServletRequest httpServletRequest) {
 
         String authorization = httpServletRequest.getHeader("Authorization");

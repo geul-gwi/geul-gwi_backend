@@ -1,6 +1,6 @@
 package com.posmosalimos.geulgwi.api.friend.search.service;
 
-import com.posmosalimos.geulgwi.api.user.search.dto.UserListDTO;
+import com.posmosalimos.geulgwi.api.friend.search.dto.FriendListDTO;
 import com.posmosalimos.geulgwi.domain.user.entity.Friend;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.domain.user.repository.FriendRepository;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 @Service
 @Slf4j
@@ -20,16 +19,17 @@ public class FriendSrchService {
 
     private final FriendRepository friendRepository;
 
-    public List<UserListDTO> list(Long userSeq) {
+    public List<FriendListDTO> list(Long userSeq) {
 
         List<Friend> friendList = friendRepository.findByFromUser(userSeq);
 
         return friendList.stream().map(
-                friend -> UserListDTO.builder()
+                friend -> FriendListDTO.builder()
                         .userSeq(friend.getToUser().getUserSeq())
                         .userId(friend.getToUser().getUserId())
                         .nickname(friend.getToUser().getNickname())
                         .profile(friend.getToUser().getUploadFile().getStore())
+                        .isSubscribed(friend.isSubscribe())
                         .build()).toList();
     }
 

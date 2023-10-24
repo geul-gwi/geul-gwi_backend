@@ -21,9 +21,9 @@ public class Notice {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "toUserSeq")
-    private User toUser; //알림받을 사람
+    private User toUser; //알림 받을 사람
 
-    private Long fromUser; //알림보낸 사람
+    private Long fromUser; //알림 보낸 사람
 
     private boolean checked;
 
@@ -38,16 +38,18 @@ public class Notice {
 
     private Long geulgwiLikeSeq;
 
+    private Long challengeSeq;
+
     private Long challengeLikeSeq;
 
-    public void isChecked() {
+    public void toggleChecking() {
         this.checked = true;
     }
 
     @Builder
     public Notice(User toUser, Long fromUser, boolean checked,
                   Long friendSeq, Long messageSeq, Long geulgwiSeq,
-                  Long geulgwiLikeSeq, Long challengeLikeSeq) {
+                  Long geulgwiLikeSeq, Long challengeSeq, Long challengeLikeSeq) {
         this.regDate = LocalDate.now().toString() + LocalTime.now();
         this.toUser = toUser;
         this.fromUser = fromUser;
@@ -56,6 +58,7 @@ public class Notice {
         this.messageSeq = messageSeq;
         this.geulgwiSeq = geulgwiSeq;
         this.geulgwiLikeSeq = geulgwiLikeSeq;
+        this.challengeSeq = challengeSeq;
         this.challengeLikeSeq = challengeLikeSeq;
     }
 

@@ -4,7 +4,7 @@ import com.posmosalimos.geulgwi.api.geulgwi.register.dto.GeulgwiRegDTO;
 import com.posmosalimos.geulgwi.api.geulgwi.update.service.GeulgwiUpdtService;
 import com.posmosalimos.geulgwi.domain.like.entity.Likes;
 import com.posmosalimos.geulgwi.domain.like.service.LikeService;
-import com.posmosalimos.geulgwi.domain.notice.service.NoticeService;
+import com.posmosalimos.geulgwi.api.notice.service.NoticeService;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;

@@ -1,37 +1,40 @@
-package com.posmosalimos.geulgwi.api.friend.search.controller;
+package com.posmosalimos.geulgwi.api.notice.controller;
 
-import com.posmosalimos.geulgwi.api.friend.search.dto.FriendListDTO;
-import com.posmosalimos.geulgwi.api.friend.search.service.FriendSrchService;
+import com.posmosalimos.geulgwi.api.notice.dto.NoticeDTO;
+import com.posmosalimos.geulgwi.api.notice.service.NoticeService;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/friend")
+@RequestMapping("/subscribe")
 @Slf4j
 @RequiredArgsConstructor
-public class FriendSrchontroller {
+public class NoticeSrchController {
 
-    private final FriendSrchService friendListService;
     private final TokenManager tokenManager;
+    private final NoticeService noticeService;
 
-    @PostMapping("/list/{userSeq}")
+    @GetMapping("/list/{userSeq}")
     public ResponseEntity<List> list(@PathVariable("userSeq") Long userSeq,
-                                     HttpServletRequest httpServletRequest) {
+                                     HttpServletRequest httpServletRequest) { //특정 회원의 알림 목록
 
         String authorization = httpServletRequest.getHeader("Authorization");
         String accessToken = authorization.split(" ")[1];
+
         tokenManager.validateToken(accessToken);
 
-        List<FriendListDTO> friendList = friendListService.list(userSeq);
-        return ResponseEntity.ok(friendList);
+        List<NoticeDTO> noticeDTOS = noticeService.findByToUser(userSeq);
+        log.info("notice - list(userSeq: {})", userSeq);
+
+        return ResponseEntity.ok(noticeDTOS);
     }
 }

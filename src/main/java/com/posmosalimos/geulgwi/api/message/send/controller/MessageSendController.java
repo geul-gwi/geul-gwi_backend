@@ -3,7 +3,7 @@ package com.posmosalimos.geulgwi.api.message.send.controller;
 import com.posmosalimos.geulgwi.api.message.send.dto.MessageDTO;
 import com.posmosalimos.geulgwi.api.message.send.service.MessageSendService;
 import com.posmosalimos.geulgwi.domain.message.entity.Message;
-import com.posmosalimos.geulgwi.domain.notice.service.NoticeService;
+import com.posmosalimos.geulgwi.api.notice.service.NoticeService;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;

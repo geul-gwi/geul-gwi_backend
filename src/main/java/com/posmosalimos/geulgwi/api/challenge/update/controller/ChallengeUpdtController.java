@@ -4,7 +4,7 @@ import com.posmosalimos.geulgwi.api.challenge.register.dto.ChallengeRegDTO;
 import com.posmosalimos.geulgwi.api.challenge.update.service.ChallengeUpdtService;
 import com.posmosalimos.geulgwi.domain.like.entity.Likes;
 import com.posmosalimos.geulgwi.domain.like.service.LikeService;
-import com.posmosalimos.geulgwi.domain.notice.service.NoticeService;
+import com.posmosalimos.geulgwi.api.notice.service.NoticeService;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -55,7 +55,7 @@ public class ChallengeUpdtController {
         Likes likes = likeService.likeChallengeUser(challengeUserSeq, userSeq);
         noticeService.sendByLikeChallenge(likes);
 
-        log.info("challenge - like success(userSeq:{})", userSeq);
+        log.info("challenge - like (userSeq:{})", userSeq);
 
         return ResponseEntity.ok(true);
     }
@@ -71,7 +71,7 @@ public class ChallengeUpdtController {
         tokenManager.validateToken(accessToken);
 
         likeService.unlikeChallengeUser(challengeUserSeq, userSeq);
-        log.info("challenge - unlike success(userSeq: {})", userSeq);
+        log.info("challenge - unlike (userSeq: {})", userSeq);
 
         return ResponseEntity.ok(true);
     }
