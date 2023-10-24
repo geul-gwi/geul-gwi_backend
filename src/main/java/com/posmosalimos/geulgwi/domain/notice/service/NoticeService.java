@@ -1,5 +1,6 @@
 package com.posmosalimos.geulgwi.domain.notice.service;
 
+import com.posmosalimos.geulgwi.domain.like.entity.Likes;
 import com.posmosalimos.geulgwi.domain.message.entity.Message;
 import com.posmosalimos.geulgwi.domain.notice.entity.Notice;
 import com.posmosalimos.geulgwi.domain.notice.repository.NoticeRepository;
@@ -35,6 +36,7 @@ public class NoticeService {
         return friend.getApprove(friend) ? "승인" : "대기";
     }
 
+    @Transactional
     public void sendByMessage(Message message) {
 
         Notice notice = Notice.builder()
@@ -47,6 +49,20 @@ public class NoticeService {
         noticeRepository.save(notice);
     }
 
+    @Transactional
+    public void sendByLikeGeulgwi(Likes likes) {
+
+        Notice notice = Notice.builder()
+                .toUser(likes.getGeulgwi().getUser())
+                .fromUser(likes.getUser().getUserSeq())
+                .checked(false)
+                .geulgwiLikeSeq(likes.getGeulgwi().getGeulgwiSeq())
+                .build();
+
+        noticeRepository.save(notice);
+    }
+
+    @Transactional
     public void update(Long noticeSeq) {
         Notice notice = noticeRepository.findById(noticeSeq)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOTIFICATION_NOT_FOUND));
@@ -54,6 +70,7 @@ public class NoticeService {
         notice.isChecked();
     }
 
+    @Transactional
     public void delete(Long noticeSeq) {
         Notice notice = noticeRepository.findById(noticeSeq)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOTIFICATION_NOT_FOUND));

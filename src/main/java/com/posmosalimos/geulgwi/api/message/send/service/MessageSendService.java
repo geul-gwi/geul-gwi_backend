@@ -42,9 +42,7 @@ public class MessageSendService {
                 .deletedBySender("N")
                 .build();
 
-        Message findMessage = messageRepository.save(message);
 
-        return messageRepository.findById(findMessage.getMessageSeq())
-                .orElseThrow(() -> new BusinessException(ErrorCode.MESSAGE_NOT_FOUND));
+        return messageRepository.save(message);
     }
 }

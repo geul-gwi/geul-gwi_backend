@@ -27,7 +27,7 @@ public class LikeService {
     private final ChallengeService challengeService;
 
     @Transactional
-    public void likeGeulgwi(Long geulgwiSeq, Long userSeq) {
+    public Likes likeGeulgwi(Long geulgwiSeq, Long userSeq) {
 
         User findUser = userService.findBySeq(userSeq);
         Geulgwi findGeulgwi = geulgwiService.findBySeq(geulgwiSeq);
@@ -37,7 +37,7 @@ public class LikeService {
                 .geulgwi(findGeulgwi)
                 .build();
 
-        likeRepository.save(likes);
+        return likeRepository.save(likes);
 
     }
 

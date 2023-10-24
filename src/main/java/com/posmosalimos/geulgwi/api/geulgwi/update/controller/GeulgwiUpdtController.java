@@ -2,7 +2,9 @@ package com.posmosalimos.geulgwi.api.geulgwi.update.controller;
 
 import com.posmosalimos.geulgwi.api.geulgwi.register.dto.GeulgwiRegDTO;
 import com.posmosalimos.geulgwi.api.geulgwi.update.service.GeulgwiUpdtService;
+import com.posmosalimos.geulgwi.domain.like.entity.Likes;
 import com.posmosalimos.geulgwi.domain.like.service.LikeService;
+import com.posmosalimos.geulgwi.domain.notice.service.NoticeService;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +26,7 @@ public class GeulgwiUpdtController {
     private final TokenManager tokenManager;
     private final GeulgwiUpdtService geulgwiUpdtService;
     private final LikeService likeService;
+    private final NoticeService noticeService;
 
     @PostMapping(value = "/update/{geulgwiSeq}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<Boolean> update(@PathVariable("geulgwiSeq") Long geulgwiSeq,
@@ -52,8 +55,10 @@ public class GeulgwiUpdtController {
 
         tokenManager.validateToken(accessToken);
 
-        likeService.likeGeulgwi(geulgwiSeq, userSeq);
-        log.info("geulgwi - like success(userSeq: {})", userSeq);
+        Likes likes = likeService.likeGeulgwi(geulgwiSeq, userSeq);
+        noticeService.sendByLikeGeulgwi(likes);
+
+        log.info("geulgwi - like (userSeq: {})", userSeq);
 
         return ResponseEntity.ok(true);
     }
