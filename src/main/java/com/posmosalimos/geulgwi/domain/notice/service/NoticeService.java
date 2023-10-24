@@ -47,12 +47,17 @@ public class NoticeService {
         noticeRepository.save(notice);
     }
 
-
-
-    public void deleteBySeq(Long noticeSeq) {
-        Notice findNotification = noticeRepository.findById(noticeSeq)
+    public void update(Long noticeSeq) {
+        Notice notice = noticeRepository.findById(noticeSeq)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOTIFICATION_NOT_FOUND));
 
-        noticeRepository.delete(findNotification);
+        notice.isChecked();
+    }
+
+    public void delete(Long noticeSeq) {
+        Notice notice = noticeRepository.findById(noticeSeq)
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOTIFICATION_NOT_FOUND));
+
+        noticeRepository.delete(notice);
     }
 }

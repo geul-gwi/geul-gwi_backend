@@ -31,6 +31,10 @@ public class Notice {
 
     private Long likeSeq;
 
+    public void isChecked() {
+        this.checked = true;
+    }
+
     @Builder
     public Notice(User toUser, Long fromUser, boolean checked, Long friendSeq, Long messageSeq, Long geulgwiSeq, Long likeSeq) {
         this.toUser = toUser;

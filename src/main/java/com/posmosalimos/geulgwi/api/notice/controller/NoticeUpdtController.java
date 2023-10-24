@@ -6,22 +6,22 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/notice")
 @Slf4j
-public class NoticeDelController {
+@RequiredArgsConstructor
+public class NoticeUpdtController {
 
-    private final NoticeService noticeService;
     private final TokenManager tokenManager;
+    private final NoticeService noticeService;
 
-    @DeleteMapping("/delete/{noticeSeq}")
-    public ResponseEntity<Boolean> delete(@PathVariable("noticeSeq") Long noticeSeq,
+    @PostMapping("/update/{noticeSeq}")
+    public ResponseEntity<Boolean> update(@PathVariable("noticeSeq") Long noticeSeq,
                                           HttpServletRequest httpServletRequest) {
 
         String authorization = httpServletRequest.getHeader("Authorization");
@@ -29,9 +29,8 @@ public class NoticeDelController {
 
         tokenManager.validateToken(accessToken);
 
-        noticeService.delete(noticeSeq);
+        noticeService.update(noticeSeq);
 
         return ResponseEntity.ok(true);
     }
-
 }
