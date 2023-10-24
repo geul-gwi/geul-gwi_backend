@@ -10,6 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -20,16 +23,16 @@ public class FriendCnfmService {
     private final UserService userService;
 
     @Transactional
-    public String confirm(FriendDTO friendDTO) {
+    public List<Object> confirm(FriendDTO friendDTO) {
 
         User toUser = userService.findBySeq(friendDTO.getToUser()); //요청받은 회원
         User fromUser = userService.findBySeq(friendDTO.getFromUser()); //요청한 회원
-        Friend findFriend = friendRepository.findByTwoUser(fromUser, toUser.getUserSeq());
         boolean approved;
+        Friend alreadyPending = friendRepository.findByTwoUser(fromUser, toUser.getUserSeq());
 
-        if (findFriend != null) {
+        if (alreadyPending != null) {
             //상대로부터 기요청이 왔던 상태
-            findFriend.isApproved();
+            alreadyPending.isApproved();
             approved = true;
         } else approved = false;
 
@@ -42,7 +45,14 @@ public class FriendCnfmService {
 
         friendRepository.save(friend);
 
-        return approved ? "승낙" : "신청";
+        Friend findFriend = friendRepository.findByTwoUser(toUser, fromUser.getUserSeq());
+
+        List<Object> list = new ArrayList<>();
+
+        list.add(findFriend);
+        list.add(approved ? "Accepted" : "Pending");
+
+        return list;
     }
 
 }
