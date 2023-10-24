@@ -25,7 +25,7 @@ public class GeulgwiService {
 
     public Geulgwi findBySeq(Long geulgwiSeq) {
         return geulgwiRepository.findBySeq(geulgwiSeq)
-                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
+                .orElseThrow(() -> new BusinessException(ErrorCode.GEULGWI_NOT_FOUND));
     }
 
     @Transactional
@@ -34,8 +34,8 @@ public class GeulgwiService {
     }
 
     @Transactional
-    public void delete(Long seq) {
-        geulgwiRepository.delete(seq);
+    public void delete(Geulgwi geulgwi) {
+        geulgwiRepository.delete(geulgwi);
     }
 
     public List<Geulgwi> listAll() {

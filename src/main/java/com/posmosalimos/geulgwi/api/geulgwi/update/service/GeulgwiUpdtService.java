@@ -33,35 +33,24 @@ public class GeulgwiUpdtService {
     private final TagService tagService;
 
     @Transactional
-    public void update(Long geulgwiSeq, GeulgwiRegDTO geulgwiRegDTO) {
+    public void update(Long geulgwiSeq, GeulgwiRegDTO geulgwiRegDTO, List<MultipartFile> files) throws IOException {
         Geulgwi findGeulgwi = geulgwiService.findBySeq(geulgwiSeq);
-        findGeulgwi.getGeulgwiTags()
-                .stream().filter(geulgwiTag -> geulgwiTag.getGeulgwiTagSeq() != null).toList().clear(); //기등록 태그 전체 삭제
 
-        for (Long tagSeq : geulgwiRegDTO.getTagSeqs()) {
+        fileService.removeGeulgwiFiles(findGeulgwi); //기등록 파일 삭제
+        fileService.storeGeulgwiFiles(findGeulgwi, files); //파일 새로 추가
 
+        geulgwiTagRepository.deleteByGeulgwi(findGeulgwi); //기등록 태그 전체 삭제
+
+        for (Long tagSeq : geulgwiRegDTO.getTagSeqs()) { //태그 새로 추가
             Tag findTag = tagService.findBySeq(tagSeq);
             GeulgwiTag geulgwiTag = GeulgwiTag.builder()
                     .geulgwi(findGeulgwi)
                     .tag(findTag)
                     .build();
+
             geulgwiTagRepository.save(geulgwiTag);
         }
 
         findGeulgwi.update(geulgwiRegDTO.getGeulgwiContent()); //글 내용 업데이트
     }
-
-    @Transactional
-    public void uploadFiles(Long geulgwiSeq, List<MultipartFile> files) throws IOException {
-        Geulgwi findGeulgwi = geulgwiService.findBySeq(geulgwiSeq);
-        fileService.storeGeulgwiFiles(findGeulgwi, files);
-    }
-
-    @Transactional
-    public void removeFiles(Long geulgwiSeq) {
-        Geulgwi findGeulgwi = geulgwiService.findBySeq(geulgwiSeq);
-        fileService.removeGeulgwiFiles(findGeulgwi);
-    }
-
-
 }

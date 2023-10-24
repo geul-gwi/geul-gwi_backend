@@ -3,6 +3,7 @@ package com.posmosalimos.geulgwi.domain.user.entity;
 import com.posmosalimos.geulgwi.domain.challenge.entity.ChallengeUser;
 import com.posmosalimos.geulgwi.domain.file.entity.UploadFile;
 import com.posmosalimos.geulgwi.domain.geulgwi.entity.Geulgwi;
+import com.posmosalimos.geulgwi.domain.notice.entity.Notice;
 import com.posmosalimos.geulgwi.domain.user.constant.Role;
 import com.posmosalimos.geulgwi.global.jwt.dto.JwtTokenDto;
 import com.posmosalimos.geulgwi.global.util.DateTimeUtils;
@@ -55,7 +56,7 @@ public class User {
 
     private LocalDateTime tokenExpirationTime;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     private List<ChallengeUser> challengePostList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
@@ -69,6 +70,9 @@ public class User {
 
     @OneToMany(mappedBy = "toUser", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Friend> friendList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "toUser", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Notice> noticeList = new ArrayList<>();
 
     @Builder
     public User(String userId, String password,

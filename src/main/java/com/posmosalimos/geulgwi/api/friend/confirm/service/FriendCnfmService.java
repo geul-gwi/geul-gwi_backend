@@ -37,6 +37,7 @@ public class FriendCnfmService {
                 .toUser(toUser)
                 .fromUser(fromUser.getUserSeq())
                 .approved(approved)
+                .subscribe(false)
                 .build();
 
         friendRepository.save(friend);

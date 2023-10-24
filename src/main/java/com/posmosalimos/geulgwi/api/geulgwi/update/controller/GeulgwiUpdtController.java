@@ -25,9 +25,10 @@ public class GeulgwiUpdtController {
     private final GeulgwiUpdtService geulgwiUpdtService;
     private final LikeService likeService;
 
-    @PostMapping(value = "/update/{geulgwiSeq}")
+    @PostMapping(value = "/update/{geulgwiSeq}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<Boolean> update(@PathVariable("geulgwiSeq") Long geulgwiSeq,
-                                          @RequestBody GeulgwiRegDTO geulgwiRegDTO,
+                                          @RequestPart("geulgwiRegDTO") GeulgwiRegDTO geulgwiRegDTO,
+                                          @RequestPart(value = "files", required = false) List<MultipartFile> files,
                                           HttpServletRequest httpServletRequest) throws IOException {
 
         String authorization = httpServletRequest.getHeader("Authorization");
@@ -35,41 +36,8 @@ public class GeulgwiUpdtController {
 
         tokenManager.validateToken(accessToken);
 
-        geulgwiUpdtService.update(geulgwiSeq, geulgwiRegDTO);
-        log.info("geulgwi - update success(geulgwiSeq: {})", geulgwiSeq);
-
-        return ResponseEntity.ok(true);
-    }
-
-    @PostMapping(value = "/update/file/upload/{geulgwiSeq}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<Boolean> uploadFiles(@PathVariable("geulgwiSeq") Long geulgwiSeq,
-                                               @RequestPart(value = "files") List<MultipartFile> files,
-                                               HttpServletRequest httpServletRequest) throws IOException {
-        //파일 등록(복수건)
-
-        String authorization = httpServletRequest.getHeader("Authorization");
-        String accessToken = authorization.split(" ")[1];
-
-        tokenManager.validateToken(accessToken);
-
-        geulgwiUpdtService.uploadFiles(geulgwiSeq, files);
-        log.info("file - upload success");
-
-        return ResponseEntity.ok(true);
-    }
-
-    @DeleteMapping("/update/file/remove/{geulgwiSeq}")
-    public ResponseEntity<Boolean> removeFiles(@PathVariable("geulgwiSeq") Long geulgwiSeq,
-                                                HttpServletRequest httpServletRequest) {
-        //파일 삭제(전체)
-
-        String authorization = httpServletRequest.getHeader("Authorization");
-        String accessToken = authorization.split(" ")[1];
-
-        tokenManager.validateToken(accessToken);
-
-        geulgwiUpdtService.removeFiles(geulgwiSeq);
-        log.info("file - remove success");
+        geulgwiUpdtService.update(geulgwiSeq, geulgwiRegDTO, files);
+        log.info("geulgwi - update (geulgwiSeq: {})", geulgwiSeq);
 
         return ResponseEntity.ok(true);
     }

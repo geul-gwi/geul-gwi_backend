@@ -1,5 +1,6 @@
 package com.posmosalimos.geulgwi.api.geulgwi.delete.service;
 
+import com.posmosalimos.geulgwi.domain.geulgwi.entity.Geulgwi;
 import com.posmosalimos.geulgwi.domain.geulgwi.service.GeulgwiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +18,7 @@ public class GeulgwiDelService {
     @Transactional
     public void delete(Long geulgwiSeq) {
 
-        geulgwiService.findBySeq(geulgwiSeq);
-        geulgwiService.delete(geulgwiSeq);
+        Geulgwi findGeulgwi = geulgwiService.findBySeq(geulgwiSeq);
+        geulgwiService.delete(findGeulgwi);
     }
 }

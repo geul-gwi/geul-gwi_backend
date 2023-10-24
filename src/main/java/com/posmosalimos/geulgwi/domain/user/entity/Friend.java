@@ -23,15 +23,22 @@ public class Friend {
 
     private boolean approved;
 
+    private boolean subscribe;
+
     public void isApproved() { //기요청했던 사람 승인으로 변경
         this.approved = true;
     }
 
+    public void isSubscribed() {
+        this.subscribe = true;
+    }
+
     @Builder
-    public Friend(User toUser, Long fromUser, boolean approved) {
+    public Friend(User toUser, Long fromUser, boolean approved, boolean subscribe) {
         this.toUser = toUser;
         this.fromUser = fromUser;
         this.approved = approved;
+        this.subscribe = subscribe;
     }
 
 }
