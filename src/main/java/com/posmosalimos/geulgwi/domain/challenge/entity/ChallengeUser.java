@@ -51,14 +51,4 @@ public class ChallengeUser {
         this.challengeContent = challengeContent;
         this.regDate = LocalDate.now().toString() + LocalTime.now();
     }
-
-    @Override
-    public String toString() {
-        return "ChallengeUser{" +
-                "challengeUserSeq=" + challengeUserSeq +
-                ", challengeContent='" + challengeContent + '\'' +
-                ", regDate=" + regDate +
-                ", challengeAdmin=" + challengeAdmin +
-                '}';
-    }
 }

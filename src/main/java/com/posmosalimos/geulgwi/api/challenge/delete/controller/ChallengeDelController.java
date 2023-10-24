@@ -17,23 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class ChallengeDelController {
 
     private final ChallengeDelService challengeDelService;
-    private final UserService userService;
     private final TokenManager tokenManager;
-
-    @DeleteMapping("/delete/user/{userSeq}")
-    public ResponseEntity<Boolean> delete(@PathVariable("userSeq") Long seq, HttpServletRequest httpServletRequest) {
-        //유저가 작성한 챌린지 글 전체 삭제 !!!!!!오류나!!!!!!
-        String authorization = httpServletRequest.getHeader("Authorization");
-        String accessToken = authorization.split(" ")[1];
-
-        tokenManager.validateToken(accessToken);
-
-        User findUser = userService.findBySeq(seq);
-
-        challengeDelService.deletePosts(findUser);
-
-        return ResponseEntity.ok(true);
-    }
 
     @DeleteMapping("/delete/{challengeUserSeq}")
     public ResponseEntity<Boolean> deleteChallenge(@PathVariable("challengeUserSeq") Long challengeUserSeq,
@@ -45,7 +29,7 @@ public class ChallengeDelController {
         tokenManager.validateToken(accessToken);
 
         challengeDelService.delete(challengeUserSeq);
-        log.info("challenge - delete success");
+        log.info("challenge - delete");
 
         return ResponseEntity.ok(true);
     }

@@ -31,12 +31,14 @@ public class ChallengeService {
         challengeUserRepository.save(challengeUser);
     }
 
-    public List<ChallengeUser> findByAdminSeq(Long adminSeq) {
-
-        ChallengeAdmin findAdmin = challengeAdminRepository.findById(adminSeq)
+    public ChallengeAdmin findChallenge(Long adminSeq) {
+        return challengeAdminRepository.findById(adminSeq)
                 .orElseThrow(() -> new BusinessException(ErrorCode.CHALLENGE_NOT_FOUND));
+    }
 
-        return findAdmin.getChallengeUsers();
+    public List<ChallengeUser> findByAdminSeq(Long adminSeq) {
+        return challengeAdminRepository.findById(adminSeq)
+                .orElseThrow(() -> new BusinessException(ErrorCode.CHALLENGE_NOT_FOUND)).getChallengeUsers();
     }
 
     @Transactional

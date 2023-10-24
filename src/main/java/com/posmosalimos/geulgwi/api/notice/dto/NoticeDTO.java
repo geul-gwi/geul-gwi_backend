@@ -16,6 +16,7 @@ public class NoticeDTO {
     private Long messageSeq;
     private Long geulgwiSeq;
     private Long geulgwiLikeSeq;
+    private Long challengeSeq;
     private Long challengeLikeSeq;
     private String regDate;
     private boolean checked;

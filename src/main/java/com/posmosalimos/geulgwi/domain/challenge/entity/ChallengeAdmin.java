@@ -1,5 +1,6 @@
 package com.posmosalimos.geulgwi.domain.challenge.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -21,8 +22,10 @@ public class ChallengeAdmin {
     private String keyword2;
     private String keyword3;
     private String comment;
-    private LocalDate start;
-    private LocalDate end;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private String start;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private String end;
 
     @JsonIgnore
     @OneToMany(mappedBy = "challengeAdmin", fetch = FetchType.LAZY)

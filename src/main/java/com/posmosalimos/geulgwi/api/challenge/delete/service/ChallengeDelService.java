@@ -22,11 +22,6 @@ public class ChallengeDelService {
     private final ChallengeService challengeService;
 
     @Transactional
-    public void deletePosts(User user) {
-        user.getChallengePostList().clear();
-    }
-
-    @Transactional
     public void delete(Long challengeUserSeq) {
 
         challengeService.findByChallengeUserSeq(challengeUserSeq);

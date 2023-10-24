@@ -19,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -139,6 +138,7 @@ public class NoticeService {
                             .messageSeq(fromUser.getMessageSeq())
                             .geulgwiSeq(fromUser.getGeulgwiSeq())
                             .geulgwiLikeSeq(fromUser.getGeulgwiLikeSeq())
+                            .challengeSeq(fromUser.getChallengeSeq())
                             .challengeLikeSeq(fromUser.getChallengeLikeSeq())
                             .regDate(fromUser.getRegDate())
                             .checked(fromUser.isChecked())

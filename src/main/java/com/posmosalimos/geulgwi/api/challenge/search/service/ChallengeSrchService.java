@@ -1,12 +1,15 @@
 package com.posmosalimos.geulgwi.api.challenge.search.service;
 
+import com.posmosalimos.geulgwi.api.challenge.search.dto.ChallengeAdminDTO;
 import com.posmosalimos.geulgwi.api.challenge.search.dto.ChallengeSrchDTO;
+import com.posmosalimos.geulgwi.domain.challenge.entity.ChallengeAdmin;
 import com.posmosalimos.geulgwi.domain.challenge.entity.ChallengeUser;
 import com.posmosalimos.geulgwi.domain.challenge.service.ChallengeService;
 import com.posmosalimos.geulgwi.domain.like.service.LikeService;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.bouncycastle.asn1.cmp.Challenge;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +25,21 @@ public class ChallengeSrchService {
     private final UserService userService;
     private final LikeService likeService;
 
-    public List<ChallengeSrchDTO> searchChallenges(Long adminSeq, Long userSeq) {
+    public ChallengeAdminDTO findChallenge(Long challengeSeq) {
+        ChallengeAdmin challenge = challengeService.findChallenge(challengeSeq);
+        return ChallengeAdminDTO.builder()
+                .challengeSeq(challenge.getChallengeAdminSeq())
+                .keyword1(challenge.getKeyword1())
+                .keyword2(challenge.getKeyword2())
+                .keyword3(challenge.getKeyword3())
+                .comment(challenge.getComment())
+                .start(challenge.getStart())
+                .end(challenge.getEnd())
+                .build();
+
+    }
+
+    public List<ChallengeSrchDTO> findChallengeUsers(Long adminSeq, Long userSeq) {
 
         User findUser = userService.findBySeq(userSeq);
 
