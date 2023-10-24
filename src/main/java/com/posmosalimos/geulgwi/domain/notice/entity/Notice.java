@@ -1,6 +1,7 @@
 package com.posmosalimos.geulgwi.domain.notice.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.posmosalimos.geulgwi.domain.notice.constant.Type;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -27,6 +28,9 @@ public class Notice {
 
     private boolean checked;
 
+    @Enumerated(value = EnumType.STRING)
+    private Type type;
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String regDate;
 
@@ -47,9 +51,10 @@ public class Notice {
     }
 
     @Builder
-    public Notice(User toUser, Long fromUser, boolean checked,
+    public Notice(Type type, User toUser, Long fromUser, boolean checked,
                   Long friendSeq, Long messageSeq, Long geulgwiSeq,
                   Long geulgwiLikeSeq, Long challengeSeq, Long challengeLikeSeq) {
+        this.type = type;
         this.regDate = LocalDate.now().toString() + LocalTime.now();
         this.toUser = toUser;
         this.fromUser = fromUser;

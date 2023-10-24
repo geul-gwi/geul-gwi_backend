@@ -7,6 +7,7 @@ import lombok.Data;
 @Builder
 public class NoticeDTO {
 
+    private String type;
     private Long noticeSeq;
     private Long fromUser;
     private String nickname;

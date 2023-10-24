@@ -3,6 +3,7 @@ package com.posmosalimos.geulgwi.api.notice.service;
 import com.posmosalimos.geulgwi.api.notice.dto.NoticeDTO;
 import com.posmosalimos.geulgwi.domain.like.entity.Likes;
 import com.posmosalimos.geulgwi.domain.message.entity.Message;
+import com.posmosalimos.geulgwi.domain.notice.constant.Type;
 import com.posmosalimos.geulgwi.domain.notice.entity.Notice;
 import com.posmosalimos.geulgwi.domain.notice.repository.NoticeRepository;
 import com.posmosalimos.geulgwi.domain.user.entity.Friend;
@@ -32,6 +33,7 @@ public class NoticeService {
     public String sendByFriend(Friend friend) { //친구 신청(승인) 알림 전송
 
         Notice notice = Notice.builder()
+                .type(Type.FRIEND)
                 .toUser(friend.getToUser())
                 .fromUser(friend.getFromUser())
                 .checked(false)
@@ -47,6 +49,7 @@ public class NoticeService {
     public void sendByMessage(Message message) { //쪽지 알림 전송
 
         Notice notice = Notice.builder()
+                .type(Type.MESSAGE)
                 .toUser(message.getReceiver())
                 .fromUser(message.getSender().getUserSeq())
                 .checked(false)
@@ -62,6 +65,7 @@ public class NoticeService {
         for (Long subscriber : subscribers) {
             User findUser = userService.findBySeq(subscriber);
             Notice notice = Notice.builder()
+                    .type(Type.GEULGWI)
                     .toUser(findUser)
                     .fromUser(fromUser)
                     .checked(false)
@@ -76,6 +80,7 @@ public class NoticeService {
     public void sendByLikeGeulgwi(Likes likes) { //좋아요 누른 회원 -> 글 작성자(글귀)
 
         Notice notice = Notice.builder()
+                .type(Type.LIKE_GEULGWI)
                 .toUser(likes.getGeulgwi().getUser())
                 .fromUser(likes.getUser().getUserSeq())
                 .checked(false)
@@ -90,6 +95,7 @@ public class NoticeService {
     public void sendByLikeChallenge(Likes likes) { //좋아요 누른 회원 -> 글 작성자(챌린지)
 
         Notice notice = Notice.builder()
+                .type(Type.LIKE_CHALLENGE)
                 .toUser(likes.getChallengeUser().getUser())
                 .fromUser(likes.getUser().getUserSeq())
                 .checked(false)
@@ -124,6 +130,7 @@ public class NoticeService {
             User findUser = userService.findBySeq(fromUser.getFromUser());
             noticeDTOS.add(
                     NoticeDTO.builder()
+                            .type(fromUser.getType().toString())
                             .noticeSeq(fromUser.getNoticeSeq())
                             .fromUser(findUser.getUserSeq())
                             .nickname(findUser.getNickname())
