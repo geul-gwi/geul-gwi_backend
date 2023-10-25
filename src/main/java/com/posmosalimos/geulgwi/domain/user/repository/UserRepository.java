@@ -13,6 +13,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("select u from User u left join fetch u.userTags where u.userSeq = :seq")
     Optional<User> findByUserSeq(@Param("seq") Long seq);
+
     Optional<User> findByUserId(String userId);
 
     @Query("select u from User u where u.nickname = :userNickname")

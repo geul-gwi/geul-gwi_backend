@@ -48,6 +48,8 @@ public class User {
 
     private String comment;
 
+    private String email;
+
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
@@ -80,13 +82,14 @@ public class User {
     @Builder
     public User(String userId, String password,
                 String nickname, String gender,
-                int age, Role role) {
+                int age, Role role, String email) {
         this.userId = userId;
         this.password = password;
         this.age = age;
         this.gender = gender;
         this.nickname = nickname;
         this.role = role;
+        this.email = email;
     }
 
     public void update(String password, String nickname, String comment) {

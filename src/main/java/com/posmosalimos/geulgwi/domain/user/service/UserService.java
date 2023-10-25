@@ -89,6 +89,7 @@ public class UserService {
                 .userId(findUser.getUserId())
                 .nickname(findUser.getNickname())
                 .password(findUser.getPassword())
+                .comment(findUser.getEmail())
                 .role(findUser.getRole())
                 .profile(profile)
                 .comment(findUser.getComment())

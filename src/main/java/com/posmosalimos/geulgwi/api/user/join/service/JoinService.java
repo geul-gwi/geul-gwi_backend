@@ -35,6 +35,7 @@ public class JoinService {
                     .password(joinDTO.getUserPassword())
                     .nickname(joinDTO.getUserNickname())
                     .gender(joinDTO.getUserGender())
+                    .email(joinDTO.getUserEmail())
                     .age(joinDTO.getUserAge())
                     .role(Role.ADMIN)
                     .build();
@@ -44,6 +45,7 @@ public class JoinService {
                     .password(joinDTO.getUserPassword())
                     .nickname(joinDTO.getUserNickname())
                     .gender(joinDTO.getUserGender())
+                    .email(joinDTO.getUserEmail())
                     .age(joinDTO.getUserAge())
                     .role(Role.COMMON)
                     .build();

@@ -15,6 +15,7 @@ public class UserInfoDTO {
     private String userId;
     private String nickname;
     private String password;
+    private String email;
     private String profile;
     private Role role;
     private String comment;
