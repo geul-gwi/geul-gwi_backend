@@ -23,15 +23,16 @@ public class FriendSrchontroller {
     private final FriendSrchService friendListService;
     private final TokenManager tokenManager;
 
-    @PostMapping("/list/{userSeq}")
-    public ResponseEntity<List> list(@PathVariable("userSeq") Long userSeq,
+    @PostMapping("/list/{ststus}/{userSeq}")
+    public ResponseEntity<List> list(@PathVariable("status") String status,
+                                     @PathVariable("userSeq") Long userSeq,
                                      HttpServletRequest httpServletRequest) {
 
         String authorization = httpServletRequest.getHeader("Authorization");
         String accessToken = authorization.split(" ")[1];
         tokenManager.validateToken(accessToken);
 
-        List<FriendListDTO> friendList = friendListService.list(userSeq);
+        List<FriendListDTO> friendList = friendListService.list(status, userSeq); //status: friend, pending
         return ResponseEntity.ok(friendList);
     }
 }
