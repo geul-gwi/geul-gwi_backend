@@ -1,6 +1,7 @@
 package com.posmosalimos.geulgwi.api.user.join.service;
 
 import com.posmosalimos.geulgwi.api.user.join.dto.JoinDTO;
+import com.posmosalimos.geulgwi.domain.file.service.FileService;
 import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
 import com.posmosalimos.geulgwi.domain.tag.service.TagService;
 import com.posmosalimos.geulgwi.domain.user.constant.Role;
@@ -13,6 +14,9 @@ import com.posmosalimos.geulgwi.global.error.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 
 @Service
@@ -21,11 +25,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class JoinService {
 
     private final UserService userService;
+    private final FileService fileService;
     private final UserTagService userTagService;
     private final TagService tagService;
 
     @Transactional
-    public void join(JoinDTO joinDTO) {
+    public void join(JoinDTO joinDTO, MultipartFile file) throws IOException {
 
         User user = new User();
 
@@ -52,6 +57,8 @@ public class JoinService {
         }
 
         userService.join(user);
+        if (!file.isEmpty())
+            fileService.storeUserFile(user, file);
 
         for (Long tagSeq : joinDTO.getUserTagSeq()) {
             Tag findTag = tagService.findBySeq(tagSeq);
