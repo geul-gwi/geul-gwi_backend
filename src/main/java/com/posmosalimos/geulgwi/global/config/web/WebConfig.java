@@ -56,7 +56,8 @@ public class WebConfig implements WebMvcConfigurer {
                         "/user/validate/**",
                         "/user/nickname/**",
                         "/tag/list/**",
-                        "/file"
+                        "/file",
+                        "/oauth/kakao/callback"
                 );
 
         registry.addInterceptor(adminAuthorizationInterceptor)

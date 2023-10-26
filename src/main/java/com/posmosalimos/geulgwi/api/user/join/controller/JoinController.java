@@ -25,7 +25,7 @@ public class JoinController {
                                         @RequestPart(value = "file", required = false) MultipartFile file) throws IOException {
 
         joinService.join(joinDTO, file);
-        log.info("user - join success");
+        log.info("user - join");
 
         return ResponseEntity.ok(true);
     }
@@ -33,7 +33,7 @@ public class JoinController {
     @PostMapping("/validate/{userId}")
     public ResponseEntity<Boolean> validateId(@PathVariable("userId") String userId) {
         joinService.validateDuplicateUserId(userId);
-        log.info("user - ID duplicate check success");
+        log.info("user - ID duplicate check");
 
         return ResponseEntity.ok(true);
     }
@@ -41,7 +41,7 @@ public class JoinController {
     @PostMapping("/validate/nickname/{nickname}")
     public ResponseEntity<Boolean> validateNickname(@PathVariable("nickname") String nickname) {
         joinService.validateDuplicateNickname(nickname);
-        log.info("user - nickname duplicate check success");
+        log.info("user - nickname duplicate check");
 
         return ResponseEntity.ok(true);
     }
