@@ -39,9 +39,12 @@ public class UpdateController {
 
         User user = updateService.update(userSeq, updateDTO);
 
-        if (fileService.findByUser(user) != null)
+        if (fileService.findByUser(user) != null && !file.isEmpty()) {
             fileService.removeUserFile(user);
-        fileService.storeUserFile(user, file);
+            fileService.storeUserFile(user, file);
+        } else if (file.isEmpty())
+            fileService.removeUserFile(user);
+
         log.info("user - update success(userSeq: {})", userSeq);
 
         return ResponseEntity.ok(true);

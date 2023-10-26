@@ -67,17 +67,12 @@ public class User {
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<UserTag> userTags = new ArrayList<>();
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
     private UploadFile uploadFile;
 
     @OneToMany(mappedBy = "toUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Friend> friendList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "toUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Notice> toUserNotificationList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "fromUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Notice> fromUserNotificaionList = new ArrayList<>();
+    private List<Friend> toUser = new ArrayList<>();
 
     @Builder
     public User(String userId, String password,

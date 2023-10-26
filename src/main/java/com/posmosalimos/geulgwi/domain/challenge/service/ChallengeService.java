@@ -1,11 +1,10 @@
 package com.posmosalimos.geulgwi.domain.challenge.service;
 
-import com.posmosalimos.geulgwi.api.challenge.register.dto.ChallengeRegDTO;
+import com.posmosalimos.geulgwi.api.challenge.user.register.dto.ChallengeRegDTO;
 import com.posmosalimos.geulgwi.domain.challenge.entity.ChallengeAdmin;
 import com.posmosalimos.geulgwi.domain.challenge.entity.ChallengeUser;
 import com.posmosalimos.geulgwi.domain.challenge.repository.ChallengeAdminRepository;
 import com.posmosalimos.geulgwi.domain.challenge.repository.ChallengeUserRepository;
-import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.global.error.ErrorCode;
 import com.posmosalimos.geulgwi.global.error.exception.AuthenticationException;
 import com.posmosalimos.geulgwi.global.error.exception.BusinessException;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)

@@ -1,17 +1,17 @@
 package com.posmosalimos.geulgwi.domain.challenge.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.posmosalimos.geulgwi.api.challenge.register.dto.ChallengeRegDTO;
+import com.posmosalimos.geulgwi.api.challenge.user.register.dto.ChallengeRegDTO;
 import com.posmosalimos.geulgwi.domain.like.entity.Likes;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +41,7 @@ public class ChallengeUser {
 
     @Builder
     public ChallengeUser(ChallengeRegDTO challengeRegDTO, ChallengeAdmin challengeAdmin, User user) {
-        this.regDate = LocalDate.now().toString() + LocalTime.now();
+        this.regDate = LocalDate.now() + " " + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
         this.challengeContent = challengeRegDTO.getChallengeContent();
         this.challengeAdmin = challengeAdmin;
         this.user = user;
@@ -49,6 +49,6 @@ public class ChallengeUser {
 
     public void update(String challengeContent) {
         this.challengeContent = challengeContent;
-        this.regDate = LocalDate.now().toString() + LocalTime.now();
+        this.regDate = LocalDate.now() + " " + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
     }
 }

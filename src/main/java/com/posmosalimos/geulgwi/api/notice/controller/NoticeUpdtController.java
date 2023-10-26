@@ -30,6 +30,7 @@ public class NoticeUpdtController {
         tokenManager.validateToken(accessToken);
 
         noticeService.update(noticeSeq);
+        log.info("notice - update(checked)");
 
         return ResponseEntity.ok(true);
     }

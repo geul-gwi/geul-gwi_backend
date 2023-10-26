@@ -47,7 +47,7 @@ public class Likes {
 
     @Builder
     public Likes(User user, Geulgwi geulgwi, ChallengeUser challengeUser) {
-        this.likeDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        this.likeDate = LocalDate.now() + " " + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
         this.user = user;
         this.geulgwi = geulgwi;
         this.challengeUser = challengeUser;

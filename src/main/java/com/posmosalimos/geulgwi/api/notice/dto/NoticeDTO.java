@@ -19,5 +19,5 @@ public class NoticeDTO {
     private Long challengeSeq;
     private Long challengeLikeSeq;
     private String regDate;
-    private boolean checked;
+    private String checked;
 }

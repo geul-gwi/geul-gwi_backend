@@ -24,7 +24,7 @@ public class MessageDelService {
                 .orElseThrow(() -> new BusinessException(ErrorCode.MESSAGE_NOT_FOUND));
 
         message.deleteByReceiver();
-        if (message.getDeletedBySender().equals("Y") && message.getDeletedByReceiver().equals("Y"))
+        if (message.getDeletedBySender().equals("T") && message.getDeletedByReceiver().equals("T"))
             messageRepository.delete(message);
     }
 
@@ -34,7 +34,7 @@ public class MessageDelService {
                 .orElseThrow(() -> new BusinessException(ErrorCode.MESSAGE_NOT_FOUND));
 
         message.deleteBySender();
-        if (message.getDeletedBySender().equals("Y") && message.getDeletedByReceiver().equals("Y"))
+        if (message.getDeletedBySender().equals("T") && message.getDeletedByReceiver().equals("T"))
             messageRepository.delete(message);
     }
 }

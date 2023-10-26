@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Getter
@@ -26,7 +27,8 @@ public class Notice {
 
     private Long fromUser; //알림 보낸 사람
 
-    private boolean checked;
+    @Column(length = 5)
+    private String checked;
 
     @Enumerated(value = EnumType.STRING)
     private Type type;
@@ -47,15 +49,15 @@ public class Notice {
     private Long challengeLikeSeq;
 
     public void toggleChecking() {
-        this.checked = true;
+        this.checked = "T";
     }
 
     @Builder
-    public Notice(Type type, User toUser, Long fromUser, boolean checked,
+    public Notice(Type type, User toUser, Long fromUser, String checked,
                   Long friendSeq, Long messageSeq, Long geulgwiSeq,
                   Long geulgwiLikeSeq, Long challengeSeq, Long challengeLikeSeq) {
+        this.regDate = LocalDate.now() + " " + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
         this.type = type;
-        this.regDate = LocalDate.now().toString() + LocalTime.now();
         this.toUser = toUser;
         this.fromUser = fromUser;
         this.checked = checked;

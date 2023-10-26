@@ -30,8 +30,8 @@ public class MessageDelController {
         tokenManager.validateToken(accessToken);
 
         messageDelService.deleteByReceiver(messageSeq);
-
         log.info("message - deleteByReceiver");
+
         return ResponseEntity.ok(true);
     }
 
@@ -45,8 +45,8 @@ public class MessageDelController {
         tokenManager.validateToken(accessToken);
 
         messageDelService.deleteBySender(messageSeq);
-
         log.info("message - deleteBySender");
+
         return ResponseEntity.ok(true);
     }
 }

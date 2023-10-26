@@ -35,13 +35,13 @@ public class NoticeService {
                 .type(Type.FRIEND)
                 .toUser(friend.getToUser())
                 .fromUser(friend.getFromUser())
-                .checked(false)
+                .checked("F")
                 .friendSeq(friend.getFriendSeq())
                 .build();
 
         noticeRepository.save(notice);
 
-        return friend.isApproved() ? "승인" : "대기";
+        return friend.getApproved().equals("T") ? "승인" : "대기";
     }
 
     @Transactional
@@ -51,7 +51,7 @@ public class NoticeService {
                 .type(Type.MESSAGE)
                 .toUser(message.getReceiver())
                 .fromUser(message.getSender().getUserSeq())
-                .checked(false)
+                .checked("F")
                 .messageSeq(message.getMessageSeq())
                 .build();
 
@@ -67,7 +67,7 @@ public class NoticeService {
                     .type(Type.GEULGWI)
                     .toUser(findUser)
                     .fromUser(fromUser)
-                    .checked(false)
+                    .checked("F")
                     .geulgwiSeq(geulgwiSeq)
                     .build();
 
@@ -82,7 +82,7 @@ public class NoticeService {
                 .type(Type.LIKE_GEULGWI)
                 .toUser(likes.getGeulgwi().getUser())
                 .fromUser(likes.getUser().getUserSeq())
-                .checked(false)
+                .checked("F")
                 .geulgwiSeq(likes.getGeulgwi().getGeulgwiSeq())
                 .geulgwiLikeSeq(likes.getGeulgwi().getGeulgwiSeq())
                 .build();
@@ -97,7 +97,7 @@ public class NoticeService {
                 .type(Type.LIKE_CHALLENGE)
                 .toUser(likes.getChallengeUser().getUser())
                 .fromUser(likes.getUser().getUserSeq())
-                .checked(false)
+                .checked("F")
                 .challengeSeq(likes.getChallengeUser().getChallengeAdmin().getChallengeAdminSeq())
                 .challengeLikeSeq(likes.getChallengeUser().getChallengeUserSeq())
                 .build();
@@ -123,7 +123,10 @@ public class NoticeService {
 
     public List<NoticeDTO> findByToUser(Long userSeq) {
         User toUser = userService.findBySeq(userSeq); //알림을 받을 유저
-        List<Notice> fromUsers = noticeRepository.findByToUser(toUser); //알림을 보낸 유저들
+        List<Notice> fromUsers = noticeRepository.findByToUser(toUser).stream()
+                .filter(fromUser -> fromUser.getFromUser() != fromUser.getToUser().getUserSeq()).toList(); //알림을 보낸 유저들
+
+
         List<NoticeDTO> noticeDTOS = new ArrayList<>();
         for (Notice fromUser : fromUsers) {
             User findUser = userService.findBySeq(fromUser.getFromUser());
@@ -133,7 +136,7 @@ public class NoticeService {
                             .noticeSeq(fromUser.getNoticeSeq())
                             .fromUser(findUser.getUserSeq())
                             .nickname(findUser.getNickname())
-                            .profile(findUser.getUploadFile().getStore())
+                            .profile(findUser.getUploadFile().getStore().isEmpty() ? "null" : findUser.getUploadFile().getStore())
                             .friendSeq(fromUser.getFriendSeq())
                             .messageSeq(fromUser.getMessageSeq())
                             .geulgwiSeq(fromUser.getGeulgwiSeq())
@@ -141,7 +144,7 @@ public class NoticeService {
                             .challengeSeq(fromUser.getChallengeSeq())
                             .challengeLikeSeq(fromUser.getChallengeLikeSeq())
                             .regDate(fromUser.getRegDate())
-                            .checked(fromUser.isChecked())
+                            .checked(fromUser.getChecked())
                             .build());
         }
 

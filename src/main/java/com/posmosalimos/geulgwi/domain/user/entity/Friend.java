@@ -15,29 +15,29 @@ public class Friend {
     private Long friendSeq;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "friendList")
+    @JoinColumn(name = "toUser")
     private User toUser; //요청받은 사람
 
     private Long fromUser; //요청하는 사람
 
-    private boolean approved;
+    private String approved;
 
-    private boolean subscribe;
+    private String subscriber;
 
     public void toggleApproval() { //기요청했던 사람 승인으로 변경
-        this.approved = true;
+        this.approved = "T";
     }
 
     public void toggleSubscription() {
-        this.subscribe = (this.subscribe) ? false : true;
+        this.subscriber = "T";
     }
 
     @Builder
-    public Friend(User toUser, Long fromUser, boolean approved, boolean subscribe) {
+    public Friend(User toUser, Long fromUser, String approved, String subscriber) {
         this.toUser = toUser;
         this.fromUser = fromUser;
         this.approved = approved;
-        this.subscribe = subscribe;
+        this.subscriber = subscriber;
     }
 
 }

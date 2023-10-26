@@ -65,8 +65,10 @@ public class WebConfig implements WebMvcConfigurer {
                 .addPathPatterns(
                         "/user/list",
                         "/user/admin/**",
-                        "tag/admin/list"
+                        "tag/admin/list",
+                        "/challenge/admin/**"
                 );
+
     }
 
     @Override

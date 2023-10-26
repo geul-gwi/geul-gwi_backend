@@ -13,6 +13,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,13 +46,13 @@ public class Geulgwi {
     @Builder
     public Geulgwi(String content, User user, List<UploadFile> files) {
         this.geulgwiContent = content;
-        this.regDate = LocalDate.now().toString() + LocalTime.now();
+        this.regDate = LocalDate.now() + " " + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
         this.user = user;
         this.uploadFiles = files;
     }
 
     public void update(String geulgwiContent) {
         this.geulgwiContent = geulgwiContent;
-        this.regDate = LocalDate.now().toString() + LocalTime.now();
+        this.regDate = LocalDate.now() + " " + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
     }
 }

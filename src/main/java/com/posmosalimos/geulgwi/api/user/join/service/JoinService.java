@@ -1,7 +1,6 @@
 package com.posmosalimos.geulgwi.api.user.join.service;
 
 import com.posmosalimos.geulgwi.api.user.join.dto.JoinDTO;
-import com.posmosalimos.geulgwi.api.user.oauth.dto.KakaoDTO;
 import com.posmosalimos.geulgwi.domain.file.service.FileService;
 import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
 import com.posmosalimos.geulgwi.domain.tag.service.TagService;
@@ -13,9 +12,9 @@ import com.posmosalimos.geulgwi.domain.user.service.UserTagService;
 import com.posmosalimos.geulgwi.global.error.ErrorCode;
 import com.posmosalimos.geulgwi.global.error.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -24,6 +23,7 @@ import java.io.IOException;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
+@Slf4j
 public class JoinService {
 
     private final UserService userService;
@@ -35,7 +35,7 @@ public class JoinService {
     public void join(JoinDTO joinDTO, MultipartFile file) throws IOException {
 
         User user = new User();
-
+        log.info("new User()");
         if (joinDTO.getUserId().equals("akxxkd")) {
             user = User.builder()
                     .userId(joinDTO.getUserId())
@@ -70,16 +70,6 @@ public class JoinService {
                     .build();
             userTagService.save(userTag);
         }
-    }
-
-    @Transactional
-    public void join(KakaoDTO kakaoDTO) {
-        User user = User.builder()
-                .email(kakaoDTO.getEmail())
-                .nickname(kakaoDTO.getNickname())
-                .build();
-
-        userService.join(user);
     }
 
     public Boolean validateDuplicateUserId(String userId) {

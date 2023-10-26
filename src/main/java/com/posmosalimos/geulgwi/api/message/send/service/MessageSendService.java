@@ -38,8 +38,8 @@ public class MessageSendService {
                 .content(messageDTO.getContent())
                 .sender(sender)
                 .receiver(receiver)
-                .deletedByReceiver("N")
-                .deletedBySender("N")
+                .deletedByReceiver("F")
+                .deletedBySender("F")
                 .build();
 
 

@@ -39,7 +39,7 @@ public class UserService {
         return userRepository.findByUserId(userId).stream()
                 .filter(u -> u.getPassword().equals(userPassword))
                 .findAny()
-                .orElse(null);
+                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
     }
 
     @Transactional(readOnly = true)

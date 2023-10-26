@@ -32,7 +32,7 @@ public class MessageSrchService {
         List<MessageDTO.Response> messageDTOS = new ArrayList<>();
 
         for(Message message : messages) {
-            if (message.getDeletedByReceiver().equals("N")) { //삭제하지 않았으면 보낼 때 추가해서 보내줌
+            if (message.getDeletedByReceiver().equals("F")) { //삭제하지 않았으면 보낼 때 추가해서 보내줌
                 messageDTOS.add(
                         MessageDTO.Response.builder()
                                 .messageSeq(message.getMessageSeq())
@@ -48,8 +48,6 @@ public class MessageSrchService {
         return messageDTOS;
     }
 
-
-
     public List<MessageDTO.Response> listBySender(Long userSeq) { //보낸 쪽지 리스트
 
         User user = userRepository.findByUserSeq(userSeq)
@@ -58,7 +56,7 @@ public class MessageSrchService {
         List<MessageDTO.Response> messageDTOS = new ArrayList<>();
 
         for (Message message : messages) {
-            if (message.getDeletedBySender().equals("N")) { //삭제하지 않았으면 보낼 때 추가해서 보내줌
+            if (message.getDeletedBySender().equals("F")) { //삭제하지 않았으면 보낼 때 추가해서 보내줌
                 messageDTOS.add(
                         MessageDTO.Response.builder()
                                 .messageSeq(message.getMessageSeq())

@@ -23,7 +23,7 @@ public class LoginController {
     public ResponseEntity<LoginDTO.Response> login(@RequestBody LoginDTO.Request requestDTO) {
 
         LoginDTO.Response jwtTokenResponseDTO = loginService.login(requestDTO.getUserId(), requestDTO.getUserPassword());
-        log.info("user - login success(userSeq: {})", jwtTokenResponseDTO.getUserSeq());
+        log.info("user - login(userSeq: {})", jwtTokenResponseDTO.getUserSeq());
 
         return ResponseEntity.ok(jwtTokenResponseDTO);
     }

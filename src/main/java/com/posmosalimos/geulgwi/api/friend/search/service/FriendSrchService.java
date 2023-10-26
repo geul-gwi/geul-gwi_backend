@@ -29,18 +29,18 @@ public class FriendSrchService {
 
         if (status.equals("friend")) { //친구
             return friendList.stream().
-                    filter(friend -> friend.isApproved() == true).map(
+                    filter(friend -> friend.getApproved().equals("T")).map(
                             friend -> FriendListDTO.builder()
                                     .userSeq(friend.getToUser().getUserSeq())
                                     .userId(friend.getToUser().getUserId())
                                     .nickname(friend.getToUser().getNickname())
                                     .profile(friend.getToUser().getUploadFile().getStore())
-                                    .isSubscribed(friend.isSubscribe())
+                                    .isSubscribed(friend.getSubscriber())
                                     .build()).toList();
 
         } else { //승인 대기(pending)
             return friendList.stream().
-                    filter(friend -> friend.isApproved() == false).map(
+                    filter(friend -> !friend.getApproved().equals("F")).map(
                             friend -> FriendListDTO.builder()
                                     .userSeq(friend.getToUser().getUserSeq())
                                     .userId(friend.getToUser().getUserId())
@@ -55,9 +55,9 @@ public class FriendSrchService {
         String status = "";
         User toUser = userService.findBySeq(friendDTO.getToUser());
         Friend findFriend = friendRepository.findByTwoUser(toUser, friendDTO.getFromUser());
-        if (findFriend.isApproved())
+        if (findFriend.getApproved().equals("T"))
             status = "friend";
-        else if (!findFriend.isApproved())
+        else if (!findFriend.getApproved().equals("F"))
             status = "pending";
         else //null
             status = "stranger";

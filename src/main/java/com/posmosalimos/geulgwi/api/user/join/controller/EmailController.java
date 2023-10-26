@@ -22,7 +22,7 @@ public class EmailController {
     public ResponseEntity<Boolean> validEmail(@RequestBody EmailDTO dto) {
 
         emailService.sendMail(dto.getEmail());
-        log.info("user - email sending success");
+        log.info("user - email sending");
 
         return ResponseEntity.ok(true);
     }
@@ -31,7 +31,7 @@ public class EmailController {
     public ResponseEntity<Boolean> validCode(@RequestBody EmailDTO.Valid valid) {
 
         emailService.validNumber(valid.getCode());
-        log.info("user - email verification success");
+        log.info("user - email verification");
 
         return ResponseEntity.ok(true);
     }

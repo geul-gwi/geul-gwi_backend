@@ -30,6 +30,7 @@ public class NoticeDelController {
         tokenManager.validateToken(accessToken);
 
         noticeService.delete(noticeSeq);
+        log.info("notice - delete(noticeSeq: {})", noticeSeq);
 
         return ResponseEntity.ok(true);
     }

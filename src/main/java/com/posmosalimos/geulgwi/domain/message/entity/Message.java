@@ -1,5 +1,6 @@
 package com.posmosalimos.geulgwi.domain.message.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Getter
@@ -38,6 +43,9 @@ public class Message {
     @JoinColumn(name = "receiverSeq")
     private User receiver;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private String regDate;
+
     public String deleteBySender() {
         this.deletedBySender = "Y";
         return deletedBySender;
@@ -51,6 +59,7 @@ public class Message {
 
     @Builder
     public Message (String title, String content, User sender, User receiver, String deletedByReceiver, String deletedBySender) {
+        this.regDate = LocalDate.now() + " " + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
         this.title = title;
         this.content = content;
         this.sender = sender;

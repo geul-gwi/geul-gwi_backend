@@ -32,10 +32,12 @@ public class ChallengeAdmin {
     private List<ChallengeUser> challengeUsers;
 
     @Builder
-    public ChallengeAdmin(String[] keyword, Long keyword_seq) {
-        this.challengeAdminSeq = keyword_seq;
-        this.keyword1 = keyword[0];
-        this.keyword2 = keyword[1];
-        this.keyword3 = keyword[2];
+    public ChallengeAdmin(List<String> keyword, String start, String end, String comment) {
+        this.keyword1 = keyword.get(0);
+        this.keyword2 = keyword.get(1);
+        this.keyword3 = keyword.get(2);
+        this.start = start;
+        this.end = end;
+        this.comment = comment;
     }
 }

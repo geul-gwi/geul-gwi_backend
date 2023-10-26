@@ -19,7 +19,7 @@ public class TokenService {
     private final UserService userService;
     private final TokenManager tokenManager;
 
-    public AccessTokenResponseDTO createAccessTokenByRefreshToken(String refreshToken){
+    public AccessTokenResponseDTO createAccessTokenByRefreshToken(String refreshToken) {
 
         User findUser = userService.findUserByRefreshToken(refreshToken);
 

@@ -21,7 +21,7 @@ public class FriendSrchontroller {
     private final FriendSrchService friendSrchService;
     private final TokenManager tokenManager;
 
-    @GetMapping("/list/{ststus}/{userSeq}")
+    @GetMapping("/list/{status}/{userSeq}")
     public ResponseEntity<List> list(@PathVariable("status") String status,
                                      @PathVariable("userSeq") Long userSeq,
                                      HttpServletRequest httpServletRequest) {
@@ -31,10 +31,12 @@ public class FriendSrchontroller {
         tokenManager.validateToken(accessToken);
 
         List<FriendListDTO> friendList = friendSrchService.list(status, userSeq); //status: friend, pending
+        log.info("friend - listByStatus(userSeq: {}, status: {})", userSeq, status);
+
         return ResponseEntity.ok(friendList);
     }
 
-    @GetMapping("/status")
+    @PostMapping("/status")
     public ResponseEntity<String> status(@RequestBody FriendDTO friendDTO,
                                         HttpServletRequest httpServletRequest) {
 
@@ -42,6 +44,9 @@ public class FriendSrchontroller {
         String accessToken = authorization.split(" ")[1];
         tokenManager.validateToken(accessToken);
 
-        return ResponseEntity.ok(friendSrchService.getStatus(friendDTO));
+        String status = friendSrchService.getStatus(friendDTO);
+        log.info("friend - status({} -> {}, status: {})", friendDTO.getFromUser(), friendDTO.getToUser(), status);
+
+        return ResponseEntity.ok(status);
     }
 }

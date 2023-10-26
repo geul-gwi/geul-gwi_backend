@@ -30,8 +30,8 @@ public class MessageSrchController {
         tokenManager.validateToken(accessToken);
 
         List<MessageDTO.Response> messageDTOS = messageSrchService.listByReceiver(userSeq);
-
         log.info("message - listByReceived");
+
         return ResponseEntity.ok(messageDTOS);
     }
 
@@ -45,8 +45,8 @@ public class MessageSrchController {
         tokenManager.validateToken(accessToken);
 
         List<MessageDTO.Response> messageDTOS = messageSrchService.listBySender(userSeq);
-
         log.info("message - listBySended");
+
         return ResponseEntity.ok(messageDTOS);
     }
 
