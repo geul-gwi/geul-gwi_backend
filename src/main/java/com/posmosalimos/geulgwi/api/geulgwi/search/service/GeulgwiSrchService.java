@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -53,7 +54,9 @@ public class GeulgwiSrchService {
                 .userSeq(findGeulgwi.getUser().getUserSeq())
                 .nickname(findUser.getNickname())
                 .comment(findUser.getComment())
-                .userProfile(findUser.getUploadFile().getStore())
+                .userProfile(Optional.ofNullable(findUser.getUploadFile())
+                        .map(UploadFile::getStore)
+                        .orElse(null))
                 .regDate(findGeulgwi.getRegDate())
                 .likeCount(findGeulgwi.getLikes().size())
                 .files(storeFiles)

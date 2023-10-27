@@ -5,6 +5,8 @@ import com.posmosalimos.geulgwi.domain.user.entity.Friend;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.domain.user.repository.FriendRepository;
 import com.posmosalimos.geulgwi.domain.user.service.UserService;
+import com.posmosalimos.geulgwi.global.error.ErrorCode;
+import com.posmosalimos.geulgwi.global.error.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -28,7 +30,8 @@ public class FriendCnfmService {
         User toUser = userService.findBySeq(friendDTO.getToUser()); //요청받은 회원
         User fromUser = userService.findBySeq(friendDTO.getFromUser()); //요청한 회원
         String approved = "F";
-        Friend alreadyPending = friendRepository.findByTwoUser(fromUser, toUser.getUserSeq());
+        Friend alreadyPending = friendRepository.findByTwoUser(fromUser, toUser.getUserSeq())
+                .orElseThrow(() -> new BusinessException(ErrorCode.FORBIDDEN_FRIEND));
 
         if (alreadyPending != null)
             //상대로부터 기요청이 왔던 상태
@@ -44,6 +47,7 @@ public class FriendCnfmService {
         friendRepository.save(friend);
 
 
-        return friendRepository.findByTwoUser(toUser, fromUser.getUserSeq());
+        return friendRepository.findByTwoUser(toUser, fromUser.getUserSeq())
+                .orElseThrow(() -> new BusinessException(ErrorCode.FORBIDDEN_FRIEND));
     }
 }

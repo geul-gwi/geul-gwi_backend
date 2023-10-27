@@ -1,6 +1,7 @@
 package com.posmosalimos.geulgwi.api.notice.service;
 
 import com.posmosalimos.geulgwi.api.notice.dto.NoticeDTO;
+import com.posmosalimos.geulgwi.domain.file.entity.UploadFile;
 import com.posmosalimos.geulgwi.domain.like.entity.Likes;
 import com.posmosalimos.geulgwi.domain.message.entity.Message;
 import com.posmosalimos.geulgwi.domain.notice.constant.Type;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -136,7 +138,9 @@ public class NoticeService {
                             .noticeSeq(fromUser.getNoticeSeq())
                             .fromUser(findUser.getUserSeq())
                             .nickname(findUser.getNickname())
-                            .profile(findUser.getUploadFile().getStore().isEmpty() ? null : findUser.getUploadFile().getStore())
+                            .profile(Optional.ofNullable(findUser.getUploadFile())
+                                    .map(UploadFile::getStore)
+                                    .orElse(null))
                             .friendSeq(fromUser.getFriendSeq())
                             .messageSeq(fromUser.getMessageSeq())
                             .geulgwiSeq(fromUser.getGeulgwiSeq())

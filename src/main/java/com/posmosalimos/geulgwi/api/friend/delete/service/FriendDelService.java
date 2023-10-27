@@ -26,8 +26,10 @@ public class FriendDelService {
         User toUser = userService.findBySeq(friendDTO.getToUser()); //요청 받은 유저
         User fromUser = userService.findBySeq(friendDTO.getFromUser()); //요청한 유저
 
-        Friend byToUser = friendRepository.findByTwoUser(toUser, fromUser.getUserSeq());
-        Friend byFromUser = friendRepository.findByTwoUser(fromUser, toUser.getUserSeq());
+        Friend byToUser = friendRepository.findByTwoUser(toUser, fromUser.getUserSeq())
+                .orElseThrow(() -> new BusinessException(ErrorCode.FORBIDDEN_FRIEND));
+        Friend byFromUser = friendRepository.findByTwoUser(fromUser, toUser.getUserSeq())
+                .orElseThrow(() -> new BusinessException(ErrorCode.FORBIDDEN_FRIEND));
 
         if (byToUser != null && byFromUser != null) { //친구 상태
             friendRepository.delete(toUser, fromUser.getUserSeq());

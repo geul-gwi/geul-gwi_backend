@@ -28,8 +28,10 @@ public class FriendSubsService {
         User toUser = userRepository.findByUserSeq(friendDTO.getToUser())
                 .orElseThrow(() -> new BusinessException(ErrorCode.FORBIDDEN_FRIEND)); //요청받을 사람
 
-        Friend byToUser = friendRepository.findByTwoUser(toUser, fromUser.getUserSeq());
-        Friend byFromUser = friendRepository.findByTwoUser(fromUser, toUser.getUserSeq());
+        Friend byToUser = friendRepository.findByTwoUser(toUser, fromUser.getUserSeq())
+                .orElseThrow(() -> new BusinessException(ErrorCode.FORBIDDEN_FRIEND));
+        Friend byFromUser = friendRepository.findByTwoUser(fromUser, toUser.getUserSeq())
+                .orElseThrow(() -> new BusinessException(ErrorCode.FORBIDDEN_FRIEND));
 
         if (byToUser != null && byFromUser != null) //친구상태
             byToUser.toggleSubscription(); //요청한 사람 -> 요청받을 사람 구독/취소 처리

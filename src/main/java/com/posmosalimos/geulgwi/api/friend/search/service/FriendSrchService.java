@@ -2,6 +2,7 @@ package com.posmosalimos.geulgwi.api.friend.search.service;
 
 import com.posmosalimos.geulgwi.api.friend.confirm.dto.FriendDTO;
 import com.posmosalimos.geulgwi.api.friend.search.dto.FriendListDTO;
+import com.posmosalimos.geulgwi.domain.file.entity.UploadFile;
 import com.posmosalimos.geulgwi.domain.file.service.FileService;
 import com.posmosalimos.geulgwi.domain.user.entity.Friend;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -35,19 +37,23 @@ public class FriendSrchService {
                                     .userSeq(friend.getToUser().getUserSeq())
                                     .userId(friend.getToUser().getUserId())
                                     .nickname(friend.getToUser().getNickname())
-                                    .profile(friend.getToUser().getUploadFile().getStore().isEmpty() ? null : friend.getToUser().getUploadFile().getStore())
+                                    .profile(Optional.ofNullable(friend.getToUser().getUploadFile())
+                                            .map(UploadFile::getStore)
+                                            .orElse(null))
                                     .isSubscribed(friend.getSubscriber())
                                     .build())
                     .toList();
 
         } else { //승인 대기(pending)
             return friendList.stream().
-                    filter(friend -> !friend.getApproved().equals("F")).map(
+                    filter(friend -> friend.getApproved().equals("F")).map(
                             friend -> FriendListDTO.builder()
                                     .userSeq(friend.getToUser().getUserSeq())
                                     .userId(friend.getToUser().getUserId())
                                     .nickname(friend.getToUser().getNickname())
-                                    .profile(friend.getToUser().getUploadFile().getStore().isEmpty() ? null : friend.getToUser().getUploadFile().getStore())
+                                    .profile(Optional.ofNullable(friend.getToUser().getUploadFile())
+                                            .map(UploadFile::getStore)
+                                            .orElse(null))
                                     .build()).toList();
         }
 
@@ -56,13 +62,15 @@ public class FriendSrchService {
     public String getStatus(FriendDTO friendDTO) {
         String status = "";
         User toUser = userService.findBySeq(friendDTO.getToUser());
-        Friend findFriend = friendRepository.findByTwoUser(toUser, friendDTO.getFromUser());
-        if (findFriend.getApproved().equals("T"))
-            status = "friend";
-        else if (!findFriend.getApproved().equals("F"))
-            status = "pending";
-        else //null
+        Friend findFriend = friendRepository.findByTwoUser(toUser, friendDTO.getFromUser()).orElse(null);
+
+        if (findFriend == null)
             status = "stranger";
+        else if (findFriend.getApproved().equals("T"))
+            status = "friend";
+        else if (findFriend.getApproved().equals("F"))
+            status = "pending";
+
         return status;
     }
 

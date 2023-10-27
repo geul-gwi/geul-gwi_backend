@@ -8,11 +8,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface FriendRepository extends JpaRepository<Friend, Long> {
 
     @Query("select f from Friend f where f.toUser = :user and f.fromUser = :userSeq")
-    Friend findByTwoUser(@Param("user") User user, @Param("userSeq") Long userSeq);
+    Optional<Friend> findByTwoUser(@Param("user") User user, @Param("userSeq") Long userSeq);
 
     @Modifying
     @Query("delete from Friend f where f.toUser = :user and f.fromUser =:userSeq")
