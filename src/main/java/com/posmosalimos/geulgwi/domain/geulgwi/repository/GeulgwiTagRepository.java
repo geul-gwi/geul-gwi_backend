@@ -15,6 +15,7 @@ public interface GeulgwiTagRepository extends JpaRepository<GeulgwiTag, Long> {
     @Query("delete from GeulgwiTag g where g.geulgwi = :geulgwi")
     void deleteByGeulgwi(@Param("geulgwi") Geulgwi geulgwi);
 
-    @Query("select g from GeulgwiTag g where g.geulgwiTagSeq = :tagSeq")
+    @Query("select g from GeulgwiTag g where g.tag.tagSeq = :tagSeq")
     List<GeulgwiTag> findByTagSeq(@Param("tagSeq") Long tagSeq);
+
 }

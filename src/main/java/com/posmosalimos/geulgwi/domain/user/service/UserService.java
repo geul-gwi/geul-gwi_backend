@@ -2,6 +2,7 @@ package com.posmosalimos.geulgwi.domain.user.service;
 
 import com.posmosalimos.geulgwi.api.tag.list.dto.TagDTO;
 import com.posmosalimos.geulgwi.api.user.search.dto.UserListDTO;
+import com.posmosalimos.geulgwi.domain.file.service.FileService;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.domain.user.entity.UserTag;
 import com.posmosalimos.geulgwi.domain.user.repository.UserRepository;
@@ -26,6 +27,7 @@ import java.util.stream.Collectors;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final FileService fileService;
 
     //join
     @Transactional
@@ -80,9 +82,7 @@ public class UserService {
                 .map(TagDTO::from)
                 .collect(Collectors.toList());
 
-        String profile = Optional.ofNullable(findUser.getUploadFile())
-                .map(uploadFile -> uploadFile.getStore())
-                .orElse(null);
+        String profile = fileService.findByUser(findUser);
 
         return UserInfoDTO.builder()
                 .userSeq(userSeq)

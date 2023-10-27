@@ -2,6 +2,7 @@ package com.posmosalimos.geulgwi.api.friend.search.service;
 
 import com.posmosalimos.geulgwi.api.friend.confirm.dto.FriendDTO;
 import com.posmosalimos.geulgwi.api.friend.search.dto.FriendListDTO;
+import com.posmosalimos.geulgwi.domain.file.service.FileService;
 import com.posmosalimos.geulgwi.domain.user.entity.Friend;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.domain.user.repository.FriendRepository;
@@ -29,14 +30,15 @@ public class FriendSrchService {
 
         if (status.equals("friend")) { //친구
             return friendList.stream().
-                    filter(friend -> friend.getApproved().equals("T")).map(
-                            friend -> FriendListDTO.builder()
+                    filter(friend -> friend.getApproved().equals("T"))
+                    .map(friend -> FriendListDTO.builder()
                                     .userSeq(friend.getToUser().getUserSeq())
                                     .userId(friend.getToUser().getUserId())
                                     .nickname(friend.getToUser().getNickname())
-                                    .profile(friend.getToUser().getUploadFile().getStore())
+                                    .profile(friend.getToUser().getUploadFile().getStore().isEmpty() ? null : friend.getToUser().getUploadFile().getStore())
                                     .isSubscribed(friend.getSubscriber())
-                                    .build()).toList();
+                                    .build())
+                    .toList();
 
         } else { //승인 대기(pending)
             return friendList.stream().
@@ -45,7 +47,7 @@ public class FriendSrchService {
                                     .userSeq(friend.getToUser().getUserSeq())
                                     .userId(friend.getToUser().getUserId())
                                     .nickname(friend.getToUser().getNickname())
-                                    .profile(friend.getToUser().getUploadFile().getStore())
+                                    .profile(friend.getToUser().getUploadFile().getStore().isEmpty() ? null : friend.getToUser().getUploadFile().getStore())
                                     .build()).toList();
         }
 

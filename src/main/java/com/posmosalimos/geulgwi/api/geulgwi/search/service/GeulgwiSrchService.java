@@ -114,10 +114,7 @@ public class GeulgwiSrchService {
         List<GeulgwiTag> geulgwiTagList = geulgwiTagRepository.findByTagSeq(tagSeq);
 
         return geulgwiTagList.stream()
-                .map(geulgwiTag -> geulgwiTag.getGeulgwi())
-                .map(GeulgwiListDTO::from)
+                .map(geulgwiTag -> GeulgwiListDTO.from(geulgwiTag.getGeulgwi()))
                 .toList();
-
-
     }
 }

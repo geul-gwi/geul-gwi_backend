@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -16,6 +18,10 @@ public class UploadController {
 
     @GetMapping(value = "/file", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<byte[]> upload(@RequestParam String file) throws IOException {
+        // 단건
+
+        if (file.isEmpty())
+            return null;
 
         InputStream imageStream = new FileInputStream(file); //이미지 읽어오기
         ByteArrayOutputStream buffer = new ByteArrayOutputStream(); //임시로 저장할 ByteArrayOutputStream 생성

@@ -136,7 +136,7 @@ public class NoticeService {
                             .noticeSeq(fromUser.getNoticeSeq())
                             .fromUser(findUser.getUserSeq())
                             .nickname(findUser.getNickname())
-                            .profile(findUser.getUploadFile().getStore().isEmpty() ? "null" : findUser.getUploadFile().getStore())
+                            .profile(findUser.getUploadFile().getStore().isEmpty() ? null : findUser.getUploadFile().getStore())
                             .friendSeq(fromUser.getFriendSeq())
                             .messageSeq(fromUser.getMessageSeq())
                             .geulgwiSeq(fromUser.getGeulgwiSeq())
