@@ -38,5 +38,35 @@ public class UploadController {
         return new ResponseEntity<byte[]>(targetArray, HttpStatus.OK); //바이트 배열 리턴
     }
 
+
+    @GetMapping(value = "/files", produces = MediaType.IMAGE_JPEG_VALUE)
+    public ResponseEntity<List> uploadFiles(@RequestParam List<String> files) throws IOException {
+        // 복수건
+
+        if (files.isEmpty())
+            return null;
+
+        List<byte[]> fileList = new ArrayList<>();
+
+        for (String file : files) {
+
+            InputStream imageStream = new FileInputStream(file); //이미지 읽어오기
+            ByteArrayOutputStream buffer = new ByteArrayOutputStream(); //임시로 저장할 ByteArrayOutputStream 생성
+            int read;
+            byte[] imageByteArray = new byte[imageStream.available()]; //이미지 파일의 크기만큼 바이트 배열을 생성
+
+            while ((read = imageStream.read(imageByteArray, 0, imageByteArray.length)) != -1) { //바이트 배열에 저장
+                buffer.write(imageByteArray, 0, read);
+            }
+            buffer.flush();
+            byte[] targetArray = buffer.toByteArray();
+
+            fileList.add(targetArray);
+
+            imageStream.close();
+        }
+
+        return ResponseEntity.ok(fileList); //바이트 배열 리턴
+    }
 }
 
