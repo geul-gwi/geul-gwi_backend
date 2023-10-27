@@ -31,11 +31,14 @@ public class FriendCnfmService {
         User fromUser = userService.findBySeq(friendDTO.getFromUser()); //요청한 회원
         String approved = "F";
         Friend alreadyPending = friendRepository.findByTwoUser(fromUser, toUser.getUserSeq())
-                .orElseThrow(() -> new BusinessException(ErrorCode.FORBIDDEN_FRIEND));
+                .orElse(null);
 
-        if (alreadyPending != null)
+        if (alreadyPending != null) {
             //상대로부터 기요청이 왔던 상태
             alreadyPending.toggleApproval();
+            approved = "T";
+        }
+
 
         Friend friend = Friend.builder()
                 .toUser(toUser)

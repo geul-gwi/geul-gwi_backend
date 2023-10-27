@@ -27,7 +27,6 @@ public class Notice {
 
     private Long fromUser; //알림 보낸 사람
 
-    @Column(length = 5)
     private String checked;
 
     @Enumerated(value = EnumType.STRING)
