@@ -40,11 +40,11 @@ public class ChallengeService {
     }
 
     @Transactional
-    public void delete(Long seq) {
-        challengeUserRepository.delete(seq);
+    public void delete(ChallengeUser challengeUser) {
+        challengeUserRepository.delete(challengeUser);
     }
 
-    public void validateKeyword(ChallengeRegDTO challengeRegDTO, String[] keywords) {
+    public void validateKeyword(ChallengeRegDTO challengeRegDTO, List<String> keywords) {
         for (String str : keywords) {
             if (!(challengeRegDTO.getChallengeContent().contains(str))) {
                 log.info(str + " 키워드가 들어가지 않았습니다.");

@@ -9,6 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -16,18 +19,18 @@ import org.springframework.transaction.annotation.Transactional;
 public class ChallengeUpdtService {
 
     private final ChallengeService challengeService;
-    private final ChallengeAdminRepository challengeAdminRepository;
 
     @Transactional
-    public void update(Long keywordSeq,
-                       Long userSeq,
-                       Long challengeUserSeq,
-                       ChallengeRegDTO challengeRegDTO) {
+    public void update(Long challengeUserSeq, ChallengeRegDTO challengeRegDTO) {
 
-        String[] keywords = challengeAdminRepository.findKeywordSeq(keywordSeq).split(",");
         ChallengeUser challengeUser = challengeService.findByChallengeUserSeq(challengeUserSeq);
 
         challengeUser.update(challengeRegDTO.getChallengeContent());
+
+        List<String> keywords = new ArrayList<>();
+        keywords.add(challengeUser.getChallengeAdmin().getKeyword1());
+        keywords.add(challengeUser.getChallengeAdmin().getKeyword2());
+        keywords.add(challengeUser.getChallengeAdmin().getKeyword3());
 
         challengeService.validateKeyword(challengeRegDTO, keywords);
     }

@@ -20,7 +20,6 @@ public class ChallengeRegController {
 
     private final ChallengeRegService challengeRegService;
     private final TokenManager tokenManager;
-    private final UserService userService;
 
     @PostMapping("/register/{userSeq}")
     public ResponseEntity<Boolean> register(@Valid @RequestBody ChallengeRegDTO challengeRegDTO,
@@ -32,9 +31,8 @@ public class ChallengeRegController {
 
         tokenManager.validateToken(accessToken);
 
-        User findUser = userService.findBySeq(userSeq);
 
-        challengeRegService.register(challengeRegDTO, findUser);
+        challengeRegService.register(challengeRegDTO, userSeq);
         log.info("challenge - register");
 
         return ResponseEntity.ok(true);

@@ -24,11 +24,9 @@ public class ChallengeUpdtController {
     private final LikeService likeService;
     private final NoticeService noticeService;
 
-    @PostMapping("/update/{keywordSeq}/{userSeq}/{challengeUserSeq}")
+    @PostMapping("/update/{challengeUserSeq}")
     public ResponseEntity<Boolean> update(@Valid @RequestBody ChallengeRegDTO challengeRegDTO,
-                                          @PathVariable("keywordSeq") Long keywordSeq,
-                                          @PathVariable("userSeq") Long userSeq,
-                                          @PathVariable("challengeUserSeq") Long challengeUserSeq,
+                                          @PathVariable("challengeUserSeq") Long challengeUserSeq, //글 쓴 사람
                                           HttpServletRequest httpServletRequest) {
 
         String authorization = httpServletRequest.getHeader("Authorization");
@@ -36,8 +34,8 @@ public class ChallengeUpdtController {
 
         tokenManager.validateToken(accessToken);
 
-        challengeUdtService.update(keywordSeq, userSeq, challengeUserSeq, challengeRegDTO);
-        log.info("challenge - update success(challengeSeq: {})", challengeUserSeq);
+        challengeUdtService.update(challengeUserSeq, challengeRegDTO);
+        log.info("challenge - update(challengeSeq: {})", challengeUserSeq);
 
         return ResponseEntity.ok(true);
     }
@@ -55,7 +53,7 @@ public class ChallengeUpdtController {
         Likes likes = likeService.likeChallengeUser(challengeUserSeq, userSeq);
         noticeService.sendByLikeChallenge(likes);
 
-        log.info("challenge - like (userSeq:{})", userSeq);
+        log.info("challenge - like(userSeq:{})", userSeq);
 
         return ResponseEntity.ok(true);
     }
@@ -71,7 +69,7 @@ public class ChallengeUpdtController {
         tokenManager.validateToken(accessToken);
 
         likeService.unlikeChallengeUser(challengeUserSeq, userSeq);
-        log.info("challenge - unlike (userSeq: {})", userSeq);
+        log.info("challenge - unlike(userSeq: {})", userSeq);
 
         return ResponseEntity.ok(true);
     }

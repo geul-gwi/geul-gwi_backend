@@ -20,6 +20,7 @@ public class ChallengeDelController {
     @DeleteMapping("/delete/{challengeUserSeq}")
     public ResponseEntity<Boolean> deleteChallenge(@PathVariable("challengeUserSeq") Long challengeUserSeq,
                                                    HttpServletRequest httpServletRequest) {
+
         String authorization = httpServletRequest.getHeader("Authorization");
         String accessToken = authorization.split(" ")[1];
 

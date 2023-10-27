@@ -24,8 +24,9 @@ public class ChallengeSrchService {
     private final UserService userService;
     private final LikeService likeService;
 
-    public ChallengeAdminDTO findChallenge(Long challengeSeq) {
+    public ChallengeAdminDTO findByChallengeAdminSeq(Long challengeSeq) {
         ChallengeAdmin challenge = challengeService.findChallenge(challengeSeq);
+
         return ChallengeAdminDTO.builder()
                 .challengeSeq(challenge.getChallengeAdminSeq())
                 .keyword1(challenge.getKeyword1())
@@ -38,9 +39,9 @@ public class ChallengeSrchService {
 
     }
 
-    public List<ChallengeSrchDTO> findChallengeUsers(Long adminSeq, Long userSeq) {
+    public List<ChallengeSrchDTO> findChallengeUsers(Long adminSeq, Long viewSeq) {
 
-        User findUser = userService.findBySeq(userSeq);
+        User findUser = userService.findBySeq(viewSeq);
 
         List<ChallengeUser> challengeUserByAdminSeq = challengeService.findByAdminSeq(adminSeq);
         List<ChallengeSrchDTO> searchDTOS = new ArrayList<>();
@@ -48,7 +49,6 @@ public class ChallengeSrchService {
         for (ChallengeUser challenge : challengeUserByAdminSeq) {
             Boolean isLiked = likeService.findByChallenge(challenge, findUser);
             searchDTOS.add(ChallengeSrchDTO.from(challenge, isLiked));
-
         }
 
         return searchDTOS;

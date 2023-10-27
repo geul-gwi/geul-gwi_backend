@@ -21,8 +21,8 @@ public class ChallengeSrchController {
     private final ChallengeSrchService challengeSearchService;
     private final TokenManager tokenManager;
 
-    @GetMapping("/event/{challengeSeq}") //개최글 조회
-    public ResponseEntity<ChallengeAdminDTO> findChallengeAdmin(@PathVariable("challengeSeq") Long challengeSeq,
+    @GetMapping("/event/{challengeAdminSeq}") //개최 폼 조회(관리자 등록)
+    public ResponseEntity<ChallengeAdminDTO> findChallengeAdmin(@PathVariable("challengeAdminSeq") Long challengeAdminSeq,
                                                                 HttpServletRequest httpServletRequest) {
 
         String authorization = httpServletRequest.getHeader("Authorization");
@@ -30,15 +30,15 @@ public class ChallengeSrchController {
 
         tokenManager.validateToken(accessToken);
 
-        ChallengeAdminDTO challenge = challengeSearchService.findChallenge(challengeSeq);
-        log.info("challenge - get(challengeSeq: {})", challengeSeq);
+        ChallengeAdminDTO challenge = challengeSearchService.findByChallengeAdminSeq(challengeAdminSeq);
+        log.info("challenge - get(challengeAdminSeq: {})", challengeAdminSeq);
 
         return ResponseEntity.ok(challenge);
     }
 
-    @GetMapping("/list/{challengeSeq}")
-    public ResponseEntity<List> findChallengeUser(@PathVariable("challengeSeq") Long challengeSeq,
-                                                  @RequestParam("userSeq") Long userSeq,
+    @GetMapping("/list/{challengeAdminSeq}") //회차당 게시글 조회
+    public ResponseEntity<List> findChallengeUser(@PathVariable("challengeAdminSeq") Long challengeAdminSeq,
+                                                  @RequestParam("viewSeq") Long viewSeq,
                                                   HttpServletRequest httpServletRequest) {
 
         String authorization = httpServletRequest.getHeader("Authorization");
@@ -46,8 +46,9 @@ public class ChallengeSrchController {
 
         tokenManager.validateToken(accessToken);
 
-        List<ChallengeSrchDTO> searchDTOS = challengeSearchService.findChallengeUsers(challengeSeq, userSeq);
-        log.info("challenge - list(challengeSeq: {})", challengeSeq);
+        List<ChallengeSrchDTO> searchDTOS = challengeSearchService.findChallengeUsers(challengeAdminSeq, viewSeq);
+        log.info("challenge - list(challengeAdminSeq: {})", challengeAdminSeq);
+
         return ResponseEntity.ok(searchDTOS);
     }
 

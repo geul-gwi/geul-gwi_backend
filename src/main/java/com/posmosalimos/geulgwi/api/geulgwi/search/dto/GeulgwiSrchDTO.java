@@ -16,6 +16,9 @@ public class GeulgwiSrchDTO {
         private Long geulgwiSeq;
         private String geulgwiContent;
         private Long userSeq;
+        private String nickname;
+        private String comment;
+        private String userProfile;
         private String regDate;
         private List<String> files;
         private int likeCount;
