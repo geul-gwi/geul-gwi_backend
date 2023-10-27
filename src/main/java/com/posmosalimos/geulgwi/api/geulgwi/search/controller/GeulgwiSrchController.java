@@ -67,8 +67,8 @@ public class GeulgwiSrchController {
 
     }
 
-    @GetMapping("/search/{tagSeq}") //태그로 찾기
-    public ResponseEntity<List> searchByTagSeq(@PathVariable("tagValue") Long tagSeq,
+    @GetMapping("/search") //태그로 찾기
+    public ResponseEntity<List> searchByTagSeq(@RequestParam("tagValue") Long tagSeq,
                                                  HttpServletRequest httpServletRequest) {
 
         String authorization = httpServletRequest.getHeader("Authoriztion");
