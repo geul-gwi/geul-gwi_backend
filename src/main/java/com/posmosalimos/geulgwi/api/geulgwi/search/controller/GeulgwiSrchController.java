@@ -46,12 +46,12 @@ public class GeulgwiSrchController {
 
         tokenManager.validateToken(accessToken);
 
-        List<GeulgwiSrchDTO.Response> geulgwiSrchDTOS = geulgwiSrchService.listByUserSeq(userSeq, viewSeq);
+        List<GeulgwiSrchDTO.Response> geulgwiSrchDTOS = geulgwiSrchService.findByUserSeq(userSeq, viewSeq);
 
         return ResponseEntity.ok(geulgwiSrchDTOS);
     }
 
-    @GetMapping("/list")
+    @GetMapping("/list") //전체 리스트
     public ResponseEntity<List> listAll(HttpServletRequest httpServletRequest) {
 
         String authorization = httpServletRequest.getHeader("Authorization");
@@ -59,7 +59,7 @@ public class GeulgwiSrchController {
 
         tokenManager.validateToken(accessToken);
 
-        List<GeulgwiListDTO> geulgwiListDTOS = geulgwiSrchService.listAll();
+        List<GeulgwiListDTO> geulgwiListDTOS = geulgwiSrchService.findAll();
 
         log.info("geulgwi - list");
 
@@ -67,5 +67,19 @@ public class GeulgwiSrchController {
 
     }
 
+    @GetMapping("/search/{tagSeq}") //태그로 찾기
+    public ResponseEntity<List> searchByTagSeq(@PathVariable("tagValue") Long tagSeq,
+                                                 HttpServletRequest httpServletRequest) {
+
+        String authorization = httpServletRequest.getHeader("Authoriztion");
+        String accessToken = authorization.split(" ")[1];
+
+        tokenManager.validateToken(accessToken);
+
+        List<GeulgwiListDTO> geulgwiListDTOS = geulgwiSrchService.findByTagSeq(tagSeq);
+        log.info("geulgwi - findByTagSeq(tagSeq: {})", tagSeq);
+
+        return ResponseEntity.ok(geulgwiListDTOS);
+    }
 
 }

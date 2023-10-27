@@ -6,6 +6,7 @@ import com.posmosalimos.geulgwi.api.tag.list.dto.TagDTO;
 import com.posmosalimos.geulgwi.domain.file.entity.UploadFile;
 import com.posmosalimos.geulgwi.domain.geulgwi.entity.Geulgwi;
 import com.posmosalimos.geulgwi.domain.geulgwi.entity.GeulgwiTag;
+import com.posmosalimos.geulgwi.domain.geulgwi.repository.GeulgwiTagRepository;
 import com.posmosalimos.geulgwi.domain.geulgwi.service.GeulgwiService;
 import com.posmosalimos.geulgwi.domain.like.service.LikeService;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
@@ -26,6 +27,7 @@ import java.util.stream.Collectors;
 public class GeulgwiSrchService {
 
     private final GeulgwiService geulgwiService;
+    private final GeulgwiTagRepository geulgwiTagRepository;
     private final LikeService likeService;
     private final UserService userService;
 
@@ -60,7 +62,7 @@ public class GeulgwiSrchService {
                 .build();
     }
 
-    public List<GeulgwiSrchDTO.Response> listByUserSeq(Long userSeq, Long viewSeq) {
+    public List<GeulgwiSrchDTO.Response> findByUserSeq(Long userSeq, Long viewSeq) {
         List<Geulgwi> list = geulgwiService.findByUserSeq(userSeq);
         List<GeulgwiSrchDTO.Response> dtos = new ArrayList<>();
         User viewUser = userService.findBySeq(viewSeq);
@@ -94,7 +96,7 @@ public class GeulgwiSrchService {
         return dtos;
     }
 
-    public List<GeulgwiListDTO> listAll() {
+    public List<GeulgwiListDTO> findAll() {
         List<Geulgwi> list = geulgwiService.listAll();
 
         return list.stream()
@@ -108,4 +110,14 @@ public class GeulgwiSrchService {
 
     }
 
+    public List<GeulgwiListDTO> findByTagSeq(Long tagSeq) {
+        List<GeulgwiTag> geulgwiTagList = geulgwiTagRepository.findByTagSeq(tagSeq);
+
+        return geulgwiTagList.stream()
+                .map(geulgwiTag -> geulgwiTag.getGeulgwi())
+                .map(GeulgwiListDTO::from)
+                .toList();
+
+
+    }
 }
