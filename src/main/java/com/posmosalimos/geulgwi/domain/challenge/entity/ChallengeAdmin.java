@@ -2,6 +2,7 @@ package com.posmosalimos.geulgwi.domain.challenge.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.posmosalimos.geulgwi.domain.challenge.constant.Status;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,9 +23,11 @@ public class ChallengeAdmin {
     private String keyword2;
     private String keyword3;
     private String comment;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Enumerated(value = EnumType.STRING)
+    private Status status;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private String start;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private String end;
 
     @JsonIgnore
@@ -32,12 +35,13 @@ public class ChallengeAdmin {
     private List<ChallengeUser> challengeUsers;
 
     @Builder
-    public ChallengeAdmin(List<String> keyword, String start, String end, String comment) {
+    public ChallengeAdmin(List<String> keyword, String start, String end, String comment, Status status) {
         this.keyword1 = keyword.get(0);
         this.keyword2 = keyword.get(1);
         this.keyword3 = keyword.get(2);
         this.start = start;
         this.end = end;
         this.comment = comment;
+        this.status = status;
     }
 }

@@ -1,6 +1,7 @@
 package com.posmosalimos.geulgwi.api.challenge.admin.register.service;
 
 import com.posmosalimos.geulgwi.api.challenge.admin.register.dto.ChallengeFormDTO;
+import com.posmosalimos.geulgwi.domain.challenge.constant.Status;
 import com.posmosalimos.geulgwi.domain.challenge.entity.ChallengeAdmin;
 import com.posmosalimos.geulgwi.domain.challenge.repository.ChallengeAdminRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ public class ChallengeRegAdminService {
                 .start(challengeFormDTO.getStart())
                 .end(challengeFormDTO.getEnd())
                 .comment(challengeFormDTO.getComment())
+                .status(Status.UPCOMING)
                 .build();
 
         challengeAdminRepository.save(challengeAdmin);

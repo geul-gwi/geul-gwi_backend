@@ -33,10 +33,10 @@ public class FriendSrchService {
         List<FriendListDTO> listDTOS = new ArrayList<>();
 
         if (status.equals("friend")) { //친구
-            List<Friend> friendList = friendRepository.getFriendList(findUser);
+            List<Friend> friendList = friendRepository.getFriendList(findUser); //로그인한 유저가 toUser로 친구목록 불러오기
 
             for (Friend friend : friendList) {
-                User friendUser = userService.findBySeq(friend.getFromUser());
+                User friendUser = userService.findBySeq(friend.getFromUser()); //로그인한 유저랑 친구인 회원
 
                 listDTOS.add(
                         FriendListDTO.builder()
@@ -46,6 +46,8 @@ public class FriendSrchService {
                                 .profile(Optional.ofNullable(friendUser.getUploadFile())
                                         .map(UploadFile::getStore)
                                         .orElse(null))
+                                .isSubscribed(friendRepository.findByTwoUser(friendUser, findUser.getUserSeq())
+                                        .get().getSubscriber()) //로그인한 유저 -> 친구인 상대 유저의 구독 여부
                                 .build()
                 );
             }

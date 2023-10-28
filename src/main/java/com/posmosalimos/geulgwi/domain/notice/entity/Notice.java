@@ -32,7 +32,7 @@ public class Notice {
     @Enumerated(value = EnumType.STRING)
     private Type type;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private String regDate;
 
     private Long friendSeq;

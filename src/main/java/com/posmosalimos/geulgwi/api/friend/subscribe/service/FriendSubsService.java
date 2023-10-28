@@ -24,9 +24,9 @@ public class FriendSubsService {
     @Transactional
     public void toggleSubscription(FriendDTO friendDTO) {
         User fromUser = userRepository.findByUserSeq(friendDTO.getFromUser())
-                .orElseThrow(() -> new BusinessException(ErrorCode.FORBIDDEN_FRIEND)); //요청한 사람
+                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND)); //요청한 사람
         User toUser = userRepository.findByUserSeq(friendDTO.getToUser())
-                .orElseThrow(() -> new BusinessException(ErrorCode.FORBIDDEN_FRIEND)); //요청받을 사람
+                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND)); //요청받을 사람
 
         Friend byToUser = friendRepository.findByTwoUser(toUser, fromUser.getUserSeq())
                 .orElseThrow(() -> new BusinessException(ErrorCode.FORBIDDEN_FRIEND));

@@ -1,12 +1,15 @@
 package com.posmosalimos.geulgwi.api.token.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Getter @Builder
+@NoArgsConstructor @AllArgsConstructor
 public class AccessTokenResponseDTO {
 
     private String grantType;

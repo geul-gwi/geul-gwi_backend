@@ -43,7 +43,7 @@ public class Message {
     @JoinColumn(name = "receiverSeq")
     private User receiver;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private String regDate;
 
     public String deleteBySender() {

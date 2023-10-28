@@ -24,7 +24,7 @@ public class ChallengeUser {
     @Column(updatable = false)
     private Long challengeUserSeq;
     private String challengeContent;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private String regDate;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "challengeAdminSeq")
