@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,11 +29,13 @@ public class FriendSrchService {
     public List<FriendListDTO> list(String status, Long userSeq) {
         //pending: fromUser -> toUser(approved = false)
         //friend: fromUser -> toUser(approved = true)
-        List<Friend> friendList = friendRepository.getFriendList(userSeq);
+        User findUser = userService.findBySeq(userSeq);
+
 
         if (status.equals("friend")) { //친구
-            return friendList.stream().
-                    filter(friend -> friend.getApproved().equals("T"))
+            List<Friend> friendList = friendRepository.getFriendList(findUser);
+
+            return friendList.stream()
                     .map(friend -> FriendListDTO.builder()
                                     .userSeq(friend.getToUser().getUserSeq())
                                     .userId(friend.getToUser().getUserId())
@@ -44,17 +47,25 @@ public class FriendSrchService {
                                     .build())
                     .toList();
 
-        } else { //승인 대기(pending)
-            return friendList.stream().
-                    filter(friend -> friend.getApproved().equals("F")).map(
-                            friend -> FriendListDTO.builder()
-                                    .userSeq(friend.getToUser().getUserSeq())
-                                    .userId(friend.getToUser().getUserId())
-                                    .nickname(friend.getToUser().getNickname())
-                                    .profile(Optional.ofNullable(friend.getToUser().getUploadFile())
-                                            .map(UploadFile::getStore)
-                                            .orElse(null))
-                                    .build()).toList();
+        } else { //status.equals("pending")
+            List<Friend> pendingList = friendRepository.getPendingList(findUser);
+            List<FriendListDTO> pendingListDTOS = new ArrayList<>();
+
+            for (Friend pending : pendingList) {
+                User pendingUser = userService.findBySeq(pending.getFromUser());
+                pendingListDTOS.add(
+                    FriendListDTO.builder()
+                            .userSeq(pendingUser.getUserSeq())
+                            .userId(pendingUser.getUserId())
+                            .nickname(pendingUser.getNickname())
+                            .profile(Optional.ofNullable(pendingUser.getUploadFile())
+                                    .map(UploadFile::getStore)
+                                    .orElse(null))
+                            .build()
+                );
+            }
+
+            return pendingListDTOS;
         }
 
     }
