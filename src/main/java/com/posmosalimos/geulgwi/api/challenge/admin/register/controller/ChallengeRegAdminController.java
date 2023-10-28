@@ -21,7 +21,7 @@ public class ChallengeRegAdminController {
     private final TokenManager tokenManager;
     private final ChallengeRegAdminService challengeRegAdminService;
 
-    @PostMapping("/event/register")
+    @PostMapping("/register")
     public ResponseEntity<Boolean> event(@RequestBody ChallengeFormDTO challengeFormDTO,
                                          HttpServletRequest httpServletRequest) {
 

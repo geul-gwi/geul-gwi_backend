@@ -60,4 +60,13 @@ public class ChallengeService {
         return challengeUser;
     }
 
+    public List<ChallengeAdmin> findAllChallengeAdmin() {
+        return challengeAdminRepository.findAll();
+
+    }
+
+    public ChallengeAdmin findByChallengeAdminSeq(Long challengeAdminSeq) {
+        return challengeAdminRepository.findById(challengeAdminSeq)
+                .orElseThrow(() -> new BusinessException(ErrorCode.CHALLENGE_NOT_FOUND));
+    }
 }

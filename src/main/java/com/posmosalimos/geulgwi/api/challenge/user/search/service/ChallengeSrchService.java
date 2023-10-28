@@ -1,5 +1,6 @@
 package com.posmosalimos.geulgwi.api.challenge.user.search.service;
 
+import com.posmosalimos.geulgwi.api.challenge.admin.register.dto.ChallengeFormDTO;
 import com.posmosalimos.geulgwi.api.challenge.user.search.dto.ChallengeAdminDTO;
 import com.posmosalimos.geulgwi.api.challenge.user.search.dto.ChallengeSrchDTO;
 import com.posmosalimos.geulgwi.domain.challenge.entity.ChallengeAdmin;
@@ -24,19 +25,31 @@ public class ChallengeSrchService {
     private final UserService userService;
     private final LikeService likeService;
 
-    public ChallengeAdminDTO findByChallengeAdminSeq(Long challengeSeq) {
-        ChallengeAdmin challenge = challengeService.findChallenge(challengeSeq);
+    public List<ChallengeFormDTO.Response> findAllChallengeAdmin() {
 
-        return ChallengeAdminDTO.builder()
-                .challengeSeq(challenge.getChallengeAdminSeq())
-                .keyword1(challenge.getKeyword1())
-                .keyword2(challenge.getKeyword2())
-                .keyword3(challenge.getKeyword3())
-                .comment(challenge.getComment())
-                .start(challenge.getStart())
-                .end(challenge.getEnd())
-                .build();
+        List<ChallengeAdmin> challengeAdminList = challengeService.findAllChallengeAdmin();
+        List<ChallengeFormDTO.Response> challengeFormDTOS = new ArrayList<>();
 
+        for (ChallengeAdmin challengeAdmin : challengeAdminList) {
+            List<String> keywords = new ArrayList<>();
+            keywords.add(challengeAdmin.getKeyword1());
+            keywords.add(challengeAdmin.getKeyword2());
+            keywords.add(challengeAdmin.getKeyword3());
+
+            challengeFormDTOS.add(
+                    ChallengeFormDTO.Response.builder()
+                            .challengeAdminSeq(challengeAdmin.getChallengeAdminSeq())
+                            .comment(challengeAdmin.getComment())
+                            .start(challengeAdmin.getStart())
+                            .end(challengeAdmin.getEnd())
+                            .keyword(keywords)
+                            .status(challengeAdmin.getStatus().toString())
+                            .build()
+            );
+
+        }
+
+        return challengeFormDTOS;
     }
 
     public List<ChallengeSrchDTO> findChallengeUsers(Long adminSeq, Long viewSeq) {

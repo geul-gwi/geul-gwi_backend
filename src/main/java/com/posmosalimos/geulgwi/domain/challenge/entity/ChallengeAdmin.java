@@ -34,6 +34,20 @@ public class ChallengeAdmin {
     @OneToMany(mappedBy = "challengeAdmin", fetch = FetchType.LAZY)
     private List<ChallengeUser> challengeUsers;
 
+    public void updateStatus(Status status) {
+        this.status = status;
+    }
+
+    public void update(String comment, List<String> keyword, String start, String end, Status status) {
+        this.keyword1 = keyword.get(0);
+        this.keyword2 = keyword.get(1);
+        this.keyword3 = keyword.get(2);
+        this.start = start;
+        this.end = end;
+        this.comment = comment;
+        this.status = status;
+    }
+
     @Builder
     public ChallengeAdmin(List<String> keyword, String start, String end, String comment, Status status) {
         this.keyword1 = keyword.get(0);

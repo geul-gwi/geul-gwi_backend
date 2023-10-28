@@ -22,5 +22,6 @@ public class ChallengeFormDTO {
         private String start;
         private String end;
         private List<String> keyword;
+        private String status;
     }
 }

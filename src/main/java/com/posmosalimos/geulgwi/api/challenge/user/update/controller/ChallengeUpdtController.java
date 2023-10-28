@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/challenge/user")
+@RequestMapping("/challenge")
 public class ChallengeUpdtController {
 
     private final TokenManager tokenManager;
@@ -74,4 +74,19 @@ public class ChallengeUpdtController {
         return ResponseEntity.ok(true);
     }
 
+    @PostMapping("/status")
+    public ResponseEntity<Boolean> updateStatus(@RequestParam("challengeAdminSeq") Long challengeAdminSeq,
+                                                @RequestParam("status") String status,
+                                                HttpServletRequest httpServletRequest) {
+
+        String authorization = httpServletRequest.getHeader("Authorization");
+        String accessToken = authorization.split(" ")[1];
+
+        tokenManager.validateToken(accessToken);
+
+        challengeUdtService.updateStatus(challengeAdminSeq, status);
+        log.info("friend - change status({})", status);
+
+        return ResponseEntity.ok(true);
+    }
 }

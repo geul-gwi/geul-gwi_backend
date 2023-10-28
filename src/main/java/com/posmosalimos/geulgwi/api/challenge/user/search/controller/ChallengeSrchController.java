@@ -1,6 +1,6 @@
 package com.posmosalimos.geulgwi.api.challenge.user.search.controller;
 
-import com.posmosalimos.geulgwi.api.challenge.user.search.dto.ChallengeAdminDTO;
+import com.posmosalimos.geulgwi.api.challenge.admin.register.dto.ChallengeFormDTO;
 import com.posmosalimos.geulgwi.api.challenge.user.search.dto.ChallengeSrchDTO;
 import com.posmosalimos.geulgwi.api.challenge.user.search.service.ChallengeSrchService;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/challenge/user")
+@RequestMapping("/challenge")
 @RequiredArgsConstructor
 @Slf4j
 public class ChallengeSrchController {
@@ -21,19 +21,19 @@ public class ChallengeSrchController {
     private final ChallengeSrchService challengeSearchService;
     private final TokenManager tokenManager;
 
-    @GetMapping("/event/{challengeAdminSeq}") //개최 폼 조회(관리자 등록)
-    public ResponseEntity<ChallengeAdminDTO> findChallengeAdmin(@PathVariable("challengeAdminSeq") Long challengeAdminSeq,
-                                                                HttpServletRequest httpServletRequest) {
+
+    @GetMapping("/list") //회차 목록 전체 조회
+    public ResponseEntity<List> list(HttpServletRequest httpServletRequest) {
 
         String authorization = httpServletRequest.getHeader("Authorization");
         String accessToken = authorization.split(" ")[1];
 
         tokenManager.validateToken(accessToken);
 
-        ChallengeAdminDTO challenge = challengeSearchService.findByChallengeAdminSeq(challengeAdminSeq);
-        log.info("challenge - get(challengeAdminSeq: {})", challengeAdminSeq);
+        List<ChallengeFormDTO.Response> challengeFormDTOS = challengeSearchService.findAllChallengeAdmin();
+        log.info("challenge - list(admin)");
 
-        return ResponseEntity.ok(challenge);
+        return ResponseEntity.ok(challengeFormDTOS);
     }
 
     @GetMapping("/list/{challengeAdminSeq}") //회차당 게시글 조회
