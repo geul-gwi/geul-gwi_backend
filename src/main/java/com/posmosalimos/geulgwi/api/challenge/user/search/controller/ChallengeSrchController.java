@@ -52,4 +52,18 @@ public class ChallengeSrchController {
         return ResponseEntity.ok(searchDTOS);
     }
 
+    @GetMapping("/ongoing") //진행중 챌린지 찾기
+    public ResponseEntity<ChallengeFormDTO.Response> ongoing(HttpServletRequest httpServletRequest) {
+
+        String authorization = httpServletRequest.getHeader("Authorization");
+        String accessToken = authorization.split(" ")[1];
+
+        tokenManager.validateToken(accessToken);
+
+        ChallengeFormDTO.Response challengeFormDTO = challengeSearchService.findOngoing();
+        log.info("challenge - search ongoing(challengeAdminSeq: {})", challengeFormDTO.getChallengeAdminSeq());
+
+        return ResponseEntity.ok(challengeFormDTO);
+    }
+
 }

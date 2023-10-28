@@ -1,6 +1,5 @@
 package com.posmosalimos.geulgwi.api.challenge.admin.update.service;
 
-import com.posmosalimos.geulgwi.api.challenge.admin.register.dto.ChallengeFormDTO;
 import com.posmosalimos.geulgwi.api.challenge.admin.update.dto.ChallengeUpdtDTO;
 import com.posmosalimos.geulgwi.domain.challenge.constant.Status;
 import com.posmosalimos.geulgwi.domain.challenge.entity.ChallengeAdmin;

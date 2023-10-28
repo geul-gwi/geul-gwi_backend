@@ -69,4 +69,9 @@ public class ChallengeService {
         return challengeAdminRepository.findById(challengeAdminSeq)
                 .orElseThrow(() -> new BusinessException(ErrorCode.CHALLENGE_NOT_FOUND));
     }
+
+    public ChallengeAdmin findOngoing() {
+        return challengeAdminRepository.findByStatus("ONGOING")
+                .orElseThrow(() -> new BusinessException(ErrorCode.CHALLENGE_NOT_FOUND));
+    }
 }

@@ -1,7 +1,6 @@
 package com.posmosalimos.geulgwi.api.challenge.user.search.service;
 
 import com.posmosalimos.geulgwi.api.challenge.admin.register.dto.ChallengeFormDTO;
-import com.posmosalimos.geulgwi.api.challenge.user.search.dto.ChallengeAdminDTO;
 import com.posmosalimos.geulgwi.api.challenge.user.search.dto.ChallengeSrchDTO;
 import com.posmosalimos.geulgwi.domain.challenge.entity.ChallengeAdmin;
 import com.posmosalimos.geulgwi.domain.challenge.entity.ChallengeUser;
@@ -65,5 +64,9 @@ public class ChallengeSrchService {
         }
 
         return searchDTOS;
+    }
+
+    public ChallengeFormDTO.Response findOngoing() {
+        return ChallengeFormDTO.Response.from(challengeService.findOngoing());
     }
 }
