@@ -35,9 +35,9 @@ public class GeulgwiSrchService {
     public GeulgwiSrchDTO.Response search(Long geulgwiSeq, Long viewSeq) {
 
         Geulgwi findGeulgwi = geulgwiService.findBySeq(geulgwiSeq);
-        User findUser = userService.findBySeq(viewSeq);
+        User findUser = userService.findBySeq(viewSeq); //현재 글을 보는 유저
 
-        boolean isLiked = likeService.findByGeulgwi(findGeulgwi, findUser);
+        boolean isLiked = likeService.findByGeulgwi(findGeulgwi, findUser); //현재 글을 보는 사람이 좋아요를 눌렀는지
 
         List<String> storeFiles = findGeulgwi.getUploadFiles().stream()
                 .filter(file -> file.getStore() != null).toList()
@@ -52,9 +52,9 @@ public class GeulgwiSrchService {
                 .geulgwiSeq(findGeulgwi.getGeulgwiSeq())
                 .geulgwiContent(findGeulgwi.getGeulgwiContent())
                 .userSeq(findGeulgwi.getUser().getUserSeq())
-                .nickname(findUser.getNickname())
-                .comment(findUser.getComment())
-                .userProfile(Optional.ofNullable(findUser.getUploadFile())
+                .nickname(findGeulgwi.getUser().getNickname())
+                .comment(findGeulgwi.getUser().getComment())
+                .userProfile(Optional.ofNullable(findGeulgwi.getUser().getUploadFile())
                         .map(UploadFile::getStore)
                         .orElse(null))
                 .regDate(findGeulgwi.getRegDate())
