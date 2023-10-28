@@ -19,7 +19,8 @@ public class FriendDelController {
     private final FriendDelService friendDelService;
 
     @DeleteMapping("/delete")
-    public ResponseEntity<Boolean> delete(@RequestBody FriendDTO friendDTO,
+    public ResponseEntity<Boolean> delete(@RequestParam("toUser") Long toUser,
+                                          @RequestParam("fromUser") Long fromUser,
                                           HttpServletRequest httpServletRequest) {
 
         String authorization = httpServletRequest.getHeader("Authorization");
@@ -27,8 +28,8 @@ public class FriendDelController {
 
         tokenManager.validateToken(accessToken);
 
-        friendDelService.delete(friendDTO);
-        log.info("friend - delete({}, {})", friendDTO.getFromUser(), friendDTO.getToUser());
+        friendDelService.delete(toUser, fromUser);
+        log.info("friend - delete({}, {})", fromUser, toUser);
 
         return ResponseEntity.ok(true);
     }

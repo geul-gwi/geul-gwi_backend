@@ -22,18 +22,18 @@ public class FriendDelService {
     private final UserService userService;
 
     @Transactional
-    public void delete(FriendDTO friendDTO) {
-        User toUser = userService.findBySeq(friendDTO.getToUser()); //요청 받은 유저
-        User fromUser = userService.findBySeq(friendDTO.getFromUser()); //요청한 유저
+    public void delete(Long toUser, Long fromUser) {
+        User findToUser = userService.findBySeq(toUser); //요청 받은 유저
+        User findFromUser = userService.findBySeq(fromUser); //요청한 유저
 
-        Friend byToUser = friendRepository.findByTwoUser(toUser, fromUser.getUserSeq())
+        Friend byToUser = friendRepository.findByTwoUser(findToUser, fromUser)
                 .orElseThrow(() -> new BusinessException(ErrorCode.FORBIDDEN_FRIEND));
-        Friend byFromUser = friendRepository.findByTwoUser(fromUser, toUser.getUserSeq())
+        Friend byFromUser = friendRepository.findByTwoUser(findFromUser, toUser)
                 .orElseThrow(() -> new BusinessException(ErrorCode.FORBIDDEN_FRIEND));
 
         if (byToUser != null && byFromUser != null) { //친구 상태
-            friendRepository.delete(toUser, fromUser.getUserSeq());
-            friendRepository.delete(fromUser, toUser.getUserSeq());
+            friendRepository.delete(findToUser, fromUser);
+            friendRepository.delete(findFromUser, toUser);
         } else throw new BusinessException(ErrorCode.FORBIDDEN_FRIEND);
 
     }

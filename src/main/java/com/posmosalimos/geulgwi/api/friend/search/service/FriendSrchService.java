@@ -30,30 +30,33 @@ public class FriendSrchService {
         //pending: fromUser -> toUser(approved = false)
         //friend: fromUser -> toUser(approved = true)
         User findUser = userService.findBySeq(userSeq);
-
+        List<FriendListDTO> listDTOS = new ArrayList<>();
 
         if (status.equals("friend")) { //친구
             List<Friend> friendList = friendRepository.getFriendList(findUser);
 
-            return friendList.stream()
-                    .map(friend -> FriendListDTO.builder()
-                                    .userSeq(friend.getToUser().getUserSeq())
-                                    .userId(friend.getToUser().getUserId())
-                                    .nickname(friend.getToUser().getNickname())
-                                    .profile(Optional.ofNullable(friend.getToUser().getUploadFile())
-                                            .map(UploadFile::getStore)
-                                            .orElse(null))
-                                    .isSubscribed(friend.getSubscriber())
-                                    .build())
-                    .toList();
+            for (Friend friend : friendList) {
+                User friendUser = userService.findBySeq(friend.getFromUser());
+
+                listDTOS.add(
+                        FriendListDTO.builder()
+                                .userSeq(friendUser.getUserSeq())
+                                .userId(friendUser.getUserId())
+                                .nickname(friendUser.getNickname())
+                                .profile(Optional.ofNullable(friendUser.getUploadFile())
+                                        .map(UploadFile::getStore)
+                                        .orElse(null))
+                                .build()
+                );
+            }
 
         } else { //status.equals("pending")
             List<Friend> pendingList = friendRepository.getPendingList(findUser);
-            List<FriendListDTO> pendingListDTOS = new ArrayList<>();
 
             for (Friend pending : pendingList) {
                 User pendingUser = userService.findBySeq(pending.getFromUser());
-                pendingListDTOS.add(
+
+                listDTOS.add(
                     FriendListDTO.builder()
                             .userSeq(pendingUser.getUserSeq())
                             .userId(pendingUser.getUserId())
@@ -64,10 +67,8 @@ public class FriendSrchService {
                             .build()
                 );
             }
-
-            return pendingListDTOS;
         }
-
+        return listDTOS;
     }
 
     public String getStatus(FriendDTO friendDTO) {
