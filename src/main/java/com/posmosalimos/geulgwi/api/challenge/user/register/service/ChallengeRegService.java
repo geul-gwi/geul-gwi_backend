@@ -30,9 +30,9 @@ public class ChallengeRegService {
     private final UserService userService;
 
     @Transactional
-    public void register(ChallengeRegDTO challengeRegDTO, Long userSeq) {
+    public void register(ChallengeRegDTO challengeRegDTO) {
 
-        User findUser = userService.findBySeq(userSeq);
+        User findUser = userService.findBySeq(challengeRegDTO.getUserSeq());
 
 
         ChallengeAdmin challengeAdmin = challengeAdminRepository.findById(challengeRegDTO.getChallengeAdminSeq())

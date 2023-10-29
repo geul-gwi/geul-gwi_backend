@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
@@ -55,7 +56,7 @@ public class Notice {
     public Notice(Type type, User toUser, Long fromUser, String checked,
                   Long friendSeq, Long messageSeq, Long geulgwiSeq,
                   Long geulgwiLikeSeq, Long challengeSeq, Long challengeLikeSeq) {
-        this.regDate = LocalDate.now() + " " + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+        this.regDate = String.valueOf(LocalDateTime.now());
         this.type = type;
         this.toUser = toUser;
         this.fromUser = fromUser;

@@ -7,7 +7,6 @@ import com.posmosalimos.geulgwi.domain.notice.entity.Notice;
 import com.posmosalimos.geulgwi.domain.user.constant.Role;
 import com.posmosalimos.geulgwi.global.jwt.dto.JwtTokenDto;
 import com.posmosalimos.geulgwi.global.util.DateTimeUtils;
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
@@ -67,12 +66,14 @@ public class User {
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<UserTag> userTags = new ArrayList<>();
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private UploadFile uploadFile;
 
     @OneToMany(mappedBy = "toUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Friend> toUser = new ArrayList<>();
+    private List<Friend> FriendList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "toUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Notice> noticeList = new ArrayList<>();
 
     @Builder
     public User(String userId, String password,

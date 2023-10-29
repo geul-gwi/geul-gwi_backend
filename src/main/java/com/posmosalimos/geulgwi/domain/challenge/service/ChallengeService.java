@@ -1,6 +1,7 @@
 package com.posmosalimos.geulgwi.domain.challenge.service;
 
 import com.posmosalimos.geulgwi.api.challenge.user.register.dto.ChallengeRegDTO;
+import com.posmosalimos.geulgwi.domain.challenge.constant.Status;
 import com.posmosalimos.geulgwi.domain.challenge.entity.ChallengeAdmin;
 import com.posmosalimos.geulgwi.domain.challenge.entity.ChallengeUser;
 import com.posmosalimos.geulgwi.domain.challenge.repository.ChallengeAdminRepository;
@@ -71,7 +72,7 @@ public class ChallengeService {
     }
 
     public ChallengeAdmin findOngoing() {
-        return challengeAdminRepository.findByStatus("ONGOING")
+        return challengeAdminRepository.findByStatus(Status.ONGOING)
                 .orElseThrow(() -> new BusinessException(ErrorCode.CHALLENGE_NOT_FOUND));
     }
 }

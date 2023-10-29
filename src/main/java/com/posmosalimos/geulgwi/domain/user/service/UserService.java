@@ -141,4 +141,16 @@ public class UserService {
         return true;
     }
 
+    public List<String> findByEmail(String email) {
+
+        User findUser = userRepository.findByEmail(email)
+                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
+
+        List<String> info = new ArrayList<>();
+        info.add(findUser.getNickname());
+        info.add(findUser.getPassword());
+
+        return info;
+    }
+
 }

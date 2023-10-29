@@ -11,6 +11,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
@@ -59,7 +60,7 @@ public class Message {
 
     @Builder
     public Message (String title, String content, User sender, User receiver, String deletedByReceiver, String deletedBySender) {
-        this.regDate = LocalDate.now() + " " + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+        this.regDate = String.valueOf(LocalDateTime.now());
         this.title = title;
         this.content = content;
         this.sender = sender;

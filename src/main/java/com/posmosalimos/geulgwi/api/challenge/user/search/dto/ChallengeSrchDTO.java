@@ -10,6 +10,7 @@ import lombok.Data;
 public class ChallengeSrchDTO {
 
     private Long seq;
+    private String nickname;
     private String challengeContent;
     private String regDate;
     private int likeCount;
@@ -18,6 +19,7 @@ public class ChallengeSrchDTO {
     public static ChallengeSrchDTO from(ChallengeUser challenge, Boolean isLiked){
         return ChallengeSrchDTO.builder()
                 .seq(challenge.getChallengeUserSeq())
+                .nickname(challenge.getUser().getNickname())
                 .challengeContent(challenge.getChallengeContent())
                 .regDate(challenge.getRegDate())
                 .likeCount(challenge.getLikes().size())
