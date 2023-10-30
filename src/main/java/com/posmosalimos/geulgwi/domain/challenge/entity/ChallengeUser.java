@@ -34,8 +34,6 @@ public class ChallengeUser {
     @OneToMany(mappedBy = "challengeUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Likes> likes = new ArrayList<>();
 
-    private int likeCount;
-
 
     @Builder
     public ChallengeUser(ChallengeRegDTO challengeRegDTO, ChallengeAdmin challengeAdmin, User user) {
