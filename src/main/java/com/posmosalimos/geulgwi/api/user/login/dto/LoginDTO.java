@@ -20,6 +20,7 @@ public class LoginDTO {
     public static class Response {
         private Long userSeq;
         private String userNickname;
+        private String role;
         private String profile;
         private String grantType;
         private String accessToken;
@@ -32,10 +33,11 @@ public class LoginDTO {
 
         // of 메서드를 Service에 만들지 않고 숨김
         // Service의 가독성을 위해 사용
-        public static Response of(JwtTokenDto jwtTokenDto, String userNickname, String profile) {
+        public static Response of(JwtTokenDto jwtTokenDto, String userNickname, String role, String profile) {
             return Response.builder()
                     .userSeq(jwtTokenDto.getUserSeq())
                     .userNickname(userNickname)
+                    .role(role)
                     .profile(profile)
                     .grantType(jwtTokenDto.getGrantType())
                     .accessToken(jwtTokenDto.getAccessToken())

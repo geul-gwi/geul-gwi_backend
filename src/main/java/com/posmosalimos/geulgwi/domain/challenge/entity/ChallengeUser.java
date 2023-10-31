@@ -34,7 +34,6 @@ public class ChallengeUser {
     @OneToMany(mappedBy = "challengeUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Likes> likes = new ArrayList<>();
 
-
     @Builder
     public ChallengeUser(ChallengeRegDTO challengeRegDTO, ChallengeAdmin challengeAdmin, User user) {
         this.regDate = String.valueOf(LocalDateTime.now());

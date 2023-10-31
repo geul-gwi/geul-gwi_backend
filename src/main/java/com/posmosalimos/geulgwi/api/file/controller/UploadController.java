@@ -20,7 +20,7 @@ public class UploadController {
     public ResponseEntity<byte[]> upload(@RequestParam String file) throws IOException {
         // 단건
 
-        if (file != null && !file.isEmpty())
+        if (file == null && file.isEmpty())
             return null;
 
         InputStream imageStream = new FileInputStream(file); //이미지 읽어오기

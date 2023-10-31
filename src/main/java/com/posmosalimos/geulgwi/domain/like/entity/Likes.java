@@ -45,6 +45,7 @@ public class Likes {
     private ChallengeUser challengeUser;
 
 
+
     @Builder
     public Likes(User user, Geulgwi geulgwi, ChallengeUser challengeUser) {
         this.likeDate = String.valueOf(LocalDateTime.now());

@@ -40,9 +40,11 @@ public class UpdateController {
         User user = updateService.update(userSeq, updateDTO);
 
         if (fileService.findByUser(user) != null && file != null && !file.isEmpty()) {
+            //원래 사진이 저장되어 있었고 새로운 사진으로 update
             fileService.removeUserFile(user);
             fileService.storeUserFile(user, file);
         } else if (file != null && !file.isEmpty())
+            //사진 저장을 한 적이 없었고 새로운 사진으로 update
             fileService.removeUserFile(user);
 
         log.info("user - update success(userSeq: {})", userSeq);

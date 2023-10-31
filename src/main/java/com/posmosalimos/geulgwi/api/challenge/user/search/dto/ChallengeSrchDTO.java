@@ -16,7 +16,7 @@ public class ChallengeSrchDTO {
     private int likeCount;
     private Boolean isLiked;
 
-    public static ChallengeSrchDTO from(ChallengeUser challenge, Boolean isLiked){
+    public static ChallengeSrchDTO from(ChallengeUser challenge, Boolean isLiked) {
         return ChallengeSrchDTO.builder()
                 .seq(challenge.getChallengeUserSeq())
                 .nickname(challenge.getUser().getNickname())
