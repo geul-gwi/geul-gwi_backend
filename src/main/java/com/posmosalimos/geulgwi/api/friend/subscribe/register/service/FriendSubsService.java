@@ -1,4 +1,4 @@
-package com.posmosalimos.geulgwi.api.friend.subscribe.service;
+package com.posmosalimos.geulgwi.api.friend.subscribe.register.service;
 
 import com.posmosalimos.geulgwi.api.friend.confirm.dto.FriendDTO;
 import com.posmosalimos.geulgwi.domain.user.entity.Friend;

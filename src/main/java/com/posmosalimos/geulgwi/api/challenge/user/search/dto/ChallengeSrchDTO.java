@@ -9,7 +9,8 @@ import lombok.Data;
 @Builder
 public class ChallengeSrchDTO {
 
-    private Long seq;
+    private Long challengeUserSeq;
+    private Long userSeq;
     private String nickname;
     private String challengeContent;
     private String regDate;
@@ -18,7 +19,8 @@ public class ChallengeSrchDTO {
 
     public static ChallengeSrchDTO from(ChallengeUser challenge, Boolean isLiked) {
         return ChallengeSrchDTO.builder()
-                .seq(challenge.getChallengeUserSeq())
+                .challengeUserSeq(challenge.getChallengeUserSeq())
+                .userSeq(challenge.getUser().getUserSeq())
                 .nickname(challenge.getUser().getNickname())
                 .challengeContent(challenge.getChallengeContent())
                 .regDate(challenge.getRegDate())

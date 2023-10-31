@@ -12,4 +12,5 @@ public class FriendListDTO {
     private String nickname;
     private String profile;
     private String isSubscribed;
+
 }

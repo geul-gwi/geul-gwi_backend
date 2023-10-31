@@ -1,7 +1,7 @@
-package com.posmosalimos.geulgwi.api.friend.subscribe.controller;
+package com.posmosalimos.geulgwi.api.friend.subscribe.register.controller;
 
 import com.posmosalimos.geulgwi.api.friend.confirm.dto.FriendDTO;
-import com.posmosalimos.geulgwi.api.friend.subscribe.service.FriendSubsService;
+import com.posmosalimos.geulgwi.api.friend.subscribe.register.service.FriendSubsService;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/friend")
 @Slf4j
 @RequiredArgsConstructor
-public class FriendSubsController {
+public class SubscribeController {
 
     private final TokenManager tokenManager;
     private final FriendSubsService friendSubsService;

@@ -26,5 +26,8 @@ public interface FriendRepository extends JpaRepository<Friend, Long> {
     List<Friend> getPendingList(@Param("user") User user); //pending list
 
     @Query("select f from Friend f where f.toUser = :toUser and f.subscriber = 'T'")
-    List<Friend> findSubscriber(@Param("toUser") User toUser); //subscriber list
+    List<Friend> findSubscriber(@Param("toUser") User toUser); //나를 구독한 회원 리스트
+
+    @Query("select f from Friend f where f.fromUser = :fromUser and f.subscriber = 'T'")
+    List<Friend> findSubscribe(@Param("fromUser") Long fromUser); //내가 구독한 회원 리스트
 }
