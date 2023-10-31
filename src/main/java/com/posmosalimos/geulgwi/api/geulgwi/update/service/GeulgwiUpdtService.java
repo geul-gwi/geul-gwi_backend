@@ -37,7 +37,9 @@ public class GeulgwiUpdtService {
         Geulgwi findGeulgwi = geulgwiService.findBySeq(geulgwiSeq);
 
         fileService.removeGeulgwiFiles(findGeulgwi); //기등록 파일 삭제
-        fileService.storeGeulgwiFiles(findGeulgwi, files); //파일 새로 추가
+
+        if (files != null && !files.isEmpty())
+            fileService.storeGeulgwiFiles(findGeulgwi, files); //파일 새로 추가
 
         geulgwiTagRepository.deleteByGeulgwi(findGeulgwi); //기등록 태그 전체 삭제
 

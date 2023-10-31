@@ -20,7 +20,7 @@ public class UploadController {
     public ResponseEntity<byte[]> upload(@RequestParam String file) throws IOException {
         // 단건
 
-        if (file.isEmpty())
+        if (file != null && !file.isEmpty())
             return null;
 
         InputStream imageStream = new FileInputStream(file); //이미지 읽어오기
@@ -43,7 +43,7 @@ public class UploadController {
     public ResponseEntity<List> uploadFiles(@RequestParam List<String> files) throws IOException {
         // 복수건
 
-        if (files.isEmpty())
+        if (files != null && !files.isEmpty())
             return null;
 
         List<byte[]> fileList = new ArrayList<>();

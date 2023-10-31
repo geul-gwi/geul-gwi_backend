@@ -41,7 +41,7 @@ public class GeulgwiRegService {
 
         Geulgwi registerGeulgwi = geulgwiService.register(geulgwi); //글 등록
 
-        if (files != null)
+        if (files != null && !files.isEmpty())
             fileService.storeGeulgwiFiles(registerGeulgwi, files); //파일 등록
 
             for (Long tagSeq : geulgwiRegDTO.getTagSeqs()) {

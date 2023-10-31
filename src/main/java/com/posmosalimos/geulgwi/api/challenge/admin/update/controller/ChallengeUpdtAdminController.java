@@ -1,6 +1,5 @@
 package com.posmosalimos.geulgwi.api.challenge.admin.update.controller;
 
-import com.posmosalimos.geulgwi.api.challenge.admin.register.dto.ChallengeFormDTO;
 import com.posmosalimos.geulgwi.api.challenge.admin.update.dto.ChallengeUpdtDTO;
 import com.posmosalimos.geulgwi.api.challenge.admin.update.service.ChallengeUpdtAdminService;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;

@@ -59,7 +59,7 @@ public class JoinService {
         }
 
         userService.join(user);
-        if (!file.isEmpty())
+        if (file != null && !file.isEmpty())
             fileService.storeUserFile(user, file);
 
         for (Long tagSeq : joinDTO.getUserTagSeq()) {

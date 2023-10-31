@@ -31,6 +31,6 @@ public class ChallengeUpdtAdminService {
                 challengeUpdtDTO.getKeyword(),
                 challengeUpdtDTO.getStart(),
                 challengeUpdtDTO.getEnd(),
-                Status.from(challengeUpdtDTO.getStart()));
+                Status.from(challengeUpdtDTO.getStatus()));
     }
 }
