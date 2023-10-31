@@ -40,9 +40,21 @@ public class EmailController {
         return ResponseEntity.ok(true);
     }
 
+    @PostMapping("/id")
+    public ResponseEntity<Boolean> findId(@RequestBody EmailDTO emailDTO) {
+        String userId = userService.findByEmail(emailDTO.getEmail());
+
+        emailService.findId(userId, emailDTO.getEmail());
+        log.info("user - find id");
+
+        return ResponseEntity.ok(true);
+    }
+
     @PostMapping("/password")
-    public ResponseEntity<Boolean> findPassword(@RequestBody EmailDTO emailDTO) {
-        List<String> info = userService.findByEmail(emailDTO.getEmail());
+    public ResponseEntity<Boolean> findPassword(@RequestBody EmailDTO.Request emailDTO) {
+
+        List<String> info = userService.findByIdAndEmail(emailDTO.getUserId(), emailDTO.getEmail());
+
         emailService.findPassword(info.get(0), info.get(1), emailDTO.getEmail());
         log.info("user - find password");
 

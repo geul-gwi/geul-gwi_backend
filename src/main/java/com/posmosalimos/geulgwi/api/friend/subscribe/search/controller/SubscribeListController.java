@@ -2,7 +2,6 @@ package com.posmosalimos.geulgwi.api.friend.subscribe.search.controller;
 
 import com.posmosalimos.geulgwi.api.friend.search.dto.FriendListDTO;
 import com.posmosalimos.geulgwi.api.friend.subscribe.search.service.SubscribeListService;
-import com.posmosalimos.geulgwi.api.user.search.dto.UserListDTO;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;

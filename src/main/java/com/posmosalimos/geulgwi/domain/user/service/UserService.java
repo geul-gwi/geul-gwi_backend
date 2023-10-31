@@ -141,9 +141,16 @@ public class UserService {
         return true;
     }
 
-    public List<String> findByEmail(String email) {
-
+    public String findByEmail(String email) {
         User findUser = userRepository.findByEmail(email)
+                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
+
+        return findUser.getUserId();
+    }
+
+    public List<String> findByIdAndEmail(String userId, String email) {
+
+        User findUser = userRepository.findByIdAndEmail(userId, email)
                 .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
 
         List<String> info = new ArrayList<>();
@@ -152,5 +159,7 @@ public class UserService {
 
         return info;
     }
+
+
 
 }

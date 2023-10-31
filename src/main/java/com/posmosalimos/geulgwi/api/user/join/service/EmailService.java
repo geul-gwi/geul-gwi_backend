@@ -84,4 +84,24 @@ public class EmailService {
 
         return message;
     }
+
+    public MimeMessage findId(String userId, String email) {
+        MimeMessage message = javaMailSender.createMimeMessage();
+
+        try {
+            message.setFrom(senderEmail);
+            message.setFrom(new InternetAddress("geul-gwi@geul-gwi.com","글귀","UTF-8"));
+            message.setRecipients(MimeMessage.RecipientType.TO, email);
+            message.setSubject("요청하신 아이디입니다.");
+            String body = "";
+            body += "<h3>" + "글귀 서비스" + "</h3>";
+            body += "<h1>" + userId + "</h1>";
+            body += "<h3>" + "감사합니다." + "</h3>";
+            message.setText(body,"UTF-8", "html");
+        } catch (MessagingException | UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+
+        return message;
+    }
 }
