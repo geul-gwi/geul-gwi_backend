@@ -31,7 +31,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
 
         registry.addMapping("/**")
-                .allowedOrigins("**", "http://localhost:3000")
+                .allowedOrigins("**", "http://localhost:3000", "http://44.218.158.106:8000")
                 .allowedMethods(
                         HttpMethod.GET.name(),
                         HttpMethod.POST.name(),
@@ -62,7 +62,6 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(adminAuthorizationInterceptor)
                 .order(2)
                 .addPathPatterns(
-                        "/user/list",
                         "/user/admin/**",
                         "tag/admin/list",
                         "/challenge/admin/**"
