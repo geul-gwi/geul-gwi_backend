@@ -32,12 +32,20 @@ public class UpdateService {
         User findUser = userService.findBySeq(userSeq);
         List<UserTag> userTags = userTagService.findByUser(findUser); //수정 전 유저 태그들
 
+        userTags.forEach(userTagService::delete); //기존 태그 삭제
+
         List<Tag> tags = updateDTO.getUserTagSeq().stream()
                 .map(tagService::findBySeq)
                 .collect(Collectors.toList()); //수정 요청한 태그들
 
-        for (int i = 0; i < updateDTO.getUserTagSeq().size(); i++)
-            userTags.get(i).update(findUser, tags.get(i));
+        for (int i = 0; i < updateDTO.getUserTagSeq().size(); i++) { //요청 태그 저장
+            userTagService.save(
+                    UserTag.builder()
+                            .tag(tags.get(i))
+                            .user(findUser)
+                            .build()
+            );
+        }
 
         findUser.update(
                     updateDTO.getPassword(),

@@ -38,4 +38,9 @@ public class UserTagService {
     public UserTag findBySeq(Long seq) {
         return userTagRepository.findById(seq).orElseThrow(() -> new BusinessException(ErrorCode.TAG_NOT_FOUND));
     }
+
+    @Transactional
+    public void delete(UserTag userTag) {
+        userTagRepository.delete(userTag);
+    }
 }
