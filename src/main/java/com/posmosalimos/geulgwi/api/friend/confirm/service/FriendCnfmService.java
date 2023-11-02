@@ -30,7 +30,7 @@ public class FriendCnfmService {
         User toUser = userService.findBySeq(friendDTO.getToUser()); //요청받은 회원
         User fromUser = userService.findBySeq(friendDTO.getFromUser()); //요청한 회원
         String approved = "F";
-        Friend alreadyPending = friendRepository.findByTwoUser(fromUser, toUser.getUserSeq())
+        Friend alreadyPending = friendRepository.findByTwoUser(fromUser, toUser)
                 .orElse(null);
 
         if (alreadyPending != null) {
@@ -42,7 +42,7 @@ public class FriendCnfmService {
 
         Friend friend = Friend.builder()
                 .toUser(toUser)
-                .fromUser(fromUser.getUserSeq())
+                .fromUser(fromUser)
                 .approved(approved)
                 .subscriber("F")
                 .build();
@@ -50,7 +50,7 @@ public class FriendCnfmService {
         friendRepository.save(friend);
 
 
-        return friendRepository.findByTwoUser(toUser, fromUser.getUserSeq())
+        return friendRepository.findByTwoUser(toUser, fromUser)
                 .orElseThrow(() -> new BusinessException(ErrorCode.FORBIDDEN_FRIEND));
     }
 }

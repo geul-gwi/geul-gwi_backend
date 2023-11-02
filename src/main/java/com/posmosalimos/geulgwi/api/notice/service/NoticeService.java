@@ -33,6 +33,8 @@ public class NoticeService {
     @Transactional
     public String sendByFriend(Friend friend) { //친구 신청(승인) 알림 전송
 
+
+
         Notice notice = Notice.builder()
                 .type(Type.FRIEND)
                 .toUser(friend.getToUser())

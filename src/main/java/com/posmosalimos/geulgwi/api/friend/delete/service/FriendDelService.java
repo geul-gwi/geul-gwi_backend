@@ -26,9 +26,9 @@ public class FriendDelService {
         User findToUser = userService.findBySeq(toUser); //요청 받은 유저
         User findFromUser = userService.findBySeq(fromUser); //요청한 유저
 
-        Friend byToUser = friendRepository.findByTwoUser(findToUser, fromUser)
+        Friend byToUser = friendRepository.findByTwoUser(findToUser, findFromUser)
                 .orElseThrow(() -> new BusinessException(ErrorCode.FORBIDDEN_FRIEND));
-        Friend byFromUser = friendRepository.findByTwoUser(findFromUser, toUser)
+        Friend byFromUser = friendRepository.findByTwoUser(findFromUser, findToUser)
                 .orElseThrow(() -> new BusinessException(ErrorCode.FORBIDDEN_FRIEND));
 
         if (byToUser != null && byFromUser != null) { //친구 상태

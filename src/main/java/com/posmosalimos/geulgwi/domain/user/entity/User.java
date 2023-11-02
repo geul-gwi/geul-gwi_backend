@@ -71,7 +71,10 @@ public class User {
     private UploadFile uploadFile;
 
     @OneToMany(mappedBy = "toUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Friend> FriendList = new ArrayList<>();
+    private List<Friend> fromUserFriendList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "toUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Friend> toUserFriendList = new ArrayList<>();
 
     @OneToMany(mappedBy = "toUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Notice> toUsernoticeList = new ArrayList<>();

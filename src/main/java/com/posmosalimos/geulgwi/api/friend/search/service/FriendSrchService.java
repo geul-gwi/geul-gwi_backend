@@ -3,13 +3,11 @@ package com.posmosalimos.geulgwi.api.friend.search.service;
 import com.posmosalimos.geulgwi.api.friend.confirm.dto.FriendDTO;
 import com.posmosalimos.geulgwi.api.friend.search.dto.FriendListDTO;
 import com.posmosalimos.geulgwi.domain.file.entity.UploadFile;
-import com.posmosalimos.geulgwi.domain.file.service.FileService;
 import com.posmosalimos.geulgwi.domain.user.entity.Friend;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.domain.user.repository.FriendRepository;
 import com.posmosalimos.geulgwi.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,7 +33,7 @@ public class FriendSrchService {
             List<Friend> friendList = friendRepository.getFriendList(findUser); //로그인한 유저가 toUser로 친구목록 불러오기
 
             for (Friend friend : friendList) {
-                User friendUser = userService.findBySeq(friend.getFromUser()); //로그인한 유저랑 친구인 회원
+                User friendUser = userService.findBySeq(friend.getFromUser().getUserSeq()); //로그인한 유저랑 친구인 회원
 
                 listDTOS.add(
                         FriendListDTO.builder()
@@ -45,7 +43,7 @@ public class FriendSrchService {
                                 .profile(Optional.ofNullable(friendUser.getUploadFile())
                                         .map(UploadFile::getStore)
                                         .orElse(null))
-                                .isSubscribed(friendRepository.findByTwoUser(friendUser, findUser.getUserSeq())
+                                .isSubscribed(friendRepository.findByTwoUser(friendUser, findUser)
                                         .get().getSubscriber()) //로그인한 유저 -> 친구인 상대 유저의 구독 여부
                                 .build()
                 );
@@ -55,7 +53,7 @@ public class FriendSrchService {
             List<Friend> pendingList = friendRepository.getPendingList(findUser);
 
             for (Friend pending : pendingList) {
-                User pendingUser = userService.findBySeq(pending.getFromUser());
+                User pendingUser = userService.findBySeq(pending.getFromUser().getUserSeq());
 
                 listDTOS.add(
                     FriendListDTO.builder()
@@ -75,7 +73,8 @@ public class FriendSrchService {
     public String getStatus(FriendDTO friendDTO) {
         String status = "";
         User toUser = userService.findBySeq(friendDTO.getToUser());
-        Friend findFriend = friendRepository.findByTwoUser(toUser, friendDTO.getFromUser()).orElse(null);
+        User fromUser = userService.findBySeq(friendDTO.getFromUser());
+        Friend findFriend = friendRepository.findByTwoUser(toUser, fromUser).orElse(null);
 
         if (findFriend == null)
             status = "stranger";
@@ -89,6 +88,6 @@ public class FriendSrchService {
 
     public List<Long> findSubscribers(User user) { //특정 회원을 구독한 회원들의 PK 리턴
         return friendRepository.findSubscriber(user).stream()
-                .map(friend -> friend.getFromUser()).toList();
+                .map(friend -> friend.getFromUser().getUserSeq()).toList();
     }
 }

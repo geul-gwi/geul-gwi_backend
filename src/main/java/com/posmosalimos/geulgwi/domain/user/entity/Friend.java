@@ -18,7 +18,9 @@ public class Friend {
     @JoinColumn(name = "toUser")
     private User toUser; //요청받은 사람
 
-    private Long fromUser; //요청하는 사람
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fromUser")
+    private User fromUser; //요청하는 사람
 
     private String approved;
 
@@ -29,11 +31,14 @@ public class Friend {
     }
 
     public void toggleSubscription() {
-        this.subscriber = "T";
+        if (this.subscriber.equals("T"))
+            this.subscriber = "F";
+        else //this.subscriber.equals("F")
+            this.subscriber = "T";
     }
 
     @Builder
-    public Friend(User toUser, Long fromUser, String approved, String subscriber) {
+    public Friend(User toUser, User fromUser, String approved, String subscriber) {
         this.toUser = toUser;
         this.fromUser = fromUser;
         this.approved = approved;
