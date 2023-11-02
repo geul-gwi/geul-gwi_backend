@@ -1,6 +1,7 @@
 package com.posmosalimos.geulgwi.api.message.send.service;
 
 import com.posmosalimos.geulgwi.api.message.send.dto.MessageDTO;
+import com.posmosalimos.geulgwi.api.notice.service.NoticeService;
 import com.posmosalimos.geulgwi.domain.message.entity.Message;
 import com.posmosalimos.geulgwi.domain.message.repository.MessageRepository;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
@@ -12,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 
 
 @Service
@@ -23,9 +23,10 @@ public class MessageSendService {
 
     private final UserRepository userRepository;
     private final MessageRepository messageRepository;
+    private final NoticeService noticeService;
 
     @Transactional
-    public Message send(MessageDTO messageDTO) {
+    public void send(MessageDTO messageDTO) {
 
         User sender = userRepository.findByUserSeq(messageDTO.getSenderSeq())
                 .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
@@ -33,7 +34,7 @@ public class MessageSendService {
         User receiver = userRepository.findByUserSeq(messageDTO.getReceiverSeq())
                 .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
 
-        Message message = Message.builder()
+        Message save = Message.builder()
                 .title(messageDTO.getTitle())
                 .content(messageDTO.getContent())
                 .sender(sender)
@@ -43,6 +44,7 @@ public class MessageSendService {
                 .build();
 
 
-        return messageRepository.save(message);
+        Message message = messageRepository.save(save);
+        noticeService.sendByMessage(message); //메시지 알림 전송
     }
 }

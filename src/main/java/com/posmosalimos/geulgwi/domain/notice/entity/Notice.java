@@ -23,7 +23,9 @@ public class Notice {
     @JoinColumn(name = "toUserSeq")
     private User toUser; //알림 받을 사람
 
-    private Long fromUser; //알림 보낸 사람
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fromUserSeq")
+    private User fromUser; //알림 보낸 사람
 
     private String checked;
 
@@ -50,7 +52,7 @@ public class Notice {
     }
 
     @Builder
-    public Notice(Type type, User toUser, Long fromUser, String checked,
+    public Notice(Type type, User toUser, User fromUser, String checked,
                   Long friendSeq, Long messageSeq, Long geulgwiSeq,
                   Long geulgwiLikeSeq, Long challengeSeq, Long challengeLikeSeq) {
         this.regDate = String.valueOf(LocalDateTime.now());

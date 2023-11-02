@@ -33,8 +33,6 @@ public class NoticeService {
     @Transactional
     public String sendByFriend(Friend friend) { //친구 신청(승인) 알림 전송
 
-
-
         Notice notice = Notice.builder()
                 .type(Type.FRIEND)
                 .toUser(friend.getToUser())
@@ -54,7 +52,7 @@ public class NoticeService {
         Notice notice = Notice.builder()
                 .type(Type.MESSAGE)
                 .toUser(message.getReceiver())
-                .fromUser(message.getSender().getUserSeq())
+                .fromUser(message.getSender())
                 .checked("F")
                 .messageSeq(message.getMessageSeq())
                 .build();
@@ -63,7 +61,7 @@ public class NoticeService {
     }
 
     @Transactional
-    public void sendByGeulgwi(Long geulgwiSeq, Long fromUser, List<Long> subscribers) { //구독자들에게 알림 전송
+    public void sendByGeulgwi(Long geulgwiSeq, User fromUser, List<Long> subscribers) { //구독자들에게 알림 전송(글귀)
 
         for (Long subscriber : subscribers) {
             User findUser = userService.findBySeq(subscriber);
@@ -80,12 +78,28 @@ public class NoticeService {
     }
 
     @Transactional
+    public void sendByChallenge(Long challengeUserSeq, User fromUser, List<Long> subscribers) { //구독자들에게 알림 전송(챌린지)
+        for (Long subscriber : subscribers) {
+            User findUser = userService.findBySeq(subscriber);
+            Notice notice = Notice.builder()
+                    .type(Type.CHALLENGE)
+                    .toUser(findUser)
+                    .fromUser(fromUser)
+                    .checked("F")
+                    .challengeSeq(challengeUserSeq)
+                    .build();
+
+            noticeRepository.save(notice);
+        }
+    }
+
+    @Transactional
     public void sendByLikeGeulgwi(Likes likes) { //좋아요 누른 회원 -> 글 작성자(글귀)
 
         Notice notice = Notice.builder()
                 .type(Type.LIKE_GEULGWI)
                 .toUser(likes.getGeulgwi().getUser())
-                .fromUser(likes.getUser().getUserSeq())
+                .fromUser(likes.getUser())
                 .checked("F")
                 .geulgwiSeq(likes.getGeulgwi().getGeulgwiSeq())
                 .geulgwiLikeSeq(likes.getGeulgwi().getGeulgwiSeq())
@@ -100,7 +114,7 @@ public class NoticeService {
         Notice notice = Notice.builder()
                 .type(Type.LIKE_CHALLENGE)
                 .toUser(likes.getChallengeUser().getUser())
-                .fromUser(likes.getUser().getUserSeq())
+                .fromUser(likes.getUser())
                 .checked("F")
                 .challengeSeq(likes.getChallengeUser().getChallengeAdmin().getChallengeAdminSeq())
                 .challengeLikeSeq(likes.getChallengeUser().getChallengeUserSeq())
@@ -125,22 +139,20 @@ public class NoticeService {
         noticeRepository.delete(notice);
     }
 
-    public List<NoticeDTO> findByToUser(Long userSeq) {
+    public List<NoticeDTO> findByToUser(Long userSeq) { //알림 목록
         User toUser = userService.findBySeq(userSeq); //알림을 받을 유저
         List<Notice> fromUsers = noticeRepository.findByToUser(toUser).stream()
-                .filter(fromUser -> fromUser.getFromUser() != fromUser.getToUser().getUserSeq()).toList(); //알림을 보낸 유저들
-
+                .filter(fromUser -> fromUser.getFromUser() != fromUser.getToUser()).toList(); //알림을 보낸 유저들
 
         List<NoticeDTO> noticeDTOS = new ArrayList<>();
         for (Notice fromUser : fromUsers) {
-            User findUser = userService.findBySeq(fromUser.getFromUser());
             noticeDTOS.add(
                     NoticeDTO.builder()
                             .type(fromUser.getType().toString())
                             .noticeSeq(fromUser.getNoticeSeq())
-                            .fromUser(findUser.getUserSeq())
-                            .nickname(findUser.getNickname())
-                            .profile(Optional.ofNullable(findUser.getUploadFile())
+                            .fromUser(fromUser.getFromUser().getUserSeq())
+                            .nickname(fromUser.getFromUser().getNickname())
+                            .profile(Optional.ofNullable(fromUser.getFromUser().getUploadFile())
                                     .map(UploadFile::getStore)
                                     .orElse(null))
                             .friendSeq(fromUser.getFriendSeq())

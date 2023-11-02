@@ -50,8 +50,7 @@ public class ChallengeUpdtController {
 
         tokenManager.validateToken(accessToken);
 
-        Likes likes = likeService.likeChallengeUser(challengeUserSeq, userSeq);
-        noticeService.sendByLikeChallenge(likes);
+        likeService.likeChallengeUser(challengeUserSeq, userSeq);
 
         log.info("challenge - like(userSeq:{})", userSeq);
 

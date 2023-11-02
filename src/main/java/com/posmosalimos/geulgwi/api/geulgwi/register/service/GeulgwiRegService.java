@@ -1,6 +1,8 @@
 package com.posmosalimos.geulgwi.api.geulgwi.register.service;
 
+import com.posmosalimos.geulgwi.api.friend.search.service.FriendSrchService;
 import com.posmosalimos.geulgwi.api.geulgwi.register.dto.GeulgwiRegDTO;
+import com.posmosalimos.geulgwi.api.notice.service.NoticeService;
 import com.posmosalimos.geulgwi.domain.file.service.FileService;
 import com.posmosalimos.geulgwi.domain.geulgwi.entity.Geulgwi;
 import com.posmosalimos.geulgwi.domain.geulgwi.entity.GeulgwiTag;
@@ -30,9 +32,11 @@ public class GeulgwiRegService {
     private final GeulgwiTagRepository geulgwiTagRepository;
     private final FileService fileService;
     private final UserService userService;
+    private final FriendSrchService friendSrchService;
+    private final NoticeService noticeService;
 
     @Transactional
-    public Geulgwi register(GeulgwiRegDTO geulgwiRegDTO, Long userSeq, List<MultipartFile> files) throws IOException {
+    public void register(GeulgwiRegDTO geulgwiRegDTO, Long userSeq, List<MultipartFile> files) throws IOException {
 
         Geulgwi geulgwi = Geulgwi.builder()
                 .content(geulgwiRegDTO.getGeulgwiContent())
@@ -44,16 +48,18 @@ public class GeulgwiRegService {
         if (files != null && !files.isEmpty())
             fileService.storeGeulgwiFiles(registerGeulgwi, files); //파일 등록
 
-            for (Long tagSeq : geulgwiRegDTO.getTagSeqs()) {
-                Tag tag = tagService.findBySeq(tagSeq);
-                GeulgwiTag geulgwiTag = GeulgwiTag.builder()
-                        .geulgwi(geulgwi)
-                        .tag(tag)
-                        .build();
+        for (Long tagSeq : geulgwiRegDTO.getTagSeqs()) {
+            Tag tag = tagService.findBySeq(tagSeq);
+            GeulgwiTag geulgwiTag = GeulgwiTag.builder()
+                    .geulgwi(geulgwi)
+                    .tag(tag)
+                    .build();
 
-                geulgwiTagRepository.save(geulgwiTag);
-            }
+            geulgwiTagRepository.save(geulgwiTag);
+        }
 
-        return registerGeulgwi;
+        List<Long> subscribers = friendSrchService.findSubscribers(geulgwi.getUser()); //작성자의 구독자들 리스트화
+        noticeService.sendByGeulgwi(geulgwi.getGeulgwiSeq(), geulgwi.getUser(), subscribers); //구독자들에게 알림 전송
+
         }
 }

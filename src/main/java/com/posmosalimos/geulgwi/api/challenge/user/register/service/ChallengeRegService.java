@@ -1,6 +1,8 @@
 package com.posmosalimos.geulgwi.api.challenge.user.register.service;
 
 import com.posmosalimos.geulgwi.api.challenge.user.register.dto.ChallengeRegDTO;
+import com.posmosalimos.geulgwi.api.friend.search.service.FriendSrchService;
+import com.posmosalimos.geulgwi.api.notice.service.NoticeService;
 import com.posmosalimos.geulgwi.domain.challenge.entity.ChallengeAdmin;
 import com.posmosalimos.geulgwi.domain.challenge.entity.ChallengeUser;
 import com.posmosalimos.geulgwi.domain.challenge.repository.ChallengeAdminRepository;
@@ -28,6 +30,8 @@ public class ChallengeRegService {
     private final ChallengeAdminRepository challengeAdminRepository;
     private final ChallengeService challengeService;
     private final UserService userService;
+    private final FriendSrchService friendSrchService;
+    private final NoticeService noticeService;
 
     @Transactional
     public void register(ChallengeRegDTO challengeRegDTO) {
@@ -51,5 +55,8 @@ public class ChallengeRegService {
 
         challengeService.validateKeyword(challengeRegDTO, keywords);
         challengeService.register(challengeUser);
+
+        List<Long> subscribers = friendSrchService.findSubscribers(challengeUser.getUser()); //작성자의 구독자들 리스트화
+        noticeService.sendByChallenge(challengeUser.getChallengeUserSeq(), challengeUser.getUser(), subscribers); //구독자들에게 알림 전송
     }
 }

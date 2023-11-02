@@ -26,7 +26,9 @@ public class SubscribeListService {
 
     public List<FriendListDTO> findByUserSeq(Long userSeq) {
 
-        List<Friend> subscribeList = friendRepository.findSubscribe(userSeq);
+        User fromUser = userService.findBySeq(userSeq);
+
+        List<Friend> subscribeList = friendRepository.findSubscribe(fromUser);
         List<FriendListDTO> friendListDTOS = new ArrayList<>();
 
         for (Friend subscribe : subscribeList) {

@@ -1,6 +1,7 @@
 package com.posmosalimos.geulgwi.api.friend.confirm.service;
 
 import com.posmosalimos.geulgwi.api.friend.confirm.dto.FriendDTO;
+import com.posmosalimos.geulgwi.api.notice.service.NoticeService;
 import com.posmosalimos.geulgwi.domain.user.entity.Friend;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.domain.user.repository.FriendRepository;
@@ -23,9 +24,10 @@ public class FriendCnfmService {
 
     private final FriendRepository friendRepository;
     private final UserService userService;
+    private final NoticeService noticeService;
 
     @Transactional
-    public Friend confirm(FriendDTO friendDTO) {
+    public String confirm(FriendDTO friendDTO) {
 
         User toUser = userService.findBySeq(friendDTO.getToUser()); //요청받은 회원
         User fromUser = userService.findBySeq(friendDTO.getFromUser()); //요청한 회원
@@ -40,17 +42,19 @@ public class FriendCnfmService {
         }
 
 
-        Friend friend = Friend.builder()
+        Friend save = Friend.builder()
                 .toUser(toUser)
                 .fromUser(fromUser)
                 .approved(approved)
                 .subscriber("F")
                 .build();
 
-        friendRepository.save(friend);
+        friendRepository.save(save);
 
 
-        return friendRepository.findByTwoUser(toUser, fromUser)
+        Friend friend = friendRepository.findByTwoUser(toUser, fromUser)
                 .orElseThrow(() -> new BusinessException(ErrorCode.FORBIDDEN_FRIEND));
+
+        return noticeService.sendByFriend(friend); //친구 알림 저장 후 상태 리턴
     }
 }

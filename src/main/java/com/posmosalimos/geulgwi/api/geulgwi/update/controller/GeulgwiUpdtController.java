@@ -55,8 +55,7 @@ public class GeulgwiUpdtController {
 
         tokenManager.validateToken(accessToken);
 
-        Likes likes = likeService.likeGeulgwi(geulgwiSeq, userSeq);
-        noticeService.sendByLikeGeulgwi(likes);
+        likeService.likeGeulgwi(geulgwiSeq, userSeq);
 
         log.info("geulgwi - like (userSeq: {})", userSeq);
 

@@ -19,7 +19,6 @@ public class MessageSendController {
 
     private final TokenManager tokenManager;
     private final MessageSendService messageService;
-    private final NoticeService noticeService;
 
     @PostMapping("/send")
     public ResponseEntity<Boolean> send(@RequestBody MessageDTO messageDTO,
@@ -30,10 +29,10 @@ public class MessageSendController {
 
         tokenManager.validateToken(accessToken);
 
-        Message message = messageService.send(messageDTO);
+        messageService.send(messageDTO);
         log.info("message - send");
 
-        noticeService.sendByMessage(message);
+
 
         return ResponseEntity.ok(true);
     }

@@ -12,9 +12,6 @@ import java.util.Optional;
 
 public interface FriendRepository extends JpaRepository<Friend, Long> {
 
-//    @Query("select f from Friend f where f.toUser = :user and f.fromUser = :userSeq")
-//    Optional<Friend> findByTwoUser(@Param("user") User user, @Param("userSeq") Long userSeq);
-
     @Query("select f from Friend f where f.toUser = :toUser and f.fromUser = :fromUser")
     Optional<Friend> findByTwoUser(@Param("toUser") User toUser, @Param("fromUser") User fromUser);
 
@@ -32,5 +29,5 @@ public interface FriendRepository extends JpaRepository<Friend, Long> {
     List<Friend> findSubscriber(@Param("toUser") User toUser); //나를 구독한 회원 리스트
 
     @Query("select f from Friend f where f.fromUser = :fromUser and f.subscriber = 'T'")
-    List<Friend> findSubscribe(@Param("fromUser") Long fromUser); //내가 구독한 회원 리스트
+    List<Friend> findSubscribe(@Param("fromUser") User fromUser); //내가 구독한 회원 리스트
 }
