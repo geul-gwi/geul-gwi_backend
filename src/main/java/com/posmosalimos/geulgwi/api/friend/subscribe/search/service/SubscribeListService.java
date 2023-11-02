@@ -1,6 +1,7 @@
 package com.posmosalimos.geulgwi.api.friend.subscribe.search.service;
 
 import com.posmosalimos.geulgwi.api.friend.search.dto.FriendListDTO;
+import com.posmosalimos.geulgwi.domain.file.entity.UploadFile;
 import com.posmosalimos.geulgwi.domain.user.entity.Friend;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.domain.user.repository.FriendRepository;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -28,13 +30,14 @@ public class SubscribeListService {
         List<FriendListDTO> friendListDTOS = new ArrayList<>();
 
         for (Friend subscribe : subscribeList) {
-            User fromUser = userService.findBySeq(subscribe.getFromUser());
             friendListDTOS.add(
                     FriendListDTO.builder()
-                            .userSeq(fromUser.getUserSeq())
-                            .userId(fromUser.getUserId())
-                            .nickname(fromUser.getNickname())
-                            .profile(fromUser.getUploadFile().getStore())
+                            .userSeq(subscribe.getToUser().getUserSeq())
+                            .userId(subscribe.getToUser().getUserId())
+                            .nickname(subscribe.getToUser().getNickname())
+                            .profile(Optional.ofNullable(subscribe.getToUser().getUploadFile())
+                                    .map(UploadFile::getStore)
+                                    .orElse(null))
                             .build()
             );
         }

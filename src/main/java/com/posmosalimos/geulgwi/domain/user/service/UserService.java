@@ -143,9 +143,9 @@ public class UserService {
 
     public String findByEmail(String email) {
         User findUser = userRepository.findByEmail(email)
-                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
+                .orElse(null);
 
-        return findUser.getUserId();
+        return findUser == null ? "true" : findUser.getUserId();
     }
 
     public List<String> findByIdAndEmail(String userId, String email) {

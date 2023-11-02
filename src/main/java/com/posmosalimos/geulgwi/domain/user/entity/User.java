@@ -3,6 +3,7 @@ package com.posmosalimos.geulgwi.domain.user.entity;
 import com.posmosalimos.geulgwi.domain.challenge.entity.ChallengeUser;
 import com.posmosalimos.geulgwi.domain.file.entity.UploadFile;
 import com.posmosalimos.geulgwi.domain.geulgwi.entity.Geulgwi;
+import com.posmosalimos.geulgwi.domain.like.entity.Likes;
 import com.posmosalimos.geulgwi.domain.notice.entity.Notice;
 import com.posmosalimos.geulgwi.domain.user.constant.Role;
 import com.posmosalimos.geulgwi.global.jwt.dto.JwtTokenDto;
@@ -73,7 +74,13 @@ public class User {
     private List<Friend> FriendList = new ArrayList<>();
 
     @OneToMany(mappedBy = "toUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Notice> noticeList = new ArrayList<>();
+    private List<Notice> toUsernoticeList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "fromUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Notice> fromUsernoticeList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.REMOVE)
+    private List<Likes> likesList = new ArrayList<>();
 
     @Builder
     public User(String userId, String password,

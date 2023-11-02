@@ -84,4 +84,11 @@ public class JoinService {
 
         return userService.findByNickname(nickname);
     }
+
+    public Boolean validateDuplicateEmail(String email) {
+
+        String findUser = userService.findByEmail(email);
+
+        return findUser.equals("true") ? true : false;
+    }
 }

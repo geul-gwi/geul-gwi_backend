@@ -64,7 +64,7 @@ public class EmailService {
         javaMailSender.send(message);
     }
 
-    public MimeMessage findPassword(String nickname, String password, String email) {
+    public void findPassword(String nickname, String password, String email) {
         MimeMessage message = javaMailSender.createMimeMessage();
 
         try {
@@ -82,10 +82,10 @@ public class EmailService {
             throw new RuntimeException(e);
         }
 
-        return message;
+        javaMailSender.send(message);
     }
 
-    public MimeMessage findId(String userId, String email) {
+    public void findId(String userId, String email) {
         MimeMessage message = javaMailSender.createMimeMessage();
 
         try {
@@ -102,6 +102,6 @@ public class EmailService {
             throw new RuntimeException(e);
         }
 
-        return message;
+        javaMailSender.send(message);
     }
 }

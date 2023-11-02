@@ -52,13 +52,11 @@ public class WebConfig implements WebMvcConfigurer {
                 .excludePathPatterns(
                         "/user/join",
                         "/user/login",
-                        "/email/valid/**",
                         "/user/validate/**",
-                        "/user/nickname/**",
                         "/tag/list/**",
                         "/file",
                         "/oauth/kakao/callback",
-                        "email/password"
+                        "/email/**"
                 );
 
         registry.addInterceptor(adminAuthorizationInterceptor)

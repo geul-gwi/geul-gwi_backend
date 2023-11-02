@@ -30,7 +30,7 @@ public class JoinController {
         return ResponseEntity.ok(true);
     }
 
-    @PostMapping("/validate/{userId}")
+    @PostMapping("/validate/id/{userId}")
     public ResponseEntity<Boolean> validateId(@PathVariable("userId") String userId) {
         joinService.validateDuplicateUserId(userId);
         log.info("user - ID duplicate check");
@@ -44,6 +44,14 @@ public class JoinController {
         log.info("user - nickname duplicate check");
 
         return ResponseEntity.ok(true);
+    }
+
+    @PostMapping("/validate/email/{email}")
+    public ResponseEntity<Boolean> validateEmail(@PathVariable("email") String email) {
+        Boolean duplicateEmail = joinService.validateDuplicateEmail(email);
+        log.info("user - email duplicate check");
+
+        return ResponseEntity.ok(duplicateEmail);
     }
 
 }

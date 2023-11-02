@@ -3,6 +3,8 @@ package com.posmosalimos.geulgwi.api.user.join.controller;
 import com.posmosalimos.geulgwi.api.user.join.dto.EmailDTO;
 import com.posmosalimos.geulgwi.api.user.join.service.EmailService;
 import com.posmosalimos.geulgwi.domain.user.service.UserService;
+import com.posmosalimos.geulgwi.global.error.ErrorCode;
+import com.posmosalimos.geulgwi.global.error.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -44,8 +46,11 @@ public class EmailController {
     public ResponseEntity<Boolean> findId(@RequestBody EmailDTO emailDTO) {
         String userId = userService.findByEmail(emailDTO.getEmail());
 
+        if (userId.equals("true"))
+            throw new BusinessException(ErrorCode.USER_NOT_FOUND);
+
         emailService.findId(userId, emailDTO.getEmail());
-        log.info("user - find id");
+        log.info("user - find id({})", userId);
 
         return ResponseEntity.ok(true);
     }
@@ -56,7 +61,7 @@ public class EmailController {
         List<String> info = userService.findByIdAndEmail(emailDTO.getUserId(), emailDTO.getEmail());
 
         emailService.findPassword(info.get(0), info.get(1), emailDTO.getEmail());
-        log.info("user - find password");
+        log.info("user - find password({})", info.get(1));
 
         return ResponseEntity.ok(true);
     }
