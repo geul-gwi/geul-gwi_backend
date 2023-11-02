@@ -45,7 +45,8 @@ public class UpdateController {
             fileService.storeUserFile(user, file);
         } else if (file != null && !file.isEmpty())
             //사진 저장을 한 적이 없었고 새로운 사진으로 update
-            fileService.removeUserFile(user);
+            fileService.storeUserFile(user, file);
+        else System.out.println("??????????");
 
         log.info("user - update success(userSeq: {})", userSeq);
 

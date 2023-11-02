@@ -31,11 +31,8 @@ public class UpdateService {
 
         User findUser = userService.findBySeq(userSeq);
         List<UserTag> userTags = userTagService.findByUser(findUser); //수정 전 유저 태그들
-        System.out.println(userTags.size());
-//        userTags.forEach(userTagService::delete); //기존 태그 삭제
 
-        for (UserTag userTag : userTags)
-            userTagService.delete(userTag);
+        userTags.forEach(userTagService::delete); //기존 태그 삭제
 
         List<Tag> tags = updateDTO.getUserTagSeq().stream()
                 .map(tagService::findBySeq)
