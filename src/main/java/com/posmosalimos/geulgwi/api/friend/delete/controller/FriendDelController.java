@@ -1,6 +1,5 @@
 package com.posmosalimos.geulgwi.api.friend.delete.controller;
 
-import com.posmosalimos.geulgwi.api.friend.confirm.dto.FriendDTO;
 import com.posmosalimos.geulgwi.api.friend.delete.service.FriendDelService;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import jakarta.servlet.http.HttpServletRequest;

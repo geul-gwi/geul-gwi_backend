@@ -32,8 +32,8 @@ public class FriendDelService {
                 .orElseThrow(() -> new BusinessException(ErrorCode.FORBIDDEN_FRIEND));
 
         if (byToUser != null && byFromUser != null) { //친구 상태
-            friendRepository.delete(findToUser, fromUser);
-            friendRepository.delete(findFromUser, toUser);
+            friendRepository.delete(findToUser, findFromUser);
+            friendRepository.delete(findFromUser, findToUser);
         } else throw new BusinessException(ErrorCode.FORBIDDEN_FRIEND);
 
     }

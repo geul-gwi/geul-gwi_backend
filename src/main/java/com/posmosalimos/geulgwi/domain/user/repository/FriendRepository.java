@@ -16,8 +16,8 @@ public interface FriendRepository extends JpaRepository<Friend, Long> {
     Optional<Friend> findByTwoUser(@Param("toUser") User toUser, @Param("fromUser") User fromUser);
 
     @Modifying
-    @Query("delete from Friend f where f.toUser = :user and f.fromUser =:userSeq")
-    void delete(@Param("user") User user, @Param("userSeq") Long userSeq);
+    @Query("delete from Friend f where f.toUser = :toUser and f.fromUser =:fromUser")
+    void delete(@Param("toUser") User toUser, @Param("fromUser") User fromUser);
 
     @Query("select f from Friend f where f.toUser = :user and f.approved = 'T'")
     List<Friend> getFriendList(@Param("user") User user); //friend list
