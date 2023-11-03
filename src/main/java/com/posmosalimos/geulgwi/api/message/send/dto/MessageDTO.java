@@ -20,6 +20,7 @@ public class MessageDTO {
                 private String content;
                 private Long senderSeq;
                 private String senderNickname;
+                private String senderProfile;
                 private Long receiverSeq;
                 private String receiverNickname;
 

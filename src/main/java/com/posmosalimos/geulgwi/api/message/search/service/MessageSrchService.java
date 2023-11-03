@@ -1,6 +1,7 @@
 package com.posmosalimos.geulgwi.api.message.search.service;
 
 import com.posmosalimos.geulgwi.api.message.send.dto.MessageDTO;
+import com.posmosalimos.geulgwi.domain.file.entity.UploadFile;
 import com.posmosalimos.geulgwi.domain.message.entity.Message;
 import com.posmosalimos.geulgwi.domain.message.repository.MessageRepository;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -40,6 +42,9 @@ public class MessageSrchService {
                                 .content(message.getContent())
                                 .senderSeq(message.getSender().getUserSeq())
                                 .senderNickname(message.getSender().getNickname())
+                                .senderProfile(Optional.ofNullable(message.getSender().getUploadFile())
+                                        .map(UploadFile::getStore)
+                                        .orElse(null))
                                 .receiverSeq(message.getReceiver().getUserSeq())
                                 .receiverNickname(message.getReceiver().getNickname())
                                 .build());
@@ -64,7 +69,10 @@ public class MessageSrchService {
                                 .content(message.getContent())
                                 .senderSeq(message.getSender().getUserSeq())
                                 .senderNickname(message.getSender().getNickname())
-                                .receiverSeq(message.getReceiver().getUserSeq())
+                                .senderProfile(Optional.ofNullable(message.getSender().getUploadFile())
+                                        .map(UploadFile::getStore)
+                                        .orElse(null))
+                                        .receiverSeq(message.getReceiver().getUserSeq())
                                 .receiverNickname(message.getReceiver().getNickname())
                                 .build());
             }
