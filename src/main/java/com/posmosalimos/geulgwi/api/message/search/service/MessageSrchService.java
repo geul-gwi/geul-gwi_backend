@@ -42,11 +42,12 @@ public class MessageSrchService {
                                 .content(message.getContent())
                                 .senderSeq(message.getSender().getUserSeq())
                                 .senderNickname(message.getSender().getNickname())
-                                .senderProfile(Optional.ofNullable(message.getSender().getUploadFile())
+                                .profile(Optional.ofNullable(message.getSender().getUploadFile())
                                         .map(UploadFile::getStore)
                                         .orElse(null))
                                 .receiverSeq(message.getReceiver().getUserSeq())
                                 .receiverNickname(message.getReceiver().getNickname())
+                                .regDate(message.getRegDate())
                                 .build());
             }
         }
@@ -69,11 +70,12 @@ public class MessageSrchService {
                                 .content(message.getContent())
                                 .senderSeq(message.getSender().getUserSeq())
                                 .senderNickname(message.getSender().getNickname())
-                                .senderProfile(Optional.ofNullable(message.getSender().getUploadFile())
+                                .profile(Optional.ofNullable(message.getReceiver().getUploadFile())
                                         .map(UploadFile::getStore)
                                         .orElse(null))
                                         .receiverSeq(message.getReceiver().getUserSeq())
                                 .receiverNickname(message.getReceiver().getNickname())
+                                .regDate(message.getRegDate())
                                 .build());
             }
         }

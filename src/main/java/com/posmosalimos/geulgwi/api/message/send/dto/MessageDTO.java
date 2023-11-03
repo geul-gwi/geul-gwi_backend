@@ -20,9 +20,10 @@ public class MessageDTO {
                 private String content;
                 private Long senderSeq;
                 private String senderNickname;
-                private String senderProfile;
+                private String profile;
                 private Long receiverSeq;
                 private String receiverNickname;
+                private String regDate;
 
         }
 }
