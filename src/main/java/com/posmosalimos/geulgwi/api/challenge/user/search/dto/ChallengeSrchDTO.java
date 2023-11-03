@@ -11,6 +11,7 @@ public class ChallengeSrchDTO {
 
     private Long challengeUserSeq;
     private Long userSeq;
+    private String profile;
     private String nickname;
     private String challengeContent;
     private String regDate;
@@ -21,6 +22,7 @@ public class ChallengeSrchDTO {
         return ChallengeSrchDTO.builder()
                 .challengeUserSeq(challenge.getChallengeUserSeq())
                 .userSeq(challenge.getUser().getUserSeq())
+                .profile(challenge.getUser().getUploadFile().getStore())
                 .nickname(challenge.getUser().getNickname())
                 .challengeContent(challenge.getChallengeContent())
                 .regDate(challenge.getRegDate())
