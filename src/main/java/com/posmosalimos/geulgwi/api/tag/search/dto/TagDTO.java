@@ -1,12 +1,10 @@
-package com.posmosalimos.geulgwi.api.tag.list.dto;
+package com.posmosalimos.geulgwi.api.tag.search.dto;
 
 
-import com.posmosalimos.geulgwi.domain.tag.constant.TagType;
 import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 
 @Data
 @Builder
@@ -16,8 +14,7 @@ public class TagDTO {
     private String backColor;
     private String fontColor;
     private String value;
-    @Enumerated(EnumType.STRING)
-    private TagType type;
+    private String type;
 
     public static TagDTO from(Tag tag){
         return TagDTO.builder()
@@ -25,8 +22,18 @@ public class TagDTO {
                         .backColor(tag.getBackColor())
                         .fontColor(tag.getFontColor())
                         .value(tag.getValue())
-                        .type(tag.getType())
+                        .type(tag.getType().toString())
                         .build();
     }
 
+
+    @Builder @Getter
+    public static class Response {
+        private Long tagSeq;
+        private String backColor;
+        private String fontColor;
+        private String value;
+        private int count;
+
+    }
 }

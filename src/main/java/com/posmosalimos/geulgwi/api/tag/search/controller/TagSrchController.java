@@ -1,6 +1,6 @@
-package com.posmosalimos.geulgwi.api.tag.list.controller;
+package com.posmosalimos.geulgwi.api.tag.search.controller;
 
-import com.posmosalimos.geulgwi.api.tag.list.dto.TagDTO;
+import com.posmosalimos.geulgwi.api.tag.search.dto.TagDTO;
 import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
 import com.posmosalimos.geulgwi.domain.tag.service.TagService;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
@@ -8,10 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;

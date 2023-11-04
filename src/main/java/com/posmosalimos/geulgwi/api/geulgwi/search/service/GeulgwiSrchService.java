@@ -2,13 +2,14 @@ package com.posmosalimos.geulgwi.api.geulgwi.search.service;
 
 import com.posmosalimos.geulgwi.api.geulgwi.search.dto.GeulgwiListDTO;
 import com.posmosalimos.geulgwi.api.geulgwi.search.dto.GeulgwiSrchDTO;
-import com.posmosalimos.geulgwi.api.tag.list.dto.TagDTO;
+import com.posmosalimos.geulgwi.api.tag.search.dto.TagDTO;
 import com.posmosalimos.geulgwi.domain.file.entity.UploadFile;
 import com.posmosalimos.geulgwi.domain.geulgwi.entity.Geulgwi;
 import com.posmosalimos.geulgwi.domain.geulgwi.entity.GeulgwiTag;
 import com.posmosalimos.geulgwi.domain.geulgwi.repository.GeulgwiTagRepository;
 import com.posmosalimos.geulgwi.domain.geulgwi.service.GeulgwiService;
 import com.posmosalimos.geulgwi.domain.like.service.LikeService;
+import com.posmosalimos.geulgwi.domain.tag.entity.Tag;
 import com.posmosalimos.geulgwi.domain.user.entity.User;
 import com.posmosalimos.geulgwi.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -119,5 +120,27 @@ public class GeulgwiSrchService {
         return geulgwiTagList.stream()
                 .map(geulgwiTag -> GeulgwiListDTO.from(geulgwiTag.getGeulgwi()))
                 .toList();
+    }
+
+    public List<TagDTO.Response> getTrend() {
+        List<Object[]> trend = geulgwiTagRepository.getTrend().subList(0, 6);
+        List<TagDTO.Response> tagDTOS = new ArrayList<>();
+
+        for (Object[] row : trend) {
+            Tag tag = (Tag) row[0]; //Tag
+            Integer tagCount = (Integer) row[1]; //태그 개수
+
+            tagDTOS.add(
+                    TagDTO.Response.builder()
+                            .tagSeq(tag.getTagSeq())
+                            .backColor(tag.getBackColor())
+                            .fontColor(tag.getFontColor())
+                            .value(tag.getValue())
+                            .count(tagCount)
+                            .build()
+            );
+        }
+
+        return tagDTOS;
     }
 }

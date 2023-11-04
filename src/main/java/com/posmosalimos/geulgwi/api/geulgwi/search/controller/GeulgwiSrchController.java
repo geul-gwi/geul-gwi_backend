@@ -3,6 +3,7 @@ package com.posmosalimos.geulgwi.api.geulgwi.search.controller;
 import com.posmosalimos.geulgwi.api.geulgwi.search.dto.GeulgwiListDTO;
 import com.posmosalimos.geulgwi.api.geulgwi.search.dto.GeulgwiSrchDTO;
 import com.posmosalimos.geulgwi.api.geulgwi.search.service.GeulgwiSrchService;
+import com.posmosalimos.geulgwi.api.tag.search.dto.TagDTO;
 import com.posmosalimos.geulgwi.global.jwt.service.TokenManager;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -80,6 +81,16 @@ public class GeulgwiSrchController {
         log.info("geulgwi - findByTagSeq(tagSeq: {})", tagSeq);
 
         return ResponseEntity.ok(geulgwiListDTOS);
+    }
+
+    @GetMapping("/tagTrend")
+    public ResponseEntity<List> trend(HttpServletRequest httpServletRequest) {
+
+        List<TagDTO.Response> trend = geulgwiSrchService.getTrend();
+
+        log.info("geulgwi - tag trend");
+
+        return ResponseEntity.ok(trend);
     }
 
 }

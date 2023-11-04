@@ -18,4 +18,9 @@ public interface GeulgwiTagRepository extends JpaRepository<GeulgwiTag, Long> {
     @Query("select g from GeulgwiTag g where g.tag.tagSeq = :tagSeq")
     List<GeulgwiTag> findByTagSeq(@Param("tagSeq") Long tagSeq);
 
+    @Query("SELECT g.tag, COUNT(g.tag) AS tagCount FROM GeulgwiTag g " +
+            "GROUP BY g.tag " +
+            "ORDER BY tagCount DESC")
+    List<Object[]> getTrend();
+
 }

@@ -1,6 +1,6 @@
 package com.posmosalimos.geulgwi.domain.user.service;
 
-import com.posmosalimos.geulgwi.api.tag.list.dto.TagDTO;
+import com.posmosalimos.geulgwi.api.tag.search.dto.TagDTO;
 import com.posmosalimos.geulgwi.api.user.search.dto.UserListDTO;
 import com.posmosalimos.geulgwi.domain.file.service.FileService;
 import com.posmosalimos.geulgwi.domain.user.entity.User;

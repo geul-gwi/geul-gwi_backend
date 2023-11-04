@@ -1,6 +1,6 @@
 package com.posmosalimos.geulgwi.api.geulgwi.search.dto;
 
-import com.posmosalimos.geulgwi.api.tag.list.dto.TagDTO;
+import com.posmosalimos.geulgwi.api.tag.search.dto.TagDTO;
 import lombok.*;
 
 import java.util.List;

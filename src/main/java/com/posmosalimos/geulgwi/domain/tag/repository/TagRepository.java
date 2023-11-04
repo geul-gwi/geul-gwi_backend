@@ -15,4 +15,5 @@ public interface TagRepository extends JpaRepository<Tag, Long> {
 
     @Query("select t from Tag t where t.type = :type")
     List<Tag> findByType(@Param("type") TagType type);
+
 }
