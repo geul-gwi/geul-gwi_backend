@@ -33,7 +33,7 @@ public class TagDTO {
         private String backColor;
         private String fontColor;
         private String value;
-        private int count;
+        private Long count;
 
     }
 }

@@ -128,7 +128,7 @@ public class GeulgwiSrchService {
 
         for (Object[] row : trend) {
             Tag tag = (Tag) row[0]; //Tag
-            Integer tagCount = (Integer) row[1]; //태그 개수
+            Long tagCount = (Long) row[1]; //태그 개수
 
             tagDTOS.add(
                     TagDTO.Response.builder()
