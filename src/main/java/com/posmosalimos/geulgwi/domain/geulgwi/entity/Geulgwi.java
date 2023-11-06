@@ -8,13 +8,8 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +50,5 @@ public class Geulgwi {
 
     public void update(String geulgwiContent) {
         this.geulgwiContent = geulgwiContent;
-        this.regDate = String.valueOf(LocalDateTime.now());
     }
 }

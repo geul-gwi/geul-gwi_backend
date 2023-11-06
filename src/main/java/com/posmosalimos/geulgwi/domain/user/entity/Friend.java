@@ -19,7 +19,7 @@ public class Friend {
     private User toUser; //요청받은 사람
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fromUser")
+    @JoinColumn(name = "fromUser", foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
     private User fromUser; //요청하는 사람
 
     private String approved;
