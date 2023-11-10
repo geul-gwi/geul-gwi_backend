@@ -20,9 +20,9 @@ public class LoginService {
     private final TokenManager tokenManager;
     private final FileService fileService;
 
-    public LoginDTO.Response login(String seq, String password) {
+    public LoginDTO.Response login(String id, String password) {
 
-        User findUser = userService.findByIdAndPassword(seq, password);
+        User findUser = userService.findByIdAndPassword(id, password);
         String profile = fileService.findByUser(findUser);
         log.info("user : {}", findUser.getUserSeq());
 
